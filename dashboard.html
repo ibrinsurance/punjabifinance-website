@@ -207,25 +207,119 @@ async function callClaude(prompt){
   }catch(e){return null;}
 }
 
-// ── YAHOO FINANCE — robust multi-proxy fetch ──
-const PROXIES=[
-  s=>`https://api.allorigins.win/get?url=${encodeURIComponent(s)}`,
-  s=>`https://corsproxy.io/?${encodeURIComponent(s)}`,
-  s=>`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(s)}`,
-];
+// ── DATA FETCHING — multiple sources with fallbacks ──
 
-async function yFetch(yahooUrl){
-  for(const makeProxy of PROXIES){
+// Proxy wrapper — tries 3 CORS proxies in sequence
+async function proxyFetch(url, timeout=9000){
+  const proxies=[
+    `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+    `https://corsproxy.io/?${encodeURIComponent(url)}`,
+    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+  ];
+  for(const pUrl of proxies){
     try{
-      const r=await fetch(makeProxy(yahooUrl),{signal:AbortSignal.timeout(9000)});
+      const r=await fetch(pUrl,{signal:AbortSignal.timeout(timeout)});
       if(!r.ok) continue;
       const raw=await r.json();
-      const txt=raw.contents!=null?raw.contents:(typeof raw==='string'?raw:JSON.stringify(raw));
-      const parsed=JSON.parse(txt);
-      return parsed;
+      // allorigins wraps in {contents:}, others return directly
+      const txt=raw.contents!=null ? raw.contents : (typeof raw==='string' ? raw : JSON.stringify(raw));
+      return JSON.parse(txt);
     }catch(e){continue;}
   }
   return null;
+}
+
+// Yahoo v8 chart — works without auth, returns price + meta
+async function fetchYahooChart(ticker){
+  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=5d&includePrePost=true`;
+  const d=await proxyFetch(url);
+  const meta=d?.chart?.result?.[0]?.meta;
+  if(!meta) return null;
+  return{
+    price: meta.regularMarketPrice,
+    prevClose: meta.chartPreviousClose||meta.previousClose,
+    high52: meta.fiftyTwoWeekHigh,
+    low52: meta.fiftyTwoWeekLow,
+    currency: meta.currency,
+    exchange: meta.exchangeName,
+    marketState: meta.marketState,
+    shortName: meta.shortName||ticker,
+  };
+}
+
+// Yahoo quote search — different endpoint, less auth-sensitive
+async function fetchYahooSearch(ticker){
+  const url=`https://query1.finance.yahoo.com/v1/finance/search?q=${ticker}&quotesCount=1&newsCount=6&enableFuzzyQuery=false`;
+  const d=await proxyFetch(url);
+  return{
+    news: d?.news||[],
+    shortName: d?.quotes?.[0]?.shortname||d?.quotes?.[0]?.longname||ticker,
+  };
+}
+
+// Yahoo quoteSummary via v11 (newer, sometimes still works)
+async function fetchYahooSummary(ticker){
+  const url=`https://query2.finance.yahoo.com/v11/finance/quoteSummary/${ticker}?modules=financialData,summaryDetail,defaultKeyStatistics,price`;
+  const d=await proxyFetch(url,10000);
+  const r=d?.quoteSummary?.result?.[0];
+  if(!r) return null;
+  const fd=r.financialData||{};
+  const sd=r.summaryDetail||{};
+  const ks=r.defaultKeyStatistics||{};
+  const pr=r.price||{};
+  return{
+    price: pr.regularMarketPrice?.raw,
+    prevClose: pr.regularMarketPreviousClose?.raw,
+    change: pr.regularMarketChange?.raw,
+    changePct: pr.regularMarketChangePercent?.raw,
+    marketCap: pr.marketCap?.raw||sd.marketCap?.raw,
+    marketState: pr.marketState,
+    longName: pr.longName||pr.shortName,
+    pe: sd.trailingPE?.raw,
+    high52: sd.fiftyTwoWeekHigh?.raw,
+    low52: sd.fiftyTwoWeekLow?.raw,
+    beta: ks.beta?.raw,
+    recKey: fd.recommendationKey,
+    ptMean: fd.targetMeanPrice?.raw,
+    ptLow: fd.targetLowPrice?.raw,
+    ptHigh: fd.targetHighPrice?.raw,
+    numAna: fd.numberOfAnalystOpinions?.raw||0,
+    volume: pr.regularMarketVolume?.raw,
+  };
+}
+
+// Merge all sources into one quote object
+async function fetchAllData(ticker){
+  const [summary, chart, search]=await Promise.all([
+    fetchYahooSummary(ticker),
+    fetchYahooChart(ticker),
+    fetchYahooSearch(ticker),
+  ]);
+
+  // Merge — summary is richest, chart fills gaps
+  const price = summary?.price ?? chart?.price;
+  if(!price) return null;
+
+  const prevClose = summary?.prevClose ?? chart?.prevClose;
+  const change = summary?.change ?? (price && prevClose ? price-prevClose : null);
+  const changePct = summary?.changePct ?? (change && prevClose ? change/prevClose*100 : null);
+
+  return{
+    price, change, changePct,
+    longName: summary?.longName || search?.shortName || chart?.shortName || ticker,
+    marketState: summary?.marketState || chart?.marketState || 'CLOSED',
+    marketCap: summary?.marketCap,
+    pe: summary?.pe,
+    high52: summary?.high52 ?? chart?.high52,
+    low52: summary?.low52 ?? chart?.low52,
+    beta: summary?.beta,
+    recKey: summary?.recKey,
+    ptMean: summary?.ptMean,
+    ptLow: summary?.ptLow,
+    ptHigh: summary?.ptHigh,
+    numAna: summary?.numAna||0,
+    news: search?.news||[],
+  };
 }
 
 function timeSince(ts){
@@ -267,47 +361,34 @@ async function searchTicker(ticker){
   showLoading(ticker);
   window.history.replaceState({},'',`?ticker=${ticker}`);
 
-  // Fetch quote data (v7 — most reliable)
-  const quoteUrl=`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${ticker}&fields=regularMarketPrice,regularMarketChange,regularMarketChangePercent,regularMarketPreviousClose,marketCap,trailingPE,fiftyTwoWeekHigh,fiftyTwoWeekLow,beta,regularMarketVolume,recommendationKey,targetMeanPrice,targetLowPrice,targetHighPrice,numberOfAnalystOpinions,longName,shortName,regularMarketTime,marketState`;
-  
-  // Fetch news (v1 search)
-  const newsUrl=`https://query1.finance.yahoo.com/v1/finance/search?q=${ticker}&newsCount=8&quotesCount=0`;
+  const q = await fetchAllData(ticker);
 
-  const [quoteData, newsData] = await Promise.all([
-    yFetch(quoteUrl),
-    yFetch(newsUrl)
-  ]);
-
-  const quote = quoteData?.quoteResponse?.result?.[0];
-  const news  = newsData?.news || [];
-
-  if(!quote){
+  if(!q){
     document.getElementById('main-content').innerHTML=`
       <div class="error-card">
         <h3>Could not load data for "${ticker}"</h3>
-        <p>The market data service may be temporarily unavailable, or this ticker may not exist. Try again in a moment.</p>
+        <p>The market data service may be temporarily unavailable. Please try again in a moment, or check that the ticker is correct.</p>
       </div>`;
     return;
   }
 
-  const price      = quote.regularMarketPrice;
-  const change     = quote.regularMarketChange;
-  const changePct  = quote.regularMarketChangePercent;
-  const compName   = quote.longName || quote.shortName || ticker;
-  const mktState   = quote.marketState; // REGULAR, PRE, POST, CLOSED
-  const mktStateTxt= mktState==='REGULAR'?'Market Open':mktState==='PRE'?'Pre-Market':mktState==='POST'?'After Hours':'Market Closed';
-
-  const recLabel   = recKeyToLabel(quote.recommendationKey);
-  const recCls     = ratingCls(recLabel);
-  const ptMean     = quote.targetMeanPrice;
-  const ptLow      = quote.targetLowPrice;
-  const ptHigh     = quote.targetHighPrice;
-  const numAna     = quote.numberOfAnalystOpinions||0;
-  const pe         = quote.trailingPE;
-  const mktCap     = quote.marketCap;
-  const wkHigh     = quote.fiftyTwoWeekHigh;
-  const wkLow      = quote.fiftyTwoWeekLow;
-  const beta       = quote.beta;
+  const price     = q.price;
+  const change    = q.change;
+  const changePct = q.changePct;
+  const compName  = q.longName;
+  const mktStateTxt = q.marketState==='REGULAR'?'Market Open':q.marketState==='PRE'?'Pre-Market':q.marketState==='POST'?'After Hours':'Market Closed';
+  const recLabel  = recKeyToLabel(q.recKey);
+  const recCls    = ratingCls(recLabel);
+  const ptMean    = q.ptMean;
+  const ptLow     = q.ptLow;
+  const ptHigh    = q.ptHigh;
+  const numAna    = q.numAna||0;
+  const pe        = q.pe;
+  const mktCap    = q.marketCap;
+  const wkHigh    = q.high52;
+  const wkLow     = q.low52;
+  const beta      = q.beta;
+  const news      = q.news||[];
 
   // Note: recommendationTrend breakdown not in v7, so we estimate from consensus
   const estBuy = recLabel==='Strong Buy'?Math.round(numAna*0.7):recLabel==='Buy'?Math.round(numAna*0.55):Math.round(numAna*0.2);

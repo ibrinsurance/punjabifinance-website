@@ -95,35 +95,63 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 .bar-track{flex:1;height:7px;background:#ece9e2;border-radius:4px;overflow:hidden}
 .bar-fill{height:100%;border-radius:4px}
 .bar-pct{font-size:0.78rem;color:#555;width:60px;text-align:right;flex-shrink:0;font-weight:500}
-.opts-hero{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
-.ohs{background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:20px;text-align:center}
-.oh-label{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:#9a9a9a;font-weight:600;margin-bottom:7px}
-.oh-val{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:#b8862a;line-height:1}
-.oh-meta{font-size:0.72rem;color:#9a9a9a;margin-top:5px}
-.opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:22px}
-.oyc{background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:26px 28px;position:relative;overflow:hidden}
-.oyc-accent{position:absolute;top:0;left:0;right:0;height:4px;background:#b8862a}
-.oyc-accent.current{background:linear-gradient(90deg,#b8862a,#d4a534)}
-.oy-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#1a1a1a;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.oy-badge{font-size:0.6rem;font-family:'DM Sans',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:3px 10px;border-radius:100px}
-.oy-badge.current{background:#fdf8ed;color:#b8862a;border:1px solid #e8d48a}
-.oy-badge.past{background:#f4f2ee;color:#888;border:1px solid #ddd}
-.oy-total{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:#b8862a;margin-bottom:16px;margin-top:4px}
+/* ── OPTIONS SECTION ── */
+.opts-outer{background:#141210;border-radius:20px;overflow:hidden;position:relative}
+.opts-outer::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% -10%,rgba(184,134,42,0.18) 0%,transparent 70%);pointer-events:none}
+
+/* ticker tape */
+.opts-tape{background:rgba(184,134,42,0.08);border-bottom:1px solid rgba(184,134,42,0.15);padding:9px 0;overflow:hidden;white-space:nowrap;position:relative}
+.opts-tape-inner{display:inline-flex;gap:40px;animation:tape 28s linear infinite}
+.opts-tape-inner:hover{animation-play-state:paused}
+@keyframes tape{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tape-item{display:inline-flex;align-items:center;gap:8px;font-size:0.67rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(212,165,52,0.7);font-weight:600}
+.tape-val{color:#d4a534;font-weight:700}
+.tape-dot{width:4px;height:4px;border-radius:50%;background:rgba(184,134,42,0.35);flex-shrink:0}
+
+/* hero numbers */
+.opts-hero-dark{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.04)}
+.ohd{padding:clamp(18px,3vw,28px) clamp(14px,2.5vw,24px);position:relative;text-align:center}
+.ohd::after{content:'';position:absolute;right:0;top:20%;bottom:20%;width:1px;background:rgba(255,255,255,0.06)}
+.ohd:last-child::after{display:none}
+.ohd-eyebrow{font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:600;margin-bottom:10px}
+.ohd-val{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.5vw,2rem);font-weight:800;color:#f0e8d0;line-height:1;margin-bottom:6px;word-break:break-word}
+.ohd-sub{font-size:0.72rem;color:rgba(255,255,255,0.3)}
+
+/* year cards */
+.opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:20px 24px 0}
+.oyc{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:22px 22px 18px;position:relative;overflow:hidden}
+.oyc.is-current{background:rgba(184,134,42,0.07);border-color:rgba(184,134,42,0.2)}
+.oyc-stripe{position:absolute;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,0.1)}
+.oyc.is-current .oyc-stripe{background:linear-gradient(90deg,#b8862a,#f0c060,#b8862a);background-size:200% 100%;animation:shimmer 3s linear infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.oy-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:rgba(240,235,224,0.9);margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.oy-badge{font-size:0.6rem;font-family:'DM Sans',sans-serif;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:2px 9px;border-radius:100px}
+.oy-badge.current{background:rgba(184,134,42,0.2);color:#d4a534;border:1px solid rgba(184,134,42,0.35)}
+.oy-badge.past{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.35);border:1px solid rgba(255,255,255,0.1)}
+.oy-total{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#d4a534;margin:4px 0 16px}
 .mb-row{display:flex;align-items:center;gap:9px;margin-bottom:7px}
-.mb-label{font-size:0.72rem;color:#9a9a9a;font-weight:600;width:28px;flex-shrink:0}
-.mb-track{flex:1;height:6px;background:#f0ede8;border-radius:3px;overflow:hidden}
-.mb-fill{height:100%;border-radius:3px;background:#b8862a}
-.mb-fill.zero{background:#ece9e2}
-.mb-val{font-size:0.72rem;color:#555;font-weight:500;width:68px;text-align:right;flex-shrink:0}
-.opts-totals{display:flex;gap:6px;margin-top:14px;padding-top:14px;border-top:1px solid #ece9e2;flex-wrap:wrap}
-.ot-item{flex:1;text-align:center;min-width:70px}
-.ot-label{font-size:0.6rem;color:#aaa;margin-bottom:3px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600}
-.ot-val{font-size:0.83rem;font-weight:600;color:#b8862a}
-.proj-band{background:#1a1a1a;border-radius:12px;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.proj-label{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.4);font-weight:600;margin-bottom:5px}
-.proj-val{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:#d4a534}
-.proj-val.up{color:#4caf7d}
-.proj-sub{font-size:0.72rem;color:rgba(255,255,255,0.3);margin-top:3px}
+.mb-label{font-size:0.67rem;color:rgba(255,255,255,0.35);font-weight:600;width:28px;flex-shrink:0}
+.mb-track{flex:1;height:5px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden}
+.mb-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#b8862a,#d4a534)}
+.mb-fill.zero{background:rgba(255,255,255,0.05)}
+.mb-val{font-size:0.67rem;color:rgba(255,255,255,0.4);font-weight:500;width:64px;text-align:right;flex-shrink:0}
+.opts-totals{display:flex;gap:0;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.06);flex-wrap:wrap}
+.ot-item{flex:1;text-align:center;padding:4px 2px;min-width:60px}
+.ot-label{font-size:0.58rem;color:rgba(255,255,255,0.28);margin-bottom:4px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600}
+.ot-val{font-size:0.78rem;font-weight:600;color:rgba(212,165,52,0.85)}
+
+/* projection */
+.proj-outer{margin:20px 24px 24px;border-radius:14px;overflow:hidden;position:relative}
+.proj-outer::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(184,134,42,0.15) 0%,transparent 60%);pointer-events:none}
+.proj-inner{background:rgba(255,255,255,0.04);border:1px solid rgba(184,134,42,0.2);border-radius:14px;padding:22px 24px;display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:center}
+.proj-block{padding:0 20px}
+.proj-block:first-child{padding-left:0;border-right:1px solid rgba(255,255,255,0.07)}
+.proj-block:last-child{padding-right:0;text-align:right}
+.proj-divider{width:1px;background:rgba(255,255,255,0.07);height:40px;flex-shrink:0}
+.proj-eyebrow{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:600;margin-bottom:5px}
+.proj-num{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:800;color:#d4a534;line-height:1}
+.proj-num.green{color:#4caf7d}
+.proj-note{font-size:0.67rem;color:rgba(255,255,255,0.28);margin-top:5px}
 .footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
 @media(max-width:640px){
   html{font-size:17px}
@@ -133,9 +161,16 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
   .section-divider{margin:0 18px}
   .stats-row{grid-template-columns:repeat(2,1fr);gap:12px}
   .stats-row .stat:last-child{grid-column:span 2}
-  .opts-hero{grid-template-columns:1fr 1fr}
-  .opts-hero .ohs:last-child{grid-column:span 2}
-  .opts-grid{grid-template-columns:1fr;gap:16px}
+  .opts-hero-dark{grid-template-columns:1fr 1fr}
+  .opts-hero-dark .ohd:last-child{grid-column:span 2;border-top:1px solid rgba(255,255,255,0.06)}
+  .opts-hero-dark .ohd:last-child::after{display:none}
+  .opts-grid{grid-template-columns:1fr;padding:16px 16px 0}
+  .proj-inner{grid-template-columns:1fr;gap:16px;padding:18px}
+  .proj-block{padding:0;border-right:none!important;border-top:1px solid rgba(255,255,255,0.07);padding-top:16px}
+  .proj-block:first-child{border-top:none;padding-top:0}
+  .proj-block:last-child{text-align:left}
+  .proj-divider{display:none}
+  .proj-outer{margin:16px 16px 20px}
   .cta-features{grid-template-columns:1fr}
   .cta-btn-primary,.cta-btn-secondary{width:100%;justify-content:center}
   .cta-row{flex-direction:column}
@@ -235,20 +270,103 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 <div class="section-divider"></div>
 
 <!-- OPTIONS -->
-<div class="section section-gold">
-  <div class="sec-label">Options Selling &mdash; Cumulative Premium Collected (CAD) <span class="sec-label-tag gold">Income</span></div>
-  <div class="opts-hero">
-    <div class="ohs"><div class="oh-label">Total Since Inception</div><div class="oh-val">C$166,644</div><div class="oh-meta">Started Jan 2025</div></div>
-    <div class="ohs"><div class="oh-label">2026 YTD Collected</div><div class="oh-val">C$63,788</div><div class="oh-meta">Avg C$20,797 / month</div></div>
-    <div class="ohs"><div class="oh-label">2025 Full Year</div><div class="oh-val">C$102,857</div><div class="oh-meta">Avg C$8,571 / month</div></div>
-  </div>
-  <div class="opts-grid">
-    <div class="oyc"><div class="oyc-accent current"></div><div class="oy-title">2026 <span class="oy-badge current">In Progress</span></div><div class="oy-total">C$63,788</div><div id="bars-2026"></div><div class="opts-totals"><div class="ot-item"><div class="ot-label">YTD Total</div><div class="ot-val">C$63,788</div></div><div class="ot-item"><div class="ot-label">Avg / mo</div><div class="ot-val">C$20,797</div></div><div class="ot-item"><div class="ot-label">Best month</div><div class="ot-val">C$38,032</div></div></div></div>
-    <div class="oyc"><div class="oyc-accent"></div><div class="oy-title">2025 <span class="oy-badge past">Full Year</span></div><div class="oy-total">C$102,857</div><div id="bars-2025"></div><div class="opts-totals"><div class="ot-item"><div class="ot-label">Total</div><div class="ot-val">C$102,857</div></div><div class="ot-item"><div class="ot-label">Avg / mo</div><div class="ot-val">C$8,571</div></div><div class="ot-item"><div class="ot-label">Best month</div><div class="ot-val">C$45,538</div></div></div></div>
-  </div>
-  <div class="proj-band">
-    <div><div class="proj-label">2026 Annualized Projection</div><div class="proj-val">C$249,565</div><div class="proj-sub">Based on current monthly run rate</div></div>
-    <div style="text-align:right"><div class="proj-label">Year-over-Year Growth</div><div class="proj-val up">+143%</div><div class="proj-sub">Monthly avg up C$12,226 vs 2025</div></div>
+<div class="section section-cream">
+  <div class="sec-label">Options Selling &mdash; Cumulative Premium Collected <span class="sec-label-tag gold">Income Strategy</span></div>
+  <div class="opts-outer">
+
+    <!-- ticker tape -->
+    <div class="opts-tape">
+      <div class="opts-tape-inner">
+        <span class="tape-item"><span>Total Collected</span><span class="tape-val">C$166,644</span></span>
+        <span class="tape-dot"></span>
+        <span class="tape-item"><span>2026 YTD</span><span class="tape-val">C$63,788</span></span>
+        <span class="tape-dot"></span>
+        <span class="tape-item"><span>2025 Full Year</span><span class="tape-val">C$102,857</span></span>
+        <span class="tape-dot"></span>
+        <span class="tape-item"><span>2026 Projected</span><span class="tape-val">C$249,565</span></span>
+        <span class="tape-dot"></span>
+        <span class="tape-item"><span>YoY Growth</span><span class="tape-val">+143%</span></span>
+        <span class="tape-dot"></span>
+        <span class="tape-item"><span>Avg Monthly 2026</span><span class="tape-val">C$20,797</span></span>
+        <span class="tape-dot"></span>
+        <!-- duplicate for seamless loop -->
+        <span class="tape-item"><span>Total Collected</span><span class="tape-val">C$166,644</span></span>
+        <span class="tape-dot"></span>
+        <span class="tape-item"><span>2026 YTD</span><span class="tape-val">C$63,788</span></span>
+        <span class="tape-dot"></span>
+        <span class="tape-item"><span>2025 Full Year</span><span class="tape-val">C$102,857</span></span>
+        <span class="tape-dot"></span>
+        <span class="tape-item"><span>2026 Projected</span><span class="tape-val">C$249,565</span></span>
+        <span class="tape-dot"></span>
+        <span class="tape-item"><span>YoY Growth</span><span class="tape-val">+143%</span></span>
+        <span class="tape-dot"></span>
+        <span class="tape-item"><span>Avg Monthly 2026</span><span class="tape-val">C$20,797</span></span>
+        <span class="tape-dot"></span>
+      </div>
+    </div>
+
+    <!-- hero stats -->
+    <div class="opts-hero-dark">
+      <div class="ohd">
+        <div class="ohd-eyebrow">Total Since Inception</div>
+        <div class="ohd-val">C$166,644</div>
+        <div class="ohd-sub">Started Jan 2025</div>
+      </div>
+      <div class="ohd">
+        <div class="ohd-eyebrow">2026 YTD Collected</div>
+        <div class="ohd-val">C$63,788</div>
+        <div class="ohd-sub">Avg C$20,797 / month</div>
+      </div>
+      <div class="ohd">
+        <div class="ohd-eyebrow">2025 Full Year</div>
+        <div class="ohd-val">C$102,857</div>
+        <div class="ohd-sub">Avg C$8,571 / month</div>
+      </div>
+    </div>
+
+    <!-- year cards -->
+    <div class="opts-grid">
+      <div class="oyc is-current">
+        <div class="oyc-stripe"></div>
+        <div class="oy-title">2026 <span class="oy-badge current">In Progress</span></div>
+        <div class="oy-total">C$63,788</div>
+        <div id="bars-2026"></div>
+        <div class="opts-totals">
+          <div class="ot-item"><div class="ot-label">YTD Total</div><div class="ot-val">C$63,788</div></div>
+          <div class="ot-item"><div class="ot-label">Avg / mo</div><div class="ot-val">C$20,797</div></div>
+          <div class="ot-item"><div class="ot-label">Best month</div><div class="ot-val">C$38,032</div></div>
+        </div>
+      </div>
+      <div class="oyc">
+        <div class="oyc-stripe"></div>
+        <div class="oy-title">2025 <span class="oy-badge past">Full Year</span></div>
+        <div class="oy-total">C$102,857</div>
+        <div id="bars-2025"></div>
+        <div class="opts-totals">
+          <div class="ot-item"><div class="ot-label">Total</div><div class="ot-val">C$102,857</div></div>
+          <div class="ot-item"><div class="ot-label">Avg / mo</div><div class="ot-val">C$8,571</div></div>
+          <div class="ot-item"><div class="ot-label">Best month</div><div class="ot-val">C$45,538</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- projection -->
+    <div class="proj-outer">
+      <div class="proj-inner">
+        <div class="proj-block">
+          <div class="proj-eyebrow">2026 Annualized Projection</div>
+          <div class="proj-num">C$249,565</div>
+          <div class="proj-note">Based on current monthly run rate</div>
+        </div>
+        <div class="proj-divider"></div>
+        <div class="proj-block">
+          <div class="proj-eyebrow">Year-over-Year Growth</div>
+          <div class="proj-num green">+143%</div>
+          <div class="proj-note">Monthly avg up C$12,226 vs 2025</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -271,7 +389,7 @@ const POSITIONS=[
   {t:'ZETA',shares:[700,700,24,144,200,200], fees:[0,0,0,0,0,0],             cost:[21.70,22.32,18.55,15.69,16.25,20.08]},
   {t:'SHOP',shares:[200,19],                 fees:[0,0],                     cost:[107.39,120.93]},
   {t:'META',shares:[60,4],                   fees:[0,0],                     cost:[583.22,627.57]},
-  {t:'FDGRX',shares:[3454.02],              fees:[0],                       cost:[56.84],isMF:true},
+  {t:'FDGRX',shares:[3454.02],              fees:[0],                       cost:[40.53],isMF:true},
 ];
 const COLORS=['#c49a28','#2d9e5f','#4a7fc1','#c0392b','#7b5ea8','#c46b2a','#3a9e9e','#888','#8a9e2d','#2a7ec4','#9e2d8a','#c47a2a','#2dc47a','#9a6060','#5b8dee'];
 const FB={PLTR:148.46,TSLA:360.59,SOFI:15.85,HOOD:68.90,AMD:217.50,NVDA:177.39,GRAB:3.62,BMNR:19.45,NBIS:108.82,IREN:34.77,AMZN:209.77,ZETA:15.79,SHOP:118.25,META:574.46,FDGRX:89.02};
