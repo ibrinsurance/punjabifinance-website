@@ -189,145 +189,13 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 </div>
 
 <script>
-// ── CLAUDE AI ──
-async function callClaude(prompt){
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        system:'You are a concise, balanced financial research assistant. Provide factual summaries covering: current sentiment, key recent catalysts, main bull case, main bear/risk case. Keep it under 180 words. Always end with: "Not financial advice — always do your own research."',
-        messages:[{role:'user',content:prompt}]
-      })
-    });
-    const d=await r.json();
-    return d.content?.[0]?.text||null;
-  }catch(e){return null;}
-}
+// ─────────────────────────────────────────────
+// ALL DATA via Claude API + web_search tool
+// Yahoo Finance auth requirements broke CORS
+// proxies — Claude's web_search is the only
+// reliable source that actually works here.
+// ─────────────────────────────────────────────
 
-// ── DATA FETCHING — multiple sources with fallbacks ──
-
-// Proxy wrapper — tries 3 CORS proxies in sequence
-async function proxyFetch(url, timeout=9000){
-  const proxies=[
-    `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
-    `https://corsproxy.io/?${encodeURIComponent(url)}`,
-    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
-  ];
-  for(const pUrl of proxies){
-    try{
-      const r=await fetch(pUrl,{signal:AbortSignal.timeout(timeout)});
-      if(!r.ok) continue;
-      const raw=await r.json();
-      // allorigins wraps in {contents:}, others return directly
-      const txt=raw.contents!=null ? raw.contents : (typeof raw==='string' ? raw : JSON.stringify(raw));
-      return JSON.parse(txt);
-    }catch(e){continue;}
-  }
-  return null;
-}
-
-// Yahoo v8 chart — works without auth, returns price + meta
-async function fetchYahooChart(ticker){
-  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=5d&includePrePost=true`;
-  const d=await proxyFetch(url);
-  const meta=d?.chart?.result?.[0]?.meta;
-  if(!meta) return null;
-  return{
-    price: meta.regularMarketPrice,
-    prevClose: meta.chartPreviousClose||meta.previousClose,
-    high52: meta.fiftyTwoWeekHigh,
-    low52: meta.fiftyTwoWeekLow,
-    currency: meta.currency,
-    exchange: meta.exchangeName,
-    marketState: meta.marketState,
-    shortName: meta.shortName||ticker,
-  };
-}
-
-// Yahoo quote search — different endpoint, less auth-sensitive
-async function fetchYahooSearch(ticker){
-  const url=`https://query1.finance.yahoo.com/v1/finance/search?q=${ticker}&quotesCount=1&newsCount=6&enableFuzzyQuery=false`;
-  const d=await proxyFetch(url);
-  return{
-    news: d?.news||[],
-    shortName: d?.quotes?.[0]?.shortname||d?.quotes?.[0]?.longname||ticker,
-  };
-}
-
-// Yahoo quoteSummary via v11 (newer, sometimes still works)
-async function fetchYahooSummary(ticker){
-  const url=`https://query2.finance.yahoo.com/v11/finance/quoteSummary/${ticker}?modules=financialData,summaryDetail,defaultKeyStatistics,price`;
-  const d=await proxyFetch(url,10000);
-  const r=d?.quoteSummary?.result?.[0];
-  if(!r) return null;
-  const fd=r.financialData||{};
-  const sd=r.summaryDetail||{};
-  const ks=r.defaultKeyStatistics||{};
-  const pr=r.price||{};
-  return{
-    price: pr.regularMarketPrice?.raw,
-    prevClose: pr.regularMarketPreviousClose?.raw,
-    change: pr.regularMarketChange?.raw,
-    changePct: pr.regularMarketChangePercent?.raw,
-    marketCap: pr.marketCap?.raw||sd.marketCap?.raw,
-    marketState: pr.marketState,
-    longName: pr.longName||pr.shortName,
-    pe: sd.trailingPE?.raw,
-    high52: sd.fiftyTwoWeekHigh?.raw,
-    low52: sd.fiftyTwoWeekLow?.raw,
-    beta: ks.beta?.raw,
-    recKey: fd.recommendationKey,
-    ptMean: fd.targetMeanPrice?.raw,
-    ptLow: fd.targetLowPrice?.raw,
-    ptHigh: fd.targetHighPrice?.raw,
-    numAna: fd.numberOfAnalystOpinions?.raw||0,
-    volume: pr.regularMarketVolume?.raw,
-  };
-}
-
-// Merge all sources into one quote object
-async function fetchAllData(ticker){
-  const [summary, chart, search]=await Promise.all([
-    fetchYahooSummary(ticker),
-    fetchYahooChart(ticker),
-    fetchYahooSearch(ticker),
-  ]);
-
-  // Merge — summary is richest, chart fills gaps
-  const price = summary?.price ?? chart?.price;
-  if(!price) return null;
-
-  const prevClose = summary?.prevClose ?? chart?.prevClose;
-  const change = summary?.change ?? (price && prevClose ? price-prevClose : null);
-  const changePct = summary?.changePct ?? (change && prevClose ? change/prevClose*100 : null);
-
-  return{
-    price, change, changePct,
-    longName: summary?.longName || search?.shortName || chart?.shortName || ticker,
-    marketState: summary?.marketState || chart?.marketState || 'CLOSED',
-    marketCap: summary?.marketCap,
-    pe: summary?.pe,
-    high52: summary?.high52 ?? chart?.high52,
-    low52: summary?.low52 ?? chart?.low52,
-    beta: summary?.beta,
-    recKey: summary?.recKey,
-    ptMean: summary?.ptMean,
-    ptLow: summary?.ptLow,
-    ptHigh: summary?.ptHigh,
-    numAna: summary?.numAna||0,
-    news: search?.news||[],
-  };
-}
-
-function timeSince(ts){
-  const s=Math.floor((Date.now()-ts*1000)/1000);
-  if(s<3600)return Math.floor(s/60)+'m ago';
-  if(s<86400)return Math.floor(s/3600)+'h ago';
-  return Math.floor(s/86400)+'d ago';
-}
 function fmtBig(n){
   if(!n&&n!==0)return'N/A';
   if(Math.abs(n)>=1e12)return'$'+(n/1e12).toFixed(2)+'T';
@@ -337,13 +205,80 @@ function fmtBig(n){
 }
 function ratingCls(l){
   if(!l||l==='N/A')return'';
-  if(l.toLowerCase().includes('buy'))return'buy';
-  if(l.toLowerCase().includes('sell'))return'sell';
+  const lo=l.toLowerCase();
+  if(lo.includes('strong buy'))return'buy';
+  if(lo.includes('buy'))return'buy';
+  if(lo.includes('sell'))return'sell';
   return'hold';
 }
-function recKeyToLabel(k){
-  const m={buy:'Buy',strong_buy:'Strong Buy',hold:'Hold',sell:'Sell',underperform:'Sell',neutral:'Hold'};
-  return m[(k||'').toLowerCase()]||'Hold';
+function showLoading(ticker){
+  document.getElementById('main-content').innerHTML=`
+    <div class="loading-wrap">
+      <div class="spinner-dot"></div><div class="spinner-dot"></div><div class="spinner-dot"></div>
+      <span>Researching ${ticker} with AI...</span>
+    </div>`;
+}
+
+// Single Claude call that uses web_search to get all stock data + write summary
+async function fetchStockViaAI(ticker){
+  const today = new Date().toISOString().split('T')[0];
+  const prompt = `You are a financial data retrieval assistant. Search the web for current data on the stock ticker ${ticker} as of ${today}.
+
+Return ONLY a valid JSON object with NO other text, markdown, or explanation. The JSON must have exactly this structure:
+{
+  "name": "Full company name",
+  "price": 123.45,
+  "change": 1.23,
+  "changePct": 0.99,
+  "marketCap": "45.2B",
+  "pe": 28.5,
+  "high52": 180.00,
+  "low52": 90.00,
+  "beta": 1.2,
+  "analystRating": "Buy",
+  "numAnalysts": 32,
+  "priceTargetAvg": 165.00,
+  "priceTargetLow": 120.00,
+  "priceTargetHigh": 210.00,
+  "buyCount": 22,
+  "holdCount": 8,
+  "sellCount": 2,
+  "summary": "3-4 sentence balanced research summary covering what the company does, recent key catalysts, main bull case, and main bear/risk case. End with: Not financial advice.",
+  "news": [
+    {"title": "Headline 1", "source": "Reuters", "ago": "2h ago"},
+    {"title": "Headline 2", "source": "Bloomberg", "ago": "5h ago"},
+    {"title": "Headline 3", "source": "CNBC", "ago": "1d ago"},
+    {"title": "Headline 4", "source": "WSJ", "ago": "1d ago"},
+    {"title": "Headline 5", "source": "MarketWatch", "ago": "2d ago"}
+  ]
+}
+
+For analystRating use one of: "Strong Buy", "Buy", "Hold", "Sell", "Strong Sell".
+If any field is unknown use null. Return ONLY the JSON.`;
+
+  try{
+    const r = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1500,
+        tools:[{"type":"web_search_20250305","name":"web_search"}],
+        system: 'You are a financial data assistant. Always search the web for current data before responding. Return only valid JSON with no markdown formatting.',
+        messages:[{role:'user', content: prompt}]
+      })
+    });
+    const d = await r.json();
+    // Extract text from response — may be mixed with tool_use blocks
+    const textBlock = d.content?.find(b=>b.type==='text');
+    if(!textBlock?.text) return null;
+    // Clean and parse JSON
+    const raw = textBlock.text.trim().replace(/^```json\s*/,'').replace(/^```\s*/,'').replace(/\s*```$/,'').trim();
+    return JSON.parse(raw);
+  }catch(e){
+    console.error('AI fetch failed:',e);
+    return null;
+  }
 }
 
 function showLoading(ticker){
@@ -361,13 +296,13 @@ async function searchTicker(ticker){
   showLoading(ticker);
   window.history.replaceState({},'',`?ticker=${ticker}`);
 
-  const q = await fetchAllData(ticker);
+  const q = await fetchStockViaAI(ticker);
 
-  if(!q){
+  if(!q || !q.price){
     document.getElementById('main-content').innerHTML=`
       <div class="error-card">
         <h3>Could not load data for "${ticker}"</h3>
-        <p>The market data service may be temporarily unavailable. Please try again in a moment, or check that the ticker is correct.</p>
+        <p>The AI data service is unavailable or the ticker doesn't exist. Check the ticker symbol and try again.</p>
       </div>`;
     return;
   }
@@ -375,53 +310,40 @@ async function searchTicker(ticker){
   const price     = q.price;
   const change    = q.change;
   const changePct = q.changePct;
-  const compName  = q.longName;
-  const mktStateTxt = q.marketState==='REGULAR'?'Market Open':q.marketState==='PRE'?'Pre-Market':q.marketState==='POST'?'After Hours':'Market Closed';
-  const recLabel  = recKeyToLabel(q.recKey);
+  const compName  = q.name || ticker;
+  const recLabel  = q.analystRating || 'N/A';
   const recCls    = ratingCls(recLabel);
-  const ptMean    = q.ptMean;
-  const ptLow     = q.ptLow;
-  const ptHigh    = q.ptHigh;
-  const numAna    = q.numAna||0;
-  const pe        = q.pe;
-  const mktCap    = q.marketCap;
-  const wkHigh    = q.high52;
-  const wkLow     = q.low52;
-  const beta      = q.beta;
+  const ptMean    = q.priceTargetAvg;
+  const ptLow     = q.priceTargetLow;
+  const ptHigh    = q.priceTargetHigh;
+  const numAna    = q.numAnalysts||0;
+  const nBuy      = q.buyCount||0;
+  const nHold     = q.holdCount||0;
+  const nSell     = q.sellCount||0;
+  const nTotal    = Math.max(nBuy+nHold+nSell,1);
   const news      = q.news||[];
 
-  // Note: recommendationTrend breakdown not in v7, so we estimate from consensus
-  const estBuy = recLabel==='Strong Buy'?Math.round(numAna*0.7):recLabel==='Buy'?Math.round(numAna*0.55):Math.round(numAna*0.2);
-  const estSell= recLabel==='Sell'?Math.round(numAna*0.5):Math.round(numAna*0.08);
-  const estHold= Math.max(0,numAna-estBuy-estSell);
-  const nTotal = numAna||1;
-
-  // Price target bar
   const ptBarHtml = (ptMean&&ptLow&&ptHigh&&price)?`
     <div class="pt-wrap">
-      <div class="pt-labels"><span>Low $${ptLow.toFixed(0)}</span><span>Avg $${ptMean.toFixed(0)}</span><span>High $${ptHigh.toFixed(0)}</span></div>
+      <div class="pt-labels"><span>Low $${Number(ptLow).toFixed(0)}</span><span>Avg $${Number(ptMean).toFixed(0)}</span><span>High $${Number(ptHigh).toFixed(0)}</span></div>
       <div class="pt-bar-outer">
         <div class="pt-bar-range"></div>
         <div class="pt-marker current" style="left:${Math.min(Math.max((price-ptLow)/(ptHigh-ptLow)*100,1),99).toFixed(1)}%"></div>
         <div class="pt-marker target"  style="left:${Math.min(Math.max((ptMean-ptLow)/(ptHigh-ptLow)*100,1),99).toFixed(1)}%"></div>
       </div>
       <div class="pt-legend">
-        <span><span class="pt-dot" style="background:#1a7a41"></span>Current $${price.toFixed(2)}</span>
-        <span><span class="pt-dot" style="background:#b8862a"></span>Avg Target $${ptMean.toFixed(0)}</span>
+        <span><span class="pt-dot" style="background:#1a7a41"></span>Current $${Number(price).toFixed(2)}</span>
+        <span><span class="pt-dot" style="background:#b8862a"></span>Target $${Number(ptMean).toFixed(0)}</span>
         <span><strong style="color:${ptMean>price?'#1a7a41':'#c0392b'}">${((ptMean/price-1)*100).toFixed(1)}% ${ptMean>price?'upside':'downside'}</strong></span>
       </div>
-    </div>` : `<div style="color:#bbb;font-size:0.78rem;padding-top:8px">Price target data unavailable for this ticker.</div>`;
+    </div>` : `<p style="color:#bbb;font-size:0.78rem;padding-top:8px">Price target data unavailable.</p>`;
 
-  // News HTML
-  const newsHtml = news.length ? news.slice(0,7).map(n=>`
-    <div class="news-item" onclick="window.open('${n.link}','_blank')">
+  const newsHtml = news.length ? news.map(n=>`
+    <div class="news-item">
       <div class="news-headline">${n.title}</div>
-      <div class="news-meta">
-        <span class="news-source">${n.publisher||'Source'}</span>
-        ${n.providerPublishTime?`<span>${timeSince(n.providerPublishTime)}</span>`:''}
-      </div>
+      <div class="news-meta"><span class="news-source">${n.source||'Source'}</span><span>${n.ago||''}</span></div>
     </div>`).join('')
-    : `<div style="color:#bbb;font-size:0.83rem">No recent news found for ${ticker}.</div>`;
+    : `<p style="color:#bbb;font-size:0.83rem">No recent news found.</p>`;
 
   document.getElementById('main-content').innerHTML=`
     <div class="stock-header">
@@ -430,19 +352,18 @@ async function searchTicker(ticker){
         <div class="stock-name">${compName}</div>
       </div>
       <div>
-        <div class="stock-price">$${price?.toFixed(2)||'—'}</div>
-        ${change!=null?`<div class="stock-change ${change>=0?'up':'dn'}">${change>=0?'+':''}${change.toFixed(2)} (${changePct.toFixed(2)}%)</div>`:''}
-        <div class="stock-mktstate">${mktStateTxt}</div>
+        <div class="stock-price">$${Number(price).toFixed(2)}</div>
+        ${change!=null?`<div class="stock-change ${Number(change)>=0?'up':'dn'}">${Number(change)>=0?'+':''}${Number(change).toFixed(2)} (${Number(changePct).toFixed(2)}%)</div>`:''}
       </div>
     </div>
 
     <div class="metrics-row">
-      <div class="metric-card"><div class="metric-label">Analyst Rating</div><div class="metric-val ${recCls}">${recLabel||'N/A'}</div><div class="metric-sub">${numAna} analysts</div></div>
-      <div class="metric-card"><div class="metric-label">Avg Price Target</div><div class="metric-val">$${ptMean?.toFixed(0)||'N/A'}</div><div class="metric-sub">${price&&ptMean?((ptMean/price-1)*100).toFixed(1)+'% upside':''}</div></div>
-      <div class="metric-card"><div class="metric-label">Market Cap</div><div class="metric-val">${fmtBig(mktCap)}</div><div class="metric-sub">USD</div></div>
-      <div class="metric-card"><div class="metric-label">P/E Ratio</div><div class="metric-val">${pe?.toFixed(1)||'N/A'}</div><div class="metric-sub">Trailing</div></div>
-      <div class="metric-card"><div class="metric-label">52-Week</div><div class="metric-val" style="font-size:0.89rem">$${wkLow?.toFixed(0)||'—'} &ndash; $${wkHigh?.toFixed(0)||'—'}</div><div class="metric-sub">Low &mdash; High</div></div>
-      <div class="metric-card"><div class="metric-label">Beta</div><div class="metric-val">${beta?.toFixed(2)||'N/A'}</div><div class="metric-sub">vs S&amp;P 500</div></div>
+      <div class="metric-card"><div class="metric-label">Analyst Rating</div><div class="metric-val ${recCls}">${recLabel}</div><div class="metric-sub">${numAna} analysts</div></div>
+      <div class="metric-card"><div class="metric-label">Avg Price Target</div><div class="metric-val">${ptMean?'$'+Number(ptMean).toFixed(0):'N/A'}</div><div class="metric-sub">${price&&ptMean?((ptMean/price-1)*100).toFixed(1)+'% upside':''}</div></div>
+      <div class="metric-card"><div class="metric-label">Market Cap</div><div class="metric-val">${q.marketCap||'N/A'}</div><div class="metric-sub">USD</div></div>
+      <div class="metric-card"><div class="metric-label">P/E Ratio</div><div class="metric-val">${q.pe?Number(q.pe).toFixed(1):'N/A'}</div><div class="metric-sub">Trailing</div></div>
+      <div class="metric-card"><div class="metric-label">52-Week</div><div class="metric-val" style="font-size:0.89rem">${q.low52?'$'+Number(q.low52).toFixed(0):'—'} &ndash; ${q.high52?'$'+Number(q.high52).toFixed(0):'—'}</div><div class="metric-sub">Low &mdash; High</div></div>
+      <div class="metric-card"><div class="metric-label">Beta</div><div class="metric-val">${q.beta?Number(q.beta).toFixed(2):'N/A'}</div><div class="metric-sub">vs S&amp;P 500</div></div>
     </div>
 
     <div class="content-grid">
@@ -451,19 +372,18 @@ async function searchTicker(ticker){
         <div class="rating-summary">
           <div class="big-rating ${recCls}">${recLabel}</div>
           <div class="rating-bars">
-            <div class="rbar-row"><div class="rbar-label">Buy</div><div class="rbar-track"><div class="rbar-fill buy" style="width:${(estBuy/nTotal*100).toFixed(0)}%"></div></div><div class="rbar-n">${estBuy}</div></div>
-            <div class="rbar-row"><div class="rbar-label">Hold</div><div class="rbar-track"><div class="rbar-fill hold" style="width:${(estHold/nTotal*100).toFixed(0)}%"></div></div><div class="rbar-n">${estHold}</div></div>
-            <div class="rbar-row"><div class="rbar-label">Sell</div><div class="rbar-track"><div class="rbar-fill sell" style="width:${(estSell/nTotal*100).toFixed(0)}%"></div></div><div class="rbar-n">${estSell}</div></div>
+            <div class="rbar-row"><div class="rbar-label">Buy</div><div class="rbar-track"><div class="rbar-fill buy" style="width:${(nBuy/nTotal*100).toFixed(0)}%"></div></div><div class="rbar-n">${nBuy}</div></div>
+            <div class="rbar-row"><div class="rbar-label">Hold</div><div class="rbar-track"><div class="rbar-fill hold" style="width:${(nHold/nTotal*100).toFixed(0)}%"></div></div><div class="rbar-n">${nHold}</div></div>
+            <div class="rbar-row"><div class="rbar-label">Sell</div><div class="rbar-track"><div class="rbar-fill sell" style="width:${(nSell/nTotal*100).toFixed(0)}%"></div></div><div class="rbar-n">${nSell}</div></div>
           </div>
         </div>
         <div class="panel-title" style="margin-top:8px">Price Target Range</div>
         ${ptBarHtml}
       </div>
-
       <div class="panel green">
         <div class="panel-title">AI Research Summary</div>
-        <div class="ai-badge">&#129302; AI Generated &mdash; Claude</div>
-        <div id="ai-text" class="ai-loading">Generating summary for ${ticker}...</div>
+        <div class="ai-badge">&#129302; AI Generated &mdash; Claude + Web Search</div>
+        <div class="ai-body">${(q.summary||'').replace(/\n/g,'<br>')}</div>
       </div>
     </div>
 
@@ -474,21 +394,6 @@ async function searchTicker(ticker){
       </div>
     </div>
   `;
-
-  // Load AI summary async — don't block render
-  const aiPrompt=`Write a concise investment research summary for ${ticker} (${compName}). Current price: $${price?.toFixed(2)}. Analyst consensus: ${recLabel} from ${numAna} analysts, avg price target $${ptMean?.toFixed(0)||'N/A'}. Cover: (1) what the company does in one sentence, (2) recent key catalysts or developments, (3) main bull case, (4) main risk/bear case. Be factual and balanced. End with: "Not financial advice — always do your own research."`;
-
-  callClaude(aiPrompt).then(summary=>{
-    const el=document.getElementById('ai-text');
-    if(!el)return;
-    if(summary){
-      el.className='ai-body';
-      el.innerHTML=summary.replace(/\n\n/g,'</p><p style="margin-top:10px">').replace(/\n/g,'<br>');
-    }else{
-      el.className='ai-loading';
-      el.textContent='AI summary could not be generated. The research API may need configuration.';
-    }
-  });
 }
 
 function doSearch(){
@@ -500,7 +405,6 @@ document.getElementById('search-input').addEventListener('keydown',e=>{
   if(e.key==='Enter') doSearch();
 });
 
-// Auto-search from URL param
 const autoTicker=new URLSearchParams(window.location.search).get('ticker');
 if(autoTicker) searchTicker(autoTicker.toUpperCase());
 else document.getElementById('search-input').focus();
