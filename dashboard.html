@@ -152,6 +152,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 
 <div class="search-section">
   <div class="search-inner">
+    <div id="key-section" style="margin-bottom:14px"></div>
     <div class="search-box">
       <input class="search-input" id="search-input" type="text" placeholder="Search any ticker &mdash; PLTR, TSLA, NVDA, AAPL, MSFT..." autocomplete="off" spellcheck="false">
       <button class="search-btn" onclick="doSearch()">Research &rarr;</button>
@@ -189,12 +190,16 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 </div>
 
 <script>
-// ─────────────────────────────────────────────
-// ALL DATA via Claude API + web_search tool
-// Yahoo Finance auth requirements broke CORS
-// proxies — Claude's web_search is the only
-// reliable source that actually works here.
-// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────
+// Dashboard uses Claude API (web_search) for all data.
+// User enters their Anthropic API key once — stored
+// in localStorage. They already have one from claude.ai.
+// ─────────────────────────────────────────────────────
+
+const KEY_STORE = 'pf_anthropic_key';
+
+function getSavedKey(){ return localStorage.getItem(KEY_STORE)||''; }
+function saveKey(k){ localStorage.setItem(KEY_STORE, k.trim()); }
 
 function fmtBig(n){
   if(!n&&n!==0)return'N/A';
@@ -205,26 +210,69 @@ function fmtBig(n){
 }
 function ratingCls(l){
   if(!l||l==='N/A')return'';
-  const lo=l.toLowerCase();
-  if(lo.includes('strong buy'))return'buy';
-  if(lo.includes('buy'))return'buy';
+  const lo=(l||'').toLowerCase();
+  if(lo.includes('strong buy')||lo.includes('buy'))return'buy';
   if(lo.includes('sell'))return'sell';
   return'hold';
 }
+
+// ── API KEY UI ──
+function renderKeyPrompt(){
+  const saved = getSavedKey();
+  const keySection = document.getElementById('key-section');
+  if(!keySection) return;
+  if(saved){
+    keySection.innerHTML=`
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span style="font-size:0.72rem;color:#888;letter-spacing:0.08em">API Key: ••••••••${saved.slice(-6)}</span>
+        <button onclick="clearKey()" style="font-size:0.67rem;color:#b8862a;background:none;border:none;cursor:pointer;letter-spacing:0.08em;text-decoration:underline">Change key</button>
+      </div>`;
+  } else {
+    keySection.innerHTML=`
+      <div style="background:#fff8ec;border:1px solid #e8d48a;border-radius:10px;padding:16px 20px;max-width:700px">
+        <div style="font-size:0.78rem;font-weight:600;color:#1a1a1a;margin-bottom:6px">Enter your Anthropic API key to enable research</div>
+        <div style="font-size:0.72rem;color:#888;margin-bottom:12px;line-height:1.6">
+          Get a free key at <a href="https://console.anthropic.com" target="_blank" style="color:#b8862a">console.anthropic.com</a> &mdash; takes 30 seconds. Your key is stored only in your browser and never sent anywhere except Anthropic.
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <input id="key-input" type="password" placeholder="sk-ant-..." 
+            style="flex:1;min-width:200px;padding:10px 14px;border:1.5px solid #e8e4dc;border-radius:8px;font-size:0.83rem;font-family:inherit;outline:none;background:#fafafa"
+            onkeydown="if(event.key==='Enter')submitKey()">
+          <button onclick="submitKey()" 
+            style="background:#1a1a1a;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:0.83rem;font-weight:600;cursor:pointer;white-space:nowrap">
+            Save &amp; Start
+          </button>
+        </div>
+      </div>`;
+  }
+}
+
+function submitKey(){
+  const k = document.getElementById('key-input')?.value?.trim();
+  if(!k||!k.startsWith('sk-')) return alert('Please enter a valid Anthropic API key (starts with sk-)');
+  saveKey(k);
+  renderKeyPrompt();
+}
+function clearKey(){
+  localStorage.removeItem(KEY_STORE);
+  renderKeyPrompt();
+}
+
+// ── LOADING STATE ──
 function showLoading(ticker){
   document.getElementById('main-content').innerHTML=`
     <div class="loading-wrap">
       <div class="spinner-dot"></div><div class="spinner-dot"></div><div class="spinner-dot"></div>
-      <span>Researching ${ticker} with AI...</span>
+      <span>Researching ${ticker} with live web search...</span>
     </div>`;
 }
 
-// Single Claude call that uses web_search to get all stock data + write summary
-async function fetchStockViaAI(ticker){
-  const today = new Date().toISOString().split('T')[0];
-  const prompt = `You are a financial data retrieval assistant. Search the web for current data on the stock ticker ${ticker} as of ${today}.
+// ── MAIN FETCH via Claude web_search ──
+async function fetchStockViaAI(ticker, apiKey){
+  const today = new Date().toLocaleDateString('en-CA',{year:'numeric',month:'long',day:'numeric'});
+  const prompt = `Search the web right now for current stock data for the ticker ${ticker} as of ${today}.
 
-Return ONLY a valid JSON object with NO other text, markdown, or explanation. The JSON must have exactly this structure:
+Return ONLY a valid JSON object — no markdown, no explanation, no code fences. Structure:
 {
   "name": "Full company name",
   "price": 123.45,
@@ -243,105 +291,135 @@ Return ONLY a valid JSON object with NO other text, markdown, or explanation. Th
   "buyCount": 22,
   "holdCount": 8,
   "sellCount": 2,
-  "summary": "3-4 sentence balanced research summary covering what the company does, recent key catalysts, main bull case, and main bear/risk case. End with: Not financial advice.",
+  "summary": "3-4 sentence balanced research summary. Cover: what the company does, recent catalysts, bull case, risk/bear case. End with: Not financial advice.",
   "news": [
-    {"title": "Headline 1", "source": "Reuters", "ago": "2h ago"},
-    {"title": "Headline 2", "source": "Bloomberg", "ago": "5h ago"},
-    {"title": "Headline 3", "source": "CNBC", "ago": "1d ago"},
-    {"title": "Headline 4", "source": "WSJ", "ago": "1d ago"},
-    {"title": "Headline 5", "source": "MarketWatch", "ago": "2d ago"}
+    {"title": "Recent news headline 1", "source": "Source name", "ago": "2h ago"},
+    {"title": "Recent news headline 2", "source": "Source name", "ago": "4h ago"},
+    {"title": "Recent news headline 3", "source": "Source name", "ago": "1d ago"},
+    {"title": "Recent news headline 4", "source": "Source name", "ago": "1d ago"},
+    {"title": "Recent news headline 5", "source": "Source name", "ago": "2d ago"}
   ]
 }
 
-For analystRating use one of: "Strong Buy", "Buy", "Hold", "Sell", "Strong Sell".
-If any field is unknown use null. Return ONLY the JSON.`;
+Use "Strong Buy", "Buy", "Hold", "Sell", or "Strong Sell" for analystRating. Use null for unknown fields. Return ONLY the JSON object.`;
 
-  try{
-    const r = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1500,
-        tools:[{"type":"web_search_20250305","name":"web_search"}],
-        system: 'You are a financial data assistant. Always search the web for current data before responding. Return only valid JSON with no markdown formatting.',
-        messages:[{role:'user', content: prompt}]
-      })
-    });
-    const d = await r.json();
-    // Extract text from response — may be mixed with tool_use blocks
-    const textBlock = d.content?.find(b=>b.type==='text');
-    if(!textBlock?.text) return null;
-    // Clean and parse JSON
-    const raw = textBlock.text.trim().replace(/^```json\s*/,'').replace(/^```\s*/,'').replace(/\s*```$/,'').trim();
-    return JSON.parse(raw);
-  }catch(e){
-    console.error('AI fetch failed:',e);
-    return null;
+  const resp = await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-direct-browser-access':'true'
+    },
+    body: JSON.stringify({
+      model:'claude-sonnet-4-20250514',
+      max_tokens:2000,
+      tools:[{"type":"web_search_20250305","name":"web_search"}],
+      system:'You are a financial data retrieval assistant. Always use web_search to get current live data before responding. Return only a JSON object, no other text.',
+      messages:[{role:'user',content:prompt}]
+    })
+  });
+
+  if(!resp.ok){
+    const err = await resp.json().catch(()=>({}));
+    throw new Error(err?.error?.message || `API error ${resp.status}`);
   }
+
+  const d = await resp.json();
+  const textBlock = d.content?.find(b=>b.type==='text');
+  if(!textBlock?.text) throw new Error('No text in response');
+  
+  // Strip any accidental markdown fences
+  const raw = textBlock.text.trim()
+    .replace(/^```json\s*/i,'').replace(/^```\s*/,'').replace(/\s*```$/,'').trim();
+  
+  // Find JSON object in the response
+  const jsonMatch = raw.match(/\{[\s\S]*\}/);
+  if(!jsonMatch) throw new Error('No JSON found in response');
+  
+  return JSON.parse(jsonMatch[0]);
 }
 
-function showLoading(ticker){
-  document.getElementById('main-content').innerHTML=`
-    <div class="loading-wrap">
-      <div class="spinner-dot"></div><div class="spinner-dot"></div><div class="spinner-dot"></div>
-      <span>Researching ${ticker}...</span>
-    </div>`;
-}
-
+// ── SEARCH ──
 async function searchTicker(ticker){
-  ticker=ticker.trim().toUpperCase().replace(/[^A-Z0-9.]/g,'');
-  if(!ticker)return;
-  document.getElementById('search-input').value=ticker;
-  showLoading(ticker);
-  window.history.replaceState({},'',`?ticker=${ticker}`);
+  ticker = ticker.trim().toUpperCase().replace(/[^A-Z0-9.]/g,'');
+  if(!ticker) return;
 
-  const q = await fetchStockViaAI(ticker);
-
-  if(!q || !q.price){
+  const apiKey = getSavedKey();
+  if(!apiKey){
     document.getElementById('main-content').innerHTML=`
       <div class="error-card">
-        <h3>Could not load data for "${ticker}"</h3>
-        <p>The AI data service is unavailable or the ticker doesn't exist. Check the ticker symbol and try again.</p>
+        <h3>API key required</h3>
+        <p>Please enter your Anthropic API key above to use the research dashboard.</p>
       </div>`;
     return;
   }
 
-  const price     = q.price;
-  const change    = q.change;
-  const changePct = q.changePct;
-  const compName  = q.name || ticker;
-  const recLabel  = q.analystRating || 'N/A';
+  document.getElementById('search-input').value = ticker;
+  showLoading(ticker);
+  window.history.replaceState({},'',`?ticker=${ticker}`);
+
+  let q;
+  try{
+    q = await fetchStockViaAI(ticker, apiKey);
+  }catch(e){
+    console.error('Fetch error:', e);
+    const msg = e.message?.includes('invalid x-api-key') || e.message?.includes('401')
+      ? 'Invalid API key. Please update your key above.'
+      : e.message?.includes('credit') || e.message?.includes('billing')
+      ? 'Your Anthropic account has no remaining credits. Add credits at console.anthropic.com.'
+      : 'Data fetch failed: ' + (e.message||'unknown error');
+    document.getElementById('main-content').innerHTML=`
+      <div class="error-card">
+        <h3>Could not load data for "${ticker}"</h3>
+        <p>${msg}</p>
+      </div>`;
+    return;
+  }
+
+  if(!q?.price){
+    document.getElementById('main-content').innerHTML=`
+      <div class="error-card">
+        <h3>No data returned for "${ticker}"</h3>
+        <p>This ticker may not exist, or the AI couldn't find current market data. Try again or check the symbol.</p>
+      </div>`;
+    return;
+  }
+
+  const price     = Number(q.price);
+  const change    = q.change!=null ? Number(q.change) : null;
+  const changePct = q.changePct!=null ? Number(q.changePct) : null;
+  const recLabel  = q.analystRating||'N/A';
   const recCls    = ratingCls(recLabel);
-  const ptMean    = q.priceTargetAvg;
-  const ptLow     = q.priceTargetLow;
-  const ptHigh    = q.priceTargetHigh;
-  const numAna    = q.numAnalysts||0;
-  const nBuy      = q.buyCount||0;
-  const nHold     = q.holdCount||0;
-  const nSell     = q.sellCount||0;
+  const ptMean    = q.priceTargetAvg ? Number(q.priceTargetAvg) : null;
+  const ptLow     = q.priceTargetLow ? Number(q.priceTargetLow) : null;
+  const ptHigh    = q.priceTargetHigh ? Number(q.priceTargetHigh) : null;
+  const numAna    = Number(q.numAnalysts)||0;
+  const nBuy      = Number(q.buyCount)||0;
+  const nHold     = Number(q.holdCount)||0;
+  const nSell     = Number(q.sellCount)||0;
   const nTotal    = Math.max(nBuy+nHold+nSell,1);
   const news      = q.news||[];
 
-  const ptBarHtml = (ptMean&&ptLow&&ptHigh&&price)?`
+  const ptBarHtml = (ptMean&&ptLow&&ptHigh)?`
     <div class="pt-wrap">
-      <div class="pt-labels"><span>Low $${Number(ptLow).toFixed(0)}</span><span>Avg $${Number(ptMean).toFixed(0)}</span><span>High $${Number(ptHigh).toFixed(0)}</span></div>
+      <div class="pt-labels"><span>Low $${ptLow.toFixed(0)}</span><span>Avg $${ptMean.toFixed(0)}</span><span>High $${ptHigh.toFixed(0)}</span></div>
       <div class="pt-bar-outer">
         <div class="pt-bar-range"></div>
         <div class="pt-marker current" style="left:${Math.min(Math.max((price-ptLow)/(ptHigh-ptLow)*100,1),99).toFixed(1)}%"></div>
         <div class="pt-marker target"  style="left:${Math.min(Math.max((ptMean-ptLow)/(ptHigh-ptLow)*100,1),99).toFixed(1)}%"></div>
       </div>
       <div class="pt-legend">
-        <span><span class="pt-dot" style="background:#1a7a41"></span>Current $${Number(price).toFixed(2)}</span>
-        <span><span class="pt-dot" style="background:#b8862a"></span>Target $${Number(ptMean).toFixed(0)}</span>
+        <span><span class="pt-dot" style="background:#1a7a41"></span>Current $${price.toFixed(2)}</span>
+        <span><span class="pt-dot" style="background:#b8862a"></span>Target $${ptMean.toFixed(0)}</span>
         <span><strong style="color:${ptMean>price?'#1a7a41':'#c0392b'}">${((ptMean/price-1)*100).toFixed(1)}% ${ptMean>price?'upside':'downside'}</strong></span>
       </div>
-    </div>` : `<p style="color:#bbb;font-size:0.78rem;padding-top:8px">Price target data unavailable.</p>`;
+    </div>` : `<p style="color:#bbb;font-size:0.78rem;padding-top:8px">Price target data not available.</p>`;
 
   const newsHtml = news.length ? news.map(n=>`
     <div class="news-item">
-      <div class="news-headline">${n.title}</div>
-      <div class="news-meta"><span class="news-source">${n.source||'Source'}</span><span>${n.ago||''}</span></div>
+      <div class="news-headline">${n.title||''}</div>
+      <div class="news-meta"><span class="news-source">${n.source||''}</span><span>${n.ago||''}</span></div>
     </div>`).join('')
     : `<p style="color:#bbb;font-size:0.83rem">No recent news found.</p>`;
 
@@ -349,17 +427,17 @@ async function searchTicker(ticker){
     <div class="stock-header">
       <div>
         <div class="stock-ticker">${ticker}</div>
-        <div class="stock-name">${compName}</div>
+        <div class="stock-name">${q.name||ticker}</div>
       </div>
       <div>
-        <div class="stock-price">$${Number(price).toFixed(2)}</div>
-        ${change!=null?`<div class="stock-change ${Number(change)>=0?'up':'dn'}">${Number(change)>=0?'+':''}${Number(change).toFixed(2)} (${Number(changePct).toFixed(2)}%)</div>`:''}
+        <div class="stock-price">$${price.toFixed(2)}</div>
+        ${change!=null?`<div class="stock-change ${change>=0?'up':'dn'}">${change>=0?'+':''}${change.toFixed(2)} (${changePct?.toFixed(2)||'—'}%)</div>`:''}
       </div>
     </div>
 
     <div class="metrics-row">
       <div class="metric-card"><div class="metric-label">Analyst Rating</div><div class="metric-val ${recCls}">${recLabel}</div><div class="metric-sub">${numAna} analysts</div></div>
-      <div class="metric-card"><div class="metric-label">Avg Price Target</div><div class="metric-val">${ptMean?'$'+Number(ptMean).toFixed(0):'N/A'}</div><div class="metric-sub">${price&&ptMean?((ptMean/price-1)*100).toFixed(1)+'% upside':''}</div></div>
+      <div class="metric-card"><div class="metric-label">Avg Price Target</div><div class="metric-val">${ptMean?'$'+ptMean.toFixed(0):'N/A'}</div><div class="metric-sub">${ptMean?((ptMean/price-1)*100).toFixed(1)+'% upside':''}</div></div>
       <div class="metric-card"><div class="metric-label">Market Cap</div><div class="metric-val">${q.marketCap||'N/A'}</div><div class="metric-sub">USD</div></div>
       <div class="metric-card"><div class="metric-label">P/E Ratio</div><div class="metric-val">${q.pe?Number(q.pe).toFixed(1):'N/A'}</div><div class="metric-sub">Trailing</div></div>
       <div class="metric-card"><div class="metric-label">52-Week</div><div class="metric-val" style="font-size:0.89rem">${q.low52?'$'+Number(q.low52).toFixed(0):'—'} &ndash; ${q.high52?'$'+Number(q.high52).toFixed(0):'—'}</div><div class="metric-sub">Low &mdash; High</div></div>
@@ -382,8 +460,8 @@ async function searchTicker(ticker){
       </div>
       <div class="panel green">
         <div class="panel-title">AI Research Summary</div>
-        <div class="ai-badge">&#129302; AI Generated &mdash; Claude + Web Search</div>
-        <div class="ai-body">${(q.summary||'').replace(/\n/g,'<br>')}</div>
+        <div class="ai-badge">&#129302; Claude + Live Web Search</div>
+        <div class="ai-body">${(q.summary||'Summary not available.').replace(/\n/g,'<br>')}</div>
       </div>
     </div>
 
@@ -392,12 +470,11 @@ async function searchTicker(ticker){
         <div class="panel-title">Latest News &mdash; ${ticker}</div>
         ${newsHtml}
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 function doSearch(){
-  const v=document.getElementById('search-input').value;
+  const v = document.getElementById('search-input').value;
   if(v.trim()) searchTicker(v);
 }
 
@@ -405,7 +482,9 @@ document.getElementById('search-input').addEventListener('keydown',e=>{
   if(e.key==='Enter') doSearch();
 });
 
-const autoTicker=new URLSearchParams(window.location.search).get('ticker');
+// Init
+renderKeyPrompt();
+const autoTicker = new URLSearchParams(window.location.search).get('ticker');
 if(autoTicker) searchTicker(autoTicker.toUpperCase());
 else document.getElementById('search-input').focus();
 </script>
