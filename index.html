@@ -11,16 +11,36 @@
 html{font-size:18px;-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-height:1.6;min-height:100vh}
 .page{width:100%;max-width:1080px;margin:0 auto;padding:0 0 64px}
-.topbar{background:#1a1a1a;padding:14px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;border-bottom:1px solid rgba(212,165,52,0.12)}
-.topbar-left{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.wm-link{text-decoration:none}
-.wm-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#fff;letter-spacing:-0.01em}
+/* ── TOPBAR ── */
+.topbar{
+  background:#111009;
+  padding:0 32px;
+  display:flex;justify-content:space-between;align-items:stretch;
+  border-bottom:1px solid rgba(212,165,52,0.15);
+  min-height:58px;
+  position:sticky;top:0;z-index:100;
+}
+.topbar-left{display:flex;align-items:center;gap:0}
+.wm-link{
+  text-decoration:none;display:flex;flex-direction:column;justify-content:center;
+  padding:10px 24px 10px 0;border-right:1px solid rgba(212,165,52,0.12);
+  margin-right:20px;
+}
+.wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
 .wm-gold{color:#d4a534}
-.wm-url{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.55);margin-top:2px}
-.topbar-nav{display:flex;gap:6px}
-.nav-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6);font-size:0.67rem;font-weight:500;letter-spacing:0.06em;padding:7px 14px;border-radius:8px;text-decoration:none;border:1px solid rgba(255,255,255,0.1);white-space:nowrap;transition:all .15s}
-.nav-btn:hover{background:rgba(212,165,52,0.12);color:#d4a534;border-color:rgba(212,165,52,0.25)}
-.topbar-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.wm-url{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(212,165,52,0.45);margin-top:3px}
+.topbar-nav{display:flex;align-items:center;gap:4px}
+.nav-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  color:rgba(255,255,255,0.5);font-size:0.67rem;font-weight:500;letter-spacing:0.04em;
+  padding:7px 13px;border-radius:7px;text-decoration:none;
+  border:1px solid transparent;
+  white-space:nowrap;transition:all .15s;
+}
+.nav-btn:hover{background:rgba(212,165,52,0.1);color:#d4a534;border-color:rgba(212,165,52,0.2)}
+.nav-btn.active{color:#d4a534;border-color:rgba(212,165,52,0.2);background:rgba(212,165,52,0.08)}
+.topbar-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:3px}
+
 .fx-pill{display:inline-flex;align-items:center;gap:6px;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#d4a534}
 .live-dot{width:5px;height:5px;border-radius:50%;background:#4caf7d;animation:blink 2s infinite;flex-shrink:0}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
@@ -151,8 +171,10 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 .footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
 @media(max-width:640px){
   html{font-size:17px}
-  .topbar{padding:14px 18px}
-  .topbar-left{flex-wrap:wrap;gap:10px}
+  .topbar{padding:0 16px;min-height:52px}
+  .wm-link{padding:8px 14px 8px 0;margin-right:10px}
+  .wm-url{display:none}
+  .nav-btn{font-size:0.62rem;padding:5px 9px}
   .section{padding:28px 18px}
   .section-divider{margin:0 18px}
   .stats-row{grid-template-columns:repeat(2,1fr);gap:12px}
@@ -187,10 +209,14 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 <div class="page">
 <div class="topbar">
   <div class="topbar-left">
-    <a class="wm-link" href="index.html"><div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div><div class="wm-url">punjabifinance.com</div></a>
+    <a class="wm-link" href="index.html">
+      <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
+      <div class="wm-url">punjabifinance.com</div>
+    </a>
     <div class="topbar-nav">
-      <a class="nav-btn" href="links.html">&#128279; Links</a>
-      <a class="nav-btn" href="mediakit.html">&#9993; Media Kit</a>
+      <a class="nav-btn active" href="index.html">Portfolio</a>
+      <a class="nav-btn" href="links.html">Links</a>
+      <a class="nav-btn" href="mediakit.html">Media Kit</a>
     </div>
   </div>
   <div class="topbar-right">
@@ -417,38 +443,45 @@ async function fetchFX(){
   document.getElementById('fx-label').textContent='1 USD = C$'+fx.toFixed(4)+' Live';
 }
 
-// Robust price fetch — tries multiple CORS proxies with Yahoo v7 quote
-async function fetchPrices(){
-  const stocks=POSITIONS.filter(p=>!p.isMF).map(p=>p.t).join(',');
-  const yUrl=`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${stocks}&fields=regularMarketPrice,recommendationKey,targetMeanPrice,numberOfAnalystOpinions`;
+// Fetch one ticker via Yahoo v8/chart — no auth needed, works via proxy
+async function fetchOnePrice(ticker){
+  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`;
   const proxies=[
-    `https://api.allorigins.win/get?url=${encodeURIComponent(yUrl)}`,
-    `https://corsproxy.io/?${encodeURIComponent(yUrl)}`,
-    `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(yUrl)}`,
+    `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+    `https://corsproxy.io/?${encodeURIComponent(url)}`,
   ];
-  for(const url of proxies){
+  for(const px of proxies){
     try{
-      const r=await fetch(url,{signal:AbortSignal.timeout(8000)});
+      const r=await fetch(px,{signal:AbortSignal.timeout(7000)});
+      if(!r.ok) continue;
       const raw=await r.json();
-      const txt=typeof raw==='string'?raw:(raw.contents||JSON.stringify(raw));
-      const data=JSON.parse(typeof txt==='string'?txt:JSON.stringify(txt));
-      const res=data?.quoteResponse?.result;
-      if(res?.length>0){
-        res.forEach(q=>{
-          if(q.regularMarketPrice&&lp[q.symbol]!==undefined) lp[q.symbol]=q.regularMarketPrice;
-          if(q.recommendationKey&&q.symbol){
-            const keyMap={buy:'Buy',strong_buy:'Strong Buy',hold:'Hold',sell:'Sell',underperform:'Sell',neutral:'Hold'};
-            const label=keyMap[q.recommendationKey]||'Hold';
-            ratings[q.symbol]={label,pt:q.targetMeanPrice||ratings[q.symbol]?.pt||null,count:q.numberOfAnalystOpinions||ratings[q.symbol]?.count||0};
-          }
-        });
-        console.log('Prices fetched via',url.split('?')[0]);
-        return true;
-      }
-    }catch(e){console.warn('Proxy failed:',e.message)}
+      const txt=raw.contents!=null?raw.contents:(typeof raw==='string'?raw:JSON.stringify(raw));
+      const d=JSON.parse(txt);
+      const price=d?.chart?.result?.[0]?.meta?.regularMarketPrice;
+      if(price&&price>0) return price;
+    }catch(e){}
   }
-  console.warn('All price proxies failed — using cached/fallback prices');
-  return false;
+  return null;
+}
+
+// Fetch all stock prices in parallel batches
+async function fetchPrices(){
+  const stocks=POSITIONS.filter(p=>!p.isMF);
+  let anyUpdated=false;
+  // Batch into groups of 5 to avoid overloading proxies
+  for(let i=0;i<stocks.length;i+=5){
+    const batch=stocks.slice(i,i+5);
+    const results=await Promise.allSettled(batch.map(p=>fetchOnePrice(p.t)));
+    results.forEach((res,idx)=>{
+      if(res.status==='fulfilled'&&res.value&&lp[batch[idx].t]!==undefined){
+        lp[batch[idx].t]=res.value;
+        anyUpdated=true;
+      }
+    });
+  }
+  if(anyUpdated) console.log('Prices updated via Yahoo v8/chart');
+  else console.warn('Price fetch failed — using fallback prices');
+  return anyUpdated;
 }
 
 function render(){

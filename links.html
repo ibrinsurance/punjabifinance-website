@@ -12,22 +12,42 @@ html{font-size:18px;-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-height:1.6;min-height:100vh}
 
 /* ── TOPBAR ── */
-.topbar{background:#1a1a1a;padding:14px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-bottom:1px solid rgba(212,165,52,0.12)}
-.topbar-left{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.wm-link{text-decoration:none}
-.wm-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#fff;letter-spacing:-0.01em}
+.topbar{
+  background:#111009;
+  padding:0 32px;
+  display:flex;justify-content:space-between;align-items:stretch;
+  border-bottom:1px solid rgba(212,165,52,0.15);
+  min-height:58px;
+  position:sticky;top:0;z-index:100;
+}
+.topbar-left{display:flex;align-items:center;gap:0}
+.wm-link{
+  text-decoration:none;display:flex;flex-direction:column;justify-content:center;
+  padding:10px 24px 10px 0;border-right:1px solid rgba(212,165,52,0.12);
+  margin-right:20px;
+}
+.wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
 .wm-gold{color:#d4a534}
-.wm-url{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.55);margin-top:2px}
-.topbar-nav{display:flex;gap:6px}
-.nav-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6);font-size:0.67rem;font-weight:500;letter-spacing:0.06em;padding:7px 14px;border-radius:8px;text-decoration:none;border:1px solid rgba(255,255,255,0.1);white-space:nowrap;transition:all .15s}
-.nav-btn:hover{background:rgba(212,165,52,0.12);color:#d4a534;border-color:rgba(212,165,52,0.25)}
+.wm-url{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(212,165,52,0.45);margin-top:3px}
+.topbar-nav{display:flex;align-items:center;gap:4px}
+.nav-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  color:rgba(255,255,255,0.5);font-size:0.67rem;font-weight:500;letter-spacing:0.04em;
+  padding:7px 13px;border-radius:7px;text-decoration:none;
+  border:1px solid transparent;
+  white-space:nowrap;transition:all .15s;
+}
+.nav-btn:hover{background:rgba(212,165,52,0.1);color:#d4a534;border-color:rgba(212,165,52,0.2)}
+.nav-btn.active{color:#d4a534;border-color:rgba(212,165,52,0.2);background:rgba(212,165,52,0.08)}
+.topbar-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:3px}
+
 
 /* ── LAYOUT ── */
-.page-wrap{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 53px)}
+.page-wrap{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 58px)}
 
 /* ── LEFT PANEL ── */
 .left{
-  position:sticky;top:53px;height:calc(100vh - 53px);overflow-y:auto;
+  position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto;
   display:flex;flex-direction:column;align-items:center;
   padding:32px 22px 28px;
   background:linear-gradient(180deg,#181300 0%,#0f0d04 100%);
@@ -148,8 +168,9 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
       <div class="wm-url">punjabifinance.com</div>
     </a>
     <div class="topbar-nav">
-      <a class="nav-btn" href="index.html">&larr; Portfolio</a>
-      <a class="nav-btn" href="mediakit.html">&#9993; Media Kit</a>
+      <a class="nav-btn" href="index.html">Portfolio</a>
+      <a class="nav-btn active" href="links.html">Links</a>
+      <a class="nav-btn" href="mediakit.html">Media Kit</a>
     </div>
   </div>
 </div>
@@ -166,7 +187,7 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
     <div class="tagline">Canada&rsquo;s #1 Punjabi Finance Creator<br>Building wealth, one video at a time</div>
 
     <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-    <div class="stars-sub">5-Star Rating &middot; 375+ Clients</div>
+    <div class="stars-sub">5-Star Rating &middot; 400+ Clients</div>
 
     <div class="stats-box">
       <div class="s-item"><span class="s-num">178K+</span><span class="s-lbl">Followers</span></div>
@@ -299,7 +320,7 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
         <div class="lk-icon">&#11088;</div>
         <div class="lk-body">
           <div class="lk-title">Google Reviews</div>
-          <div class="lk-sub">5-star rated &middot; 375+ client reviews &middot; Insurance By Rattan</div>
+          <div class="lk-sub">5-star rated &middot; 400+ client reviews &middot; Insurance By Rattan</div>
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>

@@ -12,15 +12,36 @@ html{font-size:18px;-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-height:1.6;min-height:100vh}
 
 /* ── TOPBAR (matches index) ── */
-.topbar{background:#1a1a1a;padding:14px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;border-bottom:1px solid rgba(212,165,52,0.12)}
-.topbar-left{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.wm-link{text-decoration:none}
-.wm-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#fff;letter-spacing:-0.01em}
+/* ── TOPBAR ── */
+.topbar{
+  background:#111009;
+  padding:0 32px;
+  display:flex;justify-content:space-between;align-items:stretch;
+  border-bottom:1px solid rgba(212,165,52,0.15);
+  min-height:58px;
+  position:sticky;top:0;z-index:100;
+}
+.topbar-left{display:flex;align-items:center;gap:0}
+.wm-link{
+  text-decoration:none;display:flex;flex-direction:column;justify-content:center;
+  padding:10px 24px 10px 0;border-right:1px solid rgba(212,165,52,0.12);
+  margin-right:20px;
+}
+.wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
 .wm-gold{color:#d4a534}
-.wm-url{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.55);margin-top:2px}
-.topbar-nav{display:flex;gap:6px}
-.nav-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6);font-size:0.67rem;font-weight:500;letter-spacing:0.06em;padding:7px 14px;border-radius:8px;text-decoration:none;border:1px solid rgba(255,255,255,0.1);white-space:nowrap;transition:all .15s}
-.nav-btn:hover{background:rgba(212,165,52,0.12);color:#d4a534;border-color:rgba(212,165,52,0.25)}
+.wm-url{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(212,165,52,0.45);margin-top:3px}
+.topbar-nav{display:flex;align-items:center;gap:4px}
+.nav-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  color:rgba(255,255,255,0.5);font-size:0.67rem;font-weight:500;letter-spacing:0.04em;
+  padding:7px 13px;border-radius:7px;text-decoration:none;
+  border:1px solid transparent;
+  white-space:nowrap;transition:all .15s;
+}
+.nav-btn:hover{background:rgba(212,165,52,0.1);color:#d4a534;border-color:rgba(212,165,52,0.2)}
+.nav-btn.active{color:#d4a534;border-color:rgba(212,165,52,0.2);background:rgba(212,165,52,0.08)}
+.topbar-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:3px}
+
 .topbar-right{font-size:0.65rem;color:rgba(255,255,255,0.28);letter-spacing:0.1em}
 
 /* ── HERO ── */
@@ -123,8 +144,10 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 
 @media(max-width:640px){
   html{font-size:17px}
-  .topbar{padding:14px 18px}
-  .topbar-left{gap:10px;flex-wrap:wrap}
+  .topbar{padding:0 16px;min-height:52px}
+  .wm-link{padding:8px 14px 8px 0;margin-right:10px}
+  .wm-url{display:none}
+  .nav-btn{font-size:0.62rem;padding:5px 9px}
   .hero{padding:48px 18px}
   .stat-strip{padding:24px 18px}
   .stat-strip-inner{grid-template-columns:repeat(2,1fr)}
@@ -154,20 +177,24 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-left">
-    <a class="wm-link" href="index.html"><div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div><div class="wm-url">punjabifinance.com</div></a>
+    <a class="wm-link" href="index.html">
+      <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
+      <div class="wm-url">punjabifinance.com</div>
+    </a>
     <div class="topbar-nav">
-      <a class="nav-btn" href="index.html">&larr; Portfolio</a>
-      <a class="nav-btn" href="links.html">&#128279; Links</a>
+      <a class="nav-btn" href="index.html">Portfolio</a>
+      <a class="nav-btn" href="links.html">Links</a>
+      <a class="nav-btn active" href="mediakit.html">Media Kit</a>
     </div>
   </div>
-  <div class="topbar-right">Media Kit &nbsp;&middot;&nbsp; Sponsor Deck</div>
+  <div class="topbar-right">Sponsor Deck</div>
 </div>
 
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-eyebrow">&#127381; Sponsor &amp; Brand Partnership Deck</div>
-    <div class="hero-name">Rattan Amol Taggar</div>
+    <div class="hero-name">Rattan Amol Singh</div>
     <div class="hero-brand">Punjabi Finance</div>
     <div class="hero-tags">
       <span class="hero-tag">Personal Finance</span>
@@ -312,7 +339,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       <div class="sec-title" style="color:#fff;margin-bottom:24px">Ready to Partner?</div>
       <div class="contact-row">
         <div class="contact-icon">&#128100;</div>
-        <div><div class="contact-label">Creator</div><div class="contact-val">Rattan Amol Taggar</div></div>
+        <div><div class="contact-label">Creator</div><div class="contact-val">Rattan Amol Singh</div></div>
       </div>
       <div class="contact-row">
         <div class="contact-icon">&#127991;</div>
