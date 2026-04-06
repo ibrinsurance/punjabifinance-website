@@ -12,13 +12,16 @@ html{font-size:18px;-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-height:1.6;min-height:100vh}
 
 /* ── TOPBAR (matches index) ── */
-.topbar{background:#1a1a1a;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.topbar{background:#1a1a1a;padding:14px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;border-bottom:1px solid rgba(212,165,52,0.12)}
 .topbar-left{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.wm-name{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:800;color:#fff;letter-spacing:-0.01em}
-.wm-url{font-size:0.67rem;letter-spacing:0.18em;text-transform:uppercase;color:#b8862a;margin-top:2px}
-.nav-btn{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);font-size:0.72rem;font-weight:500;letter-spacing:0.06em;padding:8px 16px;border-radius:8px;text-decoration:none;border:1px solid rgba(255,255,255,0.12);white-space:nowrap;transition:all .15s}
-.nav-btn:hover,.nav-btn.active{background:rgba(212,165,52,0.15);color:#d4a534;border-color:rgba(212,165,52,0.3)}
-.topbar-right{font-size:0.67rem;color:rgba(255,255,255,0.3);letter-spacing:0.08em}
+.wm-link{text-decoration:none}
+.wm-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#fff;letter-spacing:-0.01em}
+.wm-gold{color:#d4a534}
+.wm-url{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.55);margin-top:2px}
+.topbar-nav{display:flex;gap:6px}
+.nav-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6);font-size:0.67rem;font-weight:500;letter-spacing:0.06em;padding:7px 14px;border-radius:8px;text-decoration:none;border:1px solid rgba(255,255,255,0.1);white-space:nowrap;transition:all .15s}
+.nav-btn:hover{background:rgba(212,165,52,0.12);color:#d4a534;border-color:rgba(212,165,52,0.25)}
+.topbar-right{font-size:0.65rem;color:rgba(255,255,255,0.28);letter-spacing:0.1em}
 
 /* ── HERO ── */
 .hero{
@@ -151,9 +154,11 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-left">
-    <div><div class="wm-name">Punjabi Finance</div><div class="wm-url">punjabifinance.com</div></div>
-    <a class="nav-btn" href="index.html">&larr; Portfolio</a>
-    <a class="nav-btn" href="links.html">&#128279; Links</a>
+    <a class="wm-link" href="index.html"><div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div><div class="wm-url">punjabifinance.com</div></a>
+    <div class="topbar-nav">
+      <a class="nav-btn" href="index.html">&larr; Portfolio</a>
+      <a class="nav-btn" href="links.html">&#128279; Links</a>
+    </div>
   </div>
   <div class="topbar-right">Media Kit &nbsp;&middot;&nbsp; Sponsor Deck</div>
 </div>
@@ -172,7 +177,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     </div>
     <div class="hero-bio">Canada&rsquo;s leading Punjabi-language personal finance creator &mdash; building financial literacy across 178K+ followers with authentic, trust-driven content since 2021.</div>
     <div class="hero-btns">
-      <a class="btn-gold" href="mailto:info@punjabifinance.com">&#9993; Email Me Now</a>
+      <a class="btn-gold" href="/cdn-cgi/l/email-protection#2f464149406f5f5a41454e4d464946414e414c4a014c4042">&#9993; Email Me Now</a>
       <a class="btn-ghost" href="#collab">View Partnership Options &darr;</a>
     </div>
   </div>
@@ -315,7 +320,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
       <div class="contact-row">
         <div class="contact-icon">&#9993;</div>
-        <div><div class="contact-label">Email</div><div class="contact-val"><a href="mailto:info@punjabifinance.com">info@punjabifinance.com</a></div></div>
+        <div><div class="contact-label">Email</div><div class="contact-val"><a href="/cdn-cgi/l/email-protection#fd94939b92bd8d8893979c9f949b94939c939e98d39e9290"><span class="__cf_email__" data-cfemail="7c15121a133c0c0912161d1e151a15121d121f19521f1311">[email&#160;protected]</span></a></div></div>
       </div>
       <div class="contact-row">
         <div class="contact-icon">&#128247;</div>
@@ -325,14 +330,10 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     <div class="cta-box">
       <div class="cta-headline">Reach 178K+ Canadians Who Care About Money</div>
       <div class="cta-sub-text">A highly engaged, niche audience in the Punjabi-Canadian community &mdash; trust-driven and financially motivated. Every partnership is authentic and educational-first.</div>
-      <a href="mailto:info@punjabifinance.com" class="btn-gold" style="width:100%;justify-content:center">&#9993; Email Me Now</a>
+      <a href="/cdn-cgi/l/email-protection#4f262129200f3f3a21252e2d262926212e212c2a612c2022" class="btn-gold" style="width:100%;justify-content:center">&#9993; Email Me Now</a>
     </div>
   </div>
 </div>
 
 <div class="page-footer">
-  &copy; 2025 Punjabi Finance &nbsp;&middot;&nbsp; <a href="index.html">Portfolio</a> &nbsp;&middot;&nbsp; <a href="links.html">Links</a> &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp; Built for brand partnerships
-</div>
-
-</body>
-</html>
+  &copy; 2025 Pun

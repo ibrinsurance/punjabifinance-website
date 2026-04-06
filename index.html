@@ -11,12 +11,15 @@
 html{font-size:18px;-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-height:1.6;min-height:100vh}
 .page{width:100%;max-width:1080px;margin:0 auto;padding:0 0 64px}
-.topbar{background:#1a1a1a;color:#fff;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.topbar-left{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
-.wm-name{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:800;color:#fff;letter-spacing:-0.01em}
-.wm-url{font-size:0.67rem;letter-spacing:0.18em;text-transform:uppercase;color:#b8862a;margin-top:2px}
-.nav-btn{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);font-size:0.72rem;font-weight:500;letter-spacing:0.06em;padding:8px 16px;border-radius:8px;text-decoration:none;border:1px solid rgba(255,255,255,0.12);white-space:nowrap;transition:all .15s}
-.nav-btn:hover{background:rgba(255,255,255,0.15);color:#fff}
+.topbar{background:#1a1a1a;padding:14px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;border-bottom:1px solid rgba(212,165,52,0.12)}
+.topbar-left{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.wm-link{text-decoration:none}
+.wm-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#fff;letter-spacing:-0.01em}
+.wm-gold{color:#d4a534}
+.wm-url{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.55);margin-top:2px}
+.topbar-nav{display:flex;gap:6px}
+.nav-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6);font-size:0.67rem;font-weight:500;letter-spacing:0.06em;padding:7px 14px;border-radius:8px;text-decoration:none;border:1px solid rgba(255,255,255,0.1);white-space:nowrap;transition:all .15s}
+.nav-btn:hover{background:rgba(212,165,52,0.12);color:#d4a534;border-color:rgba(212,165,52,0.25)}
 .topbar-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
 .fx-pill{display:inline-flex;align-items:center;gap:6px;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#d4a534}
 .live-dot{width:5px;height:5px;border-radius:50%;background:#4caf7d;animation:blink 2s infinite;flex-shrink:0}
@@ -81,14 +84,7 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 .alloc-bar-mini{width:40px;height:5px;background:#ece9e2;border-radius:3px;overflow:hidden;flex-shrink:0}
 .alloc-bar-mini-fill{height:100%;border-radius:3px}
 .alloc-pct-text{font-size:0.78rem;font-weight:500;color:#1a1a1a;min-width:32px;text-align:right}
-.rating-cell{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
-.rating-badge{display:inline-flex;align-items:center;font-size:0.67rem;font-weight:600;padding:3px 9px;border-radius:100px;cursor:pointer;text-decoration:none;white-space:nowrap;transition:opacity .15s}
-.rating-badge:hover{opacity:0.8}
-.rb-buy{background:#e8f5ee;color:#1a7a41;border:1px solid #b8e0c8}
-.rb-hold{background:#fef9e7;color:#b8862a;border:1px solid #f0d890}
-.rb-sell{background:#fde8e8;color:#c0392b;border:1px solid #f0b8b8}
-.rb-na{background:#f4f2ee;color:#888;border:1px solid #ddd}
-.rating-pt{font-size:0.6rem;color:#9a9a9a}
+
 .bar-wrap{margin-bottom:0}
 .bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
 .bar-tk{font-size:0.78rem;color:#888;font-weight:600;width:54px;text-align:right;flex-shrink:0}
@@ -191,9 +187,11 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 <div class="page">
 <div class="topbar">
   <div class="topbar-left">
-    <div><div class="wm-name">Punjabi Finance</div><div class="wm-url">punjabifinance.com</div></div>
-    <a class="nav-btn" href="mediakit.html">&#9993; Media Kit</a>
-    <a class="nav-btn" href="links.html">&#128279; Links</a>
+    <a class="wm-link" href="index.html"><div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div><div class="wm-url">punjabifinance.com</div></a>
+    <div class="topbar-nav">
+      <a class="nav-btn" href="links.html">&#128279; Links</a>
+      <a class="nav-btn" href="mediakit.html">&#9993; Media Kit</a>
+    </div>
   </div>
   <div class="topbar-right">
     <div class="fx-pill"><span class="live-dot"></span><span id="fx-label">Loading rate...</span></div>
@@ -246,7 +244,7 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
         <th>Book Value (CAD)</th>
         <th>Market Value (CAD)</th>
         <th>Allocation</th>
-        <th>Analyst Rating</th>
+        
         <th>P&amp;L (CAD)</th>
       </tr></thead>
       <tbody id="holdings-tbody"></tbody>
@@ -255,7 +253,7 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
         <td></td><td></td><td></td>
         <td id="foot-book">...</td>
         <td id="foot-val">...</td>
-        <td>100%</td><td></td>
+        <td>100%</td>
         <td id="foot-pnl">...</td>
       </tr></tfoot>
     </table>
@@ -396,22 +394,13 @@ const COLORS=['#c49a28','#2d9e5f','#4a7fc1','#c0392b','#7b5ea8','#c46b2a','#3a9e
 const FB={PLTR:148.46,TSLA:360.59,SOFI:15.85,HOOD:68.90,AMD:217.50,NVDA:177.39,GRAB:3.62,BMNR:19.45,NBIS:108.82,IREN:34.77,AMZN:209.77,ZETA:15.79,SHOP:118.25,META:574.46,FDGRX:89.02};
 
 let fx=1.3912, lp={...FB};
-let ratings={
-  PLTR:{label:'Buy',pt:165,count:22},TSLA:{label:'Hold',pt:310,count:40},
-  SOFI:{label:'Buy',pt:19,count:18},HOOD:{label:'Buy',pt:75,count:14},
-  AMD:{label:'Buy',pt:155,count:38},NVDA:{label:'Buy',pt:175,count:45},
-  GRAB:{label:'Buy',pt:5.5,count:12},BMNR:{label:'Strong Buy',pt:36,count:2},
-  NBIS:{label:'Buy',pt:130,count:8},IREN:{label:'Buy',pt:55,count:6},
-  AMZN:{label:'Buy',pt:250,count:48},ZETA:{label:'Buy',pt:22,count:10},
-  SHOP:{label:'Buy',pt:135,count:30},META:{label:'Buy',pt:700,count:50},
-  FDGRX:{label:'N/A',pt:null,count:0}
-};
+
 
 const fmtC=v=>{const c=v*fx;if(Math.abs(c)>=1e6)return'C$'+(c/1e6).toFixed(3)+'M';if(Math.abs(c)>=1e3)return'C$'+(c/1e3).toFixed(1)+'K';return'C$'+Math.round(c).toLocaleString()};
 const fmtP=n=>(n>=0?'+':'')+n.toFixed(1)+'%';
 const fmtU=n=>'$'+n.toFixed(2);
 
-function rcls(l){return l==='Buy'||l==='Strong Buy'?'rb-buy':l==='Sell'||l==='Strong Sell'?'rb-sell':l==='Hold'?'rb-hold':'rb-na'}
+
 
 function agg(){
   return POSITIONS.map((p,i)=>{
@@ -475,12 +464,6 @@ function render(){
   const sorted=[...h].sort((a,b)=>b.mkt-a.mkt);
   document.getElementById('holdings-tbody').innerHTML=sorted.map(x=>{
     const ap=(x.mkt/totV*100);
-    const r=ratings[x.t]||{label:'N/A',pt:null,count:0};
-    const rl=r.label,rc=rcls(rl);
-    const ptTxt=r.pt?`<div class="rating-pt">Avg PT: $${Number(r.pt).toFixed(0)}</div>`:'';
-    const ratHtml=rl==='N/A'
-      ?`<div class="rating-cell"><span class="rating-badge rb-na">N/A</span></div>`
-      :`<div class="rating-cell"><span class="rating-badge ${rc}">${rl}${r.count?' ('+r.count+')':''}</span>${ptTxt}</div>`;
     const priceDisp=x.isMF
       ?`<div class="tv">${fmtU(x.cur)}</div><div class="tsub">NAV</div>`
       :`<div class="tv">${fmtU(x.cur)}</div><div class="tsub ${x.cur>=x.avg?'up':'dn'}">${fmtP((x.cur-x.avg)/x.avg*100)} vs avg</div>`;
@@ -492,7 +475,6 @@ function render(){
       <td><div class="tv">${fmtC(x.basis)}</div></td>
       <td><div class="tv">${fmtC(x.mkt)}</div></td>
       <td><div class="alloc-cell"><div class="alloc-bar-mini"><div class="alloc-bar-mini-fill" style="width:${Math.min(ap*3,100).toFixed(1)}%;background:${x.col}"></div></div><div class="alloc-pct-text">${ap.toFixed(1)}%</div></div></td>
-      <td>${ratHtml}</td>
       <td><div class="tv ${x.pnl>=0?'up':'dn'}">${fmtC(x.pnl)}</div><div class="tsub ${x.pnl>=0?'up':'dn'}">${fmtP(x.pct)}</div></td>
     </tr>`;
   }).join('');
