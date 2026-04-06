@@ -192,7 +192,8 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 <div class="topbar">
   <div class="topbar-left">
     <div><div class="wm-name">Punjabi Finance</div><div class="wm-url">punjabifinance.com</div></div>
-    <a class="nav-btn" href="dashboard.html">&#128269; Research Dashboard</a>
+    <a class="nav-btn" href="mediakit.html">&#9993; Media Kit</a>
+    <a class="nav-btn" href="links.html">&#128279; Links</a>
   </div>
   <div class="topbar-right">
     <div class="fx-pill"><span class="live-dot"></span><span id="fx-label">Loading rate...</span></div>
@@ -370,7 +371,7 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
   </div>
 </div>
 
-<div class="footer-bar">Not financial advice &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp; USD converted at live rate &nbsp;&middot;&nbsp; Prices refresh every 60s &nbsp;&middot;&nbsp; Join at nas.io/punjabifinance</div>
+<div class="footer-bar">Not financial advice &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp; <a href="mediakit.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Media Kit</a> &nbsp;&middot;&nbsp; <a href="links.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Links</a> &nbsp;&middot;&nbsp; USD converted at live rate &nbsp;&middot;&nbsp; Join at nas.io/punjabifinance</div>
 </div>
 
 <script>
@@ -479,12 +480,12 @@ function render(){
     const ptTxt=r.pt?`<div class="rating-pt">Avg PT: $${Number(r.pt).toFixed(0)}</div>`:'';
     const ratHtml=rl==='N/A'
       ?`<div class="rating-cell"><span class="rating-badge rb-na">N/A</span></div>`
-      :`<div class="rating-cell"><a class="rating-badge ${rc}" href="dashboard.html?ticker=${x.t}" target="_blank">${rl}${r.count?' ('+r.count+')':''}</a>${ptTxt}</div>`;
+      :`<div class="rating-cell"><span class="rating-badge ${rc}">${rl}${r.count?' ('+r.count+')':''}</span>${ptTxt}</div>`;
     const priceDisp=x.isMF
       ?`<div class="tv">${fmtU(x.cur)}</div><div class="tsub">NAV</div>`
       :`<div class="tv">${fmtU(x.cur)}</div><div class="tsub ${x.cur>=x.avg?'up':'dn'}">${fmtP((x.cur-x.avg)/x.avg*100)} vs avg</div>`;
     return`<tr>
-      <td><a class="tk" style="color:${x.col}" href="dashboard.html?ticker=${x.t}" target="_blank">${x.t}</a></td>
+      <td><span class="tk" style="color:${x.col}">${x.t}</span></td>
       <td><div class="tv">${parseFloat(x.sh.toFixed(2)).toLocaleString()}</div></td>
       <td><div class="tv">${fmtU(x.avg)}</div></td>
       <td>${priceDisp}</td>
