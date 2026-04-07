@@ -11,25 +11,6 @@
 html{font-size:18px;-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-height:1.6;min-height:100vh}
 
-/* ── TOPBAR ── */
-.topbar{background:#111009;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,165,52,0.15);min-height:56px;position:sticky;top:0;z-index:100}
-.topbar-left{display:flex;align-items:center;gap:0}
-.wm-link{text-decoration:none;display:flex;align-items:center;flex-shrink:0}
-.wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
-.wm-gold{color:#d4a534}
-.wm-url{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(212,165,52,0.45);margin-top:3px}
-.topbar-nav{display:flex;align-items:center;gap:2px;flex:1;justify-content:flex-end;margin:0 8px}
-.nav-btn{
-  display:inline-flex;align-items:center;gap:5px;
-  color:rgba(255,255,255,0.5);font-size:0.67rem;font-weight:500;letter-spacing:0.04em;
-  padding:7px 13px;border-radius:7px;text-decoration:none;
-  border:1px solid transparent;
-  white-space:nowrap;transition:all .15s;
-}
-.nav-btn:hover{background:rgba(212,165,52,0.1);color:#d4a534;border-color:rgba(212,165,52,0.2)}
-.nav-btn.active{color:#d4a534;border-color:rgba(212,165,52,0.2);background:rgba(212,165,52,0.08)}
-.topbar-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:3px}
-
 
 /* ── LAYOUT ── */
 .page-wrap{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 58px)}
@@ -139,24 +120,14 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
 
 @media(max-width:680px){
   html{font-size:17px}
-  .topbar{padding:0 16px;min-height:52px}
-  .wm-link{text-decoration:none;display:flex;align-items:center;flex-shrink:0}
-  .wm-url{display:none}
-  .nav-btn{font-size:0.62rem;padding:5px 9px}
-  .page-wrap{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+          .page-wrap{grid-template-columns:1fr;grid-template-rows:auto 1fr}
   .left{position:relative;height:auto;top:0;border-right:none;border-bottom:1px solid rgba(212,165,52,0.1);padding:22px 18px 18px}
   .right{padding:20px 16px 36px}
-  .topbar-nav{gap:4px}
-}
+  }
 
 /* Mobile nav: hide lower-priority items on small screens */
 @media(max-width:480px){
-  .topbar{padding:0 12px;min-height:50px}
-  .wm-link{text-decoration:none;display:flex;align-items:center;flex-shrink:0}
-  .wm-url{display:none}
-  .topbar-nav{gap:2px;overflow:hidden}
-  .nav-btn{font-size:0.6rem;padding:5px 8px;letter-spacing:0}
-  /* Hide Media Kit label on very small — keep as icon-only */
+            /* Hide Media Kit label on very small — keep as icon-only */
   .nav-btn[href="mediakit.html"]::before{content:'✉';margin-right:0}
   .nav-btn[href="mediakit.html"] span, .nav-btn[href="mediakit.html"]{font-size:0}
   .nav-btn[href="mediakit.html"]::before{font-size:0.9rem}
@@ -164,50 +135,27 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
   .nav-btn[href="community.html"]{display:none}
 }
 
-/* ── HAMBURGER MENU ── */
-.ham-btn{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:10px 12px;border:1px solid rgba(212,165,52,0.35);background:rgba(212,165,52,0.1);border-radius:8px;margin-left:auto;flex-shrink:0}
-.ham-btn:hover{background:rgba(212,165,52,0.2);border-color:rgba(212,165,52,0.5)}
-.ham-line{width:24px;height:2.5px;background:#d4a534;border-radius:2px;transition:all .25s;display:block}
-.ham-btn.open .ham-line:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.ham-btn.open .ham-line:nth-child(2){opacity:0;transform:scaleX(0)}
-.ham-btn.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.nav-dropdown{display:none;position:absolute;top:100%;left:0;right:0;background:#111009;border-bottom:1px solid rgba(212,165,52,0.15);z-index:99;padding:8px 16px 14px;flex-direction:column;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
-.nav-dropdown.open{display:flex}
-.nav-dropdown .nav-btn{font-size:0.83rem;padding:11px 14px;border-radius:9px;width:100%;border:1px solid transparent;letter-spacing:0.02em}
-.nav-dropdown .nav-btn.active{background:rgba(212,165,52,0.1);color:#d4a534;border-color:rgba(212,165,52,0.2)}
-@media(max-width:640px){
-  .topbar{position:relative}
-  .topbar-nav{display:none}
-  .ham-btn{display:flex}
-  .topbar-right-btns{display:none;align-items:center;gap:8px;flex-shrink:0}
-}
+
 @media(max-width:480px){
-  .topbar{padding:0 14px}
-  .wm-url{display:none}
-  .wm-link{text-decoration:none;display:flex;align-items:center;flex-shrink:0}
-}
+      }
 </style>
 </head>
 <body>
-
-<!-- TOPBAR -->
 <div class="topbar">
   <a class="wm-link" href="index.html">
     <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
   </a>
   <div class="topbar-nav">
-      <a class="nav-btn" href="index.html">Portfolio</a>
-      <a class="nav-btn" href="community.html">Community</a>
-      <a class="nav-btn" href="webinars.html">Webinars</a>
-      <a class="nav-btn  active" href="links.html">Links</a>
-      <a class="nav-btn" href="mediakit.html">Media Kit</a>
+    <a class="nav-btn" href="index.html">Portfolio</a>
+    <a class="nav-btn" href="community.html">Community</a>
+    <a class="nav-btn" href="webinars.html">Webinars</a>
+    <a class="nav-btn  active" href="links.html">Links</a>
+    <a class="nav-btn" href="mediakit.html">Media Kit</a>
   </div>
   <div class="topbar-right-btns">
     <a class="nav-btn nav-btn-webinars" href="webinars.html">Webinars</a>
     <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
-      <span class="ham-line"></span>
-      <span class="ham-line"></span>
-      <span class="ham-line"></span>
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
     </button>
   </div>
 </div>
@@ -219,16 +167,7 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
   <a class="nav-btn" href="mediakit.html">Media Kit</a>
 </nav>
 
-    </a>
-    <div class="topbar-nav">
-      <a class="nav-btn" href="index.html">Portfolio</a>
-      <a class="nav-btn" href="community.html">Community</a>
-      <a class="nav-btn" href="webinars.html">Webinars</a>
-      <a class="nav-btn active" href="links.html">Links</a>
-      <a class="nav-btn" href="mediakit.html">Media Kit</a>
-    </div>
-  </div>
-</div>
+<!-- TOPBAR -->
 
 <div class="page-wrap">
 
