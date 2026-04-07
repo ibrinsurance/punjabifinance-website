@@ -215,6 +215,25 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
   .cta-features{grid-template-columns:1fr 1fr}
 }
 @media(min-width:1400px){html{font-size:19px}.page{max-width:1200px}}
+
+/* ── PAYWALL ── */
+.lock-gate{background:#fff;border:1.5px solid #e8e4dc;border-radius:16px;padding:32px 28px;text-align:center;margin:24px 0}
+.lock-icon{font-size:2rem;margin-bottom:12px}
+.lock-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#1a1a1a;margin-bottom:6px}
+.lock-sub{font-size:0.78rem;color:#888;line-height:1.7;margin-bottom:22px;max-width:380px;margin-left:auto;margin-right:auto}
+.lock-input-row{display:flex;gap:8px;max-width:360px;margin:0 auto 10px}
+.lock-input{flex:1;padding:11px 16px;border:1.5px solid #e8e4dc;border-radius:9px;font-size:0.83rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;background:#fafaf8}
+.lock-input:focus{border-color:#b8862a}
+.lock-btn{background:#1a1a1a;color:#fff;border:none;padding:11px 20px;border-radius:9px;font-size:0.83rem;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:background .15s}
+.lock-btn:hover{background:#333}
+.lock-error{font-size:0.72rem;color:#c0392b;margin:0 auto 12px;min-height:18px;max-width:360px;text-align:left}
+.lock-divider{display:flex;align-items:center;gap:12px;max-width:360px;margin:0 auto 16px;color:#ccc;font-size:0.72rem}
+.lock-divider::before,.lock-divider::after{content:'';flex:1;height:1px;background:#e8e4dc}
+.lock-join-btn{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#052a10;padding:11px 24px;border-radius:9px;font-weight:700;font-size:0.83rem;text-decoration:none;transition:background .15s}
+.lock-join-btn:hover{background:#1fb356}
+.lock-hint{font-size:0.65rem;color:#ccc;margin-top:14px;line-height:1.6}
+.locked{filter:blur(6px);user-select:none;pointer-events:none}
+.lock-bar-cover{filter:blur(5px);user-select:none;pointer-events:none}
 </style>
 </head>
 <body>
@@ -283,7 +302,26 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
       </tr></tfoot>
     </table>
   </div></div>
+</div>
 <div class="section-divider"></div>
+
+<!-- LOCK GATE -->
+<div id="lock-gate-section" class="section section-white" style="display:none">
+  <div class="lock-gate">
+    <div class="lock-icon">&#128274;</div>
+    <div class="lock-title">Members-Only Portfolio Data</div>
+    <div class="lock-sub">Share count, avg cost, book value, market value, P&amp;L, and allocation are visible to members only. Enter your monthly code or join the community to unlock.</div>
+    <div class="lock-input-row">
+      <input class="lock-input" id="lock-code-input" type="text" placeholder="Enter member code e.g. PF-APR-2026" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlock()">
+      <button class="lock-btn" onclick="tryUnlock()">Unlock</button>
+    </div>
+    <div class="lock-error" id="lock-error"></div>
+    <div class="lock-divider">or</div>
+    <a class="lock-join-btn" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join the Community to get the code</a>
+    <div class="lock-hint">Members receive the monthly code inside the WhatsApp group.<br>Code updates the 1st of every month.</div>
+  </div>
+</div>
+<div id="lock-gate-divider" class="section-divider" style="display:none"></div>
 
 <!-- BARS -->
 <div class="section section-slate">
@@ -389,6 +427,57 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 </div>
 
 <script>
+// ── PAYWALL ──
+// Update MONTHLY_CODE each month. Format: PF-MMM-YYYY
+const MONTHLY_CODE = 'PF-APR-2026';
+const LOCK_KEY     = 'pf_unlocked';
+const LOCK_EXPIRY  = 'pf_unlock_expiry';
+
+function isUnlocked(){
+  const expiry = localStorage.getItem(LOCK_EXPIRY);
+  if(!expiry) return false;
+  if(Date.now() > parseInt(expiry)){ clearUnlock(); return false; }
+  return localStorage.getItem(LOCK_KEY) === '1';
+}
+function setUnlocked(){
+  // Expires at end of current month
+  const now = new Date();
+  const expiry = new Date(now.getFullYear(), now.getMonth()+1, 1).getTime();
+  localStorage.setItem(LOCK_KEY, '1');
+  localStorage.setItem(LOCK_EXPIRY, expiry);
+}
+function clearUnlock(){
+  localStorage.removeItem(LOCK_KEY);
+  localStorage.removeItem(LOCK_EXPIRY);
+}
+function tryUnlock(){
+  const val = (document.getElementById('lock-code-input').value||'').trim().toUpperCase();
+  const expected = MONTHLY_CODE.toUpperCase();
+  if(val === expected){
+    setUnlocked();
+    document.getElementById('lock-gate-section').style.display = 'none';
+    document.getElementById('lock-gate-divider').style.display = 'none';
+    if(lastPositions.length) renderPortfolio(lastPositions);
+  } else {
+    document.getElementById('lock-error').textContent = 'Incorrect code. Get the code inside the WhatsApp community.';
+  }
+}
+function applyLockState(){
+  const unlocked = isUnlocked();
+  // Show/hide lock gate
+  document.getElementById('lock-gate-section').style.display = unlocked ? 'none' : 'block';
+  document.getElementById('lock-gate-divider').style.display = unlocked ? 'none' : 'block';
+  // Lock/unlock all sensitive cells
+  document.querySelectorAll('.lockable').forEach(el=>{
+    el.classList.toggle('locked', !unlocked);
+  });
+  // Lock/unlock bar chart numbers
+  document.querySelectorAll('.bar-pct').forEach(el=>{
+    el.classList.toggle('lock-bar-cover', !unlocked);
+  });
+}
+
+// ── SHEET URL ──
 // ─────────────────────────────────────────────────────
 // Single source of truth: Google Sheets
 // All positions, prices, FX rate, and options data
@@ -461,10 +550,12 @@ function renderPortfolio(positions){
   pe.className = 'stat-val '+(totPnlCAD>=0?'up':'dn');
   document.getElementById('s-pnl-pct').textContent = fmtP(totPnlPct)+' all time';
   document.getElementById('foot-book').textContent = fmtC(totBookCAD);
+  document.getElementById('foot-book').className = 'lockable';
   document.getElementById('foot-val').textContent = fmtC(totMktCAD);
+  document.getElementById('foot-val').className = 'lockable';
   const fp = document.getElementById('foot-pnl');
   fp.textContent = fmtC(totPnlCAD);
-  fp.className = totPnlCAD>=0?'up':'dn';
+  fp.className = 'lockable '+(totPnlCAD>=0?'up':'dn');
 
   // Sort by current sort field
   const sorted = sortPositions(positions);
@@ -477,12 +568,12 @@ function renderPortfolio(positions){
       : `<div class="tv">${fmtU(x.curPrice)}</div><div class="tsub ${x.plPct>=0?'up':'dn'}">${fmtP((x.curPrice-x.avgCost)/x.avgCost*100)} vs avg</div>`;
     return `<tr>
       <td><span class="tk" style="color:${col}">${x.ticker}</span></td>
-      <td><div class="tv">${fmtNum(x.shares)}</div></td>
-      <td><div class="tv">${fmtU(x.avgCost)}</div></td>
+      <td class="lockable">${fmtNum(x.shares)}</td>
+      <td class="lockable">${fmtU(x.avgCost)}</td>
       <td>${priceDisp}</td>
-      <td><div class="tv">${fmtC(x.bookCAD)}</div></td>
-      <td><div class="tv">${fmtC(x.mktCAD)}</div></td>
-      <td>
+      <td class="lockable">${fmtC(x.bookCAD)}</td>
+      <td class="lockable">${fmtC(x.mktCAD)}</td>
+      <td class="lockable">
         <div class="alloc-cell">
           <div class="alloc-bar-mini">
             <div class="alloc-bar-mini-fill" style="width:${Math.min(allocPct*3,100).toFixed(1)}%;background:${col}"></div>
@@ -490,8 +581,8 @@ function renderPortfolio(positions){
           <div class="alloc-pct-text">${allocPct.toFixed(1)}%</div>
         </div>
       </td>
-      <td><div class="tv ${x.plCAD>=0?'up':'dn'}">${fmtC(x.plCAD)}</div></td>
-      <td><div class="tv ${x.plPct>=0?'up':'dn'}">${fmtP(x.plPct)}</div></td>
+      <td class="lockable"><div class="tv ${x.plCAD>=0?'up':'dn'}">${fmtC(x.plCAD)}</div></td>
+      <td class="lockable"><div class="tv ${x.plPct>=0?'up':'dn'}">${fmtP(x.plPct)}</div></td>
     </tr>`;
   }).join('');
 
@@ -508,6 +599,9 @@ function renderPortfolio(positions){
       <div class="bar-pct">${fmtP(x.plPct)}</div>
     </div>`;
   }).join('');
+
+  // Apply lock state after rendering
+  applyLockState();
 }
 
 // ── RENDER OPTIONS ──
