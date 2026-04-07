@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Webinars &mdash; Punjabi Finance</title>
+<script src="pf-config.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:18px;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-height:1.6;min-height:100vh}
+
+/* ── TOPBAR ── */
+.topbar{background:#111009;padding:0 32px;display:flex;justify-content:space-between;align-items:stretch;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;z-index:100}
+.topbar-left{display:flex;align-items:center;gap:0}
+.wm-link{text-decoration:none;display:flex;flex-direction:column;justify-content:center;padding:10px 24px 10px 0;border-right:1px solid rgba(212,165,52,0.12);margin-right:20px}
+.wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
+.wm-gold{color:#d4a534}
+.wm-url{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(212,165,52,0.45);margin-top:3px}
+.topbar-nav{display:flex;align-items:center;gap:4px}
+.nav-btn{display:inline-flex;align-items:center;gap:5px;color:rgba(255,255,255,0.5);font-size:0.67rem;font-weight:500;letter-spacing:0.04em;padding:7px 13px;border-radius:7px;text-decoration:none;border:1px solid transparent;white-space:nowrap;transition:all .15s}
+.nav-btn:hover{background:rgba(212,165,52,0.1);color:#d4a534;border-color:rgba(212,165,52,0.2)}
+.nav-btn.active{color:#d4a534;border-color:rgba(212,165,52,0.2);background:rgba(212,165,52,0.08)}
+
+/* ── PAGE ── */
+.page{max-width:1080px;margin:0 auto;padding:0 0 64px}
+
+/* ── HERO ── */
+.hero{background:#1a1a1a;padding:clamp(48px,7vw,72px) 40px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% -5%,rgba(212,165,52,0.15) 0%,transparent 65%);pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:680px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.25);padding:5px 16px;border-radius:100px;font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:#d4a534;font-weight:600;margin-bottom:20px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-0.01em}
+.hero-title span{color:#d4a534}
+.hero-sub{font-size:0.89rem;color:rgba(255,255,255,0.5);line-height:1.8;max-width:500px}
+
+/* ── SECTIONS ── */
+.section{padding:40px 40px;background:#fff}
+.section-cream{background:#f9f7f3}
+.section-divider{height:1px;background:#e4e0d8;margin:0 40px}
+.sec-label{font-size:0.65rem;letter-spacing:0.24em;text-transform:uppercase;color:#9a9a9a;font-weight:600;margin-bottom:18px;padding-bottom:10px;border-bottom:1.5px solid #e8e4dc}
+
+/* ── LOCK GATE ── */
+.lock-gate{background:#fff;border:1.5px solid #e8e4dc;border-radius:16px;padding:36px 28px;text-align:center;max-width:560px;margin:0 auto}
+.lock-icon{font-size:2rem;margin-bottom:12px}
+.lock-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#1a1a1a;margin-bottom:6px}
+.lock-sub{font-size:0.78rem;color:#888;line-height:1.7;margin-bottom:22px;max-width:380px;margin-left:auto;margin-right:auto}
+.lock-input-row{display:flex;gap:8px;max-width:360px;margin:0 auto 10px}
+.lock-input{flex:1;padding:11px 16px;border:1.5px solid #e8e4dc;border-radius:9px;font-size:0.83rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;background:#fafaf8}
+.lock-input:focus{border-color:#b8862a}
+.lock-btn{background:#1a1a1a;color:#fff;border:none;padding:11px 20px;border-radius:9px;font-size:0.83rem;font-weight:600;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:background .15s}
+.lock-btn:hover{background:#333}
+.lock-error{font-size:0.72rem;color:#c0392b;min-height:18px;margin:0 auto 12px;max-width:360px;text-align:left}
+.lock-divider{display:flex;align-items:center;gap:12px;max-width:360px;margin:0 auto 16px;color:#ccc;font-size:0.72rem}
+.lock-divider::before,.lock-divider::after{content:'';flex:1;height:1px;background:#e8e4dc}
+.lock-join-btn{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#052a10;padding:11px 24px;border-radius:9px;font-weight:700;font-size:0.83rem;text-decoration:none;transition:background .15s}
+.lock-join-btn:hover{background:#1fb356}
+.lock-hint{font-size:0.65rem;color:#ccc;margin-top:14px;line-height:1.6}
+
+/* ── WEBINAR GRID ── */
+.webinar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.webinar-card{background:#fff;border:1px solid #e8e4dc;border-radius:14px;overflow:hidden;transition:transform .18s,box-shadow .18s}
+.webinar-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,0.08)}
+.webinar-thumb{position:relative;padding-bottom:56.25%;background:#1a1a1a;overflow:hidden}
+.webinar-thumb iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.webinar-thumb-locked{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1a1a,#2d2d2d);cursor:pointer}
+.webinar-thumb-locked-icon{font-size:2rem;margin-bottom:8px}
+.webinar-thumb-locked-text{font-size:0.72rem;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase}
+.webinar-body{padding:18px 18px 20px}
+.webinar-tag{display:inline-block;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:#b8862a;background:#fdf8ed;border:1px solid rgba(184,134,42,0.2);padding:3px 10px;border-radius:100px;margin-bottom:10px}
+.webinar-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#1a1a1a;margin-bottom:6px;line-height:1.35}
+.webinar-meta{font-size:0.72rem;color:#aaa;display:flex;gap:14px;flex-wrap:wrap}
+.webinar-meta span{display:flex;align-items:center;gap:4px}
+
+/* ── DISCLAIMER ── */
+.disclaimer-box{background:#f9f7f3;border:1px solid #e8e4dc;border-radius:10px;padding:16px 20px;font-size:0.72rem;color:#888;line-height:1.75;margin-bottom:28px}
+.disclaimer-box strong{color:#555}
+
+/* ── FOOTER ── */
+.footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
+.footer-bar a{color:rgba(255,255,255,0.4);text-decoration:none}
+
+@media(max-width:640px){
+  html{font-size:17px}
+  .topbar{padding:0 16px;min-height:52px}
+  .wm-link{padding:8px 14px 8px 0;margin-right:10px}
+  .wm-url{display:none}
+  .nav-btn{font-size:0.62rem;padding:5px 9px}
+  .hero{padding:40px 18px}
+  .section{padding:28px 18px}
+  .section-divider{margin:0 18px}
+  .webinar-grid{grid-template-columns:1fr}
+  .footer-bar{padding:16px 18px}
+}
+@media(min-width:641px) and (max-width:900px){
+  html{font-size:17px}
+  .section{padding:32px 28px}
+}
+@media(min-width:1400px){html{font-size:19px}.page{max-width:1200px}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="wm-link" href="index.html">
+      <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
+      <div class="wm-url">punjabifinance.com</div>
+    </a>
+    <div class="topbar-nav">
+      <a class="nav-btn" href="index.html">Portfolio</a>
+      <a class="nav-btn" href="community.html">Community</a>
+      <a class="nav-btn active" href="webinars.html">Webinars</a>
+      <a class="nav-btn" href="links.html">Links</a>
+      <a class="nav-btn" href="mediakit.html">Media Kit</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">&#127891; Members Only</div>
+    <div class="hero-title">Past Webinars &amp;<br><span>Deep Dives</span></div>
+    <div class="hero-sub">Recorded sessions covering investing strategies, market analysis, options selling, and portfolio management. Available exclusively to community members.</div>
+  </div>
+</div>
+
+<!-- LOCK GATE -->
+<div class="section section-cream" id="lock-section">
+  <div class="lock-gate">
+    <div class="lock-icon">&#128274;</div>
+    <div class="lock-title">Members-Only Content</div>
+    <div class="lock-sub">Webinar recordings are available exclusively to Punjabi Finance community members. Enter your monthly code or join the community to watch.</div>
+    <div class="lock-input-row">
+      <input class="lock-input" id="lock-input" type="text" placeholder="Enter code e.g. PF-APR-2026" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlock()">
+      <button class="lock-btn" onclick="tryUnlock()">Unlock</button>
+    </div>
+    <div class="lock-error" id="lock-error"></div>
+    <div class="lock-divider">or</div>
+    <a class="lock-join-btn" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join the Community</a>
+    <div class="lock-hint">Members receive the monthly code inside the WhatsApp group.<br>Code updates the 1st of every month.</div>
+  </div>
+</div>
+
+<!-- WEBINARS CONTENT (hidden until unlocked) -->
+<div id="webinars-content" style="display:none">
+
+  <div class="section section-cream">
+    <div class="disclaimer-box">
+      <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
+    </div>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="section">
+    <div class="sec-label">All Recordings</div>
+    <div class="webinar-grid" id="webinar-grid">
+
+      <!-- ─── ADD YOUR WEBINARS BELOW ─── -->
+      <!-- Copy one of these card blocks and paste it for each new webinar -->
+      <!-- Replace the Vimeo ID in the src URL with your actual Vimeo video ID -->
+      <!-- Format: https://player.vimeo.com/video/YOUR_VIDEO_ID -->
+
+      <div class="webinar-card">
+        <div class="webinar-thumb">
+          <!-- Replace VIMEO_ID_1 with your actual Vimeo video ID -->
+          <iframe src="https://player.vimeo.com/video/VIMEO_ID_1?title=0&byline=0&portrait=0" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="webinar-body">
+          <div class="webinar-tag">Options Selling</div>
+          <div class="webinar-title">Introduction to Selling Covered Calls &amp; Cash-Secured Puts</div>
+          <div class="webinar-meta">
+            <span>&#128197; Jan 2025</span>
+            <span>&#9201; 62 min</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="webinar-card">
+        <div class="webinar-thumb">
+          <!-- Replace VIMEO_ID_2 with your actual Vimeo video ID -->
+          <iframe src="https://player.vimeo.com/video/VIMEO_ID_2?title=0&byline=0&portrait=0" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="webinar-body">
+          <div class="webinar-tag">Portfolio Strategy</div>
+          <div class="webinar-title">Building a Long-Term Portfolio: My Process &amp; Framework</div>
+          <div class="webinar-meta">
+            <span>&#128197; Mar 2025</span>
+            <span>&#9201; 74 min</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="webinar-card">
+        <div class="webinar-thumb">
+          <!-- Replace VIMEO_ID_3 with your actual Vimeo video ID -->
+          <iframe src="https://player.vimeo.com/video/VIMEO_ID_3?title=0&byline=0&portrait=0" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="webinar-body">
+          <div class="webinar-tag">Tax &amp; Accounts</div>
+          <div class="webinar-title">TFSA vs RRSP vs FHSA: Which Accounts to Use &amp; When</div>
+          <div class="webinar-meta">
+            <span>&#128197; Jun 2025</span>
+            <span>&#9201; 55 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── END OF WEBINAR CARDS ─── -->
+
+    </div>
+  </div>
+
+</div><!-- end webinars-content -->
+
+<div class="footer-bar">
+  Not financial advice &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp;
+  <a href="index.html">Portfolio</a> &nbsp;&middot;&nbsp;
+  <a href="community.html">Community</a> &nbsp;&middot;&nbsp;
+  <a href="links.html">Links</a>
+</div>
+
+</div><!-- end page -->
+
+<script>
+// Password comes from pf-config.js (PF_MONTHLY_CODE)
+// Change it there — this page picks it up automatically.
+const LOCK_KEY    = 'pf_unlocked_v2';
+const LOCK_EXPIRY = 'pf_unlock_expiry_v2';
+const LOCK_VER    = 'pf_unlock_ver_v2';
+
+function isUnlocked(){
+  if(localStorage.getItem(LOCK_VER) !== PF_MONTHLY_CODE) return false;
+  const exp = localStorage.getItem(LOCK_EXPIRY);
+  if(!exp || Date.now() > parseInt(exp)){ clearUnlock(); return false; }
+  return localStorage.getItem(LOCK_KEY) === '1';
+}
+function setUnlocked(){
+  const now = new Date();
+  const exp = new Date(now.getFullYear(), now.getMonth()+1, 1).getTime();
+  localStorage.setItem(LOCK_KEY, '1');
+  localStorage.setItem(LOCK_EXPIRY, exp);
+  localStorage.setItem(LOCK_VER, PF_MONTHLY_CODE);
+}
+function clearUnlock(){
+  localStorage.removeItem(LOCK_KEY);
+  localStorage.removeItem(LOCK_EXPIRY);
+  localStorage.removeItem(LOCK_VER);
+}
+function tryUnlock(){
+  const val = (document.getElementById('lock-input').value||'').trim().toUpperCase();
+  if(val === PF_MONTHLY_CODE.toUpperCase()){
+    setUnlocked(); showContent();
+  } else {
+    document.getElementById('lock-error').textContent = 'Incorrect code. Get the code inside the WhatsApp community.';
+  }
+}
+function showContent(){
+  document.getElementById('lock-section').style.display = 'none';
+  document.getElementById('webinars-content').style.display = 'block';
+}
+
+// Check on load
+if(isUnlocked()) showContent();
+</script>
+</body>
+</html>

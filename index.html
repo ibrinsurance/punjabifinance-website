@@ -280,6 +280,7 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 .locked *{color:#c8c4bc!important;background:transparent!important}
 .lock-bar-cover{filter:blur(5px);user-select:none;pointer-events:none;color:#c8c4bc!important}
 </style>
+<script src="pf-config.js"></script>
 </head>
 <body>
 <div class="page">
@@ -292,6 +293,7 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
     <div class="topbar-nav">
       <a class="nav-btn active" href="index.html">Portfolio</a>
       <a class="nav-btn" href="community.html">Community</a>
+      <a class="nav-btn" href="webinars.html">Webinars</a>
       <a class="nav-btn" href="links.html">Links</a>
       <a class="nav-btn" href="mediakit.html">Media Kit</a>
     </div>
@@ -511,13 +513,11 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 
 <script>
 // ── PAYWALL ──
-// Update MONTHLY_CODE each month. Format: PF-MMM-YYYY
-const MONTHLY_CODE = 'PF-APR-2026';
-const LOCK_KEY     = 'pf_unlocked_v2';   // v2 = new key, ignores any old stored state
+// Password is set in pf-config.js — change it there each month
+const MONTHLY_CODE = PF_MONTHLY_CODE;
+const LOCK_KEY     = 'pf_unlocked_v2';
 const LOCK_EXPIRY  = 'pf_unlock_expiry_v2';
 const LOCK_VER     = 'pf_unlock_ver_v2';
-
-// Clear any old v1 keys from previous builds
 localStorage.removeItem('pf_unlocked');
 localStorage.removeItem('pf_unlock_expiry');
 localStorage.removeItem('pf_unlock_ver');
