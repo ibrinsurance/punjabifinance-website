@@ -96,6 +96,24 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   .features-grid,.steps{grid-template-columns:1fr 1fr}
   .section{padding:44px 28px}
 }
+
+/* Mobile nav: hide lower-priority items on small screens */
+@media(max-width:480px){
+  .topbar{padding:0 12px;min-height:50px}
+  .wm-link{padding:7px 12px 7px 0;margin-right:8px}
+  .wm-url{display:none}
+  .topbar-nav{gap:2px;overflow:hidden}
+  .nav-btn{font-size:0.6rem;padding:5px 8px;letter-spacing:0}
+  /* Hide Media Kit label on very small — keep as icon-only */
+  .nav-btn[href="mediakit.html"]::before{content:'✉';margin-right:0}
+  .nav-btn[href="mediakit.html"] span, .nav-btn[href="mediakit.html"]{font-size:0}
+  .nav-btn[href="mediakit.html"]::before{font-size:0.9rem}
+  /* Shorten labels */
+  .nav-btn[href="community.html"]{display:none}
+}
+@media(max-width:400px){
+  .nav-btn[href="webinars.html"]{display:none}
+}
 </style>
 </head>
 <body>
@@ -163,6 +181,11 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       <span class="feat-icon">&#129309;</span>
       <div class="feat-title">Investor Networking</div>
       <div class="feat-desc">Connect with investors building real long-term wealth. Relationships matter as much as returns.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">&#127891;</span>
+      <div class="feat-title">Members-Only Webinars</div>
+      <div class="feat-desc">Exclusive deep-dive sessions on investing strategies, portfolio management, and market topics — plus access to all past recordings in the webinar archive.</div>
     </div>
     <div class="feat-card">
       <span class="feat-icon">&#128181;</span>
