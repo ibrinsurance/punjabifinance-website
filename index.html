@@ -183,10 +183,11 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 .footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
 @media(max-width:640px){
   html{font-size:17px}
-  .topbar{padding:0 16px;min-height:52px}
-  .wm-link{padding:8px 14px 8px 0;margin-right:10px}
+  .topbar{padding:0 12px;min-height:50px}
+  .wm-link{padding:7px 12px 7px 0;margin-right:8px}
   .wm-url{display:none}
-  .nav-btn{font-size:0.62rem;padding:5px 9px}
+  .topbar-nav{gap:2px;overflow:hidden}
+  .nav-btn{font-size:0.6rem;padding:5px 8px;letter-spacing:0}
   .section{padding:28px 18px}
   .section-divider{margin:0 18px}
   .stats-row{grid-template-columns:repeat(2,1fr);gap:12px}
@@ -207,6 +208,14 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
   .cta-band{border-radius:12px;padding:28px 22px}
   .cta-heading{font-size:1.5rem}
   .footer-bar{padding:16px 18px}
+}
+
+@media(max-width:480px){
+  .nav-btn[href="mediakit.html"]{display:none}
+}
+@media(max-width:400px){
+  .nav-btn[href="webinars.html"]{display:none}
+  .nav-btn[href="community.html"]{display:none}
 }
 @media(min-width:641px) and (max-width:900px){
   html{font-size:17px}
@@ -309,7 +318,7 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
     <div class="modal-title">Unlock Full Portfolio</div>
     <div class="modal-sub">Members get access to share counts, avg costs, book value, P&amp;L, and allocation. Enter your monthly code or join the community.</div>
     <div class="modal-input-row">
-      <input class="modal-input" id="modal-code-input" type="text" placeholder="Enter code e.g. PF-APR-2026" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlockModal()">
+      <input class="modal-input" id="modal-code-input" type="text" placeholder="Enter your member code" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlockModal()">
       <button class="modal-btn" onclick="tryUnlockModal()">Unlock</button>
     </div>
     <div class="modal-error" id="modal-error"></div>
@@ -385,7 +394,7 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
     <div class="lock-title">Members-Only Portfolio Data</div>
     <div class="lock-sub">Share count, avg cost, book value, market value, and P&amp;L are visible to members only. Enter your monthly code or join the community to unlock.</div>
     <div class="lock-input-row">
-      <input class="lock-input" id="lock-code-input" type="text" placeholder="Enter member code e.g. PF-APR-2026" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlock()">
+      <input class="lock-input" id="lock-code-input" type="text" placeholder="Enter your member code" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlock()">
       <button class="lock-btn" onclick="tryUnlock()">Unlock</button>
     </div>
     <div class="lock-error" id="lock-error"></div>
@@ -532,7 +541,7 @@ function isUnlocked(){
 }
 function setUnlocked(){
   const now = new Date();
-  const expiry = new Date(now.getFullYear(), now.getMonth()+1, 1).getTime();
+  const expiry = Date.now() + 7*24*60*60*1000; // 7 days
   localStorage.setItem(LOCK_KEY, '1');
   localStorage.setItem(LOCK_EXPIRY, expiry);
   localStorage.setItem(LOCK_VER, MONTHLY_CODE);

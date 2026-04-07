@@ -91,7 +91,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .sec-sub{font-size:0.89rem;color:#777;line-height:1.7;max-width:560px;margin-bottom:36px}
 
 /* Platforms grid */
-.platforms{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+.platforms{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:28px}
 .plat-card{background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:24px 18px;text-align:center;position:relative;overflow:hidden}
 .plat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#b8862a}
 .plat-icon{font-size:1.8rem;margin-bottom:10px;display:block}
@@ -170,6 +170,24 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   .platforms{grid-template-columns:repeat(2,1fr)}
 }
 @media(min-width:1400px){html{font-size:19px}}
+
+/* Mobile nav: hide lower-priority items on small screens */
+@media(max-width:480px){
+  .topbar{padding:0 12px;min-height:50px}
+  .wm-link{padding:7px 12px 7px 0;margin-right:8px}
+  .wm-url{display:none}
+  .topbar-nav{gap:2px;overflow:hidden}
+  .nav-btn{font-size:0.6rem;padding:5px 8px;letter-spacing:0}
+  /* Hide Media Kit label on very small — keep as icon-only */
+  .nav-btn[href="mediakit.html"]::before{content:'✉';margin-right:0}
+  .nav-btn[href="mediakit.html"] span, .nav-btn[href="mediakit.html"]{font-size:0}
+  .nav-btn[href="mediakit.html"]::before{font-size:0.9rem}
+  /* Shorten labels */
+  .nav-btn[href="community.html"]{display:none}
+}
+@media(max-width:400px){
+  .nav-btn[href="webinars.html"]{display:none}
+}
 </style>
 </head>
 <body>
@@ -189,7 +207,6 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       <a class="nav-btn active" href="mediakit.html">Media Kit</a>
     </div>
   </div>
-  <div class="topbar-right">Sponsor Deck</div>
 </div>
 
 <!-- HERO -->
@@ -204,7 +221,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       <span class="hero-tag">Wealth Building</span>
       <span class="hero-tag">Canadian Immigrants</span>
     </div>
-    <div class="hero-bio">Canada&rsquo;s leading Punjabi-language personal finance creator &mdash; building financial literacy across 178K+ followers with authentic, trust-driven content since 2021.</div>
+    <div class="hero-bio">Canada&rsquo;s leading Punjabi-language personal finance creator &mdash; building financial literacy across 185K+ followers with authentic, trust-driven content since 2021.</div>
     <div class="hero-btns">
       <a class="btn-gold" href="/cdn-cgi/l/email-protection#ec9c9982868d8e858a85828d828f89ac83999880838387c28f8381">&#9993; Email Me Now</a>
       <a class="btn-ghost" href="#collab">View Partnership Options &darr;</a>
@@ -215,8 +232,8 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <!-- STAT STRIP -->
 <div class="stat-strip">
   <div class="stat-strip-inner">
-    <div class="ss-item"><div class="ss-num">178K+</div><div class="ss-label">Total Followers</div></div>
-    <div class="ss-item"><div class="ss-num">4</div><div class="ss-label">Active Platforms</div></div>
+    <div class="ss-item"><div class="ss-num">185K+</div><div class="ss-label">Total Followers</div></div>
+    <div class="ss-item"><div class="ss-num">5</div><div class="ss-label">Active Platforms</div></div>
     <div class="ss-item"><div class="ss-num">2021</div><div class="ss-label">Creator Since</div></div>
     <div class="ss-item"><div class="ss-num">&#35;1</div><div class="ss-label">Punjabi Finance Creator</div></div>
   </div>
@@ -255,11 +272,17 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       <div class="plat-num">3.2K</div>
       <div class="plat-sub">Subscribers</div>
     </div>
+    <div class="plat-card">
+      <span class="plat-icon">&#128308;</span>
+      <div class="plat-name">Threads</div>
+      <div class="plat-num">7K</div>
+      <div class="plat-sub">Followers</div>
+    </div>
   </div>
 
   <div class="reach-band">
     <div>
-      <div class="reach-num">178,200+</div>
+      <div class="reach-num">185,200+</div>
       <div class="reach-label">Combined Followers Across All Platforms</div>
     </div>
     <div class="reach-right">A niche, high-trust audience of Punjabi-speaking Canadians and immigrants actively seeking financial education &mdash; one of the most underserved and financially motivated demographics in Canada.</div>
@@ -357,6 +380,6 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
     </div>
     <div class="cta-box">
-      <div class="cta-headline">Reach 178K+ Canadians Who Care About Money</div>
+      <div class="cta-headline">Reach 185K+ Canadians Who Care About Money</div>
       <div class="cta-sub-text">A highly engaged, niche audience in the Punjabi-Canadian community &mdash; trust-driven and financially motivated. Every partnership is authentic and educational-first.</div>
       <

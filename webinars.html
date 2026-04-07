@@ -99,6 +99,24 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   .section{padding:32px 28px}
 }
 @media(min-width:1400px){html{font-size:19px}.page{max-width:1200px}}
+
+/* Mobile nav: hide lower-priority items on small screens */
+@media(max-width:480px){
+  .topbar{padding:0 12px;min-height:50px}
+  .wm-link{padding:7px 12px 7px 0;margin-right:8px}
+  .wm-url{display:none}
+  .topbar-nav{gap:2px;overflow:hidden}
+  .nav-btn{font-size:0.6rem;padding:5px 8px;letter-spacing:0}
+  /* Hide Media Kit label on very small — keep as icon-only */
+  .nav-btn[href="mediakit.html"]::before{content:'✉';margin-right:0}
+  .nav-btn[href="mediakit.html"] span, .nav-btn[href="mediakit.html"]{font-size:0}
+  .nav-btn[href="mediakit.html"]::before{font-size:0.9rem}
+  /* Shorten labels */
+  .nav-btn[href="community.html"]{display:none}
+}
+@media(max-width:400px){
+  .nav-btn[href="webinars.html"]{display:none}
+}
 </style>
 </head>
 <body>
@@ -137,7 +155,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     <div class="lock-title">Members-Only Content</div>
     <div class="lock-sub">Webinar recordings are available exclusively to Punjabi Finance community members. Enter your monthly code or join the community to watch.</div>
     <div class="lock-input-row">
-      <input class="lock-input" id="lock-input" type="text" placeholder="Enter code e.g. PF-APR-2026" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlock()">
+      <input class="lock-input" id="lock-input" type="text" placeholder="Enter your member code" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlock()">
       <button class="lock-btn" onclick="tryUnlock()">Unlock</button>
     </div>
     <div class="lock-error" id="lock-error"></div>
@@ -242,7 +260,7 @@ function isUnlocked(){
 }
 function setUnlocked(){
   const now = new Date();
-  const exp = new Date(now.getFullYear(), now.getMonth()+1, 1).getTime();
+  const exp = Date.now() + 7*24*60*60*1000; // 7 days
   localStorage.setItem(LOCK_KEY, '1');
   localStorage.setItem(LOCK_EXPIRY, exp);
   localStorage.setItem(LOCK_VER, PF_MONTHLY_CODE);
