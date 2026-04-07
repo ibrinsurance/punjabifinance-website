@@ -216,7 +216,51 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 }
 @media(min-width:1400px){html{font-size:19px}.page{max-width:1200px}}
 
-/* ── PAYWALL ── */
+/* ── PIE CHART ── */
+.pie-wrap{display:flex;align-items:center;gap:40px;flex-wrap:wrap;justify-content:center;margin-bottom:20px}
+.pie-canvas-wrap{position:relative;flex-shrink:0}
+.pie-center-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
+.pie-center-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#1a1a1a;line-height:1}
+.pie-center-sub{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:#9a9a9a;font-weight:600;margin-top:3px}
+.pie-legend{display:flex;flex-direction:column;gap:8px;min-width:160px}
+.pie-leg-item{display:flex;align-items:center;gap:10px;font-size:0.78rem}
+.pie-leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.pie-leg-ticker{font-weight:700;color:#1a1a1a;width:52px}
+.pie-leg-pct{color:#888;font-size:0.72rem}
+.pie-share-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.pie-share-btn{display:inline-flex;align-items:center;gap:8px;background:#1a1a1a;color:#fff;border:none;padding:11px 22px;border-radius:9px;font-size:0.83rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
+.pie-share-btn:hover{background:#333}
+.pie-share-hint{font-size:0.67rem;color:#aaa}
+@media(max-width:640px){.pie-wrap{gap:24px}.pie-legend{flex-direction:row;flex-wrap:wrap;gap:10px 20px}.pie-leg-item{min-width:80px}}
+.unlock-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fdf8ed;border:1px solid rgba(184,134,42,0.25);border-radius:10px;padding:10px 16px;margin-bottom:16px;flex-wrap:wrap}
+.unlock-bar-left{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:#888}
+.unlock-bar-left strong{color:#1a1a1a}
+.unlock-bar-btn{display:inline-flex;align-items:center;gap:6px;background:#1a1a1a;color:#fff;font-size:0.72rem;font-weight:600;padding:7px 16px;border-radius:7px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:background .15s}
+.unlock-bar-btn:hover{background:#333}
+.unlock-bar-join{display:inline-flex;align-items:center;gap:6px;background:#25d366;color:#052a10;font-size:0.72rem;font-weight:600;padding:7px 16px;border-radius:7px;text-decoration:none;white-space:nowrap;transition:background .15s}
+.unlock-bar-join:hover{background:#1fb356}
+
+/* Modal */
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999;align-items:center;justify-content:center;padding:20px}
+.modal-backdrop.open{display:flex}
+.modal{background:#fff;border-radius:18px;padding:36px 32px;max-width:420px;width:100%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,0.2);position:relative}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#bbb;line-height:1;padding:4px}
+.modal-close:hover{color:#666}
+.modal-icon{font-size:2rem;margin-bottom:12px}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#1a1a1a;margin-bottom:6px}
+.modal-sub{font-size:0.78rem;color:#888;line-height:1.7;margin-bottom:22px}
+.modal-input-row{display:flex;gap:8px;margin-bottom:8px}
+.modal-input{flex:1;padding:11px 16px;border:1.5px solid #e8e4dc;border-radius:9px;font-size:0.83rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;background:#fafaf8}
+.modal-input:focus{border-color:#b8862a}
+.modal-btn{background:#1a1a1a;color:#fff;border:none;padding:11px 20px;border-radius:9px;font-size:0.83rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s;white-space:nowrap}
+.modal-btn:hover{background:#333}
+.modal-error{font-size:0.72rem;color:#c0392b;min-height:18px;margin-bottom:10px;text-align:left}
+.modal-divider{display:flex;align-items:center;gap:10px;color:#ccc;font-size:0.72rem;margin-bottom:14px}
+.modal-divider::before,.modal-divider::after{content:'';flex:1;height:1px;background:#e8e4dc}
+.modal-join{display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#052a10;padding:12px 20px;border-radius:9px;font-weight:700;font-size:0.83rem;text-decoration:none;transition:background .15s}
+.modal-join:hover{background:#1fb356}
+.modal-hint{font-size:0.65rem;color:#ccc;margin-top:12px;line-height:1.6}
+@media(max-width:480px){.modal{padding:28px 20px}.unlock-bar{flex-direction:column;align-items:flex-start}.unlock-bar-right{display:flex;gap:8px;flex-wrap:wrap}}
 .lock-gate{background:#fff;border:1.5px solid #e8e4dc;border-radius:16px;padding:32px 28px;text-align:center;margin:24px 0}
 .lock-icon{font-size:2rem;margin-bottom:12px}
 .lock-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#1a1a1a;margin-bottom:6px}
@@ -255,6 +299,24 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 
 </div>
 
+<!-- UNLOCK MODAL -->
+<div class="modal-backdrop" id="unlock-modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&#10005;</button>
+    <div class="modal-icon">&#128274;</div>
+    <div class="modal-title">Unlock Full Portfolio</div>
+    <div class="modal-sub">Members get access to share counts, avg costs, book value, P&amp;L, and allocation. Enter your monthly code or join the community.</div>
+    <div class="modal-input-row">
+      <input class="modal-input" id="modal-code-input" type="text" placeholder="Enter code e.g. PF-APR-2026" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlockModal()">
+      <button class="modal-btn" onclick="tryUnlockModal()">Unlock</button>
+    </div>
+    <div class="modal-error" id="modal-error"></div>
+    <div class="modal-divider">or</div>
+    <a class="modal-join" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join the Community to get the code</a>
+    <div class="modal-hint">Members receive the monthly code inside the WhatsApp group.<br>Code updates the 1st of every month.</div>
+  </div>
+</div>
+
 <!-- OVERVIEW -->
 <div class="section section-cream">
   <div class="sec-label">Portfolio Overview <span class="sec-label-tag">Live</span></div>
@@ -269,6 +331,14 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 
 <!-- HOLDINGS -->
 <div class="section section-white">
+  <!-- Unlock bar — shown when locked -->
+  <div class="unlock-bar" id="unlock-bar" style="display:none">
+    <div class="unlock-bar-left">&#128274; <strong>Portfolio data is locked.</strong> &nbsp;Members see full details.</div>
+    <div class="unlock-bar-right" style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="unlock-bar-btn" onclick="openModal()">&#128273; Enter Code</button>
+      <a class="unlock-bar-join" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join Community</a>
+    </div>
+  </div>
   <!-- Sort & Filter Controls -->
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center">
     <span style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#9a9a9a;font-weight:600">Sort by:</span>
@@ -311,7 +381,7 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
   <div class="lock-gate">
     <div class="lock-icon">&#128274;</div>
     <div class="lock-title">Members-Only Portfolio Data</div>
-    <div class="lock-sub">Share count, avg cost, book value, market value, P&amp;L, and allocation are visible to members only. Enter your monthly code or join the community to unlock.</div>
+    <div class="lock-sub">Share count, avg cost, book value, market value, and P&amp;L are visible to members only. Enter your monthly code or join the community to unlock.</div>
     <div class="lock-input-row">
       <input class="lock-input" id="lock-code-input" type="text" placeholder="Enter member code e.g. PF-APR-2026" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlock()">
       <button class="lock-btn" onclick="tryUnlock()">Unlock</button>
@@ -323,6 +393,18 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
   </div>
 </div>
 <div id="lock-gate-divider" class="section-divider" style="display:none"></div>
+
+<!-- PIE CHART -->
+<div class="section section-white" id="pie-section">
+  <div class="sec-label">Portfolio Allocation <span class="sec-label-tag">Live</span></div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
+    <canvas id="pie-chart" width="520" height="620" style="max-width:100%;border-radius:16px"></canvas>
+    <div class="pie-share-row">
+      <button class="pie-share-btn" onclick="sharePieChart()">&#128247; Share Chart</button>
+    </div>
+  </div>
+</div>
+<div class="section-divider"></div>
 
 <!-- BARS -->
 <div class="section section-slate">
@@ -431,9 +513,14 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 // ── PAYWALL ──
 // Update MONTHLY_CODE each month. Format: PF-MMM-YYYY
 const MONTHLY_CODE = 'PF-APR-2026';
-const LOCK_KEY     = 'pf_unlocked';
-const LOCK_EXPIRY  = 'pf_unlock_expiry';
-const LOCK_VER     = 'pf_unlock_ver'; // tracks which code was used to unlock
+const LOCK_KEY     = 'pf_unlocked_v2';   // v2 = new key, ignores any old stored state
+const LOCK_EXPIRY  = 'pf_unlock_expiry_v2';
+const LOCK_VER     = 'pf_unlock_ver_v2';
+
+// Clear any old v1 keys from previous builds
+localStorage.removeItem('pf_unlocked');
+localStorage.removeItem('pf_unlock_expiry');
+localStorage.removeItem('pf_unlock_ver');
 
 function isUnlocked(){
   // If the code has changed since they last unlocked, force re-lock
@@ -455,12 +542,35 @@ function clearUnlock(){
   localStorage.removeItem(LOCK_EXPIRY);
   localStorage.removeItem(LOCK_VER);
 }
+function openModal(){
+  document.getElementById('unlock-modal').classList.add('open');
+  document.getElementById('modal-error').textContent = '';
+  document.getElementById('modal-code-input').value = '';
+  setTimeout(()=>document.getElementById('modal-code-input').focus(), 100);
+}
+function closeModal(){
+  document.getElementById('unlock-modal').classList.remove('open');
+}
+function tryUnlockModal(){
+  const val = (document.getElementById('modal-code-input').value||'').trim().toUpperCase();
+  if(val === MONTHLY_CODE.toUpperCase()){
+    setUnlocked();
+    closeModal();
+    document.getElementById('lock-gate-section').style.display = 'none';
+    document.getElementById('lock-gate-divider').style.display = 'none';
+    document.getElementById('unlock-bar').style.display = 'none';
+    if(lastPositions.length) renderPortfolio(lastPositions);
+  } else {
+    document.getElementById('modal-error').textContent = 'Incorrect code. Get the code inside the WhatsApp community.';
+  }
+}
 function tryUnlock(){
   const val = (document.getElementById('lock-code-input').value||'').trim().toUpperCase();
   if(val === MONTHLY_CODE.toUpperCase()){
     setUnlocked();
     document.getElementById('lock-gate-section').style.display = 'none';
     document.getElementById('lock-gate-divider').style.display = 'none';
+    document.getElementById('unlock-bar').style.display = 'none';
     if(lastPositions.length) renderPortfolio(lastPositions);
   } else {
     document.getElementById('lock-error').textContent = 'Incorrect code. Get the code inside the WhatsApp community.';
@@ -470,6 +580,7 @@ function applyLockState(){
   const unlocked = isUnlocked();
   document.getElementById('lock-gate-section').style.display = unlocked ? 'none' : 'block';
   document.getElementById('lock-gate-divider').style.display = unlocked ? 'none' : 'block';
+  document.getElementById('unlock-bar').style.display = unlocked ? 'none' : 'flex';
   document.querySelectorAll('.lockable').forEach(el=>{
     el.classList.toggle('locked', !unlocked);
   });
@@ -511,7 +622,265 @@ async function fetchSheetData(){
   return r.json();
 }
 
-// ── SORT STATE ──
+// ── PIE CHART ──
+function renderPieChart(positions){
+  const canvas = document.getElementById('pie-chart');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  const total = positions.reduce((s,p)=>s+p.mktCAD, 0);
+  if(!total) return;
+
+  const sorted = [...positions].sort((a,b)=>b.mktCAD-a.mktCAD);
+
+  // Donut sits in the top 76% of the canvas
+  const DONUT_H = H * 0.78;
+  const cx = W/2, cy = DONUT_H/2;
+  const R = W*0.41, ri = W*0.23, MID = (R+ri)/2, MIN_ARC = 42;
+  const MIN_PCT = (MIN_ARC/MID)/(2*Math.PI)*100;
+
+  const main = sorted.filter(p=>p.mktCAD/total*100 >= MIN_PCT);
+  const othersArr = sorted.filter(p=>p.mktCAD/total*100 < MIN_PCT);
+  const otherPct = othersArr.reduce((s,p)=>s+p.mktCAD/total*100, 0);
+
+  const slices = main.map(p=>({
+    t:p.ticker, pct:p.mktCAD/total*100,
+    col:TICKER_COLORS[p.ticker]||'#888'
+  }));
+  if(otherPct>0) slices.push({t:'Others', pct:otherPct, col:'#5a5a5a'});
+
+  // Dark background
+  ctx.fillStyle='#0f0d04';
+  ctx.beginPath();
+  if(ctx.roundRect) ctx.roundRect(0,0,W,H,16);
+  else { ctx.rect(0,0,W,H); }
+  ctx.fill();
+
+  // Gold glow centred on donut
+  const grd=ctx.createRadialGradient(cx,cy,0,cx,cy,W*0.5);
+  grd.addColorStop(0,'rgba(212,165,52,0.14)'); grd.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=grd; ctx.fillRect(0,0,W,DONUT_H);
+
+  // Draw donut (arc-only, no moveTo center)
+  let angle=-Math.PI/2;
+  slices.forEach(s=>{
+    const sweep=(s.pct/100)*Math.PI*2;
+    ctx.beginPath();
+    ctx.arc(cx,cy,R,angle,angle+sweep,false);
+    ctx.arc(cx,cy,ri,angle+sweep,angle,true);
+    ctx.closePath();
+    ctx.fillStyle=s.col; ctx.fill();
+    ctx.strokeStyle='#0f0d04'; ctx.lineWidth=3; ctx.stroke();
+    s._a=angle; s._s=sweep;
+    angle+=sweep;
+  });
+
+  // Center hole cleanup
+  ctx.beginPath(); ctx.arc(cx,cy,ri-1,0,Math.PI*2);
+  ctx.fillStyle='#0f0d04'; ctx.fill();
+
+  // Center: position count
+  ctx.fillStyle='#fff';
+  ctx.font=`800 ${Math.round(W*0.1)}px Georgia,serif`;
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(positions.length, cx, cy-W*0.022);
+  ctx.fillStyle='rgba(255,255,255,0.38)';
+  ctx.font=`400 ${Math.round(W*0.032)}px Arial,sans-serif`;
+  ctx.fillText('Positions', cx, cy+W*0.048);
+
+  // Labels inside each slice
+  slices.forEach(s=>{
+    const mid=s._a+s._s/2;
+    const arcLen=s._s*MID;
+    if(arcLen<MIN_ARC) return;
+    const lx=cx+Math.cos(mid)*MID;
+    const ly=cy+Math.sin(mid)*MID;
+    ctx.save(); ctx.translate(lx,ly);
+    const fsize=Math.min(W*0.042,Math.max(W*0.02,arcLen/5.2));
+    ctx.fillStyle='#fff';
+    ctx.font=`700 ${Math.round(fsize)}px Arial,sans-serif`;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(s.t, 0, -fsize*0.58);
+    ctx.fillStyle='rgba(255,255,255,0.85)';
+    ctx.font=`400 ${Math.round(fsize*0.8)}px Arial,sans-serif`;
+    ctx.fillText(s.pct.toFixed(1)+'%', 0, fsize*0.65);
+    ctx.restore();
+  });
+
+  // ── BELOW DONUT AREA ──
+  const belowTop = DONUT_H + 6;
+  const brandH   = H * 0.09;
+  const brandTop = H - brandH;
+
+  // Others: wrap text between donut bottom and branding
+  if(othersArr.length>0){
+    const ofsize = Math.round(W*0.026);
+    ctx.font=`400 ${ofsize}px Arial,sans-serif`;
+    const parts = othersArr.map(p=>p.ticker+' '+(p.mktCAD/total*100).toFixed(1)+'%');
+    const header = 'Other:';
+    const maxW = W-48;
+
+    // Wrap into lines
+    const lines = [];
+    let line = '';
+    parts.forEach(w=>{
+      const sep = line ? '  ·  ' : '';
+      if(ctx.measureText(line+sep+w).width > maxW && line){
+        lines.push(line); line=w;
+      } else { line += sep+w; }
+    });
+    if(line) lines.push(line);
+
+    const totalTextH = lines.length*(ofsize+8);
+    const textStartY = belowTop + ((brandTop-belowTop)-totalTextH)/2;
+
+    ctx.fillStyle='rgba(255,255,255,0.32)';
+    ctx.font=`600 ${ofsize}px Arial,sans-serif`;
+    ctx.textAlign='center'; ctx.textBaseline='top';
+    ctx.fillText('Others:', cx, textStartY);
+    ctx.font=`400 ${ofsize}px Arial,sans-serif`;
+    ctx.fillStyle='rgba(255,255,255,0.22)';
+    lines.forEach((l,i)=>{
+      ctx.fillText(l, cx, textStartY + (ofsize+8)*(i+1));
+    });
+  }
+
+  // Branding strip
+  ctx.fillStyle='rgba(212,165,52,0.15)';
+  ctx.fillRect(0, brandTop, W, brandH);
+  ctx.fillStyle='#d4a534';
+  ctx.font=`700 ${Math.round(W*0.038)}px Georgia,serif`;
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('Punjabi Finance', cx, brandTop + brandH*0.36);
+  ctx.fillStyle='rgba(255,255,255,0.22)';
+  ctx.font=`400 ${Math.round(W*0.024)}px Arial,sans-serif`;
+  ctx.fillText('punjabifinance.com', cx, brandTop + brandH*0.72);
+}
+
+// ── SHARE PIE CHART — 1080x1080 social-ready ──
+function sharePieChart(){
+  const positions = lastPositions;
+  if(!positions.length){ alert('Portfolio data not loaded yet.'); return; }
+
+  const SIZE=1080, cx=540, cy=540;
+  const off=document.createElement('canvas');
+  off.width=SIZE; off.height=SIZE;
+  const ctx=off.getContext('2d');
+
+  // Dark background + gold glow
+  ctx.fillStyle='#0f0d04'; ctx.fillRect(0,0,SIZE,SIZE);
+  const grd=ctx.createRadialGradient(cx,cy,0,cx,cy,SIZE*0.52);
+  grd.addColorStop(0,'rgba(212,165,52,0.14)'); grd.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=grd; ctx.fillRect(0,0,SIZE,SIZE);
+
+  // Header
+  ctx.fillStyle='#d4a534'; ctx.font='800 36px Georgia,serif';
+  ctx.textAlign='left'; ctx.textBaseline='top';
+  ctx.fillText('Punjabi Finance',56,48);
+  ctx.fillStyle='rgba(255,255,255,0.3)'; ctx.font='400 21px Arial,sans-serif';
+  ctx.fillText('@PunjabiFinance  ·  punjabifinance.com',56,94);
+
+  const total=positions.reduce((s,p)=>s+p.mktCAD,0);
+  const sorted=[...positions].sort((a,b)=>b.mktCAD-a.mktCAD);
+
+  // Any position whose slice arc (at midpoint radius) is < MIN_ARC px goes to Other
+  const R=295, ri=158, MID=(R+ri)/2, MIN_ARC=52;
+  const MIN_PCT=(MIN_ARC/MID)/(2*Math.PI)*100;
+
+  const main=sorted.filter(p=>p.mktCAD/total*100>=MIN_PCT);
+  const othersArr=sorted.filter(p=>p.mktCAD/total*100<MIN_PCT);
+  const otherPct=othersArr.reduce((s,p)=>s+p.mktCAD/total*100,0);
+
+  const slices=main.map(p=>({t:p.ticker,pct:p.mktCAD/total*100,col:TICKER_COLORS[p.ticker]||'#888',mkt:p.mktCAD}));
+  if(otherPct>0) slices.push({t:'Other',pct:otherPct,col:'#4a4a4a',mkt:0});
+
+  // === DRAW DONUT (arc-only, no moveTo center) ===
+  const THICK=R-ri; // donut thickness
+  let angle=-Math.PI/2;
+  slices.forEach(s=>{
+    const sweep=(s.pct/100)*Math.PI*2;
+    // Draw thick arc segment using beginPath + two arcs + closePath
+    ctx.beginPath();
+    ctx.arc(cx,cy,R,angle,angle+sweep,false);      // outer arc
+    ctx.arc(cx,cy,ri,angle+sweep,angle,true);       // inner arc (reverse)
+    ctx.closePath();
+    ctx.fillStyle=s.col; ctx.fill();
+    // Gap between slices
+    ctx.strokeStyle='#0f0d04'; ctx.lineWidth=4; ctx.stroke();
+    s._a=angle; s._s=sweep;
+    angle+=sweep;
+  });
+
+  // Center hole fill (clean up any stray pixels)
+  ctx.beginPath(); ctx.arc(cx,cy,ri-2,0,Math.PI*2);
+  ctx.fillStyle='#0f0d04'; ctx.fill();
+
+  // Center text: position count
+  ctx.fillStyle='#fff'; ctx.font='800 100px Georgia,serif';
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(positions.length, cx, cy-20);
+  ctx.fillStyle='rgba(255,255,255,0.38)'; ctx.font='400 28px Arial,sans-serif';
+  ctx.fillText('Positions', cx, cy+46);
+
+  // === LABELS INSIDE EACH SLICE ===
+  slices.forEach(s=>{
+    const mid=s._a+s._s/2;
+    const arcLen=s._s*MID;
+    if(arcLen<MIN_ARC) return;
+
+    const lx=cx+Math.cos(mid)*MID;
+    const ly=cy+Math.sin(mid)*MID;
+    ctx.save(); ctx.translate(lx,ly);
+
+    const fsize=Math.min(23,Math.max(12,arcLen/5));
+    ctx.fillStyle='#fff'; ctx.font=`700 ${fsize}px Arial,sans-serif`;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(s.t,0,-(fsize*0.6));
+    ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.font=`400 ${Math.round(fsize*0.82)}px Arial,sans-serif`;
+    ctx.fillText(s.pct.toFixed(1)+'%',0,fsize*0.65);
+    ctx.restore();
+  });
+
+  // === OTHERS LIST below chart ===
+  if(othersArr.length>0){
+    const BY=cy+R+36;
+    ctx.fillStyle='rgba(255,255,255,0.38)'; ctx.font='600 19px Arial,sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='top';
+    ctx.fillText('Other (each < '+MIN_PCT.toFixed(0)+'%):',cx,BY);
+    const cols=3, rowH=32;
+    othersArr.forEach((p,i)=>{
+      const col=i%cols, row=Math.floor(i/cols);
+      const cw=SIZE/cols;
+      const tx=cw*col+cw/2, ty=BY+30+row*rowH;
+      const dotCol=TICKER_COLORS[p.ticker]||'#888';
+      ctx.beginPath(); ctx.arc(tx-38,ty+10,7,0,Math.PI*2);
+      ctx.fillStyle=dotCol; ctx.fill();
+      ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font='400 18px Arial,sans-serif';
+      ctx.textAlign='left';
+      ctx.fillText(p.ticker+' '+(p.mktCAD/total*100).toFixed(1)+'%',tx-26,ty);
+    });
+  }
+
+  // Disclaimer bar
+  ctx.fillStyle='rgba(212,165,52,0.1)'; ctx.fillRect(0,SIZE-56,SIZE,56);
+  ctx.fillStyle='rgba(255,255,255,0.16)'; ctx.font='400 18px Arial,sans-serif';
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('For educational purposes only. Not financial advice.',cx,SIZE-27);
+
+  const link=document.createElement('a');
+  link.download='PunjabiFinance-Portfolio-'+new Date().toLocaleDateString('en-CA')+'.png';
+  link.href=off.toDataURL('image/png'); link.click();
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r); ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h); ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r); ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath();
+}
 let currentSort = 'plPct';
 let lastPositions = [];
 
@@ -571,7 +940,7 @@ function renderPortfolio(positions){
       <td>${priceDisp}</td>
       <td class="lockable">${fmtC(x.bookCAD)}</td>
       <td class="lockable">${fmtC(x.mktCAD)}</td>
-      <td class="lockable">
+      <td>
         <div class="alloc-cell">
           <div class="alloc-bar-mini">
             <div class="alloc-bar-mini-fill" style="width:${Math.min(allocPct*3,100).toFixed(1)}%;background:${col}"></div>
@@ -604,6 +973,9 @@ function renderPortfolio(positions){
 
   // Apply lock state after rendering
   applyLockState();
+
+  // Pie chart — always visible, uses allocation data
+  renderPieChart(positions);
 }
 
 // ── RENDER OPTIONS ──
