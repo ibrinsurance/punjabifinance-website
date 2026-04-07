@@ -232,8 +232,9 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 .lock-join-btn{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#052a10;padding:11px 24px;border-radius:9px;font-weight:700;font-size:0.83rem;text-decoration:none;transition:background .15s}
 .lock-join-btn:hover{background:#1fb356}
 .lock-hint{font-size:0.65rem;color:#ccc;margin-top:14px;line-height:1.6}
-.locked{filter:blur(6px);user-select:none;pointer-events:none}
-.lock-bar-cover{filter:blur(5px);user-select:none;pointer-events:none}
+.locked{filter:blur(7px);user-select:none;pointer-events:none;color:#c8c4bc!important}
+.locked *{color:#c8c4bc!important;background:transparent!important}
+.lock-bar-cover{filter:blur(5px);user-select:none;pointer-events:none;color:#c8c4bc!important}
 </style>
 </head>
 <body>
@@ -432,28 +433,31 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 const MONTHLY_CODE = 'PF-APR-2026';
 const LOCK_KEY     = 'pf_unlocked';
 const LOCK_EXPIRY  = 'pf_unlock_expiry';
+const LOCK_VER     = 'pf_unlock_ver'; // tracks which code was used to unlock
 
 function isUnlocked(){
+  // If the code has changed since they last unlocked, force re-lock
+  if(localStorage.getItem(LOCK_VER) !== MONTHLY_CODE){ clearUnlock(); return false; }
   const expiry = localStorage.getItem(LOCK_EXPIRY);
   if(!expiry) return false;
   if(Date.now() > parseInt(expiry)){ clearUnlock(); return false; }
   return localStorage.getItem(LOCK_KEY) === '1';
 }
 function setUnlocked(){
-  // Expires at end of current month
   const now = new Date();
   const expiry = new Date(now.getFullYear(), now.getMonth()+1, 1).getTime();
   localStorage.setItem(LOCK_KEY, '1');
   localStorage.setItem(LOCK_EXPIRY, expiry);
+  localStorage.setItem(LOCK_VER, MONTHLY_CODE);
 }
 function clearUnlock(){
   localStorage.removeItem(LOCK_KEY);
   localStorage.removeItem(LOCK_EXPIRY);
+  localStorage.removeItem(LOCK_VER);
 }
 function tryUnlock(){
   const val = (document.getElementById('lock-code-input').value||'').trim().toUpperCase();
-  const expected = MONTHLY_CODE.toUpperCase();
-  if(val === expected){
+  if(val === MONTHLY_CODE.toUpperCase()){
     setUnlocked();
     document.getElementById('lock-gate-section').style.display = 'none';
     document.getElementById('lock-gate-divider').style.display = 'none';
@@ -464,16 +468,10 @@ function tryUnlock(){
 }
 function applyLockState(){
   const unlocked = isUnlocked();
-  // Show/hide lock gate
   document.getElementById('lock-gate-section').style.display = unlocked ? 'none' : 'block';
   document.getElementById('lock-gate-divider').style.display = unlocked ? 'none' : 'block';
-  // Lock/unlock all sensitive cells
   document.querySelectorAll('.lockable').forEach(el=>{
     el.classList.toggle('locked', !unlocked);
-  });
-  // Lock/unlock bar chart numbers
-  document.querySelectorAll('.bar-pct').forEach(el=>{
-    el.classList.toggle('lock-bar-cover', !unlocked);
   });
 }
 
@@ -565,7 +563,7 @@ function renderPortfolio(positions){
     const allocPct = totMktCAD > 0 ? (x.mktCAD / totMktCAD * 100) : 0;
     const priceDisp = x.ticker==='FDGRX'
       ? `<div class="tv">${fmtU(x.curPrice)}</div><div class="tsub">NAV</div>`
-      : `<div class="tv">${fmtU(x.curPrice)}</div><div class="tsub ${x.plPct>=0?'up':'dn'}">${fmtP((x.curPrice-x.avgCost)/x.avgCost*100)} vs avg</div>`;
+      : `<div class="tv">${fmtU(x.curPrice)}</div><div class="tsub lockable ${x.plPct>=0?'up':'dn'}">${fmtP((x.curPrice-x.avgCost)/x.avgCost*100)} vs avg</div>`;
     return `<tr>
       <td><span class="tk" style="color:${col}">${x.ticker}</span></td>
       <td class="lockable">${fmtNum(x.shares)}</td>
@@ -589,14 +587,18 @@ function renderPortfolio(positions){
   // Return bars
   const maxAbs = Math.max(...positions.map(x=>Math.abs(x.plPct)));
   const barData = [...positions].sort((a,b)=>b.plPct-a.plPct);
+  const unlocked = isUnlocked();
+  // When locked: all bars same neutral width/colour so nothing is revealed
   document.getElementById('bar-chart').innerHTML = barData.map((x,i)=>{
     const col = TICKER_COLORS[x.ticker] || DEFAULT_COLORS[i%DEFAULT_COLORS.length];
+    const barWidth  = unlocked ? (Math.abs(x.plPct)/maxAbs*100).toFixed(1) : (55 + (i*3)%25).toFixed(1);
+    const barColor  = unlocked ? (x.plCAD>=0?col:'#c0392b') : '#b8862a';
     return `<div class="bar-row">
       <div class="bar-tk">${x.ticker}</div>
       <div class="bar-track">
-        <div class="bar-fill" style="width:${(Math.abs(x.plPct)/maxAbs*100).toFixed(1)}%;background:${x.plCAD>=0?col:'#c0392b'}"></div>
+        <div class="bar-fill" style="width:${barWidth}%;background:${barColor}"></div>
       </div>
-      <div class="bar-pct">${fmtP(x.plPct)}</div>
+      <div class="bar-pct ${unlocked?'':'lock-bar-cover'}">${fmtP(x.plPct)}</div>
     </div>`;
   }).join('');
 
