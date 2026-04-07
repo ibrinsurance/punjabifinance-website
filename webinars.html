@@ -63,11 +63,11 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .webinar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
 .webinar-card{background:#fff;border:1px solid #e8e4dc;border-radius:14px;overflow:hidden;transition:transform .18s,box-shadow .18s}
 .webinar-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,0.08)}
-.webinar-thumb{position:relative;padding-bottom:56.25%;background:#1a1a1a;overflow:hidden}
-.webinar-thumb iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
-.webinar-thumb-locked{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1a1a,#2d2d2d);cursor:pointer}
-.webinar-thumb-locked-icon{font-size:2rem;margin-bottom:8px}
-.webinar-thumb-locked-text{font-size:0.72rem;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase}
+.webinar-thumb-static{height:130px;background:linear-gradient(135deg,#1a1a1a22,#b8862a11);display:flex;align-items:center;justify-content:center;border-bottom:1px solid #e8e4dc}
+.wt-icon{font-size:2.8rem;color:#b8862a}
+.webinar-watch-btn{display:none;align-items:center;gap:7px;margin-top:14px;background:#1a1a1a;color:#fff;font-size:0.72rem;font-weight:600;padding:8px 18px;border-radius:8px;text-decoration:none;transition:background .15s;letter-spacing:0.04em}
+.webinar-watch-btn:hover{background:#333}
+.webinar-locked-msg{display:inline-flex;align-items:center;gap:7px;margin-top:14px;background:#f4f2ee;color:#888;font-size:0.72rem;font-weight:600;padding:8px 18px;border-radius:8px;border:1px solid #e8e4dc;letter-spacing:0.04em;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}.webinar-locked-msg:hover{background:#e8e4dc;color:#555}
 .webinar-body{padding:18px 18px 20px}
 .webinar-tag{display:inline-block;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:#b8862a;background:#fdf8ed;border:1px solid rgba(184,134,42,0.2);padding:3px 10px;border-radius:100px;margin-bottom:10px}
 .webinar-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#1a1a1a;margin-bottom:6px;line-height:1.35}
@@ -148,7 +148,125 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   </div>
 </div>
 
-<!-- LOCK GATE -->
+<!-- DISCLAIMER — always visible -->
+<div class="section section-cream">
+  <div class="disclaimer-box">
+    <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
+  </div>
+</div>
+<div class="section-divider"></div>
+
+<!-- WEBINAR GRID — titles always visible, watch buttons locked -->
+<div class="section">
+  <div class="sec-label">All Recordings</div>
+  <div class="webinar-grid" id="webinar-grid">
+
+      <!-- ─── WEBINAR CARDS — sorted newest first ─── -->
+      <!-- To add a new webinar: copy a card and update title/tag/date -->
+
+      <div class="webinar-card">
+        <div class="webinar-thumb-static">
+          <div class="wt-icon">&#127891;</div>
+        </div>
+        <div class="webinar-body">
+          <div class="webinar-tag">Portfolio Management</div>
+          <div class="webinar-title">Allocation Strategies for $10,000</div>
+          <div class="webinar-meta">
+            <span>&#128197; March 2026</span>
+            <span>&#128172; Members Only</span>
+          </div>
+          <button class="webinar-locked-msg" onclick="openInlineUnlock()">&#128274; Enter code to watch</button>
+          <a class="webinar-watch-btn" href="https://1drv.ms/f/c/E066A02F3D438188/IgAwTtu-xPeITrESTsTyeUELAd6Sb1k-Jiff_QU0jXg3o1M?e=YpWeLk" target="_blank">&#9654; Watch Recording</a>
+        </div>
+      </div>
+
+      <div class="webinar-card">
+        <div class="webinar-thumb-static" style="background:linear-gradient(135deg,#2d9e5f22,#2d9e5f11)">
+          <div class="wt-icon" style="color:#2d9e5f">&#128176;</div>
+        </div>
+        <div class="webinar-body">
+          <div class="webinar-tag">Options Selling</div>
+          <div class="webinar-title">Selling Covered Calls &amp; Cash Secured Puts</div>
+          <div class="webinar-meta">
+            <span>&#128197; January 2026</span>
+            <span>&#128172; Members Only</span>
+          </div>
+          <button class="webinar-locked-msg" onclick="openInlineUnlock()">&#128274; Enter code to watch</button>
+          <a class="webinar-watch-btn" href="https://1drv.ms/f/c/E066A02F3D438188/IgAwTtu-xPeITrESTsTyeUELAd6Sb1k-Jiff_QU0jXg3o1M?e=YpWeLk" target="_blank">&#9654; Watch Recording</a>
+        </div>
+      </div>
+
+      <div class="webinar-card">
+        <div class="webinar-thumb-static" style="background:linear-gradient(135deg,#b8862a22,#b8862a11)">
+          <div class="wt-icon" style="color:#b8862a">&#128200;</div>
+        </div>
+        <div class="webinar-body">
+          <div class="webinar-tag">Personal Story</div>
+          <div class="webinar-title">My Portfolio Journey</div>
+          <div class="webinar-meta">
+            <span>&#128197; December 2025</span>
+            <span>&#128172; Members Only</span>
+          </div>
+          <button class="webinar-locked-msg" onclick="openInlineUnlock()">&#128274; Enter code to watch</button>
+          <a class="webinar-watch-btn" href="https://1drv.ms/f/c/E066A02F3D438188/IgAwTtu-xPeITrESTsTyeUELAd6Sb1k-Jiff_QU0jXg3o1M?e=YpWeLk" target="_blank">&#9654; Watch Recording</a>
+        </div>
+      </div>
+
+      <div class="webinar-card">
+        <div class="webinar-thumb-static" style="background:linear-gradient(135deg,#c0392b22,#c0392b11)">
+          <div class="wt-icon" style="color:#c0392b">&#9888;</div>
+        </div>
+        <div class="webinar-body">
+          <div class="webinar-tag">Risk Management</div>
+          <div class="webinar-title">Investing Red Flags</div>
+          <div class="webinar-meta">
+            <span>&#128197; November 2025</span>
+            <span>&#128172; Members Only</span>
+          </div>
+          <button class="webinar-locked-msg" onclick="openInlineUnlock()">&#128274; Enter code to watch</button>
+          <a class="webinar-watch-btn" href="https://1drv.ms/f/c/E066A02F3D438188/IgAwTtu-xPeITrESTsTyeUELAd6Sb1k-Jiff_QU0jXg3o1M?e=YpWeLk" target="_blank">&#9654; Watch Recording</a>
+        </div>
+      </div>
+
+      <div class="webinar-card">
+        <div class="webinar-thumb-static" style="background:linear-gradient(135deg,#4a7fc122,#4a7fc111)">
+          <div class="wt-icon" style="color:#4a7fc1">&#128270;</div>
+        </div>
+        <div class="webinar-body">
+          <div class="webinar-tag">Research Process</div>
+          <div class="webinar-title">How I Research &amp; Buy Stocks</div>
+          <div class="webinar-meta">
+            <span>&#128197; October 2025</span>
+            <span>&#128172; Members Only</span>
+          </div>
+          <button class="webinar-locked-msg" onclick="openInlineUnlock()">&#128274; Enter code to watch</button>
+          <a class="webinar-watch-btn" href="https://1drv.ms/f/c/E066A02F3D438188/IgAwTtu-xPeITrESTsTyeUELAd6Sb1k-Jiff_QU0jXg3o1M?e=YpWeLk" target="_blank">&#9654; Watch Recording</a>
+        </div>
+      </div>
+
+      <div class="webinar-card">
+        <div class="webinar-thumb-static" style="background:linear-gradient(135deg,#2d9e5f22,#2d9e5f11)">
+          <div class="wt-icon" style="color:#2d9e5f">&#128176;</div>
+        </div>
+        <div class="webinar-body">
+          <div class="webinar-tag">Options Selling</div>
+          <div class="webinar-title">Selling Covered Calls &amp; Cash Secured Puts</div>
+          <div class="webinar-meta">
+            <span>&#128197; September 2025</span>
+            <span>&#128172; Members Only</span>
+          </div>
+          <button class="webinar-locked-msg" onclick="openInlineUnlock()">&#128274; Enter code to watch</button>
+          <a class="webinar-watch-btn" href="https://1drv.ms/f/c/E066A02F3D438188/IgAwTtu-xPeITrESTsTyeUELAd6Sb1k-Jiff_QU0jXg3o1M?e=YpWeLk" target="_blank">&#9654; Watch Recording</a>
+        </div>
+      </div>
+
+      <!-- ─── END OF WEBINAR CARDS ─── -->
+
+    </div>
+  </div>
+
+<div class="section-divider"></div>
+<!-- LOCK GATE — moved below webinars -->
 <div class="section section-cream" id="lock-section">
   <div class="lock-gate">
     <div class="lock-icon">&#128274;</div>
@@ -164,77 +282,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     <div class="lock-hint">Members receive the monthly code inside the WhatsApp group.<br>Code updates the 1st of every month.</div>
   </div>
 </div>
-
-<!-- WEBINARS CONTENT (hidden until unlocked) -->
-<div id="webinars-content" style="display:none">
-
-  <div class="section section-cream">
-    <div class="disclaimer-box">
-      <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
-    </div>
-  </div>
-  <div class="section-divider"></div>
-
-  <div class="section">
-    <div class="sec-label">All Recordings</div>
-    <div class="webinar-grid" id="webinar-grid">
-
-      <!-- ─── ADD YOUR WEBINARS BELOW ─── -->
-      <!-- Copy one of these card blocks and paste it for each new webinar -->
-      <!-- Replace the Vimeo ID in the src URL with your actual Vimeo video ID -->
-      <!-- Format: https://player.vimeo.com/video/YOUR_VIDEO_ID -->
-
-      <div class="webinar-card">
-        <div class="webinar-thumb">
-          <!-- Replace VIMEO_ID_1 with your actual Vimeo video ID -->
-          <iframe src="https://player.vimeo.com/video/VIMEO_ID_1?title=0&byline=0&portrait=0" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="webinar-body">
-          <div class="webinar-tag">Options Selling</div>
-          <div class="webinar-title">Introduction to Selling Covered Calls &amp; Cash-Secured Puts</div>
-          <div class="webinar-meta">
-            <span>&#128197; Jan 2025</span>
-            <span>&#9201; 62 min</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="webinar-card">
-        <div class="webinar-thumb">
-          <!-- Replace VIMEO_ID_2 with your actual Vimeo video ID -->
-          <iframe src="https://player.vimeo.com/video/VIMEO_ID_2?title=0&byline=0&portrait=0" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="webinar-body">
-          <div class="webinar-tag">Portfolio Strategy</div>
-          <div class="webinar-title">Building a Long-Term Portfolio: My Process &amp; Framework</div>
-          <div class="webinar-meta">
-            <span>&#128197; Mar 2025</span>
-            <span>&#9201; 74 min</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="webinar-card">
-        <div class="webinar-thumb">
-          <!-- Replace VIMEO_ID_3 with your actual Vimeo video ID -->
-          <iframe src="https://player.vimeo.com/video/VIMEO_ID_3?title=0&byline=0&portrait=0" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="webinar-body">
-          <div class="webinar-tag">Tax &amp; Accounts</div>
-          <div class="webinar-title">TFSA vs RRSP vs FHSA: Which Accounts to Use &amp; When</div>
-          <div class="webinar-meta">
-            <span>&#128197; Jun 2025</span>
-            <span>&#9201; 55 min</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ─── END OF WEBINAR CARDS ─── -->
-
-    </div>
-  </div>
-
-</div><!-- end webinars-content -->
+<div class="section-divider"></div>
 
 <div class="footer-bar">
   Not financial advice &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp;
@@ -246,26 +294,27 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 </div><!-- end page -->
 
 <script>
-// Password is pulled from Google Sheet cell L3 (Portfolio tab)
-// Update it there each month — no code changes needed here.
+// Same localStorage keys as index.html — unlock once, works on both pages
 const SHEET_URL   = 'https://script.google.com/macros/s/AKfycbz1bS6TmdDYv8J57C4OW0li1nBcyBjd4Xat2KDOfbCzqs7V-iQR1Tj-GhBGhiX63SO_jQ/exec';
 const LOCK_KEY    = 'pf_unlocked_v2';
 const LOCK_EXPIRY = 'pf_unlock_expiry_v2';
 const LOCK_VER    = 'pf_unlock_ver_v2';
 
-let MONTHLY_CODE = PF_MONTHLY_CODE; // fallback from pf-config.js
+let MONTHLY_CODE = PF_MONTHLY_CODE; // updated from sheet
 
 function isUnlocked(){
-  if(localStorage.getItem(LOCK_VER) !== MONTHLY_CODE) return false;
   const exp = localStorage.getItem(LOCK_EXPIRY);
   if(!exp || Date.now() > parseInt(exp)){ clearUnlock(); return false; }
-  return localStorage.getItem(LOCK_KEY) === '1';
+  if(localStorage.getItem(LOCK_KEY) !== '1') return false;
+  // Case-insensitive compare so index unlock (uppercase) matches here
+  const stored = (localStorage.getItem(LOCK_VER)||'').toUpperCase();
+  return stored === MONTHLY_CODE.toUpperCase();
 }
 function setUnlocked(){
-  const exp = Date.now() + 7*24*60*60*1000; // 7 days
+  const exp = Date.now() + 7*24*60*60*1000;
   localStorage.setItem(LOCK_KEY, '1');
   localStorage.setItem(LOCK_EXPIRY, String(exp));
-  localStorage.setItem(LOCK_VER, MONTHLY_CODE);
+  localStorage.setItem(LOCK_VER, MONTHLY_CODE.toUpperCase());
 }
 function clearUnlock(){
   localStorage.removeItem(LOCK_KEY);
@@ -274,6 +323,7 @@ function clearUnlock(){
 }
 function tryUnlock(){
   const val = (document.getElementById('lock-input').value||'').trim().toUpperCase();
+  document.getElementById('lock-error').textContent = '';
   if(val === MONTHLY_CODE.toUpperCase()){
     setUnlocked(); showContent();
   } else {
@@ -282,11 +332,18 @@ function tryUnlock(){
 }
 function showContent(){
   document.getElementById('lock-section').style.display = 'none';
-  document.getElementById('webinars-content').style.display = 'block';
+  document.querySelectorAll('.webinar-watch-btn').forEach(b=>b.style.display='inline-flex');
+  document.querySelectorAll('.webinar-locked-msg').forEach(m=>m.style.display='none');
+}
+function openInlineUnlock(){
+  const gate = document.getElementById('lock-section');
+  gate.style.display = 'block';
+  gate.scrollIntoView({behavior:'smooth', block:'center'});
+  setTimeout(()=>document.getElementById('lock-input').focus(), 400);
 }
 
-// Fetch password from sheet then check lock state
 async function init(){
+  // Fetch sheet to get latest password
   try{
     const r = await fetch(SHEET_URL, {cache:'no-store'});
     if(r.ok){
@@ -294,7 +351,8 @@ async function init(){
       if(data.monthlyCode && data.monthlyCode.trim())
         MONTHLY_CODE = data.monthlyCode.trim().toUpperCase();
     }
-  }catch(e){ /* use fallback */ }
+  }catch(e){}
+  // Check — handles both "already unlocked on index" and fresh entry here
   if(isUnlocked()) showContent();
 }
 init();

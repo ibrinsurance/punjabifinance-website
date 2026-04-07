@@ -545,7 +545,7 @@ function setUnlocked(){
   const expiry = Date.now() + 7*24*60*60*1000; // 7 days
   localStorage.setItem(LOCK_KEY, '1');
   localStorage.setItem(LOCK_EXPIRY, expiry);
-  localStorage.setItem(LOCK_VER, MONTHLY_CODE);
+  localStorage.setItem(LOCK_VER, MONTHLY_CODE.toUpperCase());
 }
 function clearUnlock(){
   localStorage.removeItem(LOCK_KEY);
