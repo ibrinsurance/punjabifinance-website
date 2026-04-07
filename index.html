@@ -39,13 +39,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 }
 .nav-btn:hover{background:rgba(212,165,52,0.1);color:#d4a534;border-color:rgba(212,165,52,0.2)}
 .nav-btn.active{color:#d4a534;border-color:rgba(212,165,52,0.2);background:rgba(212,165,52,0.08)}
-.topbar-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:3px}
 
-.fx-pill{display:inline-flex;align-items:center;gap:6px;font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#d4a534}
-.live-dot{width:5px;height:5px;border-radius:50%;background:#4caf7d;animation:blink 2s infinite;flex-shrink:0}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.topbar-date{font-size:0.67rem;color:rgba(255,255,255,0.35)}
-.price-updated{font-size:0.6rem;color:rgba(255,255,255,0.22)}
 .section{padding:40px 40px}
 .section-white{background:#ffffff}
 .section-cream{background:#f9f7f3}
@@ -219,11 +213,7 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
       <a class="nav-btn" href="mediakit.html">Media Kit</a>
     </div>
   </div>
-  <div class="topbar-right">
-    <div class="fx-pill"><span class="live-dot"></span><span id="fx-label">Loading rate...</span></div>
-    <div class="topbar-date" id="snap-date"></div>
-    <div class="price-updated" id="price-updated"></div>
-  </div>
+
 </div>
 
 <!-- CTA -->
@@ -419,7 +409,7 @@ const POSITIONS=[
 const COLORS=['#c49a28','#2d9e5f','#4a7fc1','#c0392b','#7b5ea8','#c46b2a','#3a9e9e','#888','#8a9e2d','#2a7ec4','#9e2d8a','#c47a2a','#2dc47a','#9a6060','#5b8dee'];
 const FB={PLTR:148.46,TSLA:360.59,SOFI:15.85,HOOD:68.90,AMD:217.50,NVDA:177.39,GRAB:3.62,BMNR:19.45,NBIS:108.82,IREN:34.77,AMZN:209.77,ZETA:15.79,SHOP:118.25,META:574.46,FDGRX:89.02};
 
-let fx=1.3912, lp={...FB};
+let fx=1.3912, lp={...FB}; // fx will be pulled from Google Sheet once connected
 
 
 const fmtC=v=>{const c=v*fx;if(Math.abs(c)>=1e6)return'C$'+(c/1e6).toFixed(3)+'M';if(Math.abs(c)>=1e3)return'C$'+(c/1e3).toFixed(1)+'K';return'C$'+Math.round(c).toLocaleString()};
@@ -437,10 +427,8 @@ function agg(){
   });
 }
 
-async function fetchFX(){
-  try{const r=await fetch('https://open.er-api.com/v6/latest/USD');const d=await r.json();if(d.rates?.CAD>1)fx=d.rates.CAD}
   catch(e){try{const r=await fetch('https://api.frankfurter.app/latest?from=USD&to=CAD');const d=await r.json();if(d.rates?.CAD)fx=d.rates.CAD}catch(e2){}}
-  document.getElementById('fx-label').textContent='1 USD = C$'+fx.toFixed(4)+' Live';
+
 }
 
 // Fetch one ticker via Yahoo v8/chart — no auth needed, works via proxy
@@ -526,18 +514,13 @@ function render(){
   mk(d26,Math.max(...d26.map(x=>x.v)),'bars-2026');
   mk(d25,Math.max(...d25.map(x=>x.v)),'bars-2025');
 
-  const now=new Date();
-  document.getElementById('snap-date').textContent=now.toLocaleDateString('en-CA',{month:'long',day:'numeric',year:'numeric'});
-  document.getElementById('price-updated').textContent='Prices updated '+now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+
 }
 
 async function init(){
-  await fetchFX();
-  render(); // render immediately with fallbacks
-  await fetchPrices();
-  render(); // re-render with live prices
-  setInterval(async()=>{await fetchPrices();render()},60000);
-  setInterval(async()=>{await fetchFX();render()},30*60000);
+  render(); // render with fallback prices
+  fetchPrices().then(ok=>{ if(ok) render(); });
+  setInterval(async()=>{ if(await fetchPrices()) render(); },60000);
 }
 init();
 </script>
