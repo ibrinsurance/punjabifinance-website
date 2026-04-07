@@ -522,8 +522,9 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 
 <script>
 // ── PAYWALL ──
-// Password is set in pf-config.js — change it there each month
-const MONTHLY_CODE = PF_MONTHLY_CODE;
+// Password is pulled from Google Sheet cell L3 (Portfolio tab)
+// Update it there each month — no code changes needed
+let MONTHLY_CODE = PF_MONTHLY_CODE; // fallback until sheet loads
 const LOCK_KEY     = 'pf_unlocked_v2';
 const LOCK_EXPIRY  = 'pf_unlock_expiry_v2';
 const LOCK_VER     = 'pf_unlock_ver_v2';
@@ -602,7 +603,7 @@ function applyLockState(){
 // come from the Apps Script endpoint below.
 // Update your sheet → refresh the page = done.
 // ─────────────────────────────────────────────────────
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyPyF9FV2EiDVClWIFRI5G7-QqppWTA2-pSuof7IvBQ6NNOaXnN5ZYvv2dzEeoidSPV5w/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbz1bS6TmdDYv8J57C4OW0li1nBcyBjd4Xat2KDOfbCzqs7V-iQR1Tj-GhBGhiX63SO_jQ/exec';
 
 
 // Ticker colours — order matches however sheet returns tickers
@@ -628,7 +629,12 @@ const fmtNum = n => Number(n).toLocaleString();
 async function fetchSheetData(){
   const r = await fetch(SHEET_URL, {cache:'no-store'});
   if(!r.ok) throw new Error('Sheet fetch failed: '+r.status);
-  return r.json();
+  const data = await r.json();
+  // Update password from sheet
+  if(data.monthlyCode && data.monthlyCode.trim()){
+    MONTHLY_CODE = data.monthlyCode.trim().toUpperCase();
+  }
+  return data;
 }
 
 // ── PIE CHART ──

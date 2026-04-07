@@ -1,7 +1,10 @@
 // ─────────────────────────────────────────────
-// PUNJABI FINANCE — SITE CONFIG
-// Update MONTHLY_CODE here every month.
-// This file is shared across all pages.
-// Format: PF-MMM-YYYY  e.g. PF-MAY-2026
+// PUNJABI FINANCE — FALLBACK CONFIG
+// The real monthly password is now pulled
+// automatically from your Google Sheet (cell L3
+// in the Portfolio tab). You no longer need to
+// update this file each month.
+//
+// This is only used if the sheet can't be reached.
 // ─────────────────────────────────────────────
 const PF_MONTHLY_CODE = 'PF-APR-2026';
