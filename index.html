@@ -12,20 +12,9 @@ html{font-size:18px;-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-height:1.6;min-height:100vh}
 .page{width:100%;max-width:1080px;margin:0 auto;padding:0 0 64px}
 /* ── TOPBAR ── */
-.topbar{
-  background:#111009;
-  padding:0 32px;
-  display:flex;justify-content:space-between;align-items:stretch;
-  border-bottom:1px solid rgba(212,165,52,0.15);
-  min-height:58px;
-  position:sticky;top:0;z-index:100;
-}
+.topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;z-index:100;gap:0}
 .topbar-left{display:flex;align-items:center;gap:0}
-.wm-link{
-  text-decoration:none;display:flex;flex-direction:column;justify-content:center;
-  padding:10px 24px 10px 0;border-right:1px solid rgba(212,165,52,0.12);
-  margin-right:20px;
-}
+.wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);margin-right:16px}
 .wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
 .wm-gold{color:#d4a534}
 .wm-url{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(212,165,52,0.45);margin-top:3px}
@@ -184,7 +173,7 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 @media(max-width:640px){
   html{font-size:17px}
   .topbar{padding:0 12px;min-height:50px}
-  .wm-link{padding:7px 12px 7px 0;margin-right:8px}
+  .wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);margin-right:16px}
   .wm-url{display:none}
   .topbar-nav{gap:2px;overflow:hidden}
   .nav-btn{font-size:0.6rem;padding:5px 8px;letter-spacing:0}
@@ -298,11 +287,12 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
   .topbar{position:relative}
   .topbar-nav{display:none}
   .ham-btn{display:flex}
+  .topbar-right-btns{display:flex}
 }
 @media(max-width:480px){
   .topbar{padding:0 14px}
   .wm-url{display:none}
-  .wm-link{padding:8px 14px 8px 0;margin-right:10px}
+  .wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);margin-right:16px}
 }
 </style>
 <script src="pf-config.js"></script>
@@ -310,23 +300,33 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 <body>
 <div class="page">
 <div class="topbar">
-  <div class="topbar-left">
-    <a class="wm-link" href="index.html">
-      <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
-      <div class="wm-url">punjabifinance.com
+  <a class="wm-link" href="index.html">
+    <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
+  </a>
+  <div class="topbar-nav">
+      <a class="nav-btn  active" href="index.html">Portfolio</a>
+      <a class="nav-btn" href="community.html">Community</a>
+      <a class="nav-btn" href="webinars.html">Webinars</a>
+      <a class="nav-btn" href="links.html">Links</a>
+      <a class="nav-btn" href="mediakit.html">Media Kit</a>
+  </div>
+  <div class="topbar-right-btns">
+    <a class="nav-btn nav-btn-webinars" href="webinars.html">Webinars</a>
     <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
       <span class="ham-line"></span>
       <span class="ham-line"></span>
       <span class="ham-line"></span>
     </button>
   </div>
+</div>
 <nav class="nav-dropdown" id="nav-dropdown">
-      <a class="nav-btn active" href="index.html">Portfolio</a>
-      <a class="nav-btn" href="community.html">Community</a>
-      <a class="nav-btn" href="webinars.html">Webinars</a>
-      <a class="nav-btn" href="links.html">Links</a>
-      <a class="nav-btn" href="mediakit.html">Media Kit</a>
+  <a class="nav-btn  active" href="index.html">Portfolio</a>
+  <a class="nav-btn" href="community.html">Community</a>
+  <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn" href="links.html">Links</a>
+  <a class="nav-btn" href="mediakit.html">Media Kit</a>
 </nav>
+
     </a>
     <div class="topbar-nav">
       <a class="nav-btn active" href="index.html">Portfolio</a>
