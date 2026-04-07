@@ -34,7 +34,8 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% -5%,rgba(37,211,102,0.12) 0%,transparent 60%),radial-gradient(ellipse 40% 50% at 10% 80%,rgba(212,165,52,0.07) 0%,transparent 60%);pointer-events:none}
 .hero-inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25);padding:5px 16px;border-radius:100px;font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:#25d366;font-weight:600;margin-bottom:22px}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:14px;letter-spacing:-0.01em}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.8rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:14px;letter-spacing:-0.01em;white-space:nowrap}
+@media(max-width:640px){.hero-title{white-space:normal;font-size:1.6rem}}
 .hero-title span{color:#d4a534}
 .hero-sub{font-size:1rem;color:rgba(255,255,255,0.55);line-height:1.8;max-width:520px;margin:0 auto 32px}
 .hero-btn{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#052a10;padding:16px 36px;border-radius:12px;font-weight:700;font-size:1rem;text-decoration:none;transition:all .2s;box-shadow:0 4px 28px rgba(37,211,102,0.3)}
@@ -119,8 +120,8 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-eyebrow">&#128172; Paid WhatsApp Community</div>
-    <div class="hero-title">Invest alongside me.<br><span>Every step of the way.</span></div>
-    <div class="hero-sub">Join 175+ members who follow my real portfolio updates, trades, and investing journey in real time — straight to your WhatsApp.</div>
+    <div class="hero-title">Watch my portfolio decisions.<br><span>Every step of the way.</span></div>
+    <div class="hero-sub">Join 175+ members getting real-time transparency into my portfolio, trades, and investing journey — straight to your WhatsApp.</div>
     <a class="hero-btn" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join the Community</a>
   </div>
 </div>
@@ -140,7 +141,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <div class="section">
   <div class="sec-eyebrow">What&rsquo;s Included</div>
   <div class="sec-title">What you get as a member</div>
-  <div class="sec-sub">Everything shared inside the community is based on my real investments and experience — not generic advice.</div>
+  <div class="sec-sub">Everything shared inside the community is based on my real investments and experience — not Financial advice.</div>
   <div class="features-grid">
     <div class="feat-card">
       <span class="feat-icon">&#128200;</span>
@@ -160,7 +161,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     <div class="feat-card">
       <span class="feat-icon">&#129309;</span>
       <div class="feat-title">Investor Networking</div>
-      <div class="feat-desc">Connect with Punjabi-Canadian investors building real long-term wealth. Relationships matter as much as returns.</div>
+      <div class="feat-desc">Connect with investors building real long-term wealth. Relationships matter as much as returns.</div>
     </div>
     <div class="feat-card">
       <span class="feat-icon">&#128181;</span>
@@ -173,6 +174,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       <div class="feat-desc">All members get access to my full live portfolio dashboard at punjabifinance.com — updated directly from my brokerage data.</div>
     </div>
   </div>
+  <div class="disclaimer" style="margin-top:24px;padding:16px 20px;background:#f9f7f3;border:1px solid #e8e4dc;border-radius:10px;font-size:0.72rem;color:#888;line-height:1.75"><strong style="color:#555">Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.</div>
 </div>
 
 <div class="sec-divider"></div>
@@ -209,7 +211,6 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     <div class="bottom-cta-title">Ready to invest alongside me?</div>
     <div class="bottom-cta-sub">175+ members are already inside. Join the community and follow my real portfolio — no fluff, just transparency.</div>
     <a class="hero-btn" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join Now at nas.io/punjabifinance</a>
-    <div class="disclaimer">Educational purposes only. Nothing shared is financial advice. Members are responsible for their own investment decisions.</div>
   </div>
 </div>
 
