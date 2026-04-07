@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Join the Community &mdash; Punjabi Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:18px;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-height:1.6;min-height:100vh}
+
+/* ── TOPBAR ── */
+.topbar{background:#111009;padding:0 32px;display:flex;justify-content:space-between;align-items:stretch;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;z-index:100}
+.topbar-left{display:flex;align-items:center;gap:0}
+.wm-link{text-decoration:none;display:flex;flex-direction:column;justify-content:center;padding:10px 24px 10px 0;border-right:1px solid rgba(212,165,52,0.12);margin-right:20px}
+.wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
+.wm-gold{color:#d4a534}
+.wm-url{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(212,165,52,0.45);margin-top:3px}
+.topbar-nav{display:flex;align-items:center;gap:4px}
+.nav-btn{display:inline-flex;align-items:center;gap:5px;color:rgba(255,255,255,0.5);font-size:0.67rem;font-weight:500;letter-spacing:0.04em;padding:7px 13px;border-radius:7px;text-decoration:none;border:1px solid transparent;white-space:nowrap;transition:all .15s}
+.nav-btn:hover{background:rgba(212,165,52,0.1);color:#d4a534;border-color:rgba(212,165,52,0.2)}
+.nav-btn.active{color:#d4a534;border-color:rgba(212,165,52,0.2);background:rgba(212,165,52,0.08)}
+@media(max-width:640px){
+  .topbar{padding:0 16px;min-height:52px}
+  .wm-link{padding:8px 14px 8px 0;margin-right:10px}
+  .wm-url{display:none}
+  .nav-btn{font-size:0.62rem;padding:5px 9px}
+}
+
+/* ── HERO ── */
+.hero{background:#111009;padding:clamp(56px,9vw,96px) 40px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% -5%,rgba(37,211,102,0.12) 0%,transparent 60%),radial-gradient(ellipse 40% 50% at 10% 80%,rgba(212,165,52,0.07) 0%,transparent 60%);pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25);padding:5px 16px;border-radius:100px;font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:#25d366;font-weight:600;margin-bottom:22px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:14px;letter-spacing:-0.01em}
+.hero-title span{color:#d4a534}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,0.55);line-height:1.8;max-width:520px;margin:0 auto 32px}
+.hero-btn{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#052a10;padding:16px 36px;border-radius:12px;font-weight:700;font-size:1rem;text-decoration:none;transition:all .2s;box-shadow:0 4px 28px rgba(37,211,102,0.3)}
+.hero-btn:hover{background:#1fb356;transform:translateY(-2px);box-shadow:0 8px 40px rgba(37,211,102,0.4)}
+
+/* ── STAT STRIP ── */
+.stat-strip{background:#fff;border-bottom:1px solid #e8e4dc;padding:28px 40px}
+.stat-strip-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e8e4dc;border:1px solid #e8e4dc;border-radius:14px;overflow:hidden}
+.ss-item{background:#fff;padding:22px 20px;text-align:center}
+.ss-num{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;color:#1a1a1a;line-height:1;margin-bottom:4px}
+.ss-label{font-size:0.63rem;letter-spacing:0.16em;text-transform:uppercase;color:#9a9a9a;font-weight:600}
+
+/* ── SECTIONS ── */
+.section{padding:clamp(44px,6vw,72px) 40px;max-width:1000px;margin:0 auto}
+.sec-divider{height:1px;background:#e4e0d8;margin:0 40px}
+.sec-eyebrow{font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:#b8862a;font-weight:600;margin-bottom:10px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#1a1a1a;line-height:1.2;margin-bottom:10px}
+.sec-sub{font-size:0.89rem;color:#777;line-height:1.75;max-width:540px;margin-bottom:32px}
+
+/* ── WHAT YOU GET ── */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:0}
+.feat-card{background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:24px 20px;position:relative;overflow:hidden}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#b8862a,#d4a534)}
+.feat-icon{font-size:1.5rem;margin-bottom:12px;display:block}
+.feat-title{font-size:0.89rem;font-weight:700;color:#1a1a1a;margin-bottom:6px}
+.feat-desc{font-size:0.78rem;color:#777;line-height:1.7}
+
+/* ── HOW IT WORKS ── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step{background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:24px 20px;text-align:center}
+.step-num{width:40px;height:40px;border-radius:50%;background:#1a1a1a;color:#d4a534;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.step-title{font-size:0.89rem;font-weight:700;color:#1a1a1a;margin-bottom:6px}
+.step-desc{font-size:0.78rem;color:#777;line-height:1.7}
+
+/* ── BOTTOM CTA ── */
+.bottom-cta{background:#111009;padding:clamp(48px,7vw,80px) 40px;text-align:center}
+.bottom-cta-inner{max-width:560px;margin:0 auto}
+.bottom-cta-title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:#fff;margin-bottom:12px;line-height:1.2}
+.bottom-cta-sub{font-size:0.89rem;color:rgba(255,255,255,0.5);line-height:1.75;margin-bottom:28px}
+.disclaimer{font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:20px;line-height:1.7}
+
+.page-footer{background:#0c0a02;padding:20px 40px;text-align:center;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.15);border-top:1px solid rgba(212,165,52,0.08)}
+.page-footer a{color:rgba(212,165,52,0.35);text-decoration:none}
+
+@media(max-width:640px){
+  html{font-size:17px}
+  .hero{padding:48px 20px}
+  .stat-strip{padding:20px 16px}
+  .stat-strip-inner{grid-template-columns:repeat(3,1fr)}
+  .ss-num{font-size:1.4rem}
+  .section{padding:36px 20px}
+  .sec-divider{margin:0 20px}
+  .features-grid,.steps{grid-template-columns:1fr}
+  .bottom-cta{padding:48px 20px}
+  .page-footer{padding:16px 20px}
+}
+@media(min-width:641px) and (max-width:900px){
+  .features-grid,.steps{grid-template-columns:1fr 1fr}
+  .section{padding:44px 28px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="wm-link" href="index.html">
+      <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
+      <div class="wm-url">punjabifinance.com</div>
+    </a>
+    <div class="topbar-nav">
+      <a class="nav-btn" href="index.html">Portfolio</a>
+      <a class="nav-btn active" href="community.html">Community</a>
+      <a class="nav-btn" href="links.html">Links</a>
+      <a class="nav-btn" href="mediakit.html">Media Kit</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">&#128172; Paid WhatsApp Community</div>
+    <div class="hero-title">Invest alongside me.<br><span>Every step of the way.</span></div>
+    <div class="hero-sub">Join 175+ members who follow my real portfolio updates, trades, and investing journey in real time — straight to your WhatsApp.</div>
+    <a class="hero-btn" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join the Community</a>
+  </div>
+</div>
+
+<!-- STAT STRIP -->
+<div class="stat-strip">
+  <div class="stat-strip-inner">
+    <div class="ss-item"><div class="ss-num">175+</div><div class="ss-label">Active Members</div></div>
+    <div class="ss-item"><div class="ss-num">2021</div><div class="ss-label">Community Since</div></div>
+    <div class="ss-item"><div class="ss-num">&#128200;</div><div class="ss-label">Real Portfolio Updates</div></div>
+  </div>
+</div>
+
+<div style="background:#fff">
+
+<!-- WHAT YOU GET -->
+<div class="section">
+  <div class="sec-eyebrow">What&rsquo;s Included</div>
+  <div class="sec-title">What you get as a member</div>
+  <div class="sec-sub">Everything shared inside the community is based on my real investments and experience — not generic advice.</div>
+  <div class="features-grid">
+    <div class="feat-card">
+      <span class="feat-icon">&#128200;</span>
+      <div class="feat-title">Live Portfolio Updates</div>
+      <div class="feat-desc">See updates whenever I make a move in my portfolio — buys, position sizing, and my reasoning. Primarily long-term, I rarely sell.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">&#128172;</span>
+      <div class="feat-title">Active Member Chat</div>
+      <div class="feat-desc">A real community of like-minded investors. Share ideas, discuss the market, and learn from each other&rsquo;s experience.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">&#128202;</span>
+      <div class="feat-title">Member Trade Updates</div>
+      <div class="feat-desc">See what other members are doing in their own portfolios. A collective view of how the community is positioned.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">&#129309;</span>
+      <div class="feat-title">Investor Networking</div>
+      <div class="feat-desc">Connect with Punjabi-Canadian investors building real long-term wealth. Relationships matter as much as returns.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">&#128181;</span>
+      <div class="feat-title">Options Income Sharing</div>
+      <div class="feat-desc">I share my options selling activity and premium collected. Learn how I generate consistent income on top of my portfolio.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">&#127760;</span>
+      <div class="feat-title">Live Public Portfolio</div>
+      <div class="feat-desc">All members get access to my full live portfolio dashboard at punjabifinance.com — updated directly from my brokerage data.</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec-divider"></div>
+
+<!-- HOW IT WORKS -->
+<div class="section">
+  <div class="sec-eyebrow">How It Works</div>
+  <div class="sec-title">Simple to join, easy to follow</div>
+  <div class="sec-sub">No apps to download. No complicated setup. Just WhatsApp.</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Sign up on Nas.io</div>
+      <div class="step-desc">Visit nas.io/punjabifinance and complete your membership. Takes less than 2 minutes.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Get added to WhatsApp</div>
+      <div class="step-desc">You&rsquo;ll receive a WhatsApp group invite link immediately after joining. No waiting.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Follow along</div>
+      <div class="step-desc">Updates come straight to your phone. Watch my real portfolio moves and connect with the community.</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end white bg -->
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <div class="bottom-cta-inner">
+    <div class="bottom-cta-title">Ready to invest alongside me?</div>
+    <div class="bottom-cta-sub">175+ members are already inside. Join the community and follow my real portfolio — no fluff, just transparency.</div>
+    <a class="hero-btn" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join Now at nas.io/punjabifinance</a>
+    <div class="disclaimer">Educational purposes only. Nothing shared is financial advice. Members are responsible for their own investment decisions.</div>
+  </div>
+</div>
+
+<div class="page-footer">
+  &copy; 2025 Punjabi Finance &nbsp;&middot;&nbsp;
+  <a href="index.html">Portfolio</a> &nbsp;&middot;&nbsp;
+  <a href="links.html">Links</a> &nbsp;&middot;&nbsp;
+  <a href="mediakit.html">Media Kit</a> &nbsp;&middot;&nbsp;
+  Not financial advice
+</div>
+
+</body>
+</html>

@@ -227,39 +227,13 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
     </a>
     <div class="topbar-nav">
       <a class="nav-btn active" href="index.html">Portfolio</a>
+      <a class="nav-btn" href="community.html">Community</a>
       <a class="nav-btn" href="links.html">Links</a>
       <a class="nav-btn" href="mediakit.html">Media Kit</a>
     </div>
   </div>
 
 </div>
-
-<!-- CTA -->
-<div class="section section-white">
-  <div class="cta-band">
-    <div class="cta-eyebrow">Paid Community &mdash; nas.io/punjabifinance</div>
-    <div class="cta-heading">Watch every trade.<br><span>In real time.</span></div>
-    <div class="cta-sub">Join the Punjabi Finance WhatsApp community and get live buy/sell alerts straight to your phone. Long-term investing, done transparently.</div>
-    <div class="cta-row">
-      <a class="cta-btn-primary" href="https://www.nas.io/punjabifinance" target="_blank">Join the Community</a>
-      <a class="cta-btn-secondary" href="https://www.nas.io/punjabifinance" target="_blank">Learn more &rarr;</a>
-    </div>
-    <div class="cta-stats">
-      <div class="cta-stat"><div class="cta-stat-num">175+</div><div class="cta-stat-lbl">Members</div></div>
-      <div class="cta-stat-div"></div>
-      <div class="cta-stat"><div class="cta-stat-num">Live</div><div class="cta-stat-lbl">Trade Alerts</div></div>
-      <div class="cta-stat-div"></div>
-      <div class="cta-stat"><div class="cta-stat-num">Active</div><div class="cta-stat-lbl">Member Chat</div></div>
-    </div>
-    <div class="cta-features">
-      <div class="cta-feat"><div class="cta-feat-icon">&#128241;</div><div class="cta-feat-title">Live Buy &amp; Sell Alerts</div><div class="cta-feat-sub">See my real trades as they happen. Primarily long-term buys &mdash; I rarely sell.</div></div>
-      <div class="cta-feat"><div class="cta-feat-icon">&#128202;</div><div class="cta-feat-title">Member Trade Updates</div><div class="cta-feat-sub">Watch what other members are buying and selling across the market.</div></div>
-      <div class="cta-feat"><div class="cta-feat-icon">&#129309;</div><div class="cta-feat-title">Investor Networking</div><div class="cta-feat-sub">Connect with like-minded long-term investors building real wealth.</div></div>
-    </div>
-    <div class="cta-disclaimer-inner"><strong>Disclaimer:</strong> All discussions are for educational purposes only. Nothing shared is financial advice. Members are responsible for their own investment decisions.</div>
-  </div>
-</div>
-<div class="section-divider"></div>
 
 <!-- OVERVIEW -->
 <div class="section section-cream">
@@ -275,19 +249,16 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 
 <!-- HOLDINGS -->
 <div class="section section-white">
-  <div class="table-wrap"><div class="tscroll">
   <!-- Sort & Filter Controls -->
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center">
     <span style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#9a9a9a;font-weight:600">Sort by:</span>
-    <button class="filter-btn active" onclick="setSort('mktCAD')">Market Value</button>
+    <button class="filter-btn" onclick="setSort('mktCAD')">Market Value</button>
     <button class="filter-btn" onclick="setSort('plCAD')">P&amp;L $</button>
-    <button class="filter-btn" onclick="setSort('plPct')">P&amp;L %</button>
+    <button class="filter-btn active" onclick="setSort('plPct')">P&amp;L %</button>
     <button class="filter-btn" onclick="setSort('allocPct')">Allocation</button>
     <button class="filter-btn" onclick="setSort('ticker')">Ticker A-Z</button>
   </div>
-
-  <div class="table-wrap">
-    <div class="tscroll">
+  <div class="table-wrap"><div class="tscroll">
     <table>
       <thead><tr>
         <th style="text-align:left">Ticker</th>
@@ -414,7 +385,7 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
   </div>
 </div>
 
-<div class="footer-bar">Not financial advice &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp; <a href="mediakit.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Media Kit</a> &nbsp;&middot;&nbsp; <a href="links.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Links</a> &nbsp;&middot;&nbsp; USD converted at live rate &nbsp;&middot;&nbsp; Join at nas.io/punjabifinance</div>
+<div class="footer-bar">Not financial advice &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp; <a href="community.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Community</a> &nbsp;&middot;&nbsp; <a href="mediakit.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Media Kit</a> &nbsp;&middot;&nbsp; <a href="links.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Links</a></div>
 </div>
 
 <script>
@@ -454,7 +425,7 @@ async function fetchSheetData(){
 }
 
 // ── SORT STATE ──
-let currentSort = 'mktCAD';
+let currentSort = 'plPct';
 let lastPositions = [];
 
 function setSort(field){
