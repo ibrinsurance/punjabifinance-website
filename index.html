@@ -12,13 +12,13 @@ html{font-size:18px;-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-height:1.6;min-height:100vh}
 .page{width:100%;max-width:1080px;margin:0 auto;padding:0 0 64px}
 /* ── TOPBAR ── */
-.topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;z-index:100;gap:0}
+.topbar{background:#111009;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,165,52,0.15);min-height:56px;position:sticky;top:0;z-index:100}
 .topbar-left{display:flex;align-items:center;gap:0}
-.wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);margin-right:16px}
+.wm-link{text-decoration:none;display:flex;align-items:center;flex-shrink:0}
 .wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
 .wm-gold{color:#d4a534}
 .wm-url{font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(212,165,52,0.45);margin-top:3px}
-.topbar-nav{display:flex;align-items:center;gap:4px}
+.topbar-nav{display:flex;align-items:center;gap:2px;flex:1;justify-content:flex-end;margin:0 8px}
 .nav-btn{
   display:inline-flex;align-items:center;gap:5px;
   color:rgba(255,255,255,0.5);font-size:0.67rem;font-weight:500;letter-spacing:0.04em;
@@ -173,7 +173,7 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
 @media(max-width:640px){
   html{font-size:17px}
   .topbar{padding:0 12px;min-height:50px}
-  .wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);margin-right:16px}
+  .wm-link{text-decoration:none;display:flex;align-items:center;flex-shrink:0}
   .wm-url{display:none}
   .topbar-nav{gap:2px;overflow:hidden}
   .nav-btn{font-size:0.6rem;padding:5px 8px;letter-spacing:0}
@@ -287,12 +287,17 @@ tfoot td:first-child{text-align:left;font-size:0.67rem;letter-spacing:0.1em;text
   .topbar{position:relative}
   .topbar-nav{display:none}
   .ham-btn{display:flex}
-  .topbar-right-btns{display:flex}
+  .topbar-right-btns{display:none;align-items:center;gap:8px;flex-shrink:0}
 }
 @media(max-width:480px){
   .topbar{padding:0 14px}
   .wm-url{display:none}
-  .wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);margin-right:16px}
+  .wm-link{text-decoration:none;display:flex;align-items:center;flex-shrink:0}
+}
+
+@media(max-width:680px){
+  .topbar-nav{display:none}
+  .topbar-right-btns{display:flex}
 }
 </style>
 <script src="pf-config.js"></script>
@@ -1138,6 +1143,21 @@ async function init(){
   }, 5*60*1000);
 }
 init();
+</script>
+
+<script>
+function toggleMenu(){
+  document.getElementById('ham-btn').classList.toggle('open');
+  document.getElementById('nav-dropdown').classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  const btn=document.getElementById('ham-btn');
+  const drop=document.getElementById('nav-dropdown');
+  if(btn&&drop&&!btn.contains(e.target)&&!drop.contains(e.target)){
+    btn.classList.remove('open');
+    drop.classList.remove('open');
+  }
+});
 </script>
 </body>
 </html>
