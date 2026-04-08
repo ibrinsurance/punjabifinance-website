@@ -320,6 +320,18 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 </div>
 <div class="section-divider"></div>
 
+<!-- PIE CHART -->
+<div class="section section-white" id="pie-section">
+  <div class="sec-label">Portfolio Allocation <span class="sec-label-tag">Live</span></div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
+    <canvas id="pie-chart" width="520" height="620" style="max-width:100%;border-radius:16px"></canvas>
+    <div class="pie-share-row">
+      <button class="pie-share-btn" onclick="sharePieChart()">&#128247; Share Chart</button>
+    </div>
+  </div>
+</div>
+<div class="section-divider"></div>
+
 <!-- HOLDINGS -->
 <div class="section section-white">
   <!-- Unlock bar — shown when locked -->
@@ -384,18 +396,6 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   </div>
 </div>
 <div id="lock-gate-divider" class="section-divider" style="display:none"></div>
-
-<!-- PIE CHART -->
-<div class="section section-white" id="pie-section">
-  <div class="sec-label">Portfolio Allocation <span class="sec-label-tag">Live</span></div>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
-    <canvas id="pie-chart" width="520" height="620" style="max-width:100%;border-radius:16px"></canvas>
-    <div class="pie-share-row">
-      <button class="pie-share-btn" onclick="sharePieChart()">&#128247; Share Chart</button>
-    </div>
-  </div>
-</div>
-<div class="section-divider"></div>
 
 <!-- BARS -->
 <div class="section section-slate">
