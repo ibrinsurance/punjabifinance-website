@@ -843,7 +843,7 @@ function sharePieChart(){
     const BY=cy+R+36;
     ctx.fillStyle='rgba(255,255,255,0.38)'; ctx.font='600 19px Arial,sans-serif';
     ctx.textAlign='center'; ctx.textBaseline='top';
-    ctx.fillText('Other (each < '+MIN_PCT.toFixed(0)+'%):',cx,BY);
+    ctx.fillText('Others (each < '+MIN_PCT.toFixed(0)+'%):',cx,BY);
     const cols=3, rowH=32;
     othersArr.forEach((p,i)=>{
       const col=i%cols, row=Math.floor(i/cols);
