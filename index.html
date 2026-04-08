@@ -789,7 +789,7 @@ function sharePieChart(){
   const otherPct=othersArr.reduce((s,p)=>s+p.mktCAD/total*100,0);
 
   const slices=main.map(p=>({t:p.ticker,pct:p.mktCAD/total*100,col:TICKER_COLORS[p.ticker]||'#888',mkt:p.mktCAD}));
-  if(otherPct>0) slices.push({t:'Other',pct:otherPct,col:'#4a4a4a',mkt:0});
+  if(otherPct>0) slices.push({t:'Others',pct:otherPct,col:'#4a4a4a',mkt:0});
 
   // === DRAW DONUT (arc-only, no moveTo center) ===
   const THICK=R-ri; // donut thickness
