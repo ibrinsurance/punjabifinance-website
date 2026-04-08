@@ -6,8 +6,7 @@
 <title>Media Kit &mdash; Punjabi Finance</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-.topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;z-index:100;gap:12px}
+<style>.topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;left:0;right:0;z-index:100;gap:12px;width:100%;box-sizing:border-box}
 .wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);flex-shrink:0}
 .wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
 .wm-gold{color:#d4a534}
@@ -24,8 +23,7 @@
 .ham-btn.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 .nav-dropdown{display:none;position:fixed;top:58px;left:0;right:0;background:#111009;border-bottom:1px solid rgba(212,165,52,0.15);z-index:99;padding:8px 16px 14px;flex-direction:column;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
 .nav-dropdown.open{display:flex}
-.nav-dropdown .nav-btn{font-size:0.89rem;padding:12px 14px;border-radius:9px;width:100%;letter-spacing:0.02em}
-@media(max-width:720px){.topbar-nav{display:none}.topbar-right-btns{display:flex}}
+.nav-dropdown @media(max-width:720px){.topbar-nav{display:none}.topbar-right-btns{display:flex}}
 @media(max-width:480px){.topbar{padding:0 14px;gap:8px}.wm-link{padding-right:14px}}
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-size:18px;-webkit-text-size-adjust:100%}
@@ -73,31 +71,8 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .ss-label{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:#9a9a9a;font-weight:600}
 
 /* ── SECTIONS ── */
-.topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;z-index:100;gap:12px}
-.wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);flex-shrink:0}
-.wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
-.wm-gold{color:#d4a534}
-.topbar-nav{display:flex;align-items:center;gap:2px;flex:1}
-.nav-btn{display:inline-flex;align-items:center;color:rgba(255,255,255,0.5);font-size:0.67rem;font-weight:500;letter-spacing:0.04em;padding:7px 12px;border-radius:7px;text-decoration:none;border:1px solid transparent;white-space:nowrap;transition:all .15s}
-.nav-btn:hover{background:rgba(212,165,52,0.1);color:#d4a534;border-color:rgba(212,165,52,0.2)}
-.nav-btn.active{color:#d4a534;border-color:rgba(212,165,52,0.2);background:rgba(212,165,52,0.08)}
-.ham-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:10px 12px;border:1px solid rgba(212,165,52,0.35);background:rgba(212,165,52,0.1);border-radius:8px;flex-shrink:0}
-.ham-btn:hover{background:rgba(212,165,52,0.2);border-color:rgba(212,165,52,0.5)}
-.ham-line{width:24px;height:2.5px;background:#d4a534;border-radius:2px;transition:all .25s;display:block}
-.ham-btn.open .ham-line:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.ham-btn.open .ham-line:nth-child(2){opacity:0;transform:scaleX(0)}
-.ham-btn.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.nav-dropdown{display:none;position:fixed;top:58px;left:0;right:0;background:#111009;border-bottom:1px solid rgba(212,165,52,0.15);z-index:99;padding:8px 16px 14px;flex-direction:column;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
-.nav-dropdown.open{display:flex}
-.nav-dropdown .nav-btn{font-size:0.89rem;padding:12px 14px;border-radius:9px;width:100%;letter-spacing:0.02em}
-@media(max-width:720px){
-  .topbar-nav{display:none}
-  .topbar-right-btns{display:flex}
-}
-@media(max-width:480px){
-  .topbar{padding:0 14px;gap:8px}
-  .wm-link{padding-right:14px}
-}
+.nav-dropdown 
+
 .section{padding:clamp(48px,7vw,80px) 40px;max-width:1080px;margin:0 auto}
 .section-divider{height:1px;background:#e4e0d8;margin:0 40px}
 .sec-eyebrow{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:#b8862a;font-weight:600;margin-bottom:10px}
@@ -180,13 +155,6 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   .platforms{grid-template-columns:repeat(2,1fr)}
 }
 @media(min-width:1400px){html{font-size:19px}}
-
-
-
-  
-  
-  /* Shorten labels */
-  .nav-btn[href="community.html"]{display:none}
 }
 
 
@@ -246,7 +214,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     </div>
     <div class="hero-bio">Canada&rsquo;s leading Punjabi-language personal finance creator &mdash; building financial literacy across 185K+ followers with authentic, trust-driven content since 2021.</div>
     <div class="hero-btns">
-      <a class="btn-gold" href="mailto:punjabifinance@outlook.com">&#9993; Email Me Now</a>
+      <a class="btn-gold" href="/cdn-cgi/l/email-protection#1161647f7b70737877787f707f7274517e64657d7e7e7a3f727e7c">&#9993; Email Me Now</a>
       <a class="btn-ghost" href="#collab">View Partnership Options &darr;</a>
     </div>
   </div>
@@ -405,7 +373,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
       <div class="contact-row">
         <div class="contact-icon">&#9993;</div>
-        <div><div class="contact-label">Email</div><div class="contact-val"><a href="mailto:punjabifinance@outlook.com">punjabifinance@outlook.com</a></div></div>
+        <div><div class="contact-label">Email</div><div class="contact-val"><a href="/cdn-cgi/l/email-protection#1464617a7e75767d727d7a757a7771547b6160787b7b7f3a777b79"><span class="__cf_email__" data-cfemail="562623383c37343f303f3837383533163923223a39393d7835393b">[email&#160;protected]</span></a></div></div>
       </div>
       <div class="contact-row">
         <div class="contact-icon">&#128247;</div>
@@ -416,17 +384,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       <div class="cta-headline">Reach 185K+ Canadians Who Care About Money</div>
       <div class="cta-sub-text">A highly engaged, niche audience in the Punjabi-speaking community &mdash; trust-driven and financially motivated. Every partnership is authentic and educational-first.</div>
       <
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function toggleMenu(){
   document.getElementById('ham-btn').classList.toggle('open');
   document.getElementById('nav-dropdown').classList.toggle('open');
-}
-document.addEventListener('click',function(e){
-  const btn=document.getElementById('ham-btn');
-  const drop=document.getElementById('nav-dropdown');
-  if(btn&&drop&&!btn.contains(e.target)&&!drop.contains(e.target)){
-    btn.classList.remove('open');
-    drop.classList.remove('open');
-  }
-});
-</script>
