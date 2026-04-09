@@ -237,7 +237,7 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
         <div class="lk-icon green">&#128172;</div>
         <div class="lk-body">
           <div class="lk-title">WhatsApp Portfolio Community</div>
-          <div class="lk-sub">Watch my real portfolio moves &middot; Options income strategy &middot; <span id="lk-members">175+</span> members</div>
+          <div class="lk-sub">Watch my real portfolio moves &middot; Options income strategy &middot; <span id="lk-members">...</span> members</div>
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
@@ -502,6 +502,7 @@ async function loadSocialStatsLinks(){
       document.getElementById('lk-reviews').textContent=s.reviewCount;
       document.getElementById('lk-reviews2').textContent=s.reviewCount;
     }
+    if(s.memberCount){var lm=document.getElementById('lk-members');if(lm)lm.textContent=s.memberCount;}
   }catch(e){console.log('Social stats error:',e);}
 }
 loadSocialStatsLinks();
