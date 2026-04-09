@@ -408,7 +408,7 @@ document.addEventListener('click',function(e){
 <script>
 (async function(){
   try{
-    const r = await fetch('https://script.google.com/macros/s/AKfycbyZEOFTHiV8W5VkSDXYG7QWR1YnlCqTSqhov_YY7bn8DIof2GxlL_Qr4aqqWe0XtGJPxw/exec', {cache:'no-store'});
+    const r = await fetch('https://script.google.com/macros/s/AKfycbywi0jjfHwN9QRudmBvNMKjULDH3w0IYrlL6ZXxEKd1qpBJwg-2C97pgbO8wEb0PJBtqw/exec', {cache:'no-store'});
     const d = await r.json();
     if(!d.social){ console.warn('No social data in response'); return; }
     const s = d.social;
