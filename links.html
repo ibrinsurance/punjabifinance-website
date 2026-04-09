@@ -91,8 +91,8 @@ html,body{overflow-x:hidden;max-width:100%}
 .tip-text{font-size:0.67rem;color:rgba(240,232,208,0.55);line-height:1.65;font-style:italic}
 
 /* ── RIGHT LINKS ── */
-.right{padding:0 0 0 0;background:#0f0d04;overflow-x:hidden}
-.right-inner{max-width:540px;margin:0 auto;width:100%;padding-bottom:20px}
+.right{padding:0;background:#0f0d04;overflow-x:hidden}
+.right-inner{max-width:540px;margin:0 auto;width:100%;padding:20px 0}
 
 
 
@@ -144,21 +144,27 @@ html,body{overflow-x:hidden;max-width:100%}
 
 
 /* ── SECTION BANDS ── */
-.band{margin:0 -28px;padding:24px 28px}
-@media(max-width:680px){.band{margin:0 -16px;padding:20px 16px}}
+.band{margin:0;padding:22px 28px}
+@media(max-width:680px){.band{margin:0;padding:18px 16px}}
 .band-1{background:#1a1612;border-top:1px solid rgba(212,165,52,0.15);border-bottom:1px solid rgba(212,165,52,0.15)}
 .band-2{background:#0a1a0e;border-top:1px solid rgba(37,211,102,0.12);border-bottom:1px solid rgba(37,211,102,0.12)}
 .band-3{background:#12100a;border-top:1px solid rgba(212,165,52,0.1);border-bottom:1px solid rgba(212,165,52,0.1)}
 .band-4{background:#0d1520;border-top:1px solid rgba(74,127,193,0.15);border-bottom:1px solid rgba(74,127,193,0.15)}
 .band-5{background:#150d1a;border-top:1px solid rgba(180,120,220,0.15);border-bottom:1px solid rgba(180,120,220,0.15)}
+.band-6{background:#1a1208;border-top:2px solid rgba(212,165,52,0.3);border-bottom:2px solid rgba(212,165,52,0.2)}
+.band-6 .sec-head{background:rgba(212,165,52,0.15);border-color:rgba(212,165,52,0.35);color:#d4a534}
 .band-6{background:#1a1410;border-top:2px solid rgba(212,165,52,0.3);border-bottom:1px solid rgba(212,165,52,0.15)}
-.band .sec-head{font-size:0.6rem;letter-spacing:0.24em;text-transform:uppercase;font-weight:700;margin-bottom:14px;padding-bottom:8px;display:flex;align-items:center;gap:8px;border-bottom:none}
-.band-1 .sec-head{color:#d4a534}
-.band-2 .sec-head{color:#25d366}
-.band-3 .sec-head{color:rgba(212,165,52,0.7)}
-.band-4 .sec-head{color:#6a9fd8}
-.band-5 .sec-head{color:#c084e0}
-.band-6 .sec-head{color:#d4a534}
+.band .sec-head{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;
+  padding:6px 16px 6px 12px;border-radius:100px;
+  margin-bottom:16px;border:1px solid;
+}
+.band-1 .sec-head{background:rgba(212,165,52,0.12);border-color:rgba(212,165,52,0.3);color:#d4a534}
+.band-2 .sec-head{background:rgba(74,127,193,0.12);border-color:rgba(74,127,193,0.3);color:#6a9fd8}
+.band-3 .sec-head{background:rgba(212,165,52,0.08);border-color:rgba(212,165,52,0.2);color:rgba(212,165,52,0.7)}
+.band-4 .sec-head{background:rgba(180,120,220,0.1);border-color:rgba(180,120,220,0.25);color:#c084e0}
+.band-5 .sec-head{background:rgba(212,165,52,0.1);border-color:rgba(212,165,52,0.25);color:#d4a534}
 .band .sec-head-icon{font-size:0.9rem}
 .band .lk{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08)}
 .band .lk:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15)}
@@ -250,28 +256,16 @@ html,body{overflow-x:hidden;max-width:100%}
 
       <!-- COMMUNITY -->
       <div class="band band-1">
-      <div class="sec-head"><span class="sec-head-icon">&#128172;</span> Join the Community</div>
+      <div class="sec-head"><span class="sec-head-icon">&#128200;</span> Portfolio &amp; Community</div>
 
       <a class="lk feat-wa" href="https://nas.io/punjabifinance" target="_blank">
         <div class="lk-icon green">&#128172;</div>
         <div class="lk-body">
-          <div class="lk-title">WhatsApp Portfolio Community</div>
+          <div class="lk-title">Join WhatsApp Investors Community</div>
           <div class="lk-sub">Watch my real portfolio moves &middot; Options income strategy &middot; <span id="lk-members">...</span> members</div>
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
-
-      <a class="lk" href="https://wa.me/+16477456850" target="_blank">
-        <div class="lk-icon">&#128241;</div>
-        <div class="lk-body">
-          <div class="lk-title">WhatsApp &mdash; Contact Me Directly</div>
-          <div class="lk-sub">Questions, partnerships, or just say hi</div>
-        </div>
-        <div class="lk-arr">&#8250;</div>
-      </a>
-      </div><!-- /band-1 -->
-      <div class="band band-2">
-      <div class="sec-head"><span class="sec-head-icon">&#128200;</span> Live Portfolio</div>
 
       <a class="lk feat-port" href="index.html">
         <div class="lk-icon gold">&#128200;</div>
@@ -281,9 +275,19 @@ html,body{overflow-x:hidden;max-width:100%}
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
-      </div><!-- /band-2 -->
+      </div><!-- /band-1 -->
+
       <div class="band band-3">
       <div class="sec-head"><span class="sec-head-icon">&#128137;</span> Insurance Quotes</div>
+
+      <a class="lk" href="https://wa.me/+16477456850" target="_blank">
+        <div class="lk-icon">&#128241;</div>
+        <div class="lk-body">
+          <div class="lk-title">WhatsApp &mdash; Contact Me Directly</div>
+          <div class="lk-sub">Questions, partnerships, or just say hi</div>
+        </div>
+        <div class="lk-arr">&#8250;</div>
+      </a>
 
       <a class="lk" href="https://www.insurancebyrattan.ca/term-life-insurance/" target="_blank">
         <div class="lk-icon">&#128137;</div>
