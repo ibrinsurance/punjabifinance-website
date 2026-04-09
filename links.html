@@ -91,8 +91,8 @@ html,body{overflow-x:hidden;max-width:100%}
 .tip-text{font-size:0.67rem;color:rgba(240,232,208,0.55);line-height:1.65;font-style:italic}
 
 /* ── RIGHT LINKS ── */
-.right{padding:28px 28px 48px;background:#0f0d04}
-.right-inner{max-width:540px;margin:0 auto}
+.right{padding:28px 28px 48px;background:#0f0d04;overflow-x:hidden}
+.right-inner{max-width:540px;margin:0 auto;width:100%}
 
 .sec-head{
   font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;
@@ -136,6 +136,26 @@ html,body{overflow-x:hidden;max-width:100%}
 .lk-arr{color:rgba(212,165,52,0.35);font-size:0.78rem;flex-shrink:0;transition:all .18s}
 .lk:hover .lk-arr{transform:translateX(3px);color:#d4a534}
 
+
+/* ── SECTION BACKGROUNDS ── */
+.sec-group{border-radius:0;padding:20px 18px;margin-bottom:0}
+.sec-group-dark{background:#111009}
+.sec-group-dark .sec-head{color:rgba(212,165,52,0.6);border-bottom-color:rgba(212,165,52,0.12)}
+.sec-group-dark .lk{background:rgba(255,255,255,0.04);border-color:rgba(212,165,52,0.1)}
+.sec-group-dark .lk:hover{background:rgba(212,165,52,0.1);border-color:rgba(212,165,52,0.25)}
+.sec-group-dark .lk-title{color:#f0e8d0}
+.sec-group-dark .lk-sub{color:#9a8a5a}
+.sec-group-dark .lk-arr{color:rgba(212,165,52,0.35)}
+.sec-group-dark .lk.feat-wa{background:linear-gradient(135deg,rgba(37,211,102,0.12),rgba(18,140,60,0.07));border-color:rgba(37,211,102,0.25)}
+.sec-group-dark .lk.feat-port{background:rgba(212,165,52,0.08);border-color:rgba(212,165,52,0.2)}
+.sec-group-light{background:#f4f2ee}
+.sec-group-light .sec-head{color:#b8862a;border-bottom-color:#e4e0d8}
+.sec-group-light .lk{background:#fff;border-color:#e8e4dc}
+.sec-group-light .lk:hover{background:#fdf8ed;border-color:rgba(184,134,42,0.3)}
+.sec-group-light .lk-title{color:#1a1a1a}
+.sec-group-light .lk-sub{color:#888}
+.sec-group-light .lk-arr{color:#ccc}
+.sec-group .sec-head{margin-top:0;padding-top:0}
 .page-footer{padding:20px 28px;text-align:center;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,232,208,0.12);border-top:1px solid rgba(212,165,52,0.07)}
 .page-footer a{color:rgba(212,165,52,0.35);text-decoration:none}
 
@@ -143,7 +163,7 @@ html,body{overflow-x:hidden;max-width:100%}
   html{font-size:17px}
   .page-wrap{grid-template-columns:1fr;grid-template-rows:auto 1fr;width:100%}
   .left{position:relative;height:auto;top:0;border-right:none;border-bottom:1px solid rgba(212,165,52,0.1);padding:22px 18px 18px;width:100%}
-  .right{padding:20px 16px 36px;width:100%}
+  .right{padding:20px 16px 36px;width:100%;box-sizing:border-box;overflow-x:hidden}
 }
 
 
@@ -232,6 +252,7 @@ html,body{overflow-x:hidden;max-width:100%}
     <div class="right-inner">
 
       <!-- COMMUNITY -->
+      <div class="sec-group sec-group-dark">
       <div class="sec-head">Join the Community</div>
 
       <a class="lk feat-wa" href="https://nas.io/punjabifinance" target="_blank">
@@ -251,8 +272,9 @@ html,body{overflow-x:hidden;max-width:100%}
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
+      </div><!-- end community -->
 
-      <!-- PORTFOLIO -->
+      <div class="sec-group sec-group-light">
       <div class="sec-head">Live Portfolio</div>
 
       <a class="lk feat-port" href="index.html">
@@ -263,8 +285,9 @@ html,body{overflow-x:hidden;max-width:100%}
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
+      </div><!-- end portfolio -->
 
-      <!-- INSURANCE -->
+      <div class="sec-group sec-group-dark">
       <div class="sec-head">Insurance Quotes &mdash; insurancebyrattan.ca</div>
 
       <a class="lk" href="https://www.insurancebyrattan.ca/term-life-insurance/" target="_blank">
@@ -311,8 +334,9 @@ html,body{overflow-x:hidden;max-width:100%}
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
+      </div><!-- end insurance -->
 
-      <!-- REAL ESTATE -->
+      <div class="sec-group sec-group-light">
       <div class="sec-head">Real Estate</div>
 
       <a class="lk" href="https://www.jumprealty.ca/agents/agent-270/harpreet-taggarh" target="_blank">
@@ -323,8 +347,9 @@ html,body{overflow-x:hidden;max-width:100%}
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
+      </div><!-- end realestate -->
 
-      <!-- REVIEWS & SOCIAL -->
+      <div class="sec-group sec-group-dark">
       <div class="sec-head">Reviews &amp; Social</div>
 
       <a class="lk" href="https://g.page/InsuranceByRattan?share" target="_blank">
@@ -380,8 +405,9 @@ html,body{overflow-x:hidden;max-width:100%}
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
+      </div><!-- end social -->
 
-      <!-- FOR SPONSORS -->
+      <div class="sec-group sec-group-light">
       <div class="sec-head">For Brands &amp; Sponsors</div>
 
       <a class="lk" href="mediakit.html">
@@ -392,6 +418,7 @@ html,body{overflow-x:hidden;max-width:100%}
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
+      </div><!-- end sponsors -->
 
     </div>
 
