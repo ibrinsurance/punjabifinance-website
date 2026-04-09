@@ -225,9 +225,9 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <div class="stat-strip">
   <div class="stat-strip-inner">
     <div class="ss-item"><div class="ss-num" id="mk-total">185K+</div><div class="ss-label">Total Followers</div></div>
-    <div class="ss-item"><div class="ss-num" id="mk-total">5</div><div class="ss-label">Active Platforms</div></div>
-    <div class="ss-item"><div class="ss-num" id="mk-total">2021</div><div class="ss-label">Creator Since</div></div>
-    <div class="ss-item"><div class="ss-num" id="mk-total">&#35;1</div><div class="ss-label">Punjabi Finance Creator</div></div>
+    <div class="ss-item"><div class="ss-num">5</div><div class="ss-label">Active Platforms</div></div>
+    <div class="ss-item"><div class="ss-num">2021</div><div class="ss-label">Creator Since</div></div>
+    <div class="ss-item"><div class="ss-num">&#35;1</div><div class="ss-label">Punjabi Finance Creator</div></div>
   </div>
 </div>
 
@@ -406,35 +406,30 @@ document.addEventListener('click',function(e){
 </script>
 
 <script>
-const SHEET_URL_MK = 'https://script.google.com/macros/s/AKfycbyZEOFTHiV8W5VkSDXYG7QWR1YnlCqTSqhov_YY7bn8DIof2GxlL_Qr4aqqWe0XtGJPxw/exec';
-function fmtF(n){
-  if(n>=1000000) return (n/1000000).toFixed(1).replace('.0','')+'M+';
-  if(n>=10000) return Math.round(n/1000)+'K+';
-  if(n>=1000) return (n/1000).toFixed(1).replace('.0','')+'K+';
-  return n+'';
-}
-function fmtFShort(n){
-  if(n>=10000) return Math.round(n/1000)+'K';
-  if(n>=1000) return (n/1000).toFixed(1).replace('.0','')+'K';
-  return n+'';
-}
-async function loadSocialStats(){
+(async function(){
   try{
-    const r = await fetch(SHEET_URL_MK, {cache:'no-store'});
+    const r = await fetch('https://script.google.com/macros/s/AKfycbyZEOFTHiV8W5VkSDXYG7QWR1YnlCqTSqhov_YY7bn8DIof2GxlL_Qr4aqqWe0XtGJPxw/exec', {cache:'no-store'});
     const d = await r.json();
-    if(!d.social) return;
+    if(!d.social){ console.warn('No social data in response'); return; }
     const s = d.social;
-    const total = Math.round(s.total/1000)*1000;
+    function fmtK(n){ return n>=10000 ? Math.round(n/1000)+'K' : n>=1000 ? (n/1000).toFixed(1).replace('.0','')+'K' : String(n); }
+    const total = (s.TikTok||0)+(s.Instagram||0)+(s.Facebook||0)+(s.YouTube||0)+(s.Threads||0);
     const totalFmt = Math.round(total/1000)+'K+';
-    // Platform counts
-    if(s.TikTok){document.getElementById('mk-tiktok').textContent=fmtFShort(s.TikTok);}
-    if(s.Instagram){document.getElementById('mk-instagram').textContent=fmtFShort(s.Instagram);}
-    if(s.Facebook){document.getElementById('mk-facebook').textContent=fmtFShort(s.Facebook);}
-    if(s.YouTube){document.getElementById('mk-youtube').textContent=fmtFShort(s.YouTube);}
-    if(s.Threads){document.getElementById('mk-threads').textContent=fmtFShort(s.Threads);}
-    // Totals
-    document.getElementById('mk-total').textContent=totalFmt;
-    document.getElementById('mk-total-bio').textContent=totalFmt;
-    document.getElementById('mk-cta-total').textContent=totalFmt;
-    // Collab descriptions
-    if(s.TikTok && 
+    function set(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
+    set('mk-tiktok',    fmtK(s.TikTok||0));
+    set('mk-instagram', fmtK(s.Instagram||0));
+    set('mk-facebook',  fmtK(s.Facebook||0));
+    set('mk-youtube',   fmtK(s.YouTube||0));
+    set('mk-threads',   fmtK(s.Threads||0));
+    set('mk-total',     totalFmt);
+    set('mk-total-bio', totalFmt);
+    set('mk-cta-total', totalFmt);
+    set('mk-reach',     Math.round(total/100)*100+'+');
+    if(s.TikTok && s.Instagram) set('mk-collab-short', fmtK(s.TikTok)+' TikTok + '+fmtK(s.Instagram)+' Instagram');
+    if(s.Facebook) set('mk-collab-fb', fmtK(s.Facebook));
+    console.log('Social stats loaded:', s);
+  }catch(e){ console.warn('Social stats error:', e); }
+})();
+</script>
+</body>
+</html>
