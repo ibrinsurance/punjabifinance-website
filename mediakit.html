@@ -126,6 +126,8 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .cta-box{background:rgba(212,165,52,0.08);border:1px solid rgba(212,165,52,0.2);border-radius:14px;padding:28px 28px}
 .cta-headline{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.3}
 .cta-sub-text{font-size:0.83rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:22px}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;background:#d4a534;color:#0a0800;font-size:0.89rem;font-weight:700;padding:13px 28px;border-radius:10px;text-decoration:none;transition:background .15s;font-family:'DM Sans',sans-serif}
+.cta-btn:hover{background:#b8862a}
 
 .page-footer{background:#111009;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.2);border-top:1px solid rgba(212,165,52,0.08)}
 .page-footer a{color:rgba(212,165,52,0.5);text-decoration:none}
@@ -213,7 +215,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     </div>
     <div class="hero-bio">Canada&rsquo;s leading Punjabi-language personal finance creator &mdash; building financial literacy across 185K+ followers with authentic, trust-driven content since 2021.</div>
     <div class="hero-btns">
-      <a class="btn-gold" href="/cdn-cgi/l/email-protection#1161647f7b70737877787f707f7274517e64657d7e7e7a3f727e7c">&#9993; Email Me Now</a>
+      <a class="btn-gold" href="mailto:punjabifinance@outlook.com">&#9993; Email Me Now</a>
       <a class="btn-ghost" href="#collab">View Partnership Options &darr;</a>
     </div>
   </div>
@@ -372,7 +374,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
       <div class="contact-row">
         <div class="contact-icon">&#9993;</div>
-        <div><div class="contact-label">Email</div><div class="contact-val"><a href="/cdn-cgi/l/email-protection#1464617a7e75767d727d7a757a7771547b6160787b7b7f3a777b79"><span class="__cf_email__" data-cfemail="562623383c37343f303f3837383533163923223a39393d7835393b">[email&#160;protected]</span></a></div></div>
+        <div><div class="contact-label">Email</div><div class="contact-val"><a href="mailto:punjabifinance@outlook.com">punjabifinance@outlook.com</a></div></div>
       </div>
       <div class="contact-row">
         <div class="contact-icon">&#128247;</div>
@@ -392,7 +394,15 @@ function toggleMenu(){
   document.getElementById('ham-btn').classList.toggle('open');
   document.getElementById('nav-dropdown').classList.toggle('open');
 }
-document.addEventListener('click',function(e){var btn=document.getElementById('ham-btn');var drop=document.getElementById('nav-dropdown');if(!btn||!drop)return;if(!btn.contains(e.target)&&!drop.contains(e.target)){btn.classList.remove('open');drop.classList.remove('open');}});
+document.addEventListener('click',function(e){
+  var btn=document.getElementById('ham-btn');
+  var drop=document.getElementById('nav-dropdown');
+  if(!btn||!drop)return;
+  if(!btn.contains(e.target)&&!drop.contains(e.target)){
+    btn.classList.remove('open');
+    drop.classList.remove('open');
+  }
+});
 </script>
 </body>
 </html>
