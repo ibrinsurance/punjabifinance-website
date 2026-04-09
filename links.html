@@ -197,10 +197,10 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
     <div class="tagline">Canada&rsquo;s #1 Punjabi Finance Creator<br>Building wealth, one video at a time</div>
 
     <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-    <div class="stars-sub">5-Star Rating &middot; 400+ Clients</div>
+    <div class="stars-sub">5-Star Rating &middot; <span id="lk-reviews">400+</span> Clients</div>
 
     <div class="stats-box">
-      <div class="s-item"><span class="s-num">185K+</span><span class="s-lbl">Followers</span></div>
+      <div class="s-item"><span class="s-num" id="lk-total">185K+</span><span class="s-lbl">Followers</span></div>
       <div class="s-item"><span class="s-num">5</span><span class="s-lbl">Platforms</span></div>
       <div class="s-item"><span class="s-num">2017</span><span class="s-lbl">Investing</span></div>
     </div>
@@ -330,7 +330,7 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
         <div class="lk-icon">&#11088;</div>
         <div class="lk-body">
           <div class="lk-title">Google Reviews</div>
-          <div class="lk-sub">5-star rated &middot; 400+ client reviews &middot; Insurance By Rattan</div>
+          <div class="lk-sub">5-star rated &middot; <span id="lk-reviews2">400+</span> client reviews &middot; Insurance By Rattan</div>
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
@@ -339,7 +339,7 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
         <div class="lk-icon">&#127925;</div>
         <div class="lk-body">
           <div class="lk-title">TikTok &mdash; @PunjabiFinance</div>
-          <div class="lk-sub">76K+ followers &middot; Daily short-form finance content</div>
+          <div class="lk-sub"><span id="lk-tiktok">76K+</span> followers &middot; Daily short-form finance content</div>
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
@@ -348,7 +348,7 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
         <div class="lk-icon">&#128247;</div>
         <div class="lk-body">
           <div class="lk-title">Instagram &mdash; @PunjabiFinance</div>
-          <div class="lk-sub">63K+ followers &middot; Reels, stories &amp; market updates</div>
+          <div class="lk-sub"><span id="lk-instagram">63K+</span> followers &middot; Reels, stories &amp; market updates</div>
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
@@ -357,7 +357,7 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
         <div class="lk-icon">&#128101;</div>
         <div class="lk-body">
           <div class="lk-title">Facebook &mdash; Punjabi Finance</div>
-          <div class="lk-sub">36K+ followers &middot; Community &amp; finance discussions</div>
+          <div class="lk-sub"><span id="lk-facebook">36K+</span> followers &middot; Community &amp; finance discussions</div>
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
@@ -366,7 +366,7 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
         <div class="lk-icon">&#9654;</div>
         <div class="lk-body">
           <div class="lk-title">YouTube &mdash; @PunjabiFinance</div>
-          <div class="lk-sub">3.2K subscribers &middot; In-depth finance education</div>
+          <div class="lk-sub"><span id="lk-youtube">3.2K</span> subscribers &middot; In-depth finance education</div>
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
@@ -375,7 +375,7 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
         <div class="lk-icon">&#128308;</div>
         <div class="lk-body">
           <div class="lk-title">Threads &mdash; @PunjabiFinance</div>
-          <div class="lk-sub">Market thoughts &middot; Finance commentary</div>
+          <div class="lk-sub"><span id="lk-threads">7K+</span> followers &middot; Market thoughts &middot; Finance commentary</div>
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
@@ -387,7 +387,7 @@ body{font-family:'DM Sans',sans-serif;background:#0f0d04;color:#f0e8d0;line-heig
         <div class="lk-icon">&#127381;</div>
         <div class="lk-body">
           <div class="lk-title">Sponsor &amp; Media Kit</div>
-          <div class="lk-sub">178K+ reach &middot; Partnership &amp; collaboration opportunities</div>
+          <div class="lk-sub"><span id="lk-total2">185K+</span> reach &middot; Partnership &amp; collaboration opportunities</div>
         </div>
         <div class="lk-arr">&#8250;</div>
       </a>
@@ -471,6 +471,40 @@ document.addEventListener('click',function(e){
     drop.classList.remove('open');
   }
 });
+</script>
+
+<script>
+const SHEET_URL_LK = 'https://script.google.com/macros/s/AKfycbw5bZcy8pTvlvC74BhSDyRO0pA9kure4kVvodsrYn_pI77A4tIIpsN4CY9c6zvOqUDdJA/exec';
+function fmtF2(n){
+  if(n>=10000) return Math.round(n/1000)+'K+';
+  if(n>=1000) return (n/1000).toFixed(1).replace('.0','')+'K+';
+  return n+'';
+}
+async function loadSocialStatsLinks(){
+  try{
+    const r = await fetch(SHEET_URL_LK, {cache:'no-store'});
+    const d = await r.json();
+    if(!d.social) return;
+    const s = d.social;
+    const total = Math.round(s.total/1000)*1000;
+    const totalFmt = Math.round(total/1000)+'K+';
+    // Individual platforms
+    if(s.TikTok){document.getElementById('lk-tiktok').textContent=fmtF2(s.TikTok);}
+    if(s.Instagram){document.getElementById('lk-instagram').textContent=fmtF2(s.Instagram);}
+    if(s.Facebook){document.getElementById('lk-facebook').textContent=fmtF2(s.Facebook);}
+    if(s.YouTube){document.getElementById('lk-youtube').textContent=fmtF2(s.YouTube);}
+    if(s.Threads){var lt=document.getElementById('lk-threads');if(lt)lt.textContent=fmtF2(s.Threads);}
+    // Totals
+    document.getElementById('lk-total').textContent=totalFmt;
+    document.getElementById('lk-total2').textContent=totalFmt;
+    // Reviews
+    if(s.reviewCount){
+      document.getElementById('lk-reviews').textContent=s.reviewCount;
+      document.getElementById('lk-reviews2').textContent=s.reviewCount;
+    }
+  }catch(e){console.log('Social stats error:',e);}
+}
+loadSocialStatsLinks();
 </script>
 </body>
 </html>
