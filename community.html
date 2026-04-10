@@ -154,18 +154,18 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .win-detail{font-size:0.72rem;color:rgba(255,255,255,0.45);line-height:1.6;margin-bottom:8px}
 .win-pnl{color:#25d366;font-weight:600}
 .win-note{font-size:0.67rem;color:rgba(255,255,255,0.3);font-style:italic;margin-top:6px}
-.wins-total{display:flex;align-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.15);border-radius:14px;padding:22px 28px;margin-bottom:16px;flex-wrap:wrap;gap:20px}
-.wins-total-left,.wins-total-right{flex:1;text-align:center;min-width:120px}
+.wins-total{display:flex;align-items:stretch;background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.15);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.wins-total-left,.wins-total-right{flex:1;text-align:center;padding:18px 12px;min-width:120px}
 .wins-total-label{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px}
 .wins-total-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#fff}
-.wins-total-divider{width:1px;height:48px;background:rgba(255,255,255,0.08);flex-shrink:0}
+.wins-total-divider{width:1px;background:rgba(212,165,52,0.12);flex-shrink:0}
 .wins-disclaimer{font-size:0.67rem;color:rgba(255,255,255,0.35);background:rgba(212,165,52,0.06);border:1px solid rgba(212,165,52,0.15);border-left:3px solid rgba(212,165,52,0.4);border-radius:0 8px 8px 0;padding:12px 16px;line-height:1.75}
 .wins-disclaimer strong{color:rgba(212,165,52,0.7)}
 @media(max-width:640px){
   .wins-grid{grid-template-columns:1fr 1fr}
   .win-mega{grid-column:span 2}
   .wins-total{flex-direction:column;gap:12px}
-  .wins-total-divider{width:100%;height:1px}
+  .wins-total-divider{width:1px;background:rgba(212,165,52,0.12);flex-shrink:0}
 }
 
 /* ── WIN CARDS ── */
@@ -185,18 +185,18 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .win-detail{font-size:0.72rem;color:rgba(255,255,255,0.45);line-height:1.6;margin-bottom:8px}
 .win-pnl{color:#25d366;font-weight:600}
 .win-note{font-size:0.67rem;color:rgba(255,255,255,0.3);font-style:italic;margin-top:6px}
-.wins-total{display:flex;align-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.15);border-radius:14px;padding:22px 28px;margin-bottom:16px;flex-wrap:wrap;gap:20px}
-.wins-total-left,.wins-total-right{flex:1;text-align:center;min-width:120px}
+.wins-total{display:flex;align-items:stretch;background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.15);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.wins-total-left,.wins-total-right{flex:1;text-align:center;padding:18px 12px;min-width:120px}
 .wins-total-label{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px}
 .wins-total-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#fff}
-.wins-total-divider{width:1px;height:48px;background:rgba(255,255,255,0.08);flex-shrink:0}
+.wins-total-divider{width:1px;background:rgba(212,165,52,0.12);flex-shrink:0}
 .wins-disclaimer{font-size:0.67rem;color:rgba(255,255,255,0.35);background:rgba(212,165,52,0.06);border:1px solid rgba(212,165,52,0.15);border-left:3px solid rgba(212,165,52,0.4);border-radius:0 8px 8px 0;padding:12px 16px;line-height:1.75}
 .wins-disclaimer strong{color:rgba(212,165,52,0.7)}
 @media(max-width:640px){
   .wins-grid{grid-template-columns:1fr 1fr}
   .win-mega{grid-column:span 2}
   .wins-total{flex-direction:column;gap:12px}
-  .wins-total-divider{width:100%;height:1px}
+  .wins-total-divider{width:1px;background:rgba(212,165,52,0.12);flex-shrink:0}
 }
 /* ── HOW IT WORKS ── */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -322,8 +322,18 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     </div>
     <div class="wins-total-divider"></div>
     <div class="wins-total-right">
-      <div class="wins-total-label">Members Watched</div>
-      <div class="wins-total-num" style="color:#d4a534">Every trade</div>
+      <div class="wins-total-label">Options Income Collected</div>
+      <div class="wins-total-num" style="color:#d4a534" id="cm-opts-total">...</div>
+    </div>
+    <div class="wins-total-divider"></div>
+    <div class="wins-total-right">
+      <div class="wins-total-label">Best Single Month</div>
+      <div class="wins-total-num" style="color:#d4a534" id="cm-best-month-strip">...</div>
+    </div>
+    <div class="wins-total-divider"></div>
+    <div class="wins-total-right">
+      <div class="wins-total-label">Members Watching</div>
+      <div class="wins-total-num" style="color:#fff" id="cm-members-strip">...</div>
     </div>
   </div>
 
@@ -519,7 +529,7 @@ function galleryScroll(dir){
 
     // ── Member count ──
     if(d.social && d.social.memberCount){
-      ['cm-members','cm-members-stat','cm-members-cta'].forEach(id=>{
+      ['cm-members','cm-members-stat','cm-members-cta','cm-members-strip'].forEach(id=>{
         var el=document.getElementById(id); if(el) el.textContent=d.social.memberCount;
       });
     }
@@ -566,7 +576,12 @@ function galleryScroll(dir){
       var byMonth={};
       d.options.forEach(o=>{ var k=o.year+'-'+o.month; byMonth[k]=(byMonth[k]||0)+(o.premiumCAD||0); });
       var best=Math.max(...Object.values(byMonth));
-      if(best>0){ set('cm-best-month','C$'+Math.round(best/1000)+'K+'); }
+      var totalOpts=Object.values(byMonth).reduce((a,b)=>a+b,0);
+      if(best>0){
+        set('cm-best-month','C$'+Math.round(best/1000)+'K+');
+        set('cm-best-month-strip','C$'+Math.round(best/1000)+'K+');
+      }
+      if(totalOpts>0) set('cm-opts-total','C$'+Math.round(totalOpts/1000)+'K+');
     }
 
   }catch(e){ console.warn('Community data error:',e); }
