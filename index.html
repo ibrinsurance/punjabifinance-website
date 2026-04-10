@@ -322,7 +322,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   <div class="stats-row">
     <div class="stat highlight"><div class="stat-label">Total Value</div><div class="stat-val" id="s-val">...</div><div class="stat-meta">Canadian Dollars</div></div>
     <div class="stat highlight"><div class="stat-label">Unrealized P&amp;L</div><div class="stat-val" id="s-pnl">...</div><div class="stat-meta" id="s-pnl-pct">...</div></div>
-    <div class="stat"><div class="stat-label">Investing Since</div><div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#b8862a;line-height:1">2017</div><div class="stat-meta">9+ years in the market &mdash; 15 positions</div></div>
+    <div class="stat"><div class="stat-label">Investing Since</div><div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#b8862a;line-height:1">2017</div><div class="stat-meta" id="years-investing">...</div></div>
   </div>
   <div class="disclaimer" style="margin-top:20px;margin-bottom:0"><strong>Disclaimer:</strong> Shared for educational &amp; transparency purposes only. Nothing constitutes financial advice. Past performance does not guarantee future results. Always do your own research.</div>
 </div>
@@ -509,7 +509,12 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 </div>
 
 <script>
-// ── PAYWALL ──
+// ── YEARS INVESTING ──
+(function(){
+  const years = new Date().getFullYear() - 2017;
+  const el = document.getElementById('years-investing');
+  if(el) el.textContent = years + '+ years in the market';
+})();
 // Password is pulled from Google Sheet cell L3 (Portfolio tab)
 // Update it there each month — no code changes needed
 let MONTHLY_CODE = PF_MONTHLY_CODE; // fallback until sheet loads
