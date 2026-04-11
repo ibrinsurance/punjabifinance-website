@@ -605,9 +605,8 @@ function galleryScroll(dir){
       });
     }
     if(d.social && d.social.price){
-      var p=d.social.price;
-      // Price card shows just the number after $
-      var num=p.replace(/[^0-9.]/g,'');
+      var p='$'+String(d.social.price).replace(/[$]/g,'');
+      var num=String(d.social.price).replace(/[^0-9.]/g,'');
       set('cm-price-hero', p);
       set('cm-price-stat', p);
       set('cm-price-title', p);
