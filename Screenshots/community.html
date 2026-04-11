@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Join the Community &mdash; Punjabi Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── TOPBAR ── */
+.topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;left:0;right:0;z-index:100;gap:12px;width:100%;box-sizing:border-box}
+.wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);flex-shrink:0}
+.wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
+.wm-gold{color:#d4a534}
+.topbar-nav{display:flex;align-items:center;gap:2px;flex:1}
+.nav-btn{display:inline-flex;align-items:center;color:rgba(255,255,255,0.5);font-size:0.67rem;font-weight:500;letter-spacing:0.04em;padding:7px 12px;border-radius:7px;text-decoration:none;border:1px solid transparent;white-space:nowrap;transition:all .15s}
+.nav-btn:hover{background:rgba(212,165,52,0.1);color:#d4a534;border-color:rgba(212,165,52,0.2)}
+.nav-btn.active{color:#d4a534;border-color:rgba(212,165,52,0.2);background:rgba(212,165,52,0.08)}
+.topbar-right-btns{display:none;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.ham-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:10px 12px;border:1px solid rgba(212,165,52,0.35);background:rgba(212,165,52,0.1);border-radius:8px;flex-shrink:0}
+.ham-btn:hover{background:rgba(212,165,52,0.2);border-color:rgba(212,165,52,0.5)}
+.ham-line{width:24px;height:2.5px;background:#d4a534;border-radius:2px;transition:all .25s;display:block}
+.ham-btn.open .ham-line:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham-btn.open .ham-line:nth-child(2){opacity:0;transform:scaleX(0)}
+.ham-btn.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-dropdown{display:none;position:fixed;top:58px;left:0;right:0;background:#111009;border-bottom:1px solid rgba(212,165,52,0.15);z-index:99;padding:8px 16px 14px;flex-direction:column;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+.nav-dropdown.open{display:flex}
+.nav-dropdown .nav-btn{font-size:0.89rem;padding:12px 14px;border-radius:9px;width:100%;letter-spacing:0.02em}
+@media(max-width:720px){.topbar-nav{display:none}.topbar-right-btns{display:flex}}
+@media(max-width:480px){.topbar{padding:0 14px;gap:8px}.wm-link{padding-right:14px}}
+
+/* ── BASE ── */
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:18px;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-height:1.6;min-height:100vh}
+
+/* ── HERO ── */
+.hero{background:#0d0b04;padding:clamp(56px,8vw,96px) 40px clamp(40px,6vw,72px);text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(37,211,102,0.1) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(212,165,52,0.06) 0%,transparent 60%);pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.hero-price{display:inline-flex;align-items:center;gap:8px;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25);padding:6px 18px;border-radius:100px;font-size:0.72rem;letter-spacing:0.1em;color:#25d366;font-weight:700;margin-bottom:24px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3.2rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-0.02em}
+.hero-title em{color:#d4a534;font-style:normal}
+.hero-sub{font-size:0.95rem;color:rgba(255,255,255,0.5);line-height:1.85;max-width:540px;margin:0 auto 32px}
+.hero-sub strong{color:rgba(255,255,255,0.8);font-weight:600}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.btn-join{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#052a10;padding:16px 36px;border-radius:12px;font-weight:700;font-size:1rem;text-decoration:none;transition:all .2s;box-shadow:0 4px 28px rgba(37,211,102,0.25)}
+.btn-join:hover{background:#1fb356;transform:translateY(-2px)}
+.hero-note{font-size:0.67rem;color:rgba(255,255,255,0.25);letter-spacing:0.06em}
+.hero-disclaimer{font-size:0.67rem;color:rgba(255,255,255,0.3);line-height:1.75;max-width:520px;margin:16px auto 0;padding:12px 18px;background:rgba(255,255,255,0.04);border-left:2px solid rgba(212,165,52,0.3);border-radius:0 8px 8px 0;text-align:left}
+.hero-disclaimer strong{color:rgba(212,165,52,0.7)}
+
+/* ── STAT STRIP ── */
+.stat-strip{background:#111009;border-top:1px solid rgba(212,165,52,0.1);border-bottom:1px solid rgba(212,165,52,0.1);padding:28px 40px}
+.stat-strip-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.1);border-radius:14px;overflow:hidden}
+.ss-item{background:#111009;padding:22px 20px;text-align:center}
+.ss-num{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;color:#d4a534;line-height:1;margin-bottom:4px}
+.ss-label{font-size:0.63rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.3);font-weight:600}
+
+/* ── SECTIONS ── */
+.section{padding:clamp(44px,6vw,72px) 40px;max-width:1080px;margin:0 auto}
+.section-dark{background:#0d0b04}
+.section-mid{background:#111009}
+.section-light{background:#f4f2ee}
+.section-light .sec-eyebrow{color:#b8862a}
+.section-light .sec-title{color:#1a1a1a}
+.section-light .sec-sub{color:#777}
+.sec-divider{height:1px;background:rgba(212,165,52,0.1)}
+.sec-eyebrow{font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(212,165,52,0.6);font-weight:600;margin-bottom:10px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.sec-sub{font-size:0.89rem;color:rgba(255,255,255,0.45);line-height:1.75;max-width:560px;margin-bottom:32px}
+
+/* ── INSIDE LOOK — WhatsApp bubbles ── */
+.inside-wrap{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;width:100%}
+.bubble-col{display:flex;flex-direction:column;gap:10px}
+.bubble-label{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.45);font-weight:700;margin-bottom:4px}
+.bubble{background:#1f3327;border-radius:0 16px 16px 16px;padding:14px 16px;font-size:0.78rem;color:#e8f5e9;line-height:1.6;position:relative;max-width:340px}
+.bubble.sent{background:#1a4a2e;border-radius:16px 0 16px 16px;margin-left:auto}
+.bubble strong{color:#fff;font-weight:700}
+.bubble .meta{font-size:0.6rem;color:rgba(255,255,255,0.35);margin-top:8px;display:flex;align-items:center;justify-content:flex-end;gap:4px}
+.bubble .tag{display:inline-block;background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.25);color:#25d366;font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:100px;margin-bottom:8px;letter-spacing:0.08em}
+.bubble .premium{color:#d4a534;font-weight:700}
+.bubble-poll{background:#1a2e1a;border-radius:16px;padding:16px;max-width:340px}
+.bubble-poll .poll-q{font-size:0.83rem;font-weight:700;color:#fff;margin-bottom:12px}
+.bubble-poll .poll-opt{padding:8px 12px;border-radius:8px;font-size:0.72rem;color:#e8f5e9;margin-bottom:6px;position:relative;overflow:hidden}
+.bubble-poll .poll-opt::before{content:'';position:absolute;left:0;top:0;bottom:0;background:rgba(37,211,102,0.25);border-radius:8px}
+.bubble-poll .poll-opt.win::before{width:95%}
+.bubble-poll .poll-opt.mid::before{width:30%}
+.bubble-poll .poll-opt.low::before{width:5%}
+.bubble-poll .poll-opt.zero::before{width:0}
+.bubble-poll .poll-text{position:relative;z-index:1;display:flex;justify-content:space-between}
+.bubble-reply{background:#111009;border-left:3px solid #25d366;padding:8px 12px;border-radius:0 8px 8px 0;margin-bottom:8px;font-size:0.72rem;color:rgba(255,255,255,0.6);font-style:italic}
+
+/* ── WHAT YOU GET ── */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:0}
+.feat-card{background:rgba(255,255,255,0.04);border:1px solid rgba(212,165,52,0.1);border-radius:14px;padding:24px 20px;position:relative;overflow:hidden;transition:border-color .2s}
+.feat-card:hover{border-color:rgba(212,165,52,0.25)}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#b8862a,#d4a534)}
+.feat-icon{font-size:1.5rem;margin-bottom:12px;display:block}
+.feat-title{font-size:0.89rem;font-weight:700;color:#fff;margin-bottom:6px}
+.feat-desc{font-size:0.78rem;color:rgba(255,255,255,0.45);line-height:1.7}
+
+/* ── PRICING ── */
+.price-card{background:#111009;border:2px solid rgba(37,211,102,0.3);border-radius:20px;padding:40px 36px;max-width:480px;margin:0 auto;text-align:center;position:relative;overflow:hidden}
+.price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#25d366,transparent)}
+.price-badge{display:inline-block;background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);color:#25d366;font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:20px}
+.price-amount{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+.price-amount span{font-size:1.5rem;font-weight:400;color:rgba(255,255,255,0.4);vertical-align:top;margin-top:8px;display:inline-block}
+.price-period{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-bottom:24px}
+.price-features{list-style:none;text-align:left;margin-bottom:28px}
+.price-features li{font-size:0.83rem;color:rgba(255,255,255,0.65);padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:10px}
+.price-features li::before{content:'✓';color:#25d366;font-weight:700;flex-shrink:0}
+.price-features li:last-child{border-bottom:none}
+.price-note{font-size:0.67rem;color:rgba(255,255,255,0.25);margin-top:14px;line-height:1.7}
+
+
+/* ── SCREENSHOT GALLERY ── */
+.gallery-section{background:#080600;padding:clamp(44px,6vw,72px) 0;border-top:1px solid rgba(212,165,52,0.1)}
+.gallery-inner{max-width:1080px;margin:0 auto;padding:0 40px}
+.gallery-label{font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(212,165,52,0.6);font-weight:600;margin-bottom:10px}
+.gallery-title{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800;color:#fff;margin-bottom:6px}
+.gallery-sub{font-size:0.83rem;color:rgba(255,255,255,0.35);margin-bottom:28px}
+.gallery-track-wrap{position:relative;overflow:hidden}
+.gallery-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:16px;cursor:grab}
+.gallery-track:active{cursor:grabbing}
+.gallery-track::-webkit-scrollbar{height:4px}
+.gallery-track::-webkit-scrollbar-track{background:rgba(255,255,255,0.05);border-radius:2px}
+.gallery-track::-webkit-scrollbar-thumb{background:rgba(212,165,52,0.3);border-radius:2px}
+.gallery-card{flex:0 0 280px;scroll-snap-align:start;border-radius:16px;overflow:hidden;border:1px solid rgba(212,165,52,0.1);background:#111009;position:relative}
+.gallery-card img{width:100%;height:420px;object-fit:cover;object-position:top;display:block}
+.gallery-card-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.85));padding:20px 14px 14px;font-size:0.67rem;color:rgba(255,255,255,0.7);font-weight:600}
+.gallery-hint{font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:10px;text-align:center;letter-spacing:0.08em}
+.gallery-controls{display:flex;gap:10px;margin-top:14px;justify-content:center}
+.gallery-btn{background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.2);color:#d4a534;font-size:1rem;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:sans-serif}
+.gallery-btn:hover{background:rgba(212,165,52,0.2)}
+@media(max-width:640px){
+  .gallery-inner{padding:0 20px}
+  .gallery-card{flex:0 0 240px}
+  .gallery-card img{height:360px}
+}
+
+/* ── WIN CARDS ── */
+.wins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.win-card{border-radius:14px;padding:20px 18px;position:relative;overflow:hidden}
+.win-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.win-mega{background:linear-gradient(135deg,rgba(212,165,52,0.15),rgba(212,165,52,0.05));border:1px solid rgba(212,165,52,0.3);grid-column:span 2}
+.win-mega::before{background:linear-gradient(90deg,#d4a534,#b8862a)}
+.win-big{background:linear-gradient(135deg,rgba(37,211,102,0.12),rgba(37,211,102,0.04));border:1px solid rgba(37,211,102,0.25)}
+.win-big::before{background:#25d366}
+.win-mid{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)}
+.win-mid::before{background:rgba(255,255,255,0.2)}
+.win-ticker{font-size:0.67rem;letter-spacing:0.18em;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:6px}
+.win-pct{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:#fff;line-height:1;margin-bottom:8px}
+.win-mega .win-pct{font-size:2.8rem;color:#d4a534}
+.win-big .win-pct{color:#25d366}
+.win-detail{font-size:0.72rem;color:rgba(255,255,255,0.45);line-height:1.6;margin-bottom:8px}
+.win-pnl{color:#25d366;font-weight:600}
+.win-note{font-size:0.67rem;color:rgba(255,255,255,0.3);font-style:italic;margin-top:6px}
+.wins-total{display:flex;align-items:stretch;background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.15);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.wins-total-left,.wins-total-right{flex:1;text-align:center;padding:18px 12px;min-width:120px}
+.wins-total-label{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px}
+.wins-total-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#fff}
+.wins-total-divider{width:1px;background:rgba(212,165,52,0.12);flex-shrink:0}
+.wins-disclaimer{font-size:0.67rem;color:rgba(255,255,255,0.35);background:rgba(212,165,52,0.06);border:1px solid rgba(212,165,52,0.15);border-left:3px solid rgba(212,165,52,0.4);border-radius:0 8px 8px 0;padding:12px 16px;line-height:1.75}
+.wins-disclaimer strong{color:rgba(212,165,52,0.7)}
+@media(max-width:640px){
+  .wins-grid{grid-template-columns:1fr 1fr}
+  .win-mega{grid-column:span 2}
+  .wins-total{flex-direction:column;gap:12px}
+  .wins-total-divider{width:1px;background:rgba(212,165,52,0.12);flex-shrink:0}
+}
+
+/* ── WIN CARDS ── */
+.wins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.win-card{border-radius:14px;padding:20px 18px;position:relative;overflow:hidden}
+.win-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.win-mega{background:linear-gradient(135deg,rgba(212,165,52,0.15),rgba(212,165,52,0.05));border:1px solid rgba(212,165,52,0.3);grid-column:span 2}
+.win-mega::before{background:linear-gradient(90deg,#d4a534,#b8862a)}
+.win-big{background:linear-gradient(135deg,rgba(37,211,102,0.12),rgba(37,211,102,0.04));border:1px solid rgba(37,211,102,0.25)}
+.win-big::before{background:#25d366}
+.win-mid{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)}
+.win-mid::before{background:rgba(255,255,255,0.2)}
+.win-ticker{font-size:0.67rem;letter-spacing:0.18em;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:6px}
+.win-pct{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:#fff;line-height:1;margin-bottom:8px}
+.win-mega .win-pct{font-size:2.8rem;color:#d4a534}
+.win-big .win-pct{color:#25d366}
+.win-detail{font-size:0.72rem;color:rgba(255,255,255,0.45);line-height:1.6;margin-bottom:8px}
+.win-pnl{color:#25d366;font-weight:600}
+.win-note{font-size:0.67rem;color:rgba(255,255,255,0.3);font-style:italic;margin-top:6px}
+.wins-total{display:flex;align-items:stretch;background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.15);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.wins-total-left,.wins-total-right{flex:1;text-align:center;padding:18px 12px;min-width:120px}
+.wins-total-label{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px}
+.wins-total-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#fff}
+.wins-total-divider{width:1px;background:rgba(212,165,52,0.12);flex-shrink:0}
+.wins-disclaimer{font-size:0.67rem;color:rgba(255,255,255,0.35);background:rgba(212,165,52,0.06);border:1px solid rgba(212,165,52,0.15);border-left:3px solid rgba(212,165,52,0.4);border-radius:0 8px 8px 0;padding:12px 16px;line-height:1.75}
+.wins-disclaimer strong{color:rgba(212,165,52,0.7)}
+@media(max-width:640px){
+  .wins-grid{grid-template-columns:1fr 1fr}
+  .win-mega{grid-column:span 2}
+  .wins-total{flex-direction:column;gap:12px}
+  .wins-total-divider{width:1px;background:rgba(212,165,52,0.12);flex-shrink:0}
+}
+/* ── HOW IT WORKS ── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step{background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.1);border-radius:14px;padding:24px 20px;text-align:center}
+.step-num{width:40px;height:40px;border-radius:50%;background:#d4a534;color:#0a0800;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.step-title{font-size:0.89rem;font-weight:700;color:#fff;margin-bottom:6px}
+.step-desc{font-size:0.78rem;color:rgba(255,255,255,0.45);line-height:1.7}
+
+/* ── DISCLAIMER ── */
+.disclaimer-box{background:rgba(212,165,52,0.06);border:1px solid rgba(212,165,52,0.2);border-left:3px solid #d4a534;border-radius:0 10px 10px 0;padding:16px 20px;font-size:0.75rem;color:rgba(255,255,255,0.6);line-height:1.8;margin-top:32px}
+.disclaimer-box strong{color:#d4a534}
+
+
+/* ── SCREENSHOT GALLERY ── */
+.gallery-section{background:#080600;padding:clamp(44px,6vw,72px) 0;border-top:1px solid rgba(212,165,52,0.1);border-bottom:1px solid rgba(212,165,52,0.1)}
+.gallery-inner{max-width:1080px;margin:0 auto;padding:0 40px}
+.gallery-label{font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(212,165,52,0.6);font-weight:600;margin-bottom:10px}
+.gallery-title{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800;color:#fff;margin-bottom:6px}
+.gallery-sub{font-size:0.83rem;color:rgba(255,255,255,0.35);margin-bottom:28px}
+.gallery-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:16px;cursor:grab}
+.gallery-track:active{cursor:grabbing}
+.gallery-track::-webkit-scrollbar{height:4px}
+.gallery-track::-webkit-scrollbar-track{background:rgba(255,255,255,0.05);border-radius:2px}
+.gallery-track::-webkit-scrollbar-thumb{background:rgba(212,165,52,0.3);border-radius:2px}
+.gallery-card{flex:0 0 260px;scroll-snap-align:start;border-radius:16px;overflow:hidden;border:1px solid rgba(212,165,52,0.12);background:#111009;position:relative}
+.gallery-card img{width:100%;height:400px;object-fit:cover;object-position:top;display:block}
+.gallery-card-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.88));padding:24px 14px 14px;font-size:0.65rem;color:rgba(255,255,255,0.75);font-weight:600;line-height:1.4}
+.gallery-hint{font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:10px;text-align:center;letter-spacing:0.08em}
+.gallery-controls{display:flex;gap:10px;margin-top:14px;justify-content:center}
+.gallery-btn{background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.2);color:#d4a534;font-size:1rem;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:sans-serif}
+.gallery-btn:hover{background:rgba(212,165,52,0.2)}
+@media(max-width:640px){
+  .gallery-inner{padding:0 20px}
+  .gallery-card{flex:0 0 220px}
+  .gallery-card img{height:340px}
+}
+/* ── BOTTOM CTA ── */
+.bottom-cta{background:#0a1a0e;padding:clamp(56px,8vw,96px) 40px;text-align:center;border-top:1px solid rgba(37,211,102,0.1)}
+.bottom-cta-inner{max-width:560px;margin:0 auto}
+.bottom-cta-title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:#fff;margin-bottom:12px;line-height:1.2}
+.bottom-cta-sub{font-size:0.89rem;color:rgba(255,255,255,0.45);line-height:1.75;margin-bottom:32px}
+.cta-stat-row{display:flex;justify-content:center;gap:32px;margin-bottom:32px}
+.cta-stat{text-align:center}
+.cta-stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#d4a534}
+.cta-stat-lbl{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
+
+.page-footer{background:#060501;padding:20px 40px;text-align:center;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.12);border-top:1px solid rgba(212,165,52,0.06)}
+.page-footer a{color:rgba(212,165,52,0.3);text-decoration:none}
+
+@media(max-width:640px){
+  html{font-size:17px}
+  .hero{padding:48px 20px 36px}
+  .stat-strip{padding:20px 16px}
+  .stat-strip-inner{grid-template-columns:repeat(3,1fr)}
+  .ss-num{font-size:1.4rem}
+  .section{padding:36px 20px}
+  .sec-divider{margin:0}
+  .features-grid,.steps{grid-template-columns:1fr}
+  .inside-wrap{grid-template-columns:1fr}
+  .bottom-cta{padding:48px 20px}
+  .page-footer{padding:16px 20px}
+  .cta-stat-row{gap:20px}
+  .hero-actions{flex-direction:column;align-items:center}
+  .btn-join{width:100%;justify-content:center}
+}
+@media(min-width:641px) and (max-width:900px){
+  .features-grid,.steps{grid-template-columns:1fr 1fr}
+  .section{padding:44px 28px}
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W5P90KB7HM"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-W5P90KB7HM');</script>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a class="wm-link" href="index.html">
+    <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
+  </a>
+  <div class="topbar-nav">
+    <a class="nav-btn" href="index.html">Portfolio</a>
+    <a class="nav-btn active" href="community.html">Community</a>
+    <a class="nav-btn" href="webinars.html">Webinars</a>
+    <a class="nav-btn" href="links.html">Links</a>
+    <a class="nav-btn" href="mediakit.html">Media Kit</a>
+  </div>
+  <div class="topbar-right-btns">
+    <a class="nav-btn nav-btn-webinars active" href="community.html">Community</a>
+    <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
+  </div>
+</div>
+<nav class="nav-dropdown" id="nav-dropdown">
+  <a class="nav-btn" href="index.html">Portfolio</a>
+  <a class="nav-btn active" href="community.html">Community</a>
+  <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn" href="links.html">Links</a>
+  <a class="nav-btn" href="mediakit.html">Media Kit</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-price">&#128172; $10 / month</div>
+    <div class="hero-title">Watch a Real Portfolio.<br><em>Every Move. Every Trade.</em></div>
+    <div class="hero-sub">
+      I share every buy, every sell, every covered call, every roll — with my reasoning — straight to your WhatsApp.<br>
+      <strong>No fluff. No predictions. Just transparency.</strong>
+    </div>
+    <div class="hero-actions">
+      <a class="btn-join" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join the Community</a>
+    </div>
+    <div class="hero-note"><span id="cm-members">...</span> members already inside</div>
+    <div class="hero-disclaimer">
+      <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
+    </div>
+  </div>
+</div>
+
+<!-- STAT STRIP -->
+<div class="stat-strip">
+  <div class="stat-strip-inner">
+    <div class="ss-item"><div class="ss-num" id="cm-members-stat">...</div><div class="ss-label">Active Members</div></div>
+    <div class="ss-item"><div class="ss-num">2025</div><div class="ss-label">Community Since</div></div>
+    <div class="ss-item"><div class="ss-num">$10</div><div class="ss-label">Per Month</div></div>
+  </div>
+</div>
+
+<!-- INSIDE LOOK -->
+<div class="section-mid">
+<div class="section">
+  <div class="sec-eyebrow">Real Results &mdash; Members Watched It All Happen</div>
+  <div class="sec-title">This is what <em style="color:#d4a534;font-style:normal">$10/month</em> gets you access to</div>
+  <div class="sec-sub">Every buy, every sell, every covered call logged in real time. Members followed this portfolio from the start — and watched these positions grow.</div>
+
+  <div class="wins-grid" id="cm-wins-grid"><!-- populated by JS --></div>
+
+  <div class="wins-total">
+    <div class="wins-total-left">
+      <div class="wins-total-label">Total Portfolio Value</div>
+      <div class="wins-total-num" id="cm-port-val">...</div>
+    </div>
+    <div class="wins-total-divider"></div>
+    <div class="wins-total-right">
+      <div class="wins-total-label">Total Unrealized Gain</div>
+      <div class="wins-total-num" style="color:#25d366" id="cm-port-pnl">...</div>
+    </div>
+    <div class="wins-total-divider"></div>
+    <div class="wins-total-right">
+      <div class="wins-total-label">Options Income Collected</div>
+      <div class="wins-total-num" style="color:#d4a534" id="cm-opts-total">...</div>
+    </div>
+    <div class="wins-total-divider"></div>
+    <div class="wins-total-right">
+      <div class="wins-total-label">Best Single Month</div>
+      <div class="wins-total-num" style="color:#d4a534" id="cm-best-month-strip">...</div>
+    </div>
+    <div class="wins-total-divider"></div>
+    <div class="wins-total-right">
+      <div class="wins-total-label">Members Watching</div>
+      <div class="wins-total-num" style="color:#fff" id="cm-members-strip">...</div>
+    </div>
+  </div>
+
+  <div class="wins-disclaimer">
+    <strong>Important:</strong> These are Rattan&rsquo;s personal portfolio results, not guaranteed or typical returns. Past performance does not predict future results. This is shared for educational transparency only &mdash; not as investment advice. Members make their own independent decisions.
+  </div>
+
+</div>
+</div>
+<div class="sec-divider"></div>
+
+<!-- WHAT YOU GET -->
+<div class="section-dark">
+<div class="section">
+  <div class="sec-eyebrow">What&rsquo;s Included</div>
+  <div class="sec-title">Everything you get for $10/month</div>
+  <div class="sec-sub">No courses. No generic advice. Just one real investor, logging every buy, sell, and options trade in real time.</div>
+  <div class="features-grid">
+    <div class="feat-card">
+      <span class="feat-icon">&#128202;</span>
+      <div class="feat-title">Every Trade Logged</div>
+      <div class="feat-desc">Buys, sells, covered call opens, rolls, early closes — with exact strikes, contracts, premiums and my reasoning. Nothing hidden.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">&#128176;</span>
+      <div class="feat-title">Options Income Strategy</div>
+      <div class="feat-desc">Watch how I generate consistent income selling covered calls on top of a long-term stock portfolio. Detailed posts for every trade.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">&#127891;</span>
+      <div class="feat-title">Monthly Live Webinars</div>
+      <div class="feat-desc">Deep-dive sessions on investing strategies, market conditions, and options. Plus full access to all past recordings.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">&#128200;</span>
+      <div class="feat-title">Live Portfolio Dashboard</div>
+      <div class="feat-desc">Full access to my live portfolio website — real holdings, live prices, P&amp;L, and options income. Updated from my brokerage daily.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">&#129504;</span>
+      <div class="feat-title">Mindset &amp; Market Commentary</div>
+      <div class="feat-desc">Polls and honest commentary during volatile markets. The kind of perspective that helps you stay rational when others panic — shared freely, not 1-on-1 coaching.</div>
+    </div>
+    <div class="feat-card">
+      <span class="feat-icon">&#128172;</span>
+      <div class="feat-title">Member Community Chat</div>
+      <div class="feat-desc">Connect with other members, share ideas, and follow each other&rsquo;s investing journeys. You&rsquo;re not learning alone.</div>
+    </div>
+  </div>
+  <div class="disclaimer-box">
+    <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and decisions. Nothing shared is financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
+  </div>
+</div>
+</div>
+<div class="sec-divider"></div>
+
+
+<!-- SCREENSHOT GALLERY -->
+<div class="gallery-section">
+  <div class="gallery-inner">
+    <div class="gallery-label">Real Posts from the Group</div>
+    <div class="gallery-title">Actual screenshots from inside</div>
+    <div class="gallery-sub">Drag or use arrows to scroll &mdash; pause on anything you want to read</div>
+    <div class="gallery-track" id="gallery-track">
+      <div class="gallery-card"><img src="Screenshots/post1.jpg" alt="Rolled covered calls IREN BMNR" loading="lazy"><div class="gallery-card-label">Feb 13, 2026 &mdash; Rolled IREN &amp; BMNR covered calls. $1,920 USD total premium</div></div>
+      <div class="gallery-card"><img src="Screenshots/post2.jpg" alt="NBIS added Aug 2025" loading="lazy"><div class="gallery-card-label">Aug 25, 2025 &mdash; Sold ABNB, moved all to NBIS at $68.62/share</div></div>
+      <div class="gallery-card"><img src="Screenshots/post3.jpg" alt="First NBIS buy" loading="lazy"><div class="gallery-card-label">Aug 22, 2025 &mdash; First NBIS buy at $68.99/share</div></div>
+      <div class="gallery-card"><img src="Screenshots/post4.jpg" alt="HOOD calls $14,905" loading="lazy"><div class="gallery-card-label">Aug 18, 2025 &mdash; HOOD calls. $14,905 USD = 80% of book value</div></div>
+      <div class="gallery-card"><img src="Screenshots/post5.jpg" alt="Market sentiment poll" loading="lazy"><div class="gallery-card-label">Apr 4, 2025 &mdash; Market dip poll. 0 members in panic mode</div></div>
+      <div class="gallery-card"><img src="Screenshots/post6.jpg" alt="Meta position doubled" loading="lazy"><div class="gallery-card-label">Mar 16, 2026 &mdash; Doubled Meta position. Now 20 shares at $620.44/share avg</div></div>
+      <div class="gallery-card"><img src="Screenshots/post7.jpg" alt="NBIS covered calls rolled" loading="lazy"><div class="gallery-card-label">Feb 19, 2026 &mdash; NBIS covered calls rolled. Wheel strategy update with full P&amp;L breakdown</div></div>
+      <div class="gallery-card"><img src="Screenshots/post8.jpg" alt="Sold CRSP bought Shopify" loading="lazy"><div class="gallery-card-label">Feb 13, 2026 &mdash; Sold CRSP at 5% profit, bought 200 Shopify shares</div></div>
+      <div class="gallery-card"><img src="Screenshots/post9.jpg" alt="Added AMZN PLTR" loading="lazy"><div class="gallery-card-label">Feb 6, 2026 &mdash; Added 39 AMZN &amp; 1 PLTR. Rolled PLTR calls, collected $1,578 USD</div></div>
+      <div class="gallery-card"><img src="Screenshots/post10.jpg" alt="Sold Coinbase 132% gain" loading="lazy"><div class="gallery-card-label">Sold all 140 Coinbase shares &mdash; 132% overall gain across 3 accounts</div></div>
+      <div class="gallery-card"><img src="Screenshots/post11.jpg" alt="Started Meta position" loading="lazy"><div class="gallery-card-label">Mar 13, 2026 &mdash; Started Meta position at $614.47/share. BMNR covered call $111 USD</div></div>
+      <div class="gallery-card"><img src="Screenshots/post12.jpg" alt="Added 40 more Meta shares" loading="lazy"><div class="gallery-card-label">Apr 2, 2026 &mdash; Added 40 more Meta shares. Now holding 104 at $583.57/share avg</div></div>
+    </div>
+    <div class="gallery-hint">&#8592; Scroll or drag to see more &nbsp;&middot;&nbsp; Add more as post13.jpg, post14.jpg etc.</div>
+    <div class="gallery-controls">
+      <button class="gallery-btn" onclick="galleryScroll(-1)">&#8592;</button>
+      <button class="gallery-btn" onclick="galleryScroll(1)">&#8594;</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <div class="bottom-cta-inner">
+    <div class="bottom-cta-title">Ready to follow a real portfolio?</div>
+    <div class="bottom-cta-sub"><span id="cm-members-cta">...</span> members are already inside — watching every trade, learning every move, for just $10/month.</div>
+    <div class="cta-stat-row">
+      <div class="cta-stat"><div class="cta-stat-num" id="cm-best-month">...</div><div class="cta-stat-lbl">Best month from covered calls</div></div>
+      <div class="cta-stat"><div class="cta-stat-num" id="cm-port-val2">...</div><div class="cta-stat-lbl">Portfolio value tracked</div></div>
+      <div class="cta-stat"><div class="cta-stat-num">$10</div><div class="cta-stat-lbl">Per month</div></div>
+    </div>
+    <a class="btn-join" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join the Community</a>
+  </div>
+</div>
+
+<div class="sec-divider"></div>
+
+<!-- HOW IT WORKS -->
+<div class="section-dark">
+<div class="section">
+  <div class="sec-eyebrow">How It Works</div>
+  <div class="sec-title">Three steps to get started</div>
+  <div class="sec-sub">No apps to download. No complicated setup. Just WhatsApp on your phone.</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Sign up on Nas.io</div>
+      <div class="step-desc">Visit nas.io/punjabifinance and complete your membership. Takes less than 2 minutes.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Get added to WhatsApp</div>
+      <div class="step-desc">You&rsquo;ll receive a WhatsApp group invite immediately after joining. No waiting.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Follow every move</div>
+      <div class="step-desc">Trade updates, options posts, webinar invites, and mindset commentary — straight to your phone.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="sec-divider"></div>
+
+<!-- PRICING -->
+<div class="section-mid">
+<div class="section" style="max-width:600px">
+  <div class="sec-eyebrow" style="text-align:center">Pricing</div>
+  <div class="sec-title" style="text-align:center;margin-bottom:28px">Simple, honest pricing</div>
+  <div class="price-card">
+    <div class="price-badge">&#128172; WhatsApp Community</div>
+    <div class="price-amount"><span>$</span>10</div>
+    <div class="price-period">per month &nbsp;&middot;&nbsp; Cancel anytime</div>
+    <ul class="price-features">
+      <li>All trade posts &amp; portfolio updates</li>
+      <li>Covered call &amp; options income logging</li>
+      <li>Monthly live webinar + full archive</li>
+      <li>Live portfolio dashboard access</li>
+      <li>Market mindset commentary</li>
+      <li>Member community chat</li>
+    </ul>
+    <a class="btn-join" href="https://www.nas.io/punjabifinance" target="_blank" style="width:100%;justify-content:center">&#128172; Join at nas.io/punjabifinance</a>
+  </div>
+</div>
+</div>
+
+
+
+<div class="section-dark">
+<div class="section">
+  <div class="sec-eyebrow">How It Works</div>
+  <div class="sec-title">Three steps to get started</div>
+  <div class="sec-sub">No apps to download. No complicated setup. Just WhatsApp on your phone.</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Sign up on Nas.io</div>
+      <div class="step-desc">Visit nas.io/punjabifinance and complete your membership. Takes less than 2 minutes.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Get added to WhatsApp</div>
+      <div class="step-desc">You&rsquo;ll receive a WhatsApp group invite immediately after joining. No waiting.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Follow every move</div>
+      <div class="step-desc">Trade updates, options posts, webinar invites, and mindset commentary — straight to your phone.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="page-footer">
+  &copy; 2025 Punjabi Finance &nbsp;&middot;&nbsp;
+  <a href="index.html">Portfolio</a> &nbsp;&middot;&nbsp;
+  <a href="links.html">Links</a> &nbsp;&middot;&nbsp;
+  <a href="mediakit.html">Media Kit</a> &nbsp;&middot;&nbsp;
+  Not financial advice
+</div>
+
+<script>
+function toggleMenu(){
+  document.getElementById('ham-btn').classList.toggle('open');
+  document.getElementById('nav-dropdown').classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  const btn=document.getElementById('ham-btn');
+  const drop=document.getElementById('nav-dropdown');
+  if(btn&&drop&&!btn.contains(e.target)&&!drop.contains(e.target)){
+    btn.classList.remove('open');
+    drop.classList.remove('open');
+  }
+});
+// Gallery drag scroll
+(function(){
+  const track = document.getElementById('gallery-track');
+  if(!track) return;
+  let isDown=false, startX, scrollLeft;
+  track.addEventListener('mousedown',e=>{isDown=true;startX=e.pageX-track.offsetLeft;scrollLeft=track.scrollLeft;});
+  track.addEventListener('mouseleave',()=>{isDown=false;});
+  track.addEventListener('mouseup',()=>{isDown=false;});
+  track.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-track.offsetLeft;track.scrollLeft=scrollLeft-(x-startX)*1.5;});
+})();
+function galleryScroll(dir){
+  const track=document.getElementById('gallery-track');
+  if(track) track.scrollBy({left:dir*300,behavior:'smooth'});
+}
+</script>
+
+
+<script>
+(async function(){
+  try{
+    const r = await fetch('https://script.google.com/macros/s/AKfycbywi0jjfHwN9QRudmBvNMKjULDH3w0IYrlL6ZXxEKd1qpBJwg-2C97pgbO8wEb0PJBtqw/exec', {cache:'no-store'});
+    const d = await r.json();
+
+    // ── Member count ──
+    if(d.social && d.social.memberCount){
+      ['cm-members','cm-members-stat','cm-members-cta','cm-members-strip'].forEach(id=>{
+        var el=document.getElementById(id); if(el) el.textContent=d.social.memberCount;
+      });
+    }
+
+    // ── Portfolio ──
+    if(d.positions && d.positions.length){
+      var totalMkt=0, totalBook=0;
+      d.positions.forEach(p=>{ totalMkt+=p.mktCAD||0; totalBook+=p.bookCAD||0; });
+      var totalPnl = totalMkt - totalBook;
+
+      function fmtC(n){
+        if(Math.abs(n)>=1000000) return 'C$'+(n/1000000).toFixed(2)+'M';
+        if(Math.abs(n)>=1000) return 'C$'+Math.round(n/1000)+'K';
+        return 'C$'+Math.round(n);
+      }
+      function set(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
+      set('cm-port-val',  fmtC(totalMkt));
+      set('cm-port-val2', fmtC(totalMkt));
+      set('cm-port-pnl',  (totalPnl>=0?'+':'')+fmtC(totalPnl));
+
+      // ── Build win cards — green positions sorted by % gain desc ──
+      var winners = d.positions
+        .filter(p => p.plPct >= 10)
+        .sort((a,b) => b.plPct - a.plPct);
+
+      var grid = document.getElementById('cm-wins-grid');
+      if(grid && winners.length){
+        grid.innerHTML = winners.map(function(p, i){
+          var cls = i===0 ? 'win-card win-mega' : i<3 ? 'win-card win-big' : 'win-card win-mid';
+          var pctStr = (p.plPct>=0?'+':'')+p.plPct.toFixed(1)+'%';
+          var curStr = '$'+p.curPrice.toFixed(2);
+          var avgStr = '$'+p.avgCost.toFixed(2);
+          var pnlStr = (p.plCAD>=0?'+':'')+fmtC(p.plCAD);
+          var detail = i<3
+            ? 'Bought at '+avgStr+' avg &rarr; now '+curStr+'<br><span class="win-pnl">'+pnlStr+' unrealized gain</span>'
+            : avgStr+' avg &rarr; '+curStr+' &nbsp;&middot;&nbsp; <span class="win-pnl">'+pnlStr+'</span>';
+          return '<div class="'+cls+'"><div class="win-ticker">'+p.ticker+'</div><div class="win-pct">'+pctStr+'</div><div class="win-detail">'+detail+'</div></div>';
+        }).join('');
+      }
+    }
+
+    // ── Best options month ──
+    if(d.options && d.options.length){
+      var byMonth={};
+      d.options.forEach(o=>{ var k=o.year+'-'+o.month; byMonth[k]=(byMonth[k]||0)+(o.premiumCAD||0); });
+      var best=Math.max(...Object.values(byMonth));
+      var totalOpts=Object.values(byMonth).reduce((a,b)=>a+b,0);
+      if(best>0){
+        set('cm-best-month','C$'+Math.round(best/1000)+'K+');
+        set('cm-best-month-strip','C$'+Math.round(best/1000)+'K+');
+      }
+      if(totalOpts>0) set('cm-opts-total','C$'+Math.round(totalOpts/1000)+'K+');
+    }
+
+  }catch(e){ console.warn('Community data error:',e); }
+})();
+
+// Gallery drag scroll
+(function(){
+  const track = document.getElementById('gallery-track');
+  if(!track) return;
+  let isDown=false, startX, scrollLeft;
+  track.addEventListener('mousedown',e=>{isDown=true;startX=e.pageX-track.offsetLeft;scrollLeft=track.scrollLeft;});
+  track.addEventListener('mouseleave',()=>{isDown=false;});
+  track.addEventListener('mouseup',()=>{isDown=false;});
+  track.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-track.offsetLeft;track.scrollLeft=scrollLeft-(x-startX)*1.5;});
+})();
+function galleryScroll(dir){
+  const track=document.getElementById('gallery-track');
+  if(track) track.scrollBy({left:dir*290,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
