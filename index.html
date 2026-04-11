@@ -10,7 +10,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-size:18px;-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-height:1.6;min-height:100vh}
-.page{width:100%;max-width:1080px;margin:0 auto;padding:0 0 64px}
+.page{width:100%;max-width:1080px;margin:0 auto;padding:0 0 0}
 
 .topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;z-index:100;gap:12px}
 .wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);flex-shrink:0}
@@ -161,7 +161,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 .proj-num.green{color:#4caf7d}
 .proj-note{font-size:0.67rem;color:rgba(255,255,255,0.3);margin-top:4px}
 .proj-divider{display:none}
-.footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
+.footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25);width:100%}
 .footer-bar a{color:rgba(255,255,255,0.4);text-decoration:none}
 @media(max-width:640px){
   html{font-size:17px}
@@ -271,7 +271,6 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 </script>
 </head>
 <body>
-<div class="page">
 <div class="topbar">
   <a class="wm-link" href="index.html">
     <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
@@ -316,6 +315,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   </div>
 </div>
 
+<div class="page"><!-- page wrapper -->
 <!-- OVERVIEW -->
 <div class="section section-cream">
   <div class="sec-label">Portfolio Overview <span class="sec-label-tag">Live</span></div>
@@ -505,8 +505,9 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   </div>
 </div>
 
+</div><!-- /end page -->
+
 <div class="footer-bar">Not financial advice &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp; <a href="community.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Community</a> &nbsp;&middot;&nbsp; <a href="mediakit.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Media Kit</a> &nbsp;&middot;&nbsp; <a href="links.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Links</a></div>
-</div>
 
 <script>
 // ── YEARS INVESTING ──
