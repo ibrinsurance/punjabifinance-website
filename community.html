@@ -598,6 +598,13 @@ function galleryScroll(dir){
     const r = await fetch('https://script.google.com/macros/s/AKfycbwRk4Vp5KKwctk10B-gm0Tuwt_7IkxfL1hO6gdM3I9wJ17JfO8eT7rAvVw-XQvr8P6tkA/exec', {cache:'no-store'});
     const d = await r.json();
 
+    function set(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
+    function fmtC(n){
+      if(Math.abs(n)>=1000000) return 'C$'+(n/1000000).toFixed(2)+'M';
+      if(Math.abs(n)>=1000) return 'C$'+Math.round(n/1000)+'K';
+      return 'C$'+Math.round(n);
+    }
+
     // ── Member count ──
     if(d.social && d.social.memberCount){
       ['cm-members','cm-members-stat','cm-members-cta','cm-members-strip'].forEach(id=>{
@@ -622,12 +629,6 @@ function galleryScroll(dir){
       d.positions.forEach(p=>{ totalMkt+=p.mktCAD||0; totalBook+=p.bookCAD||0; });
       var totalPnl = totalMkt - totalBook;
 
-      function fmtC(n){
-        if(Math.abs(n)>=1000000) return 'C$'+(n/1000000).toFixed(2)+'M';
-        if(Math.abs(n)>=1000) return 'C$'+Math.round(n/1000)+'K';
-        return 'C$'+Math.round(n);
-      }
-      function set(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
       set('cm-port-val',  fmtC(totalMkt));
       set('cm-port-val2', fmtC(totalMkt));
       set('cm-port-pnl',  (totalPnl>=0?'+':'')+fmtC(totalPnl));
