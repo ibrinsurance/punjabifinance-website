@@ -424,4 +424,12 @@ document.addEventListener('click',function(e){
     set('mk-total',     totalFmt);
     set('mk-total-bio', totalFmt);
     set('mk-cta-total', totalFmt);
-    s
+    set('mk-reach',     totalFmt);
+    set('mk-collab-short', totalFmt);
+    set('mk-collab-fb',    totalFmt);
+    set('mk-reviews',      s.reviewCount||'');
+  }catch(e){ console.warn('Mediakit data error:',e); }
+})();
+</script>
+</body>
+</html>
