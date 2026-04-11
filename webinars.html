@@ -35,14 +35,27 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 /* ── PAGE ── */
 .page{max-width:1080px;margin:0 auto;padding:0 0 64px}
 
+/* ── STAT STRIP ── */
+.stat-strip{background:#111009;border-top:1px solid rgba(212,165,52,0.1);border-bottom:1px solid rgba(212,165,52,0.1);padding:24px 40px}
+.stat-strip-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.1);border-radius:14px;overflow:hidden}
+.ss-item{background:#111009;padding:22px 20px;text-align:center}
+.ss-num{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;color:#d4a534;line-height:1;margin-bottom:4px}
+.ss-label{font-size:0.63rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.3);font-weight:600}
+.btn-join{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#052a10;padding:14px 28px;border-radius:12px;font-weight:700;font-size:0.95rem;text-decoration:none;transition:all .2s}
+.btn-join:hover{background:#1fb356;transform:translateY(-1px)}
 /* ── HERO ── */
-.hero{background:#1a1a1a;padding:clamp(48px,7vw,72px) 40px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% -5%,rgba(212,165,52,0.15) 0%,transparent 65%);pointer-events:none}
-.hero-inner{position:relative;z-index:2;max-width:680px}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.25);padding:5px 16px;border-radius:100px;font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:#d4a534;font-weight:600;margin-bottom:20px}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-0.01em}
-.hero-title span{color:#d4a534}
-.hero-sub{font-size:0.89rem;color:rgba(255,255,255,0.5);line-height:1.8;max-width:500px}
+.hero{background:#0d0b04;padding:clamp(56px,8vw,96px) 40px clamp(40px,6vw,72px);text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(212,165,52,0.1) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(37,211,102,0.05) 0%,transparent 60%);pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.25);padding:6px 18px;border-radius:100px;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#d4a534;font-weight:700;margin-bottom:24px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3.2rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-0.02em}
+.hero-title em{color:#d4a534;font-style:normal}
+.hero-sub{font-size:0.95rem;color:rgba(255,255,255,0.5);line-height:1.85;max-width:540px;margin:0 auto 32px}
+.hero-sub strong{color:rgba(255,255,255,0.8);font-weight:600}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.hero-note{font-size:0.67rem;color:rgba(255,255,255,0.25);letter-spacing:0.06em}
+.hero-disclaimer{font-size:0.67rem;color:rgba(255,255,255,0.3);line-height:1.75;max-width:520px;margin:20px auto 0;padding:12px 18px;background:rgba(255,255,255,0.04);border-left:2px solid rgba(212,165,52,0.3);border-radius:0 8px 8px 0;text-align:left}
+.hero-disclaimer strong{color:rgba(212,165,52,0.7)}
 
 /* ── SECTIONS ── */
 .nav-dropdown 
@@ -122,7 +135,6 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 </script>
 </head>
 <body>
-<div class="page">
 <div class="topbar">
   <a class="wm-link" href="index.html">
     <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
@@ -135,7 +147,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     <a class="nav-btn" href="mediakit.html">Media Kit</a>
   </div>
   <div class="topbar-right-btns">
-    <a class="nav-btn nav-btn-webinars active" href="webinars.html">Webinars</a>
+    <a class="nav-btn nav-btn-webinars" href="community.html">Community</a>
     <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
       <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
     </button>
@@ -154,21 +166,31 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">&#127891; Members Only</div>
-    <div class="hero-title">Past Webinars &amp;<br><span>Deep Dives</span></div>
-    <div class="hero-sub">Recorded sessions covering investing strategies, market analysis, options selling, and portfolio management. Available exclusively to community members.</div>
+    <div class="hero-eyebrow">&#127891; Members Only &nbsp;&middot;&nbsp; Included with Community</div>
+    <div class="hero-title">Past Webinars &amp;<br><em>Deep Dives</em></div>
+    <div class="hero-sub">Recorded sessions on investing strategies, options selling, portfolio management, and market analysis.<br><strong>New webinar added every month.</strong></div>
+    <div class="hero-actions">
+      <a class="btn-join" href="community.html">&#128172; Join to Get Access</a>
+    </div>
+    <div class="hero-note">Already a member? Enter your code below &#8595;</div>
+    <div class="hero-disclaimer">
+      <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
+    </div>
   </div>
 </div>
 
-<!-- DISCLAIMER — always visible -->
-<div class="section section-cream">
-  <div class="disclaimer-box">
-    <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
+<!-- STAT STRIP -->
+<div class="stat-strip">
+  <div class="stat-strip-inner">
+    <div class="ss-item"><div class="ss-num">6</div><div class="ss-label">Recordings Available</div></div>
+    <div class="ss-item"><div class="ss-num">Monthly</div><div class="ss-label">New Sessions</div></div>
+    <div class="ss-item"><div class="ss-num">$10</div><div class="ss-label">Per Month</div></div>
   </div>
 </div>
-<div class="section-divider"></div>
+
 
 <!-- WEBINAR GRID — titles always visible, watch buttons locked -->
+<div class="page">
 <div class="section">
   <div class="sec-label">All Recordings</div>
   <div class="webinar-grid" id="webinar-grid">
@@ -295,6 +317,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   </div>
 </div>
 <div class="section-divider"></div>
+</div>
 
 <div class="footer-bar">
   Not financial advice &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp;
