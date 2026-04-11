@@ -223,8 +223,8 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .gallery-track::-webkit-scrollbar{height:4px}
 .gallery-track::-webkit-scrollbar-track{background:rgba(255,255,255,0.05);border-radius:2px}
 .gallery-track::-webkit-scrollbar-thumb{background:rgba(212,165,52,0.3);border-radius:2px}
-.gallery-card{flex:0 0 260px;scroll-snap-align:start;border-radius:16px;overflow:hidden;border:1px solid rgba(212,165,52,0.12);background:#111009;position:relative}
-.gallery-card img{width:100%;height:400px;object-fit:cover;object-position:top;display:block}
+.gallery-card{flex:0 0 240px;scroll-snap-align:start;border-radius:16px;overflow:hidden;border:1px solid rgba(212,165,52,0.12);background:#111009;position:relative;cursor:pointer}.gallery-card:hover{border-color:rgba(212,165,52,0.35)}
+.gallery-card img{width:100%;height:380px;object-fit:cover;object-position:top center;display:block;transition:transform .2s}.gallery-card:hover img{transform:scale(1.02)}
 .gallery-card-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.88));padding:24px 14px 14px;font-size:0.65rem;color:rgba(255,255,255,0.75);font-weight:600;line-height:1.4}
 .gallery-hint{font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:10px;text-align:center;letter-spacing:0.08em}
 .gallery-controls{display:flex;gap:10px;margin-top:14px;justify-content:center}
@@ -235,6 +235,19 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   .gallery-card{flex:0 0 220px}
   .gallery-card img{height:340px}
 }
+
+/* ── LIGHTBOX ── */
+.lb-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.lb-backdrop.open{display:flex}
+.lb-img{max-width:90vw;max-height:90vh;border-radius:12px;object-fit:contain;box-shadow:0 0 60px rgba(0,0,0,0.8)}
+.lb-close{position:fixed;top:20px;right:24px;color:#fff;font-size:2rem;cursor:pointer;opacity:0.7;line-height:1;z-index:1001}
+.lb-close:hover{opacity:1}
+.lb-caption{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.6);font-size:0.72rem;text-align:center;max-width:480px;line-height:1.5}
+.lb-nav{position:fixed;top:50%;transform:translateY(-50%);color:#fff;font-size:2rem;cursor:pointer;opacity:0.5;padding:12px;z-index:1001;background:rgba(255,255,255,0.1);border-radius:50%;line-height:1}
+.lb-nav:hover{opacity:1;background:rgba(255,255,255,0.2)}
+.lb-prev{left:16px}
+.lb-next{right:16px}
+
 /* ── BOTTOM CTA ── */
 .bottom-cta{background:#0a1a0e;padding:clamp(56px,8vw,96px) 40px;text-align:center;border-top:1px solid rgba(37,211,102,0.1)}
 .bottom-cta-inner{max-width:560px;margin:0 auto}
@@ -425,20 +438,19 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   <div class="gallery-inner">
     <div class="gallery-label">Real Posts from the Group</div>
     <div class="gallery-title">Actual screenshots from inside</div>
-    <div class="gallery-sub">Drag or use arrows to scroll &mdash; pause on anything you want to read</div>
     <div class="gallery-track" id="gallery-track">
-      <div class="gallery-card"><img src="Screenshots/post1.jpg" alt="Rolled covered calls IREN BMNR" loading="lazy"><div class="gallery-card-label">Feb 13, 2026 &mdash; Rolled IREN &amp; BMNR covered calls. $1,920 USD total premium</div></div>
-      <div class="gallery-card"><img src="Screenshots/post2.jpg" alt="NBIS added Aug 2025" loading="lazy"><div class="gallery-card-label">Aug 25, 2025 &mdash; Sold ABNB, moved all to NBIS at $68.62/share</div></div>
-      <div class="gallery-card"><img src="Screenshots/post3.jpg" alt="First NBIS buy" loading="lazy"><div class="gallery-card-label">Aug 22, 2025 &mdash; First NBIS buy at $68.99/share</div></div>
-      <div class="gallery-card"><img src="Screenshots/post4.jpg" alt="HOOD calls $14,905" loading="lazy"><div class="gallery-card-label">Aug 18, 2025 &mdash; HOOD calls. $14,905 USD = 80% of book value</div></div>
-      <div class="gallery-card"><img src="Screenshots/post5.jpg" alt="Market sentiment poll" loading="lazy"><div class="gallery-card-label">Apr 4, 2025 &mdash; Market dip poll. 0 members in panic mode</div></div>
-      <div class="gallery-card"><img src="Screenshots/post6.jpg" alt="Meta position doubled" loading="lazy"><div class="gallery-card-label">Mar 16, 2026 &mdash; Doubled Meta position. Now 20 shares at $620.44/share avg</div></div>
-      <div class="gallery-card"><img src="Screenshots/post7.jpg" alt="NBIS covered calls rolled" loading="lazy"><div class="gallery-card-label">Feb 19, 2026 &mdash; NBIS covered calls rolled. Wheel strategy update with full P&amp;L breakdown</div></div>
-      <div class="gallery-card"><img src="Screenshots/post8.jpg" alt="Sold CRSP bought Shopify" loading="lazy"><div class="gallery-card-label">Feb 13, 2026 &mdash; Sold CRSP at 5% profit, bought 200 Shopify shares</div></div>
-      <div class="gallery-card"><img src="Screenshots/post9.jpg" alt="Added AMZN PLTR" loading="lazy"><div class="gallery-card-label">Feb 6, 2026 &mdash; Added 39 AMZN &amp; 1 PLTR. Rolled PLTR calls, collected $1,578 USD</div></div>
-      <div class="gallery-card"><img src="Screenshots/post10.jpg" alt="Sold Coinbase 132% gain" loading="lazy"><div class="gallery-card-label">Sold all 140 Coinbase shares &mdash; 132% overall gain across 3 accounts</div></div>
-      <div class="gallery-card"><img src="Screenshots/post11.jpg" alt="Started Meta position" loading="lazy"><div class="gallery-card-label">Mar 13, 2026 &mdash; Started Meta position at $614.47/share. BMNR covered call $111 USD</div></div>
-      <div class="gallery-card"><img src="Screenshots/post12.jpg" alt="Added 40 more Meta shares" loading="lazy"><div class="gallery-card-label">Apr 2, 2026 &mdash; Added 40 more Meta shares. Now holding 104 at $583.57/share avg</div></div>
+      <div class="gallery-card" onclick="lbOpen(this)"><img src="Screenshots/post1.jpg" alt="Rolled covered calls IREN BMNR" loading="lazy"><div class="gallery-card-label">Feb 13, 2026 &mdash; Rolled IREN &amp; BMNR covered calls. $1,920 USD total premium</div></div>
+      <div class="gallery-card" onclick="lbOpen(this)"><img src="Screenshots/post2.jpg" alt="NBIS added Aug 2025" loading="lazy"><div class="gallery-card-label">Aug 25, 2025 &mdash; Sold ABNB, moved all to NBIS at $68.62/share</div></div>
+      <div class="gallery-card" onclick="lbOpen(this)"><img src="Screenshots/post3.jpg" alt="First NBIS buy" loading="lazy"><div class="gallery-card-label">Aug 22, 2025 &mdash; First NBIS buy at $68.99/share</div></div>
+      <div class="gallery-card" onclick="lbOpen(this)"><img src="Screenshots/post4.jpg" alt="HOOD calls $14,905" loading="lazy"><div class="gallery-card-label">Aug 18, 2025 &mdash; HOOD calls. $14,905 USD = 80% of book value</div></div>
+      <div class="gallery-card" onclick="lbOpen(this)"><img src="Screenshots/post5.jpg" alt="Market sentiment poll" loading="lazy"><div class="gallery-card-label">Apr 4, 2025 &mdash; Market dip poll. 0 members in panic mode</div></div>
+      <div class="gallery-card" onclick="lbOpen(this)"><img src="Screenshots/post6.jpg" alt="Meta position doubled" loading="lazy"><div class="gallery-card-label">Mar 16, 2026 &mdash; Doubled Meta position. Now 20 shares at $620.44/share avg</div></div>
+      <div class="gallery-card" onclick="lbOpen(this)"><img src="Screenshots/post7.jpg" alt="NBIS covered calls rolled" loading="lazy"><div class="gallery-card-label">Feb 19, 2026 &mdash; NBIS covered calls rolled. Wheel strategy update with full P&amp;L breakdown</div></div>
+      <div class="gallery-card" onclick="lbOpen(this)"><img src="Screenshots/post8.jpg" alt="Sold CRSP bought Shopify" loading="lazy"><div class="gallery-card-label">Feb 13, 2026 &mdash; Sold CRSP at 5% profit, bought 200 Shopify shares</div></div>
+      <div class="gallery-card" onclick="lbOpen(this)"><img src="Screenshots/post9.jpg" alt="Added AMZN PLTR" loading="lazy"><div class="gallery-card-label">Feb 6, 2026 &mdash; Added 39 AMZN &amp; 1 PLTR. Rolled PLTR calls, collected $1,578 USD</div></div>
+      <div class="gallery-card" onclick="lbOpen(this)"><img src="Screenshots/post10.jpg" alt="Sold Coinbase 132% gain" loading="lazy"><div class="gallery-card-label">Sold all 140 Coinbase shares &mdash; 132% overall gain across 3 accounts</div></div>
+      <div class="gallery-card" onclick="lbOpen(this)"><img src="Screenshots/post11.jpg" alt="Started Meta position" loading="lazy"><div class="gallery-card-label">Mar 13, 2026 &mdash; Started Meta position at $614.47/share. BMNR covered call $111 USD</div></div>
+      <div class="gallery-card" onclick="lbOpen(this)"><img src="Screenshots/post12.jpg" alt="Added 40 more Meta shares" loading="lazy"><div class="gallery-card-label">Apr 2, 2026 &mdash; Added 40 more Meta shares. Now holding 104 at $583.57/share avg</div></div>
     </div>
     <div class="gallery-hint">&#8592; Scroll or drag to see more &nbsp;&middot;&nbsp; Add more as post13.jpg, post14.jpg etc.</div>
     <div class="gallery-controls">
@@ -562,6 +574,26 @@ document.addEventListener('click',function(e){
     drop.classList.remove('open');
   }
 });
+
+// Lightbox
+var lbCards=[], lbIdx=0;
+function lbOpen(card){
+  lbCards=Array.from(document.querySelectorAll('.gallery-card'));
+  lbIdx=lbCards.indexOf(card);
+  lbShow();
+  document.getElementById('lb-backdrop').classList.add('open');
+  document.addEventListener('keydown',lbKey);
+}
+function lbShow(){
+  var img=lbCards[lbIdx].querySelector('img');
+  var cap=lbCards[lbIdx].querySelector('.gallery-card-label');
+  document.getElementById('lb-img').src=img.src;
+  document.getElementById('lb-caption').textContent=cap?cap.textContent:'';
+}
+function lbNav(dir,e){if(e)e.stopPropagation();lbIdx=(lbIdx+dir+lbCards.length)%lbCards.length;lbShow();}
+function lbClose(e){if(e&&e.target!==document.getElementById('lb-backdrop')&&!e.target.classList.contains('lb-close'))return;document.getElementById('lb-backdrop').classList.remove('open');document.removeEventListener('keydown',lbKey);}
+function lbKey(e){if(e.key==='ArrowRight')lbNav(1);else if(e.key==='ArrowLeft')lbNav(-1);else if(e.key==='Escape'){document.getElementById('lb-backdrop').classList.remove('open');document.removeEventListener('keydown',lbKey);}}
+
 // Gallery drag scroll
 (function(){
   const track = document.getElementById('gallery-track');
@@ -645,6 +677,26 @@ function galleryScroll(dir){
   }catch(e){ console.warn('Community data error:',e); }
 })();
 
+
+// Lightbox
+var lbCards=[], lbIdx=0;
+function lbOpen(card){
+  lbCards=Array.from(document.querySelectorAll('.gallery-card'));
+  lbIdx=lbCards.indexOf(card);
+  lbShow();
+  document.getElementById('lb-backdrop').classList.add('open');
+  document.addEventListener('keydown',lbKey);
+}
+function lbShow(){
+  var img=lbCards[lbIdx].querySelector('img');
+  var cap=lbCards[lbIdx].querySelector('.gallery-card-label');
+  document.getElementById('lb-img').src=img.src;
+  document.getElementById('lb-caption').textContent=cap?cap.textContent:'';
+}
+function lbNav(dir,e){if(e)e.stopPropagation();lbIdx=(lbIdx+dir+lbCards.length)%lbCards.length;lbShow();}
+function lbClose(e){if(e&&e.target!==document.getElementById('lb-backdrop')&&!e.target.classList.contains('lb-close'))return;document.getElementById('lb-backdrop').classList.remove('open');document.removeEventListener('keydown',lbKey);}
+function lbKey(e){if(e.key==='ArrowRight')lbNav(1);else if(e.key==='ArrowLeft')lbNav(-1);else if(e.key==='Escape'){document.getElementById('lb-backdrop').classList.remove('open');document.removeEventListener('keydown',lbKey);}}
+
 // Gallery drag scroll
 (function(){
   const track = document.getElementById('gallery-track');
@@ -660,5 +712,14 @@ function galleryScroll(dir){
   if(track) track.scrollBy({left:dir*290,behavior:'smooth'});
 }
 </script>
+
+<!-- LIGHTBOX -->
+<div class="lb-backdrop" id="lb-backdrop" onclick="lbClose(event)">
+  <span class="lb-close" onclick="lbClose()">&times;</span>
+  <span class="lb-nav lb-prev" onclick="lbNav(-1,event)">&#8249;</span>
+  <img class="lb-img" id="lb-img" src="" alt="">
+  <span class="lb-nav lb-next" onclick="lbNav(1,event)">&#8250;</span>
+  <div class="lb-caption" id="lb-caption"></div>
+</div>
 </body>
 </html>
