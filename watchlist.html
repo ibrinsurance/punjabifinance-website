@@ -70,7 +70,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .lock-hint{font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:14px;line-height:1.6}
 
 /* ── TEASER (non-members see blurred cards) ── */
-.teaser-section{padding:0 40px clamp(32px,5vw,56px);max-width:1080px;margin:0 auto}
+.teaser-section{padding:clamp(32px,5vw,52px) 40px clamp(32px,5vw,56px);max-width:1080px;margin:0 auto}
 .teaser-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:16px}
 .teaser-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
 .teaser-card{background:#111009;border:1px solid rgba(212,165,52,0.1);border-radius:14px;padding:20px 18px;position:relative;overflow:hidden}
@@ -103,14 +103,12 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 /* Stage colours */
 .stage-researching{background:rgba(74,127,193,0.12);border:1px solid rgba(74,127,193,0.25);color:#6a9fd8}
 .stage-watching{background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.22);color:#d4a534}
-.stage-waiting{background:rgba(180,120,220,0.1);border:1px solid rgba(180,120,220,0.22);color:#c084e0}
 .stage-ready{background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.22);color:#25d366}
 .stage-added{background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.3);color:#25d366}
 
 /* Stage top bar colours */
 .stage-researching-bar::before{background:linear-gradient(90deg,#4a7fc1,#6a9fd8)}
 .stage-watching-bar::before{background:linear-gradient(90deg,#b8862a,#d4a534)}
-.stage-waiting-bar::before{background:linear-gradient(90deg,#9b59b6,#c084e0)}
 .stage-ready-bar::before{background:linear-gradient(90deg,#1fb356,#25d366)}
 .stage-added-bar::before{background:linear-gradient(90deg,#1fb356,#25d366)}
 
@@ -313,19 +311,14 @@ function stageClass(stage){
   const s = (stage||'').toLowerCase();
   if(s.includes('research')) return 'stage-researching';
   if(s.includes('watch')) return 'stage-watching';
-  if(s.includes('wait')) return 'stage-waiting';
   if(s.includes('ready')) return 'stage-ready';
   if(s.includes('add') || s.includes('portfolio')) return 'stage-added';
   return 'stage-watching';
-}
-function stageBarClass(stage){
-  return stageClass(stage).replace('stage-','stage-')+'-bar';
 }
 function stageIcon(stage){
   const s = (stage||'').toLowerCase();
   if(s.includes('research')) return '&#128269;';
   if(s.includes('watch')) return '&#128064;';
-  if(s.includes('wait')) return '&#9203;';
   if(s.includes('ready')) return '&#9989;';
   if(s.includes('add') || s.includes('portfolio')) return '&#128200;';
   return '&#128064;';
@@ -351,11 +344,11 @@ function renderTeaser(watchlist){
 
   grid.innerHTML = show.map(w => `
     <div class="teaser-card">
-      <div class="teaser-ticker">${w.ticker}</div>
-      <div class="teaser-name">${w.name||''}</div>
+      <div class="teaser-stage ${stageClass(w.stage)}" style="margin-bottom:14px;display:inline-flex">${stageIcon(w.stage)} ${w.stage||'Watching'}</div>
       <div class="teaser-blur">
+        <div class="teaser-ticker">████</div>
+        <div class="teaser-name">████████████</div>
         <div class="teaser-why">██████████████ ████████ ████████████████ ███████████ ██████████ ████████████</div>
-        <div class="teaser-stage ${stageClass(w.stage)}">${stageIcon(w.stage)} ${w.stage||'Watching'}</div>
       </div>
     </div>`).join('') + (more > 0 ? `
     <div class="teaser-more">
@@ -408,17 +401,18 @@ function renderRecent(recentlyAdded, positions){
   const priceMap = {};
   (positions||[]).forEach(p => { priceMap[p.ticker] = p; });
 
-  grid.innerHTML = recentlyAdded.map(ticker => {
+  grid.innerHTML = recentlyAdded.map((ticker, i) => {
     const p = priceMap[ticker];
     const pct = p ? p.plPct : null;
     const pctClass = pct === null ? '' : pct >= 0 ? 'color:#25d366' : 'color:#e74c3c';
     const pctStr = pct !== null ? (pct>=0?'+':'')+pct.toFixed(1)+'%' : '';
+    const labels = ['Most Recent','Previous','Earlier'];
     return `
     <div class="recent-card">
-      <div class="recent-ticker">${ticker}</div>
-      ${p ? `<div class="recent-price">$${p.curPrice.toFixed(2)}</div>
-      <div class="recent-pct" style="${pctClass}">${pctStr} vs avg</div>` : ''}
-      <div class="recent-label">Added to portfolio</div>
+      <div class="recent-label" style="margin-bottom:8px;color:rgba(212,165,52,0.5)">${labels[i]||'Position'}</div>
+      ${p ? `<div class="recent-price" style="font-size:1.1rem">$${p.curPrice.toFixed(2)}</div>
+      <div class="recent-pct" style="${pctClass};font-size:0.82rem;font-weight:700;margin-top:3px">${pctStr} vs avg cost</div>` : ''}
+      <div class="recent-label" style="margin-top:8px">&#128274; Members see ticker</div>
     </div>`;
   }).join('');
 }
