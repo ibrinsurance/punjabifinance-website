@@ -42,7 +42,9 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.25);padding:6px 18px;border-radius:100px;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#d4a534;font-weight:700;margin-bottom:22px}
 .hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:14px;letter-spacing:-0.02em}
 .hero-title em{color:#d4a534;font-style:normal}
-.hero-sub{font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.85;max-width:500px;margin:0 auto 0}
+.hero-sub{font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.85;max-width:500px;margin:0 auto 14px}
+.hero-disclaimer{font-size:0.67rem;color:rgba(255,255,255,0.3);line-height:1.75;max-width:520px;margin:0 auto;padding:12px 18px;background:rgba(255,255,255,0.04);border-left:2px solid rgba(212,165,52,0.3);border-radius:0 8px 8px 0;text-align:left}
+.hero-disclaimer strong{color:rgba(212,165,52,0.6)}
 
 /* ── COUNT STRIP ── */
 .count-strip{background:#111009;border-top:1px solid rgba(212,165,52,0.1);border-bottom:1px solid rgba(212,165,52,0.1);padding:18px 40px;text-align:center}
@@ -165,8 +167,8 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   <div class="topbar-nav">
     <a class="nav-btn" href="index.html">Portfolio</a>
     <a class="nav-btn" href="community.html">Community</a>
-    <a class="nav-btn" href="webinars.html">Webinars</a>
     <a class="nav-btn active" href="watchlist.html">Watchlist</a>
+    <a class="nav-btn" href="webinars.html">Webinars</a>
     <a class="nav-btn" href="links.html">Links</a>
     <a class="nav-btn" href="mediakit.html">Media Kit</a>
   </div>
@@ -180,8 +182,8 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <nav class="nav-dropdown" id="nav-dropdown">
   <a class="nav-btn" href="index.html">Portfolio</a>
   <a class="nav-btn" href="community.html">Community</a>
-  <a class="nav-btn" href="webinars.html">Webinars</a>
   <a class="nav-btn active" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="webinars.html">Webinars</a>
   <a class="nav-btn" href="links.html">Links</a>
   <a class="nav-btn" href="mediakit.html">Media Kit</a>
 </nav>
@@ -192,6 +194,13 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     <div class="hero-eyebrow">&#128269; Members Only</div>
     <div class="hero-title">Stocks I&rsquo;m<br><em>Watching Right Now</em></div>
     <div class="hero-sub">Not buy recommendations — just transparency into my research process. The stocks I&rsquo;m keeping an eye on and why.</div>
+    <div style="margin:22px auto 20px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
+      <a href="community.html" style="display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#052a10;padding:14px 32px;border-radius:12px;font-weight:700;font-size:0.95rem;text-decoration:none;box-shadow:0 4px 24px rgba(37,211,102,0.25)">&#128172; Join to Get Access</a>
+      <span style="font-size:0.72rem;color:rgba(255,255,255,0.3)">Already a member? Enter code below &#8595;</span>
+    </div>
+    <div class="hero-disclaimer">
+      <strong>Disclaimer:</strong> Shared for educational transparency only. Nothing here is financial advice or a recommendation to buy or sell. I am not a registered investment advisor — do your own research before making any investment decisions.
+    </div>
   </div>
 </div>
 
@@ -252,10 +261,14 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   </div>
 </div>
 
-<!-- DISCLAIMER -->
-<div class="disclaimer-box">
-  <div class="disclaimer-inner">
-    <strong>Disclaimer:</strong> This watchlist is shared for educational and transparency purposes only. Nothing here is financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. These are stocks I am personally researching — do your own due diligence before making any investment decisions.
+<!-- BOTTOM CTA -->
+<div style="background:#0a1a0e;border-top:1px solid rgba(37,211,102,0.1);padding:clamp(44px,6vw,72px) 40px;text-align:center">
+  <div style="max-width:520px;margin:0 auto">
+    <div style="font-size:0.63rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(37,211,102,0.5);font-weight:700;margin-bottom:10px">Get Full Access</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:12px">See every ticker.<br>Follow every move.</div>
+    <div style="font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.75;margin-bottom:28px">Full watchlist with tickers, reasoning and stage &mdash; plus real-time trade updates, options income, monthly webinars and group calls. All for $<span id="wl-price-cta">10</span>/month.</div>
+    <a href="community.html" style="display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#052a10;padding:16px 36px;border-radius:12px;font-weight:700;font-size:1rem;text-decoration:none;box-shadow:0 4px 28px rgba(37,211,102,0.25)">&#128172; Join the Community</a>
+    <div style="font-size:0.67rem;color:rgba(255,255,255,0.2);margin-top:14px">Cancel anytime &nbsp;&middot;&nbsp; <span id="cm-members-wl">...</span> members already inside</div>
   </div>
 </div>
 
@@ -338,9 +351,8 @@ function renderTeaser(watchlist){
   const grid = document.getElementById('teaser-grid');
   if(!grid || !watchlist.length) return;
 
-  // Show up to 3 real cards (ticker + blurred content) + 1 "more" card
-  const show = watchlist.slice(0,3);
-  const more = watchlist.length - show.length;
+  // Show ALL items in teaser
+  const show = watchlist;
 
   grid.innerHTML = show.map(w => `
     <div class="teaser-card">
@@ -350,13 +362,7 @@ function renderTeaser(watchlist){
         <div class="teaser-name">████████████</div>
         <div class="teaser-why">██████████████ ████████ ████████████████ ███████████ ██████████ ████████████</div>
       </div>
-    </div>`).join('') + (more > 0 ? `
-    <div class="teaser-more">
-      <div>
-        <div class="teaser-more-num">+${more}</div>
-        <div>more stocks locked</div>
-      </div>
-    </div>` : '');
+    </div>`).join('');
 }
 
 // ── RENDER FULL WATCHLIST (unlocked) ──
@@ -414,9 +420,9 @@ function renderRecent(recentlyAdded, positions, unlocked){
     <div class="recent-card">
       <div class="recent-label" style="margin-bottom:8px;color:rgba(212,165,52,0.5)">${labels[i]||'Position'}</div>
       ${tickerHtml}
-      ${p ? `<div class="recent-price" style="font-size:1.1rem">$${p.curPrice.toFixed(2)}</div>
-      <div class="recent-pct" style="${pctClass};font-size:0.82rem;font-weight:700;margin-top:3px">${pctStr} vs avg cost</div>` : ''}
-      <div class="recent-label" style="margin-top:8px">${unlocked ? 'Added to portfolio' : '&#128274; Members see ticker'}</div>
+      ${pct !== null ? `<div class="recent-pct" style="${pctClass};font-size:1.1rem;font-weight:800;margin-top:4px">${pctStr}</div>
+      <div class="recent-label" style="margin-top:2px">vs avg cost</div>` : ''}
+      <div class="recent-label" style="margin-top:8px">${unlocked ? 'Added to portfolio' : '&#128274; Join to see ticker'}</div>
     </div>`;
   }).join('');
 }
@@ -445,9 +451,15 @@ function showUnlocked(){
     // Price
     if(d.social && d.social.price){
       const p = '$'+String(d.social.price).replace(/[$]/g,'');
-      ['wl-price','wl-price-lock'].forEach(id=>{
+      ['wl-price','wl-price-lock','wl-price-cta'].forEach(id=>{
         const el=document.getElementById(id); if(el) el.textContent=String(d.social.price).replace(/[$]/g,'');
       });
+    }
+
+    // Member count
+    if(d.social && d.social.memberCount){
+      const el = document.getElementById('cm-members-wl');
+      if(el) el.textContent = d.social.memberCount;
     }
 
     // Count
