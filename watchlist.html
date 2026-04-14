@@ -91,12 +91,16 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .stage-watching{background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.22);color:#d4a534}
 .stage-ready{background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.22);color:#25d366}
 .stage-added{background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.3);color:#25d366}
+.stage-reeval{background:rgba(220,100,50,0.12);border:1px solid rgba(220,100,50,0.25);color:#e07040}
+.stage-default{background:rgba(150,150,150,0.1);border:1px solid rgba(150,150,150,0.2);color:rgba(255,255,255,0.45)}
 
 /* Stage top bar colours */
 .stage-researching-bar::before{background:linear-gradient(90deg,#4a7fc1,#6a9fd8)}
 .stage-watching-bar::before{background:linear-gradient(90deg,#b8862a,#d4a534)}
 .stage-ready-bar::before{background:linear-gradient(90deg,#1fb356,#25d366)}
 .stage-added-bar::before{background:linear-gradient(90deg,#1fb356,#25d366)}
+.stage-reeval-bar::before{background:linear-gradient(90deg,#c05020,#e07040)}
+.stage-default-bar::before{background:linear-gradient(90deg,#555,#888)}
 
 /* ── RECENTLY ADDED ── */
 .recent-section{background:#111009;border-top:1px solid rgba(212,165,52,0.1);padding:clamp(32px,5vw,52px) 40px}
@@ -226,7 +230,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     <div class="count-dot"></div>
     <div class="count-item">Updated whenever something catches my eye</div>
     <div class="count-dot"></div>
-    <div class="count-item">Members only &nbsp;&#183;&nbsp; <a href="community.html" style="color:#d4a534;text-decoration:none">$<span id="wl-price"></span>/month</a></div>
+    <div class="count-item">Included with Community &nbsp;&#183;&nbsp; <a href="community.html" style="color:#d4a534;text-decoration:none">$<span id="wl-price"></span>/month</a></div>
   </div>
 </div>
 
@@ -359,7 +363,8 @@ function stageClass(stage){
   if(s.includes('watch')) return 'stage-watching';
   if(s.includes('ready')) return 'stage-ready';
   if(s.includes('add') || s.includes('portfolio')) return 'stage-added';
-  return 'stage-watching';
+  if(s.includes('re-eval') || s.includes('reeval') || s.includes('reconsidering') || s.includes('reviewing')) return 'stage-reeval';
+  return 'stage-default';
 }
 function stageIcon(stage){
   const s = (stage||'').toLowerCase();
@@ -367,7 +372,8 @@ function stageIcon(stage){
   if(s.includes('watch')) return '&#128064;';
   if(s.includes('ready')) return '&#9989;';
   if(s.includes('add') || s.includes('portfolio')) return '&#128200;';
-  return '&#128064;';
+  if(s.includes('re-eval') || s.includes('reeval') || s.includes('reconsidering') || s.includes('reviewing')) return '&#9850;';
+  return '&#128203;';
 }
 
 function fmtDate(str){
