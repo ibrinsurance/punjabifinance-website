@@ -665,6 +665,13 @@ function galleryScroll(dir){
       if(Math.abs(n)>=1000) return 'C$'+Math.round(n/1000)+'K';
       return 'C$'+Math.round(n);
     }
+    function isUnlocked(){
+      try{
+        if(localStorage.getItem('pf_unlocked_v2')!=='true') return false;
+        const exp=parseInt(localStorage.getItem('pf_unlock_expiry_v2')||'0');
+        return Date.now()<exp;
+      }catch(e){ return false; }
+    }
 
     // ── Member count ──
     if(d.social && d.social.memberCount){
@@ -707,9 +714,11 @@ function galleryScroll(dir){
           var curStr = '$'+p.curPrice.toFixed(2);
           var avgStr = '$'+p.avgCost.toFixed(2);
           var pnlStr = (p.plCAD>=0?'+':'')+fmtC(p.plCAD);
-          var detail = i<3
+          var unlockedDetail = i<3
             ? 'Bought at '+avgStr+' avg &rarr; now '+curStr+'<br><span class="win-pnl">'+pnlStr+' unrealized gain</span>'
             : avgStr+' avg &rarr; '+curStr+' &nbsp;&middot;&nbsp; <span class="win-pnl">'+pnlStr+' unrealized</span>';
+          var lockedDetail = '<span class="win-pnl">'+pnlStr+' unrealized gain</span>';
+          var detail = isUnlocked() ? unlockedDetail : lockedDetail;
           return '<div class="'+cls+'"><div class="win-ticker">'+p.ticker+'</div><div class="win-pct">'+pctStr+'</div><div class="win-detail">'+detail+'</div></div>';
         }).join('');
       }
