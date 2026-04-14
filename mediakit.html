@@ -217,7 +217,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     </div>
     <div class="hero-bio">Canada&rsquo;s leading Punjabi-language personal finance creator &mdash; building financial literacy across <span id="mk-total-bio">...</span> followers with authentic, trust-driven content since 2021.</div>
     <div class="hero-btns">
-      <a class="btn-gold" href="#" id="mk-email-1">&#9993; Email Me Now</a>
+      <a class="btn-gold pf-email" href="#">&#9993; Email Me Now</a>
       <a class="btn-ghost" href="#collab">View Partnership Options &darr;</a>
     </div>
   </div>
@@ -376,7 +376,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
       <div class="contact-row">
         <div class="contact-icon">&#9993;</div>
-        <div><div class="contact-label">Email</div><div class="contact-val"><a href="#" id="mk-email-2"><span class="__cf_email__" data-cfemail="a7d7d2c9cdc6c5cec1cec9c6c9c4c2e7c8d2d3cbc8c8cc89c4c8ca">[email&#160;protected]</span></a></div></div>
+        <div><div class="contact-label">Email</div><div class="contact-val"><a href="#" class="pf-email">punjabifinance&#64;outlook&#46;com</a></div></div>
       </div>
       <div class="contact-row">
         <div class="contact-icon">&#128247;</div>
@@ -386,7 +386,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     <div class="cta-box">
       <div class="cta-headline">Reach <span id="mk-cta-total">...</span> Followers Who Care About Money</div>
       <div class="cta-sub-text">A highly engaged, niche audience in the Punjabi-speaking community &mdash; trust-driven and financially motivated. Every partnership is authentic and educational-first.</div>
-      <a class="cta-btn" href="#" id="mk-email-3">&#9993; Get in Touch</a>
+      <a class="cta-btn pf-email" href="#">&#9993; Get in Touch</a>
     </div>
   </div>
 </div>
@@ -433,11 +433,17 @@ document.addEventListener('click',function(e){
   }catch(e){ console.warn('Mediakit data error:',e); }
 })();
 </script>
-
 <script>
-// Build email links to prevent Cloudflare obfuscation
 (function(){
-  var u='punjabifinance';
-  var d='outlook.com';
-  var e=u+'@'+d;
-  var h='mailto:'+e;
+  var n=[112,117,110,106,97,98,105,102,105,110,97,110,99,101,64,111,117,116,108,111,111,107,46,99,111,109];
+  var e=n.map(function(x){return String.fromCharCode(x);}).join('');
+  var h=['mai','lto:',e].join('');
+  document.querySelectorAll('.pf-email').forEach(function(a){
+    a.href=h;
+    var t=(a.textContent||'').trim();
+    if(t.indexOf('@')>-1||t.indexOf('outlook')>-1){a.textContent=e;}
+  });
+})();
+</script>
+</body>
+</html>

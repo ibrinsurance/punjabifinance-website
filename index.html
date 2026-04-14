@@ -406,30 +406,30 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
     <!-- ticker tape -->
     <div class="opts-tape">
       <div class="opts-tape-inner">
-        <span class="tape-item"><span>Total Collected</span><span class="tape-val">C$166,644</span></span>
+        <span class="tape-item"><span>Total Collected</span><span class="tape-val" id="tape-total">...</span></span>
         <span class="tape-dot"></span>
-        <span class="tape-item"><span>2026 YTD</span><span class="tape-val">C$63,788</span></span>
+        <span class="tape-item"><span>2026 YTD</span><span class="tape-val" id="tape-ytd">...</span></span>
         <span class="tape-dot"></span>
-        <span class="tape-item"><span>2025 Full Year</span><span class="tape-val">C$102,857</span></span>
+        <span class="tape-item"><span>2025 Full Year</span><span class="tape-val" id="tape-prev">...</span></span>
         <span class="tape-dot"></span>
-        <span class="tape-item"><span>2026 Projected</span><span class="tape-val">C$249,565</span></span>
+        <span class="tape-item"><span>2026 Projected</span><span class="tape-val" id="tape-proj">...</span></span>
         <span class="tape-dot"></span>
-        <span class="tape-item"><span>YoY Growth</span><span class="tape-val">+143%</span></span>
+        <span class="tape-item"><span>YoY Growth</span><span class="tape-val" id="tape-yoy">...</span></span>
         <span class="tape-dot"></span>
-        <span class="tape-item"><span>Avg Monthly 2026</span><span class="tape-val">C$20,797</span></span>
+        <span class="tape-item"><span>Avg Monthly 2026</span><span class="tape-val" id="tape-avg">...</span></span>
         <span class="tape-dot"></span>
         <!-- duplicate for seamless loop -->
-        <span class="tape-item"><span>Total Collected</span><span class="tape-val">C$166,644</span></span>
+        <span class="tape-item"><span>Total Collected</span><span class="tape-val" id="tape-total2">...</span></span>
         <span class="tape-dot"></span>
-        <span class="tape-item"><span>2026 YTD</span><span class="tape-val">C$63,788</span></span>
+        <span class="tape-item"><span>2026 YTD</span><span class="tape-val" id="tape-ytd2">...</span></span>
         <span class="tape-dot"></span>
-        <span class="tape-item"><span>2025 Full Year</span><span class="tape-val">C$102,857</span></span>
+        <span class="tape-item"><span>2025 Full Year</span><span class="tape-val" id="tape-prev2">...</span></span>
         <span class="tape-dot"></span>
-        <span class="tape-item"><span>2026 Projected</span><span class="tape-val">C$249,565</span></span>
+        <span class="tape-item"><span>2026 Projected</span><span class="tape-val" id="tape-proj2">...</span></span>
         <span class="tape-dot"></span>
-        <span class="tape-item"><span>YoY Growth</span><span class="tape-val">+143%</span></span>
+        <span class="tape-item"><span>YoY Growth</span><span class="tape-val" id="tape-yoy2">...</span></span>
         <span class="tape-dot"></span>
-        <span class="tape-item"><span>Avg Monthly 2026</span><span class="tape-val">C$20,797</span></span>
+        <span class="tape-item"><span>Avg Monthly 2026</span><span class="tape-val" id="tape-avg2">...</span></span>
         <span class="tape-dot"></span>
       </div>
     </div>
@@ -568,9 +568,12 @@ function tryUnlock(){
 }
 function applyLockState(){
   const unlocked = isUnlocked();
-  document.getElementById('lock-gate-section').style.display = unlocked ? 'none' : 'block';
-  document.getElementById('lock-gate-divider').style.display = unlocked ? 'none' : 'block';
-  document.getElementById('unlock-bar').style.display = unlocked ? 'none' : 'flex';
+  const lg = document.getElementById('lock-gate-section');
+  const lgd = document.getElementById('lock-gate-divider');
+  const ub = document.getElementById('unlock-bar');
+  if(lg) lg.style.display = unlocked ? 'none' : 'block';
+  if(lgd) lgd.style.display = unlocked ? 'none' : 'block';
+  if(ub) ub.style.display = unlocked ? 'none' : 'flex';
   document.querySelectorAll('.lockable').forEach(el=>{
     el.classList.toggle('locked', !unlocked);
   });
@@ -1029,6 +1032,16 @@ function renderOptions(options){
     <div class="ot-item"><div class="ot-label">Avg / mo</div><div class="ot-val">C$${Math.round(prevAvg).toLocaleString()}</div></div>
     <div class="ot-item"><div class="ot-label">Best month</div><div class="ot-val">C$${Math.round(prevBest).toLocaleString()}</div></div>` : '';
 
+  // Tape values
+  const s=(v)=>{ const el=document.getElementById(v); return el; };
+  const setT=(id1,id2,v)=>{ const e1=s(id1),e2=s(id2); if(e1)e1.textContent=v; if(e2)e2.textContent=v; };
+  setT('tape-total','tape-total2','C$'+Math.round(totalAllCAD).toLocaleString());
+  setT('tape-ytd','tape-ytd2','C$'+Math.round(curYearCAD).toLocaleString());
+  setT('tape-prev','tape-prev2',prevYear?'C$'+Math.round(prevYearCAD).toLocaleString():'C$0');
+  setT('tape-proj','tape-proj2','C$'+Math.round(projected).toLocaleString());
+  setT('tape-yoy','tape-yoy2',(yoyPct>=0?'+':'')+yoyPct.toFixed(0)+'%');
+  setT('tape-avg','tape-avg2','C$'+Math.round(curAvg).toLocaleString());
+
   // Month bars
   const mk = (yearData, id) => {
     if(!yearData) return;
@@ -1068,23 +1081,23 @@ async function init(){
   showLoading();
   try{
     const data = await fetchSheetData();
-    if(data.positions && data.positions.length>0){
-      renderPortfolio(data.positions);
-    }
-    if(data.options && data.options.length>0){
-      renderOptions(data.options);
-    }
+    try{
+      if(data.positions && data.positions.length>0) renderPortfolio(data.positions);
+    }catch(e){ console.error('renderPortfolio error:', e); }
+    try{
+      if(data.options && data.options.length>0) renderOptions(data.options);
+    }catch(e){ console.error('renderOptions error:', e); }
   }catch(e){
     console.error('Sheet fetch error:', e);
     showError('Could not load sheet data. Check your connection.');
   }
 
-  // Refresh every 5 minutes — sheet updates are manual so no need for 60s
+  // Refresh every 5 minutes
   setInterval(async()=>{
     try{
       const data = await fetchSheetData();
-      if(data.positions?.length) renderPortfolio(data.positions);
-      if(data.options?.length)   renderOptions(data.options);
+      try{ if(data.positions?.length) renderPortfolio(data.positions); }catch(e){}
+      try{ if(data.options?.length)   renderOptions(data.options); }catch(e){}
     }catch(e){}
   }, 5*60*1000);
 }
