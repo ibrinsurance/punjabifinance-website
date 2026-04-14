@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Watchlist &mdash; Punjabi Finance</title>
+<script>const PF_MONTHLY_CODE = "PF-APR-2026";</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── TOPBAR ── */
+.topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;z-index:100;gap:12px;width:100%;box-sizing:border-box}
+.wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);flex-shrink:0}
+.wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
+.wm-gold{color:#d4a534}
+.topbar-nav{display:flex;align-items:center;gap:2px;flex:1}
+.nav-btn{display:inline-flex;align-items:center;color:rgba(255,255,255,0.5);font-size:0.67rem;font-weight:500;letter-spacing:0.04em;padding:7px 12px;border-radius:7px;text-decoration:none;border:1px solid transparent;white-space:nowrap;transition:all .15s}
+.nav-btn:hover{background:rgba(212,165,52,0.1);color:#d4a534;border-color:rgba(212,165,52,0.2)}
+.nav-btn.active{color:#d4a534;border-color:rgba(212,165,52,0.2);background:rgba(212,165,52,0.08)}
+.topbar-right-btns{display:none;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.ham-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:10px 12px;border:1px solid rgba(212,165,52,0.35);background:rgba(212,165,52,0.1);border-radius:8px;flex-shrink:0}
+.ham-btn:hover{background:rgba(212,165,52,0.2);border-color:rgba(212,165,52,0.5)}
+.ham-line{width:24px;height:2.5px;background:#d4a534;border-radius:2px;transition:all .25s;display:block}
+.ham-btn.open .ham-line:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham-btn.open .ham-line:nth-child(2){opacity:0;transform:scaleX(0)}
+.ham-btn.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-dropdown{display:none;position:fixed;top:58px;left:0;right:0;background:#111009;border-bottom:1px solid rgba(212,165,52,0.15);z-index:99;padding:8px 16px 14px;flex-direction:column;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+.nav-dropdown.open{display:flex}
+.nav-dropdown .nav-btn{font-size:0.89rem;padding:12px 14px;border-radius:9px;width:100%;letter-spacing:0.02em}
+@media(max-width:720px){.topbar-nav{display:none}.topbar-right-btns{display:flex}}
+@media(max-width:480px){.topbar{padding:0 14px;gap:8px}.wm-link{padding-right:14px}}
+
+/* ── BASE ── */
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:18px;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-height:1.6;min-height:100vh}
+
+/* ── HERO ── */
+.hero{background:#0d0b04;padding:clamp(52px,7vw,80px) 40px clamp(36px,5vw,56px);text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(212,165,52,0.1) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 90% 90%,rgba(212,165,52,0.05) 0%,transparent 60%);pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.25);padding:6px 18px;border-radius:100px;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#d4a534;font-weight:700;margin-bottom:22px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:14px;letter-spacing:-0.02em}
+.hero-title em{color:#d4a534;font-style:normal}
+.hero-sub{font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.85;max-width:500px;margin:0 auto 0}
+
+/* ── COUNT STRIP ── */
+.count-strip{background:#111009;border-top:1px solid rgba(212,165,52,0.1);border-bottom:1px solid rgba(212,165,52,0.1);padding:18px 40px;text-align:center}
+.count-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap}
+.count-item{display:flex;align-items:center;gap:8px;font-size:0.72rem;color:rgba(255,255,255,0.4);letter-spacing:0.06em}
+.count-num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#d4a534}
+.count-dot{width:4px;height:4px;border-radius:50%;background:rgba(212,165,52,0.3)}
+
+/* ── LOCK GATE ── */
+.lock-section{padding:clamp(32px,5vw,56px) 40px;max-width:600px;margin:0 auto;text-align:center}
+.lock-card{background:#111009;border:1px solid rgba(212,165,52,0.15);border-radius:20px;padding:36px 32px}
+.lock-icon{font-size:2.2rem;margin-bottom:14px}
+.lock-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:8px}
+.lock-sub{font-size:0.8rem;color:rgba(255,255,255,0.4);line-height:1.75;margin-bottom:24px;max-width:360px;margin-left:auto;margin-right:auto}
+.lock-input-row{display:flex;gap:8px;max-width:340px;margin:0 auto 8px}
+.lock-input{flex:1;padding:11px 16px;border:1.5px solid rgba(212,165,52,0.2);border-radius:9px;font-size:0.83rem;font-family:'DM Sans',sans-serif;outline:none;background:#0d0b04;color:#f0e8d0;transition:border-color .15s}
+.lock-input:focus{border-color:#d4a534}
+.lock-btn{background:#d4a534;color:#0a0800;border:none;padding:11px 20px;border-radius:9px;font-size:0.83rem;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:background .15s}
+.lock-btn:hover{background:#b8862a}
+.lock-error{font-size:0.72rem;color:#e74c3c;min-height:18px;margin:0 auto 14px;max-width:340px;text-align:left}
+.lock-divider{display:flex;align-items:center;gap:12px;max-width:340px;margin:0 auto 16px;color:rgba(255,255,255,0.15);font-size:0.72rem}
+.lock-divider::before,.lock-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08)}
+.lock-join-btn{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#052a10;padding:12px 28px;border-radius:10px;font-weight:700;font-size:0.85rem;text-decoration:none;transition:background .15s}
+.lock-join-btn:hover{background:#1fb356}
+.lock-hint{font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:14px;line-height:1.6}
+
+/* ── TEASER (non-members see blurred cards) ── */
+.teaser-section{padding:0 40px clamp(32px,5vw,56px);max-width:1080px;margin:0 auto}
+.teaser-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:16px}
+.teaser-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.teaser-card{background:#111009;border:1px solid rgba(212,165,52,0.1);border-radius:14px;padding:20px 18px;position:relative;overflow:hidden}
+.teaser-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(212,165,52,0.4),transparent)}
+.teaser-ticker{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:#d4a534;margin-bottom:6px}
+.teaser-name{font-size:0.72rem;color:rgba(255,255,255,0.35);margin-bottom:12px}
+.teaser-blur{filter:blur(5px);user-select:none;pointer-events:none}
+.teaser-why{font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:10px}
+.teaser-stage{display:inline-flex;align-items:center;gap:6px;font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border-radius:100px}
+.teaser-more{background:#111009;border:1px solid rgba(212,165,52,0.1);border-radius:14px;padding:20px 18px;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px;color:rgba(255,255,255,0.2);font-size:0.78rem}
+.teaser-more-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:rgba(212,165,52,0.3)}
+
+/* ── WATCHLIST CARDS (unlocked) ── */
+.watchlist-section{display:none;padding:0 40px clamp(32px,5vw,56px);max-width:1080px;margin:0 auto}
+.wl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.wl-card{background:#111009;border:1px solid rgba(212,165,52,0.12);border-radius:16px;padding:24px 22px;position:relative;overflow:hidden;transition:border-color .2s}
+.wl-card:hover{border-color:rgba(212,165,52,0.28)}
+.wl-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.wl-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:12px}
+.wl-ticker{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:#d4a534;line-height:1}
+.wl-name{font-size:0.72rem;color:rgba(255,255,255,0.35);margin-top:3px}
+.wl-stage{display:inline-flex;align-items:center;gap:5px;font-size:0.58rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:5px 12px;border-radius:100px;white-space:nowrap;flex-shrink:0}
+.wl-why-label{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(212,165,52,0.45);font-weight:700;margin-bottom:6px}
+.wl-why{font-size:0.82rem;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:14px}
+.wl-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06)}
+.wl-date{font-size:0.65rem;color:rgba(255,255,255,0.2)}
+.wl-price{font-size:0.78rem;font-weight:700;color:#fff}
+.wl-price-sub{font-size:0.6rem;color:rgba(255,255,255,0.3)}
+
+/* Stage colours */
+.stage-researching{background:rgba(74,127,193,0.12);border:1px solid rgba(74,127,193,0.25);color:#6a9fd8}
+.stage-watching{background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.22);color:#d4a534}
+.stage-waiting{background:rgba(180,120,220,0.1);border:1px solid rgba(180,120,220,0.22);color:#c084e0}
+.stage-ready{background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.22);color:#25d366}
+.stage-added{background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.3);color:#25d366}
+
+/* Stage top bar colours */
+.stage-researching-bar::before{background:linear-gradient(90deg,#4a7fc1,#6a9fd8)}
+.stage-watching-bar::before{background:linear-gradient(90deg,#b8862a,#d4a534)}
+.stage-waiting-bar::before{background:linear-gradient(90deg,#9b59b6,#c084e0)}
+.stage-ready-bar::before{background:linear-gradient(90deg,#1fb356,#25d366)}
+.stage-added-bar::before{background:linear-gradient(90deg,#1fb356,#25d366)}
+
+/* ── RECENTLY ADDED ── */
+.recent-section{background:#111009;border-top:1px solid rgba(212,165,52,0.1);padding:clamp(32px,5vw,52px) 40px}
+.recent-inner{max-width:1080px;margin:0 auto}
+.recent-eyebrow{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:8px}
+.recent-title{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:800;color:#fff;margin-bottom:6px}
+.recent-sub{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-bottom:24px}
+.recent-grid{display:flex;gap:14px;flex-wrap:wrap}
+.recent-card{background:#0d0b04;border:1px solid rgba(212,165,52,0.12);border-radius:14px;padding:18px 20px;min-width:140px;text-align:center;flex:1}
+.recent-ticker{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:#d4a534;margin-bottom:4px}
+.recent-price{font-size:0.78rem;font-weight:700;color:#fff}
+.recent-pct{font-size:0.67rem;font-weight:600;margin-top:2px}
+.recent-label{font-size:0.58rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em;text-transform:uppercase;margin-top:6px}
+
+/* ── DISCLAIMER ── */
+.disclaimer-box{max-width:1080px;margin:0 auto;padding:0 40px clamp(32px,5vw,52px)}
+.disclaimer-inner{font-size:0.67rem;color:rgba(255,255,255,0.25);background:rgba(212,165,52,0.04);border:1px solid rgba(212,165,52,0.1);border-left:2px solid rgba(212,165,52,0.3);border-radius:0 8px 8px 0;padding:12px 16px;line-height:1.75}
+.disclaimer-inner strong{color:rgba(212,165,52,0.5)}
+
+/* ── FOOTER ── */
+.page-footer{background:#060501;padding:20px 40px;text-align:center;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.12);border-top:1px solid rgba(212,165,52,0.06)}
+.page-footer a{color:rgba(212,165,52,0.3);text-decoration:none}
+
+@media(max-width:640px){
+  .hero{padding:44px 20px 32px}
+  .count-strip{padding:16px 20px}
+  .count-inner{gap:16px}
+  .teaser-section,.watchlist-section,.disclaimer-box{padding-left:16px;padding-right:16px}
+  .teaser-grid{grid-template-columns:1fr 1fr}
+  .wl-grid{grid-template-columns:1fr}
+  .recent-section{padding:32px 20px}
+  .page-footer{padding:16px 20px}
+  .lock-section{padding:28px 20px}
+  .lock-card{padding:28px 20px}
+}
+@media(min-width:641px) and (max-width:900px){
+  .teaser-grid{grid-template-columns:1fr 1fr}
+  .wl-grid{grid-template-columns:1fr}
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W5P90KB7HM"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-W5P90KB7HM');</script>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a class="wm-link" href="index.html">
+    <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
+  </a>
+  <div class="topbar-nav">
+    <a class="nav-btn" href="index.html">Portfolio</a>
+    <a class="nav-btn" href="community.html">Community</a>
+    <a class="nav-btn" href="webinars.html">Webinars</a>
+    <a class="nav-btn active" href="watchlist.html">Watchlist</a>
+    <a class="nav-btn" href="links.html">Links</a>
+    <a class="nav-btn" href="mediakit.html">Media Kit</a>
+  </div>
+  <div class="topbar-right-btns">
+    <a class="nav-btn" href="community.html">Community</a>
+    <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
+  </div>
+</div>
+<nav class="nav-dropdown" id="nav-dropdown">
+  <a class="nav-btn" href="index.html">Portfolio</a>
+  <a class="nav-btn" href="community.html">Community</a>
+  <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn active" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="links.html">Links</a>
+  <a class="nav-btn" href="mediakit.html">Media Kit</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">&#128269; Members Only</div>
+    <div class="hero-title">Stocks I&rsquo;m<br><em>Watching Right Now</em></div>
+    <div class="hero-sub">Not buy recommendations — just transparency into my research process. The stocks I&rsquo;m keeping an eye on and why.</div>
+  </div>
+</div>
+
+<!-- COUNT STRIP -->
+<div class="count-strip">
+  <div class="count-inner">
+    <div class="count-item"><span class="count-num" id="wl-count">...</span>&nbsp;on watchlist</div>
+    <div class="count-dot"></div>
+    <div class="count-item">Updated whenever something catches my eye</div>
+    <div class="count-dot"></div>
+    <div class="count-item">Members only &nbsp;&#183;&nbsp; <a href="community.html" style="color:#d4a534;text-decoration:none">$<span id="wl-price">10</span>/month</a></div>
+  </div>
+</div>
+
+<!-- TEASER (shown to non-members) -->
+<div id="teaser-wrap">
+  <div class="teaser-section">
+    <div class="teaser-label">&#128064; Currently watching</div>
+    <div class="teaser-grid" id="teaser-grid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+
+  <!-- LOCK GATE -->
+  <div class="lock-section">
+    <div class="lock-card">
+      <div class="lock-icon">&#128274;</div>
+      <div class="lock-title">Members See Everything</div>
+      <div class="lock-sub">The full watchlist — why I&rsquo;m watching, what stage I&rsquo;m at, live prices — is available to community members. Join for $<span id="wl-price-lock">10</span>/month.</div>
+      <div class="lock-input-row">
+        <input class="lock-input" id="wl-code-input" type="text" placeholder="Enter member code" autocomplete="off" autocapitalize="characters">
+        <button class="lock-btn" onclick="tryUnlock()">Unlock</button>
+      </div>
+      <div class="lock-error" id="wl-error"></div>
+      <div class="lock-divider">or</div>
+      <a class="lock-join-btn" href="community.html">&#128172; Join the Community</a>
+      <div class="lock-hint">Already a member? Use your monthly code to access the full watchlist.</div>
+    </div>
+  </div>
+</div>
+
+<!-- WATCHLIST (shown to members) -->
+<div class="watchlist-section" id="watchlist-wrap">
+  <div class="wl-grid" id="wl-grid">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<!-- RECENTLY ADDED TO PORTFOLIO -->
+<div class="recent-section">
+  <div class="recent-inner">
+    <div class="recent-eyebrow">From watchlist to portfolio</div>
+    <div class="recent-title">Recently Added Positions</div>
+    <div class="recent-sub">Stocks that moved from my watchlist into my real portfolio — members saw every step.</div>
+    <div class="recent-grid" id="recent-grid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer-box">
+  <div class="disclaimer-inner">
+    <strong>Disclaimer:</strong> This watchlist is shared for educational and transparency purposes only. Nothing here is financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. These are stocks I am personally researching — do your own due diligence before making any investment decisions.
+  </div>
+</div>
+
+<div class="page-footer">
+  &copy; 2025 Punjabi Finance &nbsp;&middot;&nbsp;
+  <a href="index.html">Portfolio</a> &nbsp;&middot;&nbsp;
+  <a href="community.html">Community</a> &nbsp;&middot;&nbsp;
+  Not financial advice
+</div>
+
+<script>
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyuWpO81jmnI2ZfqJZ0wqneZ5YR4WXWGVWmiT_PuLVJucfdBTYzfgbCEU9rCOj0_genRw/exec';
+let MONTHLY_CODE = PF_MONTHLY_CODE;
+let allData = null;
+
+// ── UNLOCK ──
+const LOCK_KEY = 'pf_unlocked_v2';
+const EXPIRY_KEY = 'pf_unlock_expiry_v2';
+const VER_KEY = 'pf_unlock_ver_v2';
+
+function isUnlocked(){
+  try{
+    if(localStorage.getItem(LOCK_KEY)!=='true') return false;
+    const exp = parseInt(localStorage.getItem(EXPIRY_KEY)||'0');
+    if(Date.now() > exp){ localStorage.removeItem(LOCK_KEY); return false; }
+    const ver = localStorage.getItem(VER_KEY)||'';
+    return ver === MONTHLY_CODE;
+  }catch(e){ return false; }
+}
+
+function setUnlocked(code){
+  try{
+    localStorage.setItem(LOCK_KEY,'true');
+    localStorage.setItem(EXPIRY_KEY, String(Date.now()+7*24*60*60*1000));
+    localStorage.setItem(VER_KEY, code);
+  }catch(e){}
+}
+
+function tryUnlock(){
+  const val = (document.getElementById('wl-code-input').value||'').trim().toUpperCase();
+  if(val === MONTHLY_CODE){
+    setUnlocked(MONTHLY_CODE);
+    showUnlocked();
+  } else {
+    document.getElementById('wl-error').textContent = 'Invalid code. Join the community to get access.';
+  }
+}
+
+document.getElementById('wl-code-input').addEventListener('keydown', e => { if(e.key==='Enter') tryUnlock(); });
+
+// ── STAGE HELPERS ──
+function stageClass(stage){
+  const s = (stage||'').toLowerCase();
+  if(s.includes('research')) return 'stage-researching';
+  if(s.includes('watch')) return 'stage-watching';
+  if(s.includes('wait')) return 'stage-waiting';
+  if(s.includes('ready')) return 'stage-ready';
+  if(s.includes('add') || s.includes('portfolio')) return 'stage-added';
+  return 'stage-watching';
+}
+function stageBarClass(stage){
+  return stageClass(stage).replace('stage-','stage-')+'-bar';
+}
+function stageIcon(stage){
+  const s = (stage||'').toLowerCase();
+  if(s.includes('research')) return '&#128269;';
+  if(s.includes('watch')) return '&#128064;';
+  if(s.includes('wait')) return '&#9203;';
+  if(s.includes('ready')) return '&#9989;';
+  if(s.includes('add') || s.includes('portfolio')) return '&#128200;';
+  return '&#128064;';
+}
+
+function fmtDate(str){
+  if(!str) return '';
+  try{
+    const d = new Date(str);
+    if(isNaN(d)) return str;
+    return d.toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'});
+  }catch(e){ return str; }
+}
+
+// ── RENDER TEASER (blurred, tickers visible) ──
+function renderTeaser(watchlist){
+  const grid = document.getElementById('teaser-grid');
+  if(!grid || !watchlist.length) return;
+
+  // Show up to 3 real cards (ticker + blurred content) + 1 "more" card
+  const show = watchlist.slice(0,3);
+  const more = watchlist.length - show.length;
+
+  grid.innerHTML = show.map(w => `
+    <div class="teaser-card">
+      <div class="teaser-ticker">${w.ticker}</div>
+      <div class="teaser-name">${w.name||''}</div>
+      <div class="teaser-blur">
+        <div class="teaser-why">██████████████ ████████ ████████████████ ███████████ ██████████ ████████████</div>
+        <div class="teaser-stage ${stageClass(w.stage)}">${stageIcon(w.stage)} ${w.stage||'Watching'}</div>
+      </div>
+    </div>`).join('') + (more > 0 ? `
+    <div class="teaser-more">
+      <div>
+        <div class="teaser-more-num">+${more}</div>
+        <div>more stocks locked</div>
+      </div>
+    </div>` : '');
+}
+
+// ── RENDER FULL WATCHLIST (unlocked) ──
+function renderWatchlist(watchlist, positions){
+  const grid = document.getElementById('wl-grid');
+  if(!grid) return;
+
+  // Build price lookup from positions
+  const priceMap = {};
+  (positions||[]).forEach(p => { priceMap[p.ticker] = p; });
+
+  grid.innerHTML = watchlist.map(w => {
+    const pos = priceMap[w.ticker];
+    const sc = stageClass(w.stage);
+    const bc = sc + '-bar';
+    const priceHtml = pos
+      ? `<div><div class="wl-price">$${pos.curPrice.toFixed(2)}</div><div class="wl-price-sub">Current price</div></div>`
+      : `<div class="wl-price-sub">Not in portfolio</div>`;
+    return `
+    <div class="wl-card ${bc}">
+      <div class="wl-card-header">
+        <div>
+          <div class="wl-ticker">${w.ticker}</div>
+          <div class="wl-name">${w.name||''}</div>
+        </div>
+        <div class="wl-stage ${sc}">${stageIcon(w.stage)} ${w.stage||'Watching'}</div>
+      </div>
+      <div class="wl-why-label">Why I&rsquo;m watching</div>
+      <div class="wl-why">${w.why||'—'}</div>
+      <div class="wl-footer">
+        <div class="wl-date">Added ${fmtDate(w.added)}</div>
+        ${priceHtml}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── RENDER RECENTLY ADDED ──
+function renderRecent(recentlyAdded, positions){
+  const grid = document.getElementById('recent-grid');
+  if(!grid || !recentlyAdded.length) return;
+  const priceMap = {};
+  (positions||[]).forEach(p => { priceMap[p.ticker] = p; });
+
+  grid.innerHTML = recentlyAdded.map(ticker => {
+    const p = priceMap[ticker];
+    const pct = p ? p.plPct : null;
+    const pctClass = pct === null ? '' : pct >= 0 ? 'color:#25d366' : 'color:#e74c3c';
+    const pctStr = pct !== null ? (pct>=0?'+':'')+pct.toFixed(1)+'%' : '';
+    return `
+    <div class="recent-card">
+      <div class="recent-ticker">${ticker}</div>
+      ${p ? `<div class="recent-price">$${p.curPrice.toFixed(2)}</div>
+      <div class="recent-pct" style="${pctClass}">${pctStr} vs avg</div>` : ''}
+      <div class="recent-label">Added to portfolio</div>
+    </div>`;
+  }).join('');
+}
+
+// ── SHOW UNLOCKED VIEW ──
+function showUnlocked(){
+  document.getElementById('teaser-wrap').style.display = 'none';
+  document.getElementById('watchlist-wrap').style.display = 'block';
+  if(allData){
+    renderWatchlist(allData.watchlist||[], allData.positions||[]);
+  }
+}
+
+// ── INIT ──
+(async function(){
+  try{
+    const r = await fetch(SHEET_URL, {cache:'no-store'});
+    const d = await r.json();
+    allData = d;
+
+    // Update password
+    if(d.monthlyCode && d.monthlyCode.trim())
+      MONTHLY_CODE = d.monthlyCode.trim().toUpperCase();
+
+    // Price
+    if(d.social && d.social.price){
+      const p = '$'+String(d.social.price).replace(/[$]/g,'');
+      ['wl-price','wl-price-lock'].forEach(id=>{
+        const el=document.getElementById(id); if(el) el.textContent=String(d.social.price).replace(/[$]/g,'');
+      });
+    }
+
+    // Count
+    const wl = d.watchlist||[];
+    const countEl = document.getElementById('wl-count');
+    if(countEl) countEl.textContent = wl.length;
+
+    // Always render teaser
+    renderTeaser(wl);
+
+    // Recently added
+    renderRecent(d.recentlyAdded||[], d.positions||[]);
+
+    // If already unlocked, show full view
+    if(isUnlocked()) showUnlocked();
+
+  }catch(e){ console.warn('Watchlist error:', e); }
+})();
+</script>
+
+<script>
+function toggleMenu(){
+  document.getElementById('ham-btn').classList.toggle('open');
+  document.getElementById('nav-dropdown').classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  const btn=document.getElementById('ham-btn');
+  const drop=document.getElementById('nav-dropdown');
+  if(btn&&drop&&!btn.contains(e.target)&&!drop.contains(e.target)){
+    btn.classList.remove('open');
+    drop.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>

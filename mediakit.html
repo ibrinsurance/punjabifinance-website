@@ -181,6 +181,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     <a class="nav-btn" href="index.html">Portfolio</a>
     <a class="nav-btn" href="community.html">Community</a>
     <a class="nav-btn" href="webinars.html">Webinars</a>
+    <a class="nav-btn" href="watchlist.html">Watchlist</a>
     <a class="nav-btn" href="links.html">Links</a>
     <a class="nav-btn  active" href="mediakit.html">Media Kit</a>
   </div>
@@ -195,6 +196,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   <a class="nav-btn" href="index.html">Portfolio</a>
   <a class="nav-btn" href="community.html">Community</a>
   <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn" href="watchlist.html">Watchlist</a>
   <a class="nav-btn" href="links.html">Links</a>
   <a class="nav-btn  active" href="mediakit.html">Media Kit</a>
 </nav>
@@ -374,7 +376,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
       <div class="contact-row">
         <div class="contact-icon">&#9993;</div>
-        <div><div class="contact-label">Email</div><div class="contact-val"><a href="#" id="mk-email-2">punjabifinance@outlook.com</a></div></div>
+        <div><div class="contact-label">Email</div><div class="contact-val"><a href="#" id="mk-email-2"><span class="__cf_email__" data-cfemail="a7d7d2c9cdc6c5cec1cec9c6c9c4c2e7c8d2d3cbc8c8cc89c4c8ca">[email&#160;protected]</span></a></div></div>
       </div>
       <div class="contact-row">
         <div class="contact-icon">&#128247;</div>
@@ -389,7 +391,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function toggleMenu(){
   document.getElementById('ham-btn').classList.toggle('open');
   document.getElementById('nav-dropdown').classList.toggle('open');
@@ -408,7 +410,7 @@ document.addEventListener('click',function(e){
 <script>
 (async function(){
   try{
-    const r = await fetch('https://script.google.com/macros/s/AKfycbwRk4Vp5KKwctk10B-gm0Tuwt_7IkxfL1hO6gdM3I9wJ17JfO8eT7rAvVw-XQvr8P6tkA/exec', {cache:'no-store'});
+    const r = await fetch('https://script.google.com/macros/s/AKfycbyuWpO81jmnI2ZfqJZ0wqneZ5YR4WXWGVWmiT_PuLVJucfdBTYzfgbCEU9rCOj0_genRw/exec', {cache:'no-store'});
     const d = await r.json();
     if(!d.social){ console.warn('No social data in response'); return; }
     const s = d.social;
@@ -439,11 +441,3 @@ document.addEventListener('click',function(e){
   var d='outlook.com';
   var e=u+'@'+d;
   var h='mailto:'+e;
-  ['mk-email-1','mk-email-2','mk-email-3'].forEach(function(id){
-    var el=document.getElementById(id);
-    if(el){ el.href=h; if(id==='mk-email-2') el.textContent=e; }
-  });
-})();
-</script>
-</body>
-</html>
