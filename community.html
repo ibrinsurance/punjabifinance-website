@@ -708,7 +708,7 @@ function galleryScroll(dir){
           var pnlStr = (p.plCAD>=0?'+':'')+fmtC(p.plCAD);
           var detail = i<3
             ? 'Bought at '+avgStr+' avg &rarr; now '+curStr+'<br><span class="win-pnl">'+pnlStr+' unrealized gain</span>'
-            : avgStr+' avg &rarr; '+curStr+' &nbsp;&middot;&nbsp; <span class="win-pnl">'+pnlStr+'</span>';
+            : avgStr+' avg &rarr; '+curStr+' &nbsp;&middot;&nbsp; <span class="win-pnl">'+pnlStr+' unrealized</span>';
           return '<div class="'+cls+'"><div class="win-ticker">'+p.ticker+'</div><div class="win-pct">'+pctStr+'</div><div class="win-detail">'+detail+'</div></div>';
         }).join('');
       }
