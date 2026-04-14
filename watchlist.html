@@ -47,11 +47,11 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .hero-disclaimer strong{color:rgba(212,165,52,0.6)}
 
 /* ── COUNT STRIP ── */
-.count-strip{background:#111009;border-top:1px solid rgba(212,165,52,0.1);border-bottom:1px solid rgba(212,165,52,0.1);padding:18px 40px;text-align:center}
-.count-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap}
-.count-item{display:flex;align-items:center;gap:8px;font-size:0.72rem;color:rgba(255,255,255,0.4);letter-spacing:0.06em}
-.count-num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#d4a534}
-.count-dot{width:4px;height:4px;border-radius:50%;background:rgba(212,165,52,0.3)}
+.count-strip{background:#111009;border-top:1px solid rgba(212,165,52,0.1);border-bottom:1px solid rgba(212,165,52,0.1);padding:24px 40px}
+.count-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.1);border-radius:14px;overflow:hidden}
+.count-item{background:#111009;padding:22px 20px;text-align:center}
+.count-num{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;color:#d4a534;line-height:1;margin-bottom:4px;display:block}
+.count-label{font-size:0.63rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.3);font-weight:600}
 
 
 
@@ -164,7 +164,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 @media(max-width:640px){
   .hero{padding:44px 20px 32px}
   .count-strip{padding:16px 20px}
-  .count-inner{gap:16px}
+  .count-inner{grid-template-columns:1fr;border-radius:10px}
   .teaser-section,.watchlist-section,.disclaimer-box{padding-left:16px;padding-right:16px}
   .teaser-grid{grid-template-columns:1fr 1fr}
   .wl-grid{grid-template-columns:1fr}
@@ -226,11 +226,18 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <!-- COUNT STRIP -->
 <div class="count-strip">
   <div class="count-inner">
-    <div class="count-item"><span class="count-num" id="wl-count">...</span>&nbsp;on watchlist</div>
-    <div class="count-dot"></div>
-    <div class="count-item">Updated whenever something catches my eye</div>
-    <div class="count-dot"></div>
-    <div class="count-item">Included with Community &nbsp;&#183;&nbsp; <a href="community.html" style="color:#d4a534;text-decoration:none">$<span id="wl-price"></span>/month</a></div>
+    <div class="count-item">
+      <span class="count-num" id="wl-count">...</span>
+      <div class="count-label">On Watchlist</div>
+    </div>
+    <div class="count-item">
+      <span class="count-num" style="font-size:1.1rem;letter-spacing:-0.01em">Whenever I find something</span>
+      <div class="count-label">Updated</div>
+    </div>
+    <div class="count-item">
+      <span class="count-num">$<span id="wl-price"></span><span style="font-size:0.9rem;font-weight:400;opacity:0.6">/month</span></span>
+      <div class="count-label">Included with Community</div>
+    </div>
   </div>
 </div>
 
