@@ -53,23 +53,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .count-num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#d4a534}
 .count-dot{width:4px;height:4px;border-radius:50%;background:rgba(212,165,52,0.3)}
 
-/* ── LOCK GATE ── */
-.lock-section{padding:clamp(32px,5vw,56px) 40px;max-width:600px;margin:0 auto;text-align:center}
-.lock-card{background:#111009;border:1px solid rgba(212,165,52,0.15);border-radius:20px;padding:36px 32px}
-.lock-icon{font-size:2.2rem;margin-bottom:14px}
-.lock-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:8px}
-.lock-sub{font-size:0.8rem;color:rgba(255,255,255,0.4);line-height:1.75;margin-bottom:24px;max-width:360px;margin-left:auto;margin-right:auto}
-.lock-input-row{display:flex;gap:8px;max-width:340px;margin:0 auto 8px}
-.lock-input{flex:1;padding:11px 16px;border:1.5px solid rgba(212,165,52,0.2);border-radius:9px;font-size:0.83rem;font-family:'DM Sans',sans-serif;outline:none;background:#0d0b04;color:#f0e8d0;transition:border-color .15s}
-.lock-input:focus{border-color:#d4a534}
-.lock-btn{background:#d4a534;color:#0a0800;border:none;padding:11px 20px;border-radius:9px;font-size:0.83rem;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:background .15s}
-.lock-btn:hover{background:#b8862a}
-.lock-error{font-size:0.72rem;color:#e74c3c;min-height:18px;margin:0 auto 14px;max-width:340px;text-align:left}
-.lock-divider{display:flex;align-items:center;gap:12px;max-width:340px;margin:0 auto 16px;color:rgba(255,255,255,0.15);font-size:0.72rem}
-.lock-divider::before,.lock-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08)}
-.lock-join-btn{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#052a10;padding:12px 28px;border-radius:10px;font-weight:700;font-size:0.85rem;text-decoration:none;transition:background .15s}
-.lock-join-btn:hover{background:#1fb356}
-.lock-hint{font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:14px;line-height:1.6}
+
 
 /* ── TEASER (non-members see blurred cards) ── */
 .teaser-section{padding:clamp(32px,5vw,52px) 40px clamp(32px,5vw,56px);max-width:1080px;margin:0 auto}
@@ -127,6 +111,41 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .recent-pct{font-size:0.67rem;font-weight:600;margin-top:2px}
 .recent-label{font-size:0.58rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em;text-transform:uppercase;margin-top:6px}
 
+
+/* ── UNLOCK BAR ── */
+.unlock-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(212,165,52,0.06);border:1px solid rgba(212,165,52,0.2);border-radius:10px;padding:12px 18px;margin:0 40px 0;flex-wrap:wrap;max-width:1080px;margin:clamp(24px,4vw,40px) auto 0;box-sizing:border-box}
+.unlock-bar-left{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:rgba(255,255,255,0.5)}
+.unlock-bar-left strong{color:#f0e8d0}
+.unlock-bar-right{display:flex;gap:8px;flex-wrap:wrap}
+.unlock-bar-btn{display:inline-flex;align-items:center;gap:6px;background:#d4a534;color:#0a0800;font-size:0.72rem;font-weight:700;padding:8px 18px;border-radius:7px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:background .15s}
+.unlock-bar-btn:hover{background:#b8862a}
+.unlock-bar-join{display:inline-flex;align-items:center;gap:6px;background:#25d366;color:#052a10;font-size:0.72rem;font-weight:700;padding:8px 18px;border-radius:7px;text-decoration:none;white-space:nowrap;transition:background .15s}
+.unlock-bar-join:hover{background:#1fb356}
+
+/* ── MODAL ── */
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal-backdrop.open{display:flex}
+.modal{background:#111009;border:1px solid rgba(212,165,52,0.2);border-radius:20px;padding:36px 32px;max-width:420px;width:100%;position:relative;text-align:center}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,0.3);font-size:1.2rem;cursor:pointer;line-height:1;padding:4px}
+.modal-close:hover{color:#fff}
+.modal-icon{font-size:2rem;margin-bottom:12px}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:8px}
+.modal-sub{font-size:0.78rem;color:rgba(255,255,255,0.45);line-height:1.7;margin-bottom:22px}
+.modal-input-row{display:flex;gap:8px;max-width:320px;margin:0 auto 8px}
+.modal-input{flex:1;padding:11px 16px;border:1.5px solid rgba(212,165,52,0.2);border-radius:9px;font-size:0.83rem;font-family:'DM Sans',sans-serif;outline:none;background:#0d0b04;color:#f0e8d0;transition:border-color .15s}
+.modal-input:focus{border-color:#d4a534}
+.modal-btn{background:#d4a534;color:#0a0800;border:none;padding:11px 18px;border-radius:9px;font-size:0.83rem;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif}
+.modal-btn:hover{background:#b8862a}
+.modal-error{font-size:0.72rem;color:#e74c3c;min-height:18px;margin:0 auto 10px;max-width:320px;text-align:left}
+.modal-divider{display:flex;align-items:center;gap:12px;max-width:320px;margin:0 auto 14px;color:rgba(255,255,255,0.15);font-size:0.72rem}
+.modal-divider::before,.modal-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08)}
+.modal-join{display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#052a10;padding:12px 20px;border-radius:9px;font-weight:700;font-size:0.83rem;text-decoration:none;max-width:320px;margin:0 auto}
+.modal-join:hover{background:#1fb356}
+.modal-hint{font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:14px;line-height:1.6}
+@media(max-width:640px){
+  .unlock-bar{margin:20px 16px 0;padding:10px 14px}
+  .unlock-bar-left{font-size:0.72rem}
+}
 /* ── DISCLAIMER ── */
 .disclaimer-box{max-width:1080px;margin:0 auto;padding:0 40px clamp(32px,5vw,52px)}
 .disclaimer-inner{font-size:0.67rem;color:rgba(255,255,255,0.25);background:rgba(212,165,52,0.04);border:1px solid rgba(212,165,52,0.1);border-left:2px solid rgba(212,165,52,0.3);border-radius:0 8px 8px 0;padding:12px 16px;line-height:1.75}
@@ -145,8 +164,6 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   .wl-grid{grid-template-columns:1fr}
   .recent-section{padding:32px 20px}
   .page-footer{padding:16px 20px}
-  .lock-section{padding:28px 20px}
-  .lock-card{padding:28px 20px}
 }
 @media(min-width:641px) and (max-width:900px){
   .teaser-grid{grid-template-columns:1fr 1fr}
@@ -215,29 +232,39 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   </div>
 </div>
 
+<!-- MODAL -->
+<div class="modal-backdrop" id="wl-modal" onclick="if(event.target===this)closeWlModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeWlModal()">&#10005;</button>
+    <div class="modal-icon">&#128274;</div>
+    <div class="modal-title">Unlock Full Watchlist</div>
+    <div class="modal-sub">See every ticker, my reasoning, and live prices. Members only &mdash; $<span id="wl-price-lock">...</span>/month.</div>
+    <div class="modal-input-row">
+      <input class="modal-input" id="wl-code-input" type="text" placeholder="Enter member code" autocomplete="off" autocapitalize="characters" onkeydown="if(event.key==='Enter')tryUnlock()">
+      <button class="modal-btn" onclick="tryUnlock()">Unlock</button>
+    </div>
+    <div class="modal-error" id="wl-error"></div>
+    <div class="modal-divider">or</div>
+    <a class="modal-join" href="community.html">&#128172; Join the Community</a>
+    <div class="modal-hint">Members receive the monthly code inside the WhatsApp group.</div>
+  </div>
+</div>
+
 <!-- TEASER (shown to non-members) -->
 <div id="teaser-wrap">
+  <!-- UNLOCK BAR -->
+  <div class="unlock-bar">
+    <div class="unlock-bar-left">&#128274; <strong>Full watchlist is members only.</strong> &nbsp;Tickers, reasoning &amp; prices locked.</div>
+    <div class="unlock-bar-right">
+      <button class="unlock-bar-btn" onclick="openWlModal()">&#128273; Enter Code</button>
+      <a class="unlock-bar-join" href="community.html">&#128172; Join Community</a>
+    </div>
+  </div>
+
   <div class="teaser-section">
     <div class="teaser-label">&#128064; Currently watching</div>
     <div class="teaser-grid" id="teaser-grid">
       <!-- populated by JS -->
-    </div>
-  </div>
-
-  <!-- LOCK GATE -->
-  <div class="lock-section">
-    <div class="lock-card">
-      <div class="lock-icon">&#128274;</div>
-      <div class="lock-title">Members See Everything</div>
-      <div class="lock-sub">The full watchlist — why I&rsquo;m watching, what stage I&rsquo;m at, live prices — is available to community members. Join for $<span id="wl-price-lock">10</span>/month.</div>
-      <div class="lock-input-row">
-        <input class="lock-input" id="wl-code-input" type="text" placeholder="Enter member code" autocomplete="off" autocapitalize="characters">
-        <button class="lock-btn" onclick="tryUnlock()">Unlock</button>
-      </div>
-      <div class="lock-error" id="wl-error"></div>
-      <div class="lock-divider">or</div>
-      <a class="lock-join-btn" href="community.html">&#128172; Join the Community</a>
-      <div class="lock-hint">Already a member? Use your monthly code to access the full watchlist.</div>
     </div>
   </div>
 </div>
@@ -307,10 +334,18 @@ function setUnlocked(code){
   }catch(e){}
 }
 
+function openWlModal(){
+  document.getElementById('wl-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('wl-code-input').focus(),100);
+}
+function closeWlModal(){
+  document.getElementById('wl-modal').classList.remove('open');
+}
 function tryUnlock(){
   const val = (document.getElementById('wl-code-input').value||'').trim().toUpperCase();
   if(val === MONTHLY_CODE){
     setUnlocked(MONTHLY_CODE);
+    closeWlModal();
     showUnlocked();
   } else {
     document.getElementById('wl-error').textContent = 'Invalid code. Join the community to get access.';

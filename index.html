@@ -390,23 +390,6 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 </div>
 <div class="section-divider"></div>
 
-<!-- LOCK GATE -->
-<div id="lock-gate-section" class="section section-white" style="display:none">
-  <div class="lock-gate">
-    <div class="lock-icon">&#128274;</div>
-    <div class="lock-title">Members-Only Portfolio Data</div>
-    <div class="lock-sub">Share count, avg cost, book value, market value, and P&amp;L are visible to members only. Enter your monthly code or join the community to unlock.</div>
-    <div class="lock-input-row">
-      <input class="lock-input" id="lock-code-input" type="text" placeholder="Enter your member code" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlock()">
-      <button class="lock-btn" onclick="tryUnlock()">Unlock</button>
-    </div>
-    <div class="lock-error" id="lock-error"></div>
-    <div class="lock-divider">or</div>
-    <a class="lock-join-btn" href="community.html">&#128172; Learn More &amp; Join</a>
-    <div class="lock-hint">Members receive the monthly code inside the WhatsApp group.<br>Code updates the 1st of every month.</div>
-  </div>
-</div>
-<div id="lock-gate-divider" class="section-divider" style="display:none"></div>
 
 <!-- BARS -->
 <div class="section section-slate">
@@ -563,7 +546,7 @@ function tryUnlockModal(){
   if(val === MONTHLY_CODE.toUpperCase()){
     setUnlocked();
     closeModal();
-    document.getElementById('lock-gate-section').style.display = 'none';
+    document.getElementById('lock-gate-section').style.display = unlocked ? 'none' : 'block';
     document.getElementById('lock-gate-divider').style.display = 'none';
     document.getElementById('unlock-bar').style.display = 'none';
     if(lastPositions.length) renderPortfolio(lastPositions);
@@ -575,7 +558,7 @@ function tryUnlock(){
   const val = (document.getElementById('lock-code-input').value||'').trim().toUpperCase();
   if(val === MONTHLY_CODE.toUpperCase()){
     setUnlocked();
-    document.getElementById('lock-gate-section').style.display = 'none';
+    document.getElementById('lock-gate-section').style.display = unlocked ? 'none' : 'block';
     document.getElementById('lock-gate-divider').style.display = 'none';
     document.getElementById('unlock-bar').style.display = 'none';
     if(lastPositions.length) renderPortfolio(lastPositions);
