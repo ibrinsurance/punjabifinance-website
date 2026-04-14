@@ -105,9 +105,9 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 
 
 /* ── UNLOCK BAR ── */
-.unlock-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#1a1a0a;border:1px solid rgba(212,165,52,0.2);border-radius:10px;padding:12px 18px;margin:clamp(24px,4vw,40px) auto 24px;flex-wrap:wrap;max-width:900px;box-sizing:border-box}
-.unlock-bar-left{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:#999}
-.unlock-bar-left strong{color:#1a1a1a}
+.unlock-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(212,165,52,0.06);border:1px solid rgba(212,165,52,0.2);border-radius:10px;padding:12px 18px;margin:clamp(24px,4vw,40px) auto 24px;flex-wrap:wrap;max-width:900px;box-sizing:border-box}
+.unlock-bar-left{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:rgba(255,255,255,0.6)}
+.unlock-bar-left strong{color:#f0e8d0}
 .unlock-bar-right{display:flex;gap:8px;flex-wrap:wrap}
 .unlock-bar-btn{display:inline-flex;align-items:center;gap:6px;background:#1a1a1a;color:#fff;font-size:0.72rem;font-weight:700;padding:8px 18px;border-radius:7px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
 .unlock-bar-btn:hover{background:#333}
@@ -133,7 +133,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .modal-join-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#052a10;padding:12px 20px;border-radius:9px;font-weight:700;font-size:0.83rem;text-decoration:none;max-width:320px;margin:0 auto}
 .modal-join-btn:hover{background:#1fb356}
 .modal-hint{font-size:0.65rem;color:#bbb;margin-top:14px;line-height:1.6}
-@media(max-width:640px){.unlock-bar{margin:0 18px 20px;padding:10px 14px}}
+@media(max-width:640px){.unlock-bar{margin:16px 18px 20px;padding:10px 14px;gap:8px}.unlock-bar-left{font-size:0.7rem}.unlock-bar-right{width:100%}.unlock-bar-btn,.unlock-bar-join{flex:1;justify-content:center;font-size:0.7rem;padding:9px 10px}}
 
 /* ── FOOTER ── */
 .footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
@@ -208,7 +208,6 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     <div class="hero-eyebrow">&#127891; Members Only &nbsp;&middot;&nbsp; Included with Community</div>
     <div class="hero-title">Past Webinars &amp;<br><em>Deep Dives</em></div>
     <div class="hero-sub">Recorded sessions on investing strategies, options selling, portfolio management, and market analysis.<br><strong>New webinar added every month.</strong></div>
-    <div class="hero-note" style="margin-top:20px">Already a member? Use the bar below to enter your code and unlock recordings &#8595;</div>
     <div class="hero-disclaimer">
       <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
     </div>
