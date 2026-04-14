@@ -175,7 +175,11 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     <div class="hero-actions">
       <a class="btn-join" href="community.html">&#128172; Join to Get Access</a>
     </div>
-    <div class="hero-note">Already a member? Enter your code below &#8595;</div>
+    <div class="hero-note">
+      Already a member?
+      <a href="#webinar-section" style="color:#d4a534;text-decoration:none;font-weight:600;border-bottom:1px solid rgba(212,165,52,0.4);padding-bottom:1px;margin-left:4px">Scroll to recordings &#8595;</a>
+      &nbsp;&middot;&nbsp; Enter your code below to unlock
+    </div>
     <div class="hero-disclaimer">
       <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
     </div>
@@ -187,14 +191,14 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   <div class="stat-strip-inner">
     <div class="ss-item"><div class="ss-num">6</div><div class="ss-label">Recordings Available</div></div>
     <div class="ss-item"><div class="ss-num">Monthly</div><div class="ss-label">New Sessions</div></div>
-    <div class="ss-item"><div class="ss-num">$10</div><div class="ss-label">Per Month</div></div>
+    <div class="ss-item"><div class="ss-num" id="wb-price">...</div><div class="ss-label">Per Month</div></div>
   </div>
 </div>
 
 
 <!-- WEBINAR GRID — titles always visible, watch buttons locked -->
 <div class="page">
-<div class="section">
+<div class="section" id="webinar-section">
   <div class="sec-label">All Recordings</div>
   <div class="webinar-grid" id="webinar-grid">
 
@@ -381,16 +385,20 @@ function openInlineUnlock(){
 }
 
 async function init(){
-  // Fetch sheet to get latest password
+  // Fetch sheet to get latest password and price
   try{
     const r = await fetch(SHEET_URL, {cache:'no-store'});
     if(r.ok){
       const data = await r.json();
       if(data.monthlyCode && data.monthlyCode.trim())
         MONTHLY_CODE = data.monthlyCode.trim().toUpperCase();
+      if(data.social && data.social.price){
+        var p='$'+String(data.social.price).replace(/[$]/g,'');
+        var el=document.getElementById('wb-price');
+        if(el) el.textContent=p;
+      }
     }
   }catch(e){}
-  // Check — handles both "already unlocked on index" and fresh entry here
   if(isUnlocked()) showContent();
 }
 init();

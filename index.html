@@ -611,8 +611,8 @@ const DEFAULT_COLORS = ['#c49a28','#2d9e5f','#4a7fc1','#c0392b','#7b5ea8',
   '#c46b2a','#3a9e9e','#888','#8a9e2d','#2a7ec4','#9e2d8a','#c47a2a','#2dc47a','#9a6060','#5b8dee'];
 
 const fmtC = v => {
-  if(Math.abs(v)>=1e6) return 'C$'+(v/1e6).toFixed(3)+'M';
-  if(Math.abs(v)>=1e3) return 'C$'+(v/1e3).toFixed(1)+'K';
+  if(Math.abs(v)>=1e6){ const s=(v/1e6).toFixed(2); return 'C$'+s.replace(/\.?0+$/,'')+'M'; }
+  if(Math.abs(v)>=1e3){ const s=(v/1e3).toFixed(1); return 'C$'+s.replace(/\.0$/,'')+'K'; }
   return 'C$'+Math.round(v).toLocaleString();
 };
 const fmtP = n => (n>=0?'+':'')+Number(n).toFixed(1)+'%';
@@ -857,7 +857,7 @@ function sharePieChart(){
     const BY=cy+R+36;
     ctx.fillStyle='rgba(255,255,255,0.38)'; ctx.font='600 19px Arial,sans-serif';
     ctx.textAlign='center'; ctx.textBaseline='top';
-    ctx.fillText('Others (each < '+MIN_PCT.toFixed(0)+'%):',cx,BY);
+    ctx.fillText('Others:',cx,BY);
     const cols=3, rowH=32;
     othersArr.forEach((p,i)=>{
       const col=i%cols, row=Math.floor(i/cols);
