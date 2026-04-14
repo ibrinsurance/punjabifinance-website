@@ -86,17 +86,17 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 
 /* ── WEBINAR GRID ── */
 .webinar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-.webinar-card{background:#fff;border:1px solid #e8e4dc;border-radius:14px;overflow:hidden;transition:transform .18s,box-shadow .18s}
+.webinar-card{background:#fff;border:1px solid #e8e4dc;border-radius:14px;overflow:hidden;transition:transform .18s,box-shadow .18s;box-shadow:0 2px 12px rgba(0,0,0,0.15)}
 .webinar-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,0.4);border-color:rgba(212,165,52,0.25)}
 .webinar-thumb-static{height:130px;background:linear-gradient(135deg,#1a1a1a22,#b8862a11);display:flex;align-items:center;justify-content:center;border-bottom:1px solid #e8e4dc}
 .wt-icon{font-size:2.8rem;color:#b8862a}
-.webinar-watch-btn{display:none;align-items:center;gap:7px;margin-top:14px;background:#1a1a1a;color:#fff;font-size:0.72rem;font-weight:600;padding:8px 18px;border-radius:8px;text-decoration:none;transition:background .15s;letter-spacing:0.04em}
+.webinar-watch-btn{display:none;align-items:center;gap:7px;margin-top:14px;background:#111009;color:#fff;font-size:0.72rem;font-weight:600;padding:8px 18px;border-radius:8px;text-decoration:none;transition:background .15s;letter-spacing:0.04em}
 .webinar-watch-btn:hover{background:#333}
-.webinar-locked-msg{display:inline-flex;align-items:center;gap:7px;margin-top:14px;background:#f4f2ee;color:#888;font-size:0.72rem;font-weight:600;padding:8px 18px;border-radius:8px;border:1px solid #e8e4dc;letter-spacing:0.04em;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}.webinar-locked-msg:hover{background:#e8e4dc;color:#555}
+.webinar-locked-msg{display:inline-flex;align-items:center;gap:7px;margin-top:14px;background:#f4f2ee;color:#666;font-size:0.72rem;font-weight:600;padding:8px 18px;border-radius:8px;border:1px solid #e0ddd8;letter-spacing:0.04em;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}.webinar-locked-msg:hover{background:#e8e4dc;color:#333}
 .webinar-body{padding:18px 18px 20px}
 .webinar-tag{display:inline-block;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:#b8862a;background:#fdf8ed;border:1px solid rgba(184,134,42,0.2);padding:3px 10px;border-radius:100px;margin-bottom:10px}
-.webinar-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#1a1a1a;margin-bottom:6px;line-height:1.35}
-.webinar-meta{font-size:0.72rem;color:#aaa;display:flex;gap:14px;flex-wrap:wrap}
+.webinar-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#111009;margin-bottom:6px;line-height:1.35}
+.webinar-meta{font-size:0.72rem;color:#888;display:flex;gap:14px;flex-wrap:wrap}
 .webinar-meta span{display:flex;align-items:center;gap:4px}
 
 
@@ -232,7 +232,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   <div class="stat-strip-inner">
     <div class="ss-item"><div class="ss-num" id="wb-count">6</div><div class="ss-label">Recordings Available</div></div>
     <div class="ss-item"><div class="ss-num">Monthly</div><div class="ss-label">New Sessions</div></div>
-    <div class="ss-item"><div class="ss-num" id="wb-price">...</div><div class="ss-label">Per Month</div></div>
+    <div class="ss-item"><div class="ss-num">$<span id="wb-price">...</span></div><div class="ss-label">Included with Community</div></div>
   </div>
 </div>
 
