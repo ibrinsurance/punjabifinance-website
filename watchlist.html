@@ -395,7 +395,7 @@ function renderWatchlist(watchlist, positions){
 }
 
 // ── RENDER RECENTLY ADDED ──
-function renderRecent(recentlyAdded, positions){
+function renderRecent(recentlyAdded, positions, unlocked){
   const grid = document.getElementById('recent-grid');
   if(!grid || !recentlyAdded.length) return;
   const priceMap = {};
@@ -407,12 +407,16 @@ function renderRecent(recentlyAdded, positions){
     const pctClass = pct === null ? '' : pct >= 0 ? 'color:#25d366' : 'color:#e74c3c';
     const pctStr = pct !== null ? (pct>=0?'+':'')+pct.toFixed(1)+'%' : '';
     const labels = ['Most Recent','Previous','Earlier'];
+    const tickerHtml = unlocked
+      ? `<div class="recent-ticker">${ticker}</div>`
+      : `<div class="recent-ticker" style="filter:blur(6px);user-select:none">████</div>`;
     return `
     <div class="recent-card">
       <div class="recent-label" style="margin-bottom:8px;color:rgba(212,165,52,0.5)">${labels[i]||'Position'}</div>
+      ${tickerHtml}
       ${p ? `<div class="recent-price" style="font-size:1.1rem">$${p.curPrice.toFixed(2)}</div>
       <div class="recent-pct" style="${pctClass};font-size:0.82rem;font-weight:700;margin-top:3px">${pctStr} vs avg cost</div>` : ''}
-      <div class="recent-label" style="margin-top:8px">&#128274; Members see ticker</div>
+      <div class="recent-label" style="margin-top:8px">${unlocked ? 'Added to portfolio' : '&#128274; Members see ticker'}</div>
     </div>`;
   }).join('');
 }
@@ -423,6 +427,7 @@ function showUnlocked(){
   document.getElementById('watchlist-wrap').style.display = 'block';
   if(allData){
     renderWatchlist(allData.watchlist||[], allData.positions||[]);
+    renderRecent(allData.recentlyAdded||[], allData.positions||[], true);
   }
 }
 
@@ -453,8 +458,8 @@ function showUnlocked(){
     // Always render teaser
     renderTeaser(wl);
 
-    // Recently added
-    renderRecent(d.recentlyAdded||[], d.positions||[]);
+    // Recently added — pass unlock state
+    renderRecent(d.recentlyAdded||[], d.positions||[], isUnlocked());
 
     // If already unlocked, show full view
     if(isUnlocked()) showUnlocked();
