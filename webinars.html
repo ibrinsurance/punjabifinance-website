@@ -103,6 +103,38 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .disclaimer-box{background:#f9f7f3;border:1px solid #e8e4dc;border-radius:10px;padding:16px 20px;font-size:0.72rem;color:#888;line-height:1.75;margin-bottom:28px}
 .disclaimer-box strong{color:#555}
 
+
+/* ── UNLOCK BAR ── */
+.unlock-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#1a1a0a;border:1px solid rgba(212,165,52,0.2);border-radius:10px;padding:12px 18px;margin:0 40px 24px;flex-wrap:wrap}
+.unlock-bar-left{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:#999}
+.unlock-bar-left strong{color:#1a1a1a}
+.unlock-bar-right{display:flex;gap:8px;flex-wrap:wrap}
+.unlock-bar-btn{display:inline-flex;align-items:center;gap:6px;background:#1a1a1a;color:#fff;font-size:0.72rem;font-weight:700;padding:8px 18px;border-radius:7px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.unlock-bar-btn:hover{background:#333}
+.unlock-bar-join{display:inline-flex;align-items:center;gap:6px;background:#25d366;color:#052a10;font-size:0.72rem;font-weight:700;padding:8px 18px;border-radius:7px;text-decoration:none;white-space:nowrap}
+.unlock-bar-join:hover{background:#1fb356}
+/* ── MODAL ── */
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal-backdrop.open{display:flex}
+.modal{background:#fff;border-radius:20px;padding:36px 32px;max-width:420px;width:100%;position:relative;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:#ccc;font-size:1.2rem;cursor:pointer;line-height:1;padding:4px}
+.modal-close:hover{color:#333}
+.modal-icon{font-size:2rem;margin-bottom:12px}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#1a1a1a;margin-bottom:8px}
+.modal-sub{font-size:0.78rem;color:#888;line-height:1.7;margin-bottom:22px}
+.modal-input-row{display:flex;gap:8px;max-width:320px;margin:0 auto 8px}
+.modal-input{flex:1;padding:11px 16px;border:1.5px solid #e8e4dc;border-radius:9px;font-size:0.83rem;font-family:'DM Sans',sans-serif;outline:none;background:#fafaf8;color:#1a1a1a;transition:border-color .15s}
+.modal-input:focus{border-color:#b8862a}
+.modal-btn{background:#1a1a1a;color:#fff;border:none;padding:11px 18px;border-radius:9px;font-size:0.83rem;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif}
+.modal-btn:hover{background:#333}
+.modal-error{font-size:0.72rem;color:#c0392b;min-height:18px;margin:0 auto 10px;max-width:320px;text-align:left}
+.modal-divider{display:flex;align-items:center;gap:12px;max-width:320px;margin:0 auto 14px;color:#ddd;font-size:0.72rem}
+.modal-divider::before,.modal-divider::after{content:'';flex:1;height:1px;background:#e8e4dc}
+.modal-join-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#052a10;padding:12px 20px;border-radius:9px;font-weight:700;font-size:0.83rem;text-decoration:none;max-width:320px;margin:0 auto}
+.modal-join-btn:hover{background:#1fb356}
+.modal-hint{font-size:0.65rem;color:#bbb;margin-top:14px;line-height:1.6}
+@media(max-width:640px){.unlock-bar{margin:0 18px 20px;padding:10px 14px}}
+
 /* ── FOOTER ── */
 .footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
 .footer-bar a{color:rgba(255,255,255,0.4);text-decoration:none}
@@ -176,14 +208,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     <div class="hero-eyebrow">&#127891; Members Only &nbsp;&middot;&nbsp; Included with Community</div>
     <div class="hero-title">Past Webinars &amp;<br><em>Deep Dives</em></div>
     <div class="hero-sub">Recorded sessions on investing strategies, options selling, portfolio management, and market analysis.<br><strong>New webinar added every month.</strong></div>
-    <div class="hero-actions">
-      <a class="btn-join" href="community.html">&#128172; Join to Get Access</a>
-    </div>
-    <div class="hero-note">
-      Already a member?
-      <a href="#webinar-section" style="color:#d4a534;text-decoration:none;font-weight:600;border-bottom:1px solid rgba(212,165,52,0.4);padding-bottom:1px;margin-left:4px">Scroll to recordings &#8595;</a>
-      &nbsp;&middot;&nbsp; Enter your code below to unlock
-    </div>
+    <div class="hero-note" style="margin-top:20px">Already a member? Use the bar below to enter your code and unlock recordings &#8595;</div>
     <div class="hero-disclaimer">
       <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
     </div>
@@ -200,6 +225,31 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 </div>
 
 
+<!-- MODAL -->
+<div class="modal-backdrop" id="wb-modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&#10005;</button>
+    <div class="modal-icon">&#127891;</div>
+    <div class="modal-title">Unlock Webinar Recordings</div>
+    <div class="modal-sub">Enter your monthly member code to watch all recordings. Members only &mdash; join for $<span id="wb-price-modal">...</span>/month.</div>
+    <div class="modal-input-row">
+      <input class="modal-input" id="modal-code-input" type="text" placeholder="Enter member code" autocomplete="off" autocapitalize="characters" onkeydown="if(event.key==='Enter')tryUnlockModal()">
+      <button class="modal-btn" onclick="tryUnlockModal()">Unlock</button>
+    </div>
+    <div class="modal-error" id="modal-error"></div>
+    <div class="modal-divider">or</div>
+    <a class="modal-join-btn" href="community.html">&#128172; Join the Community</a>
+    <div class="modal-hint">Members receive the monthly code inside the WhatsApp group.</div>
+  </div>
+</div>
+
+<div class="unlock-bar">
+  <div class="unlock-bar-left">&#128274; <strong>Recordings are members only.</strong> &nbsp;Enter your code to watch.</div>
+  <div class="unlock-bar-right">
+    <button class="unlock-bar-btn" onclick="openModal()">&#128273; Enter Code</button>
+    <a class="unlock-bar-join" href="community.html">&#128172; Join Community</a>
+  </div>
+</div>
 <!-- WEBINAR GRID — titles always visible, watch buttons locked -->
 <div class="page">
 <div class="section" id="webinar-section">
@@ -367,6 +417,23 @@ function clearUnlock(){
   localStorage.removeItem(LOCK_EXPIRY);
   localStorage.removeItem(LOCK_VER);
 }
+function openModal(){
+  document.getElementById('wb-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('modal-code-input').focus(),100);
+}
+function closeModal(){
+  document.getElementById('wb-modal').classList.remove('open');
+  document.getElementById('modal-error').textContent='';
+}
+function tryUnlockModal(){
+  const val=(document.getElementById('modal-code-input').value||'').trim().toUpperCase();
+  document.getElementById('modal-error').textContent='';
+  if(val===MONTHLY_CODE.toUpperCase()){
+    setUnlocked(); closeModal(); showContent();
+  } else {
+    document.getElementById('modal-error').textContent='Incorrect code. Get the code inside the WhatsApp community.';
+  }
+}
 function tryUnlock(){
   const val = (document.getElementById('lock-input').value||'').trim().toUpperCase();
   document.getElementById('lock-error').textContent = '';
@@ -377,16 +444,11 @@ function tryUnlock(){
   }
 }
 function showContent(){
-  document.getElementById('lock-section').style.display = 'none';
+  document.getElementById('lock-section').style.display = 'none'; // hidden — modal used instead
   document.querySelectorAll('.webinar-watch-btn').forEach(b=>b.style.display='inline-flex');
   document.querySelectorAll('.webinar-locked-msg').forEach(m=>m.style.display='none');
 }
-function openInlineUnlock(){
-  const gate = document.getElementById('lock-section');
-  gate.style.display = 'block';
-  gate.scrollIntoView({behavior:'smooth', block:'center'});
-  setTimeout(()=>document.getElementById('lock-input').focus(), 400);
-}
+function openInlineUnlock(){ openModal(); }
 
 async function init(){
   // Fetch sheet to get latest password and price
@@ -400,6 +462,8 @@ async function init(){
         var p='$'+String(data.social.price).replace(/[$]/g,'');
         var el=document.getElementById('wb-price');
         if(el) el.textContent=p;
+        var el2=document.getElementById('wb-price-modal');
+        if(el2) el2.textContent=String(data.social.price).replace(/[$]/g,'');
       }
     }
   }catch(e){}
