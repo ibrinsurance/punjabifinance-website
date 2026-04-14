@@ -378,9 +378,23 @@ function renderWatchlist(watchlist, positions){
     const pos = priceMap[w.ticker];
     const sc = stageClass(w.stage);
     const bc = sc + '-bar';
-    const priceHtml = pos
-      ? `<div><div class="wl-price">$${pos.curPrice.toFixed(2)}</div><div class="wl-price-sub">Current price</div></div>`
-      : `<div class="wl-price-sub">Not in portfolio</div>`;
+    const isOwned = !!pos;
+    const priceHtml = isOwned
+      ? `<div style="display:flex;gap:16px;align-items:flex-end">
+           <div>
+             <div class="wl-price-sub">Avg Cost</div>
+             <div class="wl-price">$${pos.avgCost.toFixed(2)}</div>
+           </div>
+           <div>
+             <div class="wl-price-sub">Current Price</div>
+             <div class="wl-price" style="color:${pos.plPct>=0?'#25d366':'#e74c3c'}">$${pos.curPrice.toFixed(2)}</div>
+           </div>
+           <div>
+             <div class="wl-price-sub">Return</div>
+             <div class="wl-price" style="color:${pos.plPct>=0?'#25d366':'#e74c3c'}">${pos.plPct>=0?'+':''}${pos.plPct.toFixed(1)}%</div>
+           </div>
+         </div>`
+      : `<div class="wl-price-sub" style="font-style:italic">Not yet in portfolio</div>`;
     return `
     <div class="wl-card ${bc}">
       <div class="wl-card-header">
