@@ -279,7 +279,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <!-- TEASER (shown to non-members) -->
 <div id="teaser-wrap">
   <!-- UNLOCK BAR -->
-  <div class="unlock-bar">
+  <div class="unlock-bar" id="wl-unlock-bar">
     <div class="unlock-bar-left">&#128274; <strong>Full watchlist is members only.</strong> &nbsp;Tickers, reasoning &amp; prices locked.</div>
     <div class="unlock-bar-right">
       <button class="unlock-bar-btn" onclick="openWlModal()">&#128273; Unlock Full Watchlist</button>
@@ -507,6 +507,8 @@ function renderRecent(recentlyAdded, positions, unlocked){
 // ── SHOW UNLOCKED VIEW ──
 function showUnlocked(){
   document.getElementById('teaser-wrap').style.display = 'none';
+  var bar = document.getElementById('wl-unlock-bar');
+  if(bar) bar.style.display = 'none';
   document.getElementById('watchlist-wrap').style.display = 'block';
   if(allData){
     renderWatchlist(allData.watchlist||[], allData.positions||[]);
