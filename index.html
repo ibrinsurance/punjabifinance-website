@@ -165,6 +165,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 .footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25);width:100%}
 .footer-bar a{color:rgba(255,255,255,0.4);text-decoration:none}
 @media(max-width:640px){
+  .how-managed-grid{grid-template-columns:1fr!important}
   html{font-size:17px}
   .section{padding:28px 18px}
   .section-divider{margin:0 18px}
@@ -290,13 +291,13 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
     <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
   </a>
   <div class="topbar-nav">
-    <a class="nav-btn  active" href="index.html">Portfolio</a>
-    <a class="nav-btn" href="community.html">Community</a>
-    <a class="nav-btn" href="watchlist.html">Watchlist</a>
-    <a class="nav-btn" href="webinars.html">Webinars</a>
-    <a class="nav-btn" href="links.html">Links</a>
-    <a class="nav-btn" href="mediakit.html">Media Kit</a>
-  </div>
+  <a class="nav-btn active" href="index.html">Live Portfolio</a>
+  <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn" href="community.html">Members</a>
+  <a class="nav-btn" href="links.html">Links</a>
+  <a class="nav-btn" href="mediakit.html">Media Kit</a>
+</div>
   <div class="topbar-right-btns">
     <a class="nav-btn nav-btn-webinars" href="community.html">Community</a>
     <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
@@ -305,10 +306,10 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   </div>
 </div>
 <nav class="nav-dropdown" id="nav-dropdown">
-  <a class="nav-btn  active" href="index.html">Portfolio</a>
-  <a class="nav-btn" href="community.html">Community</a>
+  <a class="nav-btn active" href="index.html">Live Portfolio</a>
   <a class="nav-btn" href="watchlist.html">Watchlist</a>
   <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn" href="community.html">Members</a>
   <a class="nav-btn" href="links.html">Links</a>
   <a class="nav-btn" href="mediakit.html">Media Kit</a>
 </nav>
@@ -355,6 +356,33 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 </div>
 <div class="section-divider"></div>
 
+<!-- HOW MANAGED -->
+<div class="section section-cream">
+  <div class="sec-label">How This Portfolio Is Actually Managed</div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:4px" class="how-managed-grid">
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px 18px;border-left:3px solid #b8862a">
+      <div style="font-size:0.85rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">&#128269; When I add vs when I wait</div>
+      <div style="font-size:0.75rem;color:#666;line-height:1.75">I only add to a position when the business thesis is intact — not just because a stock is down. Red days without thesis changes = opportunity, not panic.</div>
+    </div>
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px 18px;border-left:3px solid #b8862a">
+      <div style="font-size:0.85rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">&#9878; Position sizing</div>
+      <div style="font-size:0.75rem;color:#666;line-height:1.75">Higher conviction = larger position. I don&rsquo;t spread equally — I concentrate in businesses I understand deeply and have held long enough to trust.</div>
+    </div>
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px 18px;border-left:3px solid #1a6b3c">
+      <div style="font-size:0.85rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">&#128176; When I sell covered calls</div>
+      <div style="font-size:0.75rem;color:#666;line-height:1.75">I sell calls on positions I&rsquo;m comfortable holding long-term — never on speculative positions. Strike selection is deliberate: I sell far enough out that I don&rsquo;t mind getting called away.</div>
+    </div>
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px 18px;border-left:3px solid #1a6b3c">
+      <div style="font-size:0.85rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">&#128683; How I handle drawdowns</div>
+      <div style="font-size:0.75rem;color:#666;line-height:1.75">I don&rsquo;t sell into fear. If the thesis is intact, a 30–50% drawdown is noise. Every major drawdown in this portfolio has been held through — and recovered. Members see every step in real time.</div>
+    </div>
+  </div>
+  <div style="margin-top:18px;padding:14px 18px;background:#f4f2ee;border-radius:10px;font-size:0.75rem;color:#888;line-height:1.75;border-left:2px solid #b8862a">
+    &#128172; <strong style="color:#1a1a1a">Want to follow this in real time?</strong> Members see every trade, covered call, and decision as it happens. &nbsp;<a href="community.html" style="color:#b8862a;font-weight:600;text-decoration:none">See what&rsquo;s included &rarr;</a> &nbsp;&nbsp; <a href="watchlist.html" style="color:#1a6b3c;font-weight:600;text-decoration:none">See what I&rsquo;m watching next &rarr;</a>
+  </div>
+</div>
+<div class="section-divider"></div>
+
 <!-- PIE CHART -->
 <div class="section section-white" id="pie-section">
   <div class="sec-label">Portfolio Allocation <span class="sec-label-tag">Live</span></div>
@@ -373,7 +401,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   <div class="unlock-bar" id="unlock-bar" style="display:none">
     <div class="unlock-bar-left">&#128274; <strong>Portfolio data is locked.</strong> &nbsp;Members see full details.</div>
     <div class="unlock-bar-right" style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="unlock-bar-btn" onclick="openModal()">&#128273; Unlock Full Portfolio</button>
+      <button class="unlock-bar-btn" onclick="openModal()">&#128273; See Every Position, Cost Basis &amp; Trade History</button>
       <a class="unlock-bar-join" href="community.html">&#128172; Join Community</a>
     </div>
   </div>
@@ -428,6 +456,15 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 <div class="section section-cream">
   <div class="sec-label">Options Selling &mdash; Cumulative Premium Collected <span class="sec-label-tag gold">Income Strategy</span></div>
   <div style="font-size:0.82rem;color:#888;line-height:1.8;margin-bottom:20px;padding:14px 0;border-bottom:1px solid #e8e4dc">&#128176; This portfolio doesn&rsquo;t just grow — it generates income. Covered calls produce monthly cash flow, reinvested straight back into the portfolio. This is what separates active portfolio management from passive holding.</div>
+  <!-- Monthly income callout -->
+  <div style="display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#1a1a0a,#111009);border:1px solid rgba(212,165,52,0.2);border-radius:14px;padding:18px 24px;margin-bottom:20px;flex-wrap:wrap">
+    <div style="font-size:1.8rem">&#128176;</div>
+    <div style="flex:1;min-width:200px">
+      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#d4a534;line-height:1">~C$<span id="opts-monthly-avg">...</span><span style="font-size:0.8rem;font-weight:400;opacity:0.6">/month</span></div>
+      <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:3px">Average monthly income from covered calls — reinvested straight back into the portfolio</div>
+    </div>
+    <div style="font-size:0.75rem;color:rgba(255,255,255,0.25);font-style:italic;max-width:220px;line-height:1.6">This is what separates this portfolio from a passive buy-and-hold strategy.</div>
+  </div>
   <div class="opts-outer">
 
     <!-- ticker tape -->
@@ -1043,6 +1080,7 @@ function renderOptions(options){
   // Update hero stats
   document.getElementById('opts-total').textContent  = 'C$'+Math.round(totalAllCAD).toLocaleString();
   document.getElementById('opts-cur-ytd').textContent = 'C$'+Math.round(curYearCAD).toLocaleString();
+  var moAvgEl=document.getElementById('opts-monthly-avg'); if(moAvgEl) moAvgEl.textContent=Math.round(curAvg).toLocaleString();
   document.getElementById('opts-cur-avg').textContent = 'Avg C$'+Math.round(curAvg).toLocaleString()+' / month';
   document.getElementById('opts-prev-total').textContent = prevYear ? 'C$'+Math.round(prevYearCAD).toLocaleString() : 'C$0';
   document.getElementById('opts-prev-avg').textContent = prevYear ? 'Avg C$'+Math.round(prevAvg).toLocaleString()+' / month' : '';

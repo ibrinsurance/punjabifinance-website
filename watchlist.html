@@ -208,13 +208,13 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
   </a>
   <div class="topbar-nav">
-    <a class="nav-btn" href="index.html">Portfolio</a>
-    <a class="nav-btn" href="community.html">Community</a>
-    <a class="nav-btn active" href="watchlist.html">Watchlist</a>
-    <a class="nav-btn" href="webinars.html">Webinars</a>
-    <a class="nav-btn" href="links.html">Links</a>
-    <a class="nav-btn" href="mediakit.html">Media Kit</a>
-  </div>
+  <a class="nav-btn" href="index.html">Live Portfolio</a>
+  <a class="nav-btn active" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn" href="community.html">Members</a>
+  <a class="nav-btn" href="links.html">Links</a>
+  <a class="nav-btn" href="mediakit.html">Media Kit</a>
+</div>
   <div class="topbar-right-btns">
     <a class="nav-btn" href="community.html">Community</a>
     <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
@@ -223,10 +223,10 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   </div>
 </div>
 <nav class="nav-dropdown" id="nav-dropdown">
-  <a class="nav-btn" href="index.html">Portfolio</a>
-  <a class="nav-btn" href="community.html">Community</a>
+  <a class="nav-btn" href="index.html">Live Portfolio</a>
   <a class="nav-btn active" href="watchlist.html">Watchlist</a>
   <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn" href="community.html">Members</a>
   <a class="nav-btn" href="links.html">Links</a>
   <a class="nav-btn" href="mediakit.html">Media Kit</a>
 </nav>
@@ -235,7 +235,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-eyebrow">&#128269; Members Only &nbsp;&middot;&nbsp; Included with Community</div>
-    <div class="hero-title">Stocks I&rsquo;m<br><em>Watching Right Now</em></div>
+    <div class="hero-title">See Stocks Before<br><em>I Put Real Money In</em></div>
     <div class="hero-sub">Not buy recommendations — just transparency into my research process. The stocks I&rsquo;m keeping an eye on and why.</div>
     <div style="margin-top:14px;font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.8">Members see these ideas <strong style="color:rgba(255,255,255,0.8)">before I take a position</strong> — with full reasoning at every stage.</div>
     <div style="margin:18px auto 0;max-width:520px;padding:14px 20px;background:rgba(212,165,52,0.06);border-left:2px solid #d4a534;border-radius:0 8px 8px 0;text-align:left">
@@ -270,7 +270,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   <div class="modal">
     <button class="modal-close" onclick="closeWlModal()">&#10005;</button>
     <div class="modal-icon">&#128274;</div>
-    <div class="modal-title">Unlock Full Watchlist</div>
+    <div class="modal-title">Get Early Access Before I Buy</div>
     <div class="modal-sub">See every ticker, my reasoning, and live prices — from first research to full position to exit. Members only &mdash; $<span id="wl-price-lock">...</span>/month.</div>
     <div class="modal-input-row">
       <input class="modal-input" id="wl-code-input" type="text" placeholder="Enter member code" autocomplete="off" autocapitalize="characters" onkeydown="if(event.key==='Enter')tryUnlock()">
@@ -289,7 +289,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   <div class="unlock-bar" id="wl-unlock-bar">
     <div class="unlock-bar-left">&#128274; <strong>Full watchlist is members only.</strong> &nbsp;See how ideas move from research &#8594; real money decisions.</div>
     <div class="unlock-bar-right">
-      <button class="unlock-bar-btn" onclick="openWlModal()">&#128273; Unlock Full Watchlist</button>
+      <button class="unlock-bar-btn" onclick="openWlModal()">&#128273; See Tickers, Reasoning &amp; Entry Plan</button>
       <a class="unlock-bar-join" href="community.html">&#128172; Join Community</a>
     </div>
   </div>
@@ -306,6 +306,40 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <div class="watchlist-section" id="watchlist-wrap">
   <div class="wl-grid" id="wl-grid">
     <!-- populated by JS -->
+  </div>
+</div>
+
+
+<!-- HOW MEMBERS USE THIS -->
+<div style="background:#111009;border-top:1px solid rgba(212,165,52,0.08);border-bottom:1px solid rgba(212,165,52,0.08);padding:clamp(36px,5vw,52px) 40px">
+  <div style="max-width:1080px;margin:0 auto">
+    <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:10px">How Members Use This</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:800;color:#fff;margin-bottom:24px">You don&rsquo;t just see the trade — you see the whole journey</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px" class="how-members-grid">
+      <div style="background:#0d0b04;border:1px solid rgba(212,165,52,0.1);border-radius:12px;padding:18px 16px;text-align:center">
+        <div style="font-size:1.4rem;margin-bottom:8px">&#128269;</div>
+        <div style="font-size:0.8rem;font-weight:700;color:#fff;margin-bottom:4px">Identify Early</div>
+        <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.65">See ideas when I first start researching — before conviction builds</div>
+      </div>
+      <div style="background:#0d0b04;border:1px solid rgba(212,165,52,0.1);border-radius:12px;padding:18px 16px;text-align:center">
+        <div style="font-size:1.4rem;margin-bottom:8px">&#128064;</div>
+        <div style="font-size:0.8rem;font-weight:700;color:#fff;margin-bottom:4px">Track Conviction</div>
+        <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.65">Watch the stage change as I build more confidence in the thesis</div>
+      </div>
+      <div style="background:#0d0b04;border:1px solid rgba(212,165,52,0.1);border-radius:12px;padding:18px 16px;text-align:center">
+        <div style="font-size:1.4rem;margin-bottom:8px">&#128200;</div>
+        <div style="font-size:0.8rem;font-weight:700;color:#fff;margin-bottom:4px">See Me Scale In</div>
+        <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.65">Watch how I size positions — cautiously at first, then adding as conviction grows</div>
+      </div>
+      <div style="background:#0d0b04;border:1px solid rgba(212,165,52,0.1);border-radius:12px;padding:18px 16px;text-align:center">
+        <div style="font-size:1.4rem;margin-bottom:8px">&#128683;</div>
+        <div style="font-size:0.8rem;font-weight:700;color:#fff;margin-bottom:4px">Watch When I Exit</div>
+        <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.65">See exactly when and why I rotate, trim, or exit a position entirely</div>
+      </div>
+    </div>
+    <div style="margin-top:18px;text-align:center;font-size:0.75rem;color:rgba(255,255,255,0.25)">
+      &#128202; See how these ideas turn into real trades &nbsp;&rarr;&nbsp; <a href="index.html" style="color:#d4a534;text-decoration:none;font-weight:600">View Live Portfolio</a>
+    </div>
   </div>
 </div>
 

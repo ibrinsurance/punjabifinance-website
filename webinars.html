@@ -200,13 +200,13 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
   </a>
   <div class="topbar-nav">
-    <a class="nav-btn" href="index.html">Portfolio</a>
-    <a class="nav-btn" href="community.html">Community</a>
-    <a class="nav-btn" href="watchlist.html">Watchlist</a>
-    <a class="nav-btn  active" href="webinars.html">Webinars</a>
-    <a class="nav-btn" href="links.html">Links</a>
-    <a class="nav-btn" href="mediakit.html">Media Kit</a>
-  </div>
+  <a class="nav-btn" href="index.html">Live Portfolio</a>
+  <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn active" href="webinars.html">Webinars</a>
+  <a class="nav-btn" href="community.html">Members</a>
+  <a class="nav-btn" href="links.html">Links</a>
+  <a class="nav-btn" href="mediakit.html">Media Kit</a>
+</div>
   <div class="topbar-right-btns">
     <a class="nav-btn nav-btn-webinars" href="community.html">Community</a>
     <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
@@ -215,10 +215,10 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   </div>
 </div>
 <nav class="nav-dropdown" id="nav-dropdown">
-  <a class="nav-btn" href="index.html">Portfolio</a>
-  <a class="nav-btn" href="community.html">Community</a>
+  <a class="nav-btn" href="index.html">Live Portfolio</a>
   <a class="nav-btn" href="watchlist.html">Watchlist</a>
-  <a class="nav-btn  active" href="webinars.html">Webinars</a>
+  <a class="nav-btn active" href="webinars.html">Webinars</a>
+  <a class="nav-btn" href="community.html">Members</a>
   <a class="nav-btn" href="links.html">Links</a>
   <a class="nav-btn" href="mediakit.html">Media Kit</a>
 </nav>
@@ -231,7 +231,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     <div class="hero-eyebrow">&#127891; Members Only &nbsp;&middot;&nbsp; Your Investing System</div>
     <div class="hero-title">Real Strategies.<br><em>Full Recordings.</em></div>
     <div class="hero-sub">Learn how I think, structure my portfolio, and execute strategies — step by step.<br>Start with any session. Watch everything at your own pace — all recordings unlocked when you join.</div>
-    <div style="margin-top:14px;font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.75;max-width:540px;margin-left:auto;margin-right:auto">Most people learn investing through random videos. Here, you follow a structured approach — from research to execution. That's the edge.</div>
+    <div style="margin-top:14px;font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.75;max-width:540px;margin-left:auto;margin-right:auto">Learn how I actually build and manage this portfolio — from research to execution. Most members start here before following live trades.</div>
     <div class="hero-disclaimer">
       <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
     </div>
@@ -292,7 +292,26 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <div class="page">
 <div class="section" id="webinar-section">
   <div class="sec-label">All Recordings</div>
-      <div class="webinar-grid" id="webinar-grid">
+      
+<!-- START HERE -->
+<div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px 24px;margin:0 auto 24px;max-width:900px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;box-sizing:border-box">
+  <div style="flex-shrink:0">
+    <div style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:6px">&#128204; Start Here</div>
+    <div style="font-size:0.82rem;font-weight:700;color:#1a1a1a;margin-bottom:4px">Recommended watching order</div>
+    <div style="font-size:0.7rem;color:#999;line-height:1.6">Most members start here before following live trades.</div>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">1&#46; Research Process</div>
+    <div style="color:#ccc;font-size:0.8rem">&rarr;</div>
+    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">2&#46; Portfolio Management</div>
+    <div style="color:#ccc;font-size:0.8rem">&rarr;</div>
+    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">3&#46; Options Selling</div>
+    <div style="color:#ccc;font-size:0.8rem">&rarr;</div>
+    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">4&#46; Risk Management</div>
+  </div>
+</div>
+
+<div class="webinar-grid" id="webinar-grid">
       <!-- populated by JS -->
     </div>
   </div>
@@ -317,6 +336,14 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <div class="section-divider"></div>
 </div>
 
+<div style="background:#111009;border-top:1px solid rgba(212,165,52,0.08);padding:20px 40px;text-align:center">
+  <div style="font-size:0.78rem;color:rgba(255,255,255,0.35);max-width:600px;margin:0 auto">
+    &#128202; See this applied in real time &nbsp;&rarr;&nbsp;
+    <a href="index.html" style="color:#d4a534;font-weight:600;text-decoration:none">View Live Portfolio</a>
+    &nbsp;&nbsp;&#128064;&nbsp;
+    <a href="watchlist.html" style="color:#25d366;font-weight:600;text-decoration:none">See What I&rsquo;m Watching Next</a>
+  </div>
+</div>
 <div class="footer-bar">
   Not financial advice &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp;
   <a href="index.html">Portfolio</a> &nbsp;&middot;&nbsp;
