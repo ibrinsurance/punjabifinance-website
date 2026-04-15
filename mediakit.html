@@ -142,12 +142,15 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   .section-divider{margin:0 18px}
   .platforms{grid-template-columns:repeat(2,1fr)}
   .focus-grid{grid-template-columns:1fr}
-  .collab-grid{grid-template-columns:1fr}
+  .collab-grid{grid-template-columns:1fr!important}
   .contact-inner{grid-template-columns:1fr}
   .hero-btns{flex-direction:column;align-items:center}
   .btn-gold,.btn-ghost{width:100%;justify-content:center}
   .reach-band{flex-direction:column}
   .page-footer{padding:16px 18px}
+  [style*="grid-template-columns:repeat(2"]{grid-template-columns:1fr!important}
+  [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr!important}
+  [style*="grid-column:span 2"]{grid-column:span 1!important}
 }
 @media(min-width:641px) and (max-width:900px){
   html{font-size:17px}
