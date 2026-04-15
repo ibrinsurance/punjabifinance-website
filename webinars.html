@@ -104,6 +104,10 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .wb-badge{display:inline-flex;align-items:center;gap:5px;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-bottom:8px}
 .wb-badge.published{background:rgba(45,158,95,0.1);color:#2d9e5f;border:1px solid rgba(45,158,95,0.25)}
 .wb-badge.scheduled{background:rgba(37,211,102,0.1);color:#25d366;border:1px solid rgba(37,211,102,0.3)}
+.wb-filter{background:#f4f2ee;border:1px solid #e8e4dc;border-radius:8px;padding:5px 14px;font-size:0.7rem;font-weight:600;color:#666;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap}
+.wb-filter:hover{background:#e8e4dc;color:#1a1a1a}
+.wb-filter.active{background:#111009;border-color:#111009;color:#fff}
+.wb-filter-personal{display:none}
 .wb-live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#25d366;animation:pulse 1.5s infinite;vertical-align:middle;margin-right:4px}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
 .wb-scheduled{}
@@ -293,21 +297,35 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <div class="section" id="webinar-section">
   <div class="sec-label">All Recordings</div>
       
-<!-- START HERE -->
-<div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px 24px;margin:0 auto 24px;max-width:900px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;box-sizing:border-box">
-  <div style="flex-shrink:0">
-    <div style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:6px">&#128204; Start Here</div>
-    <div style="font-size:0.82rem;font-weight:700;color:#1a1a1a;margin-bottom:4px">Recommended watching order</div>
-    <div style="font-size:0.7rem;color:#999;line-height:1.6">Most members start here before following live trades.</div>
+<!-- START HERE + FILTERS -->
+<div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px 24px;margin:0 auto 24px;max-width:900px;box-sizing:border-box">
+  <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:16px">
+    <div>
+      <div style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:4px">&#128204; Start Here</div>
+      <div style="font-size:0.82rem;font-weight:700;color:#1a1a1a;margin-bottom:2px">Recommended watching order</div>
+      <div style="font-size:0.7rem;color:#999">Most members start here before following live trades.</div>
+    </div>
   </div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">1&#46; Research Process</div>
-    <div style="color:#ccc;font-size:0.8rem">&rarr;</div>
-    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">2&#46; Portfolio Management</div>
-    <div style="color:#ccc;font-size:0.8rem">&rarr;</div>
-    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">3&#46; Options Selling</div>
-    <div style="color:#ccc;font-size:0.8rem">&rarr;</div>
-    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">4&#46; Risk Management</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px">
+    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">1. Research Process</div>
+    <div style="color:#ccc">&rarr;</div>
+    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">2. Portfolio Management</div>
+    <div style="color:#ccc">&rarr;</div>
+    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">3. Options Selling</div>
+    <div style="color:#ccc">&rarr;</div>
+    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">4. Risk Management</div>
+  </div>
+  <div style="border-top:1px solid #f0ede8;padding-top:14px">
+    <div style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#aaa;font-weight:600;margin-bottom:8px">Filter by topic</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="wb-filter active" onclick="filterWebinars('all')">All</button>
+      <button class="wb-filter" onclick="filterWebinars('Research Process')">Research Process</button>
+      <button class="wb-filter" onclick="filterWebinars('Portfolio Management')">Portfolio Management</button>
+      <button class="wb-filter" onclick="filterWebinars('Options Selling')">Options Selling</button>
+      <button class="wb-filter" onclick="filterWebinars('Risk Management')">Risk Management</button>
+      <button class="wb-filter" onclick="filterWebinars('Personal Story')">Personal Story</button>
+      <button class="wb-filter" onclick="filterWebinars('Market Analysis')">Market Analysis</button>
+    </div>
   </div>
 </div>
 
@@ -407,6 +425,15 @@ function tryUnlock(){
     document.getElementById('lock-error').textContent = 'Incorrect code. Get the code inside the WhatsApp community.';
   }
 }
+function filterWebinars(tag){
+  // Update active button
+  document.querySelectorAll('.wb-filter').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  // Filter cards
+  if(!window._wbData) return;
+  var filtered = tag==='all' ? window._wbData : window._wbData.filter(w=>w.tag===tag);
+  renderWebinars(filtered, isUnlocked());
+}
 function openInlineUnlock(){ openModal(); }
 
 
@@ -496,6 +523,15 @@ function showContent(){
   var bar = document.getElementById('wb-unlock-bar');
   if(bar) bar.style.display = 'none';
   if(window._wbData) renderWebinars(window._wbData, true);
+}
+function filterWebinars(tag){
+  // Update active button
+  document.querySelectorAll('.wb-filter').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  // Filter cards
+  if(!window._wbData) return;
+  var filtered = tag==='all' ? window._wbData : window._wbData.filter(w=>w.tag===tag);
+  renderWebinars(filtered, isUnlocked());
 }
 function openInlineUnlock(){ openModal(); }
 
