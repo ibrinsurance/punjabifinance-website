@@ -44,7 +44,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .hero-sub{font-size:0.95rem;color:rgba(255,255,255,0.5);line-height:1.85;max-width:540px;margin:0 auto 32px}
 .hero-sub strong{color:rgba(255,255,255,0.8);font-weight:600}
 .hero-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
-.btn-join{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#052a10;padding:16px 36px;border-radius:12px;font-weight:700;font-size:1rem;text-decoration:none;transition:all .2s;box-shadow:0 4px 28px rgba(37,211,102,0.25)}
+.btn-join{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#25d366;color:#052a10;padding:16px 36px;border-radius:12px;font-weight:700;font-size:1rem;text-decoration:none;transition:all .2s;box-shadow:0 4px 28px rgba(37,211,102,0.25);white-space:nowrap}
 .btn-join:hover{background:#1fb356;transform:translateY(-2px)}
 .hero-note{font-size:0.67rem;color:rgba(255,255,255,0.25);letter-spacing:0.06em}
 .hero-disclaimer{font-size:0.67rem;color:rgba(255,255,255,0.3);line-height:1.75;max-width:520px;margin:16px auto 0;padding:12px 18px;background:rgba(255,255,255,0.04);border-left:2px solid rgba(212,165,52,0.3);border-radius:0 8px 8px 0;text-align:left}
@@ -592,7 +592,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
       <div class="cta-stat"><div class="cta-stat-num" id="cm-port-val2">...</div><div class="cta-stat-lbl">Portfolio value tracked</div></div>
       <div class="cta-stat"><div class="cta-stat-num" id="cm-price-cta">...</div><div class="cta-stat-lbl">Per month</div></div>
     </div>
-    <a class="btn-join" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join <span id="cm-members-cta2">...</span>+ Members Watching Every Trade</a>
+    <a class="btn-join" href="https://www.nas.io/punjabifinance" target="_blank" style="flex-direction:column;gap:4px;padding:16px 40px"><span style="font-size:1rem;font-weight:700">&#128172; Join the Community</span><span style="font-size:0.72rem;font-weight:500;opacity:0.75"><span id="cm-members-cta2">...</span> members watching every trade</span></a>
   </div>
 </div>
 
@@ -750,7 +750,14 @@ function galleryScroll(dir){
 
     // ── Member count ──
     if(d.social && d.social.memberCount){
-      ['cm-members','cm-members-stat','cm-members-cta','cm-members-strip','cm-members-cta2'].forEach(id=>{
+      ['cm-members','cm-members-stat','cm-members-cta','cm-members-strip'].forEach(id=>{
+        var el=document.getElementById(id); if(el) el.textContent=s.memberCount||'';
+      });
+      // cta2 strips trailing + since it's already in context
+      var cta2=document.getElementById('cm-members-cta2');
+      if(cta2) cta2.textContent=(s.memberCount||'').replace(/\+$/,'');
+      // dummy forEach to avoid breaking code flow
+      ['_dummy'].forEach(id=>{
         var el=document.getElementById(id); if(el) el.textContent=d.social.memberCount;
       });
     }
