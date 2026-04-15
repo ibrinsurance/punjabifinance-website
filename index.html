@@ -941,7 +941,7 @@ function renderPortfolio(positions){
   // Populate hero hook with live value
   var hookVal = document.getElementById('hook-val');
   if(hookVal){
-    var shortVal = totMktCAD >= 1000000 ? '$'+(totMktCAD/1000000).toFixed(1)+'M+' : '$'+Math.round(totMktCAD/1000)+'K+';
+    var shortVal = totMktCAD >= 1000000 ? 'C$'+(totMktCAD/1000000).toFixed(2).replace(/\.?0+$/,'')+'M+' : 'C$'+Math.round(totMktCAD/1000)+'K+';
     hookVal.textContent = shortVal;
   }
   document.getElementById('s-val').textContent = fmtC(totMktCAD);
