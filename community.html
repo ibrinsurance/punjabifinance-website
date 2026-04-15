@@ -138,6 +138,9 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   .gallery-card{flex:0 0 240px}
   .gallery-card img{height:360px}
 }
+@media(max-width:600px){
+  .pain-grid{grid-template-columns:1fr!important}
+}
 
 /* ── WIN CARDS ── */
 .wins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
@@ -329,9 +332,9 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
       <strong>No fluff. No predictions. Just transparency.</strong>
     </div>
     <div class="hero-actions">
-      <a class="btn-join" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join the Community</a>
+      <a class="btn-join" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Start Watching Real Trades Today</a>
     </div>
-    <div class="hero-note"><span id="cm-members">...</span> members already inside</div>
+    <div class="hero-note"><span id="cm-members">...</span> members already inside &nbsp;&middot;&nbsp; New trades posted as they happen &nbsp;&middot;&nbsp; Most active during volatile markets</div>
     <div class="hero-disclaimer">
       <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
     </div>
@@ -345,6 +348,32 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     <div class="ss-item"><div class="ss-num">2025</div><div class="ss-label">Community Since</div></div>
     <div class="ss-item"><div class="ss-num" id="cm-price-stat">...</div><div class="ss-label">Per Month</div></div>
   </div>
+</div>
+
+<div class="sec-divider"></div>
+
+<!-- WHY THIS EXISTS -->
+<div style="background:#0d0b04">
+<div class="section" style="max-width:760px;margin:0 auto;padding:clamp(52px,6vw,80px) 40px;text-align:center">
+  <div class="sec-eyebrow" style="color:rgba(212,165,52,0.6)">Why This Exists</div>
+  <div class="sec-title" style="color:#fff;font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:24px">I built this because I was tired of the same things you probably are</div>
+  <div style="display:flex;flex-direction:column;gap:14px;text-align:left;max-width:560px;margin:0 auto 36px">
+    <div style="display:flex;gap:14px;align-items:flex-start">
+      <span style="color:#e74c3c;font-size:1.1rem;flex-shrink:0">✗</span>
+      <span style="color:rgba(255,255,255,0.65);font-size:0.9rem;line-height:1.7">People giving stock opinions with no real money behind them</span>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start">
+      <span style="color:#e74c3c;font-size:1.1rem;flex-shrink:0">✗</span>
+      <span style="color:rgba(255,255,255,0.65);font-size:0.9rem;line-height:1.7">Content that sounds smart but doesn&rsquo;t actually help your decision-making</span>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start">
+      <span style="color:#e74c3c;font-size:1.1rem;flex-shrink:0">✗</span>
+      <span style="color:rgba(255,255,255,0.65);font-size:0.9rem;line-height:1.7">Not knowing how experienced investors actually think in real time</span>
+    </div>
+  </div>
+  <div style="font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2vw,1.4rem);color:#d4a534;font-weight:700;font-style:italic;margin-bottom:12px">"So I decided to share everything."</div>
+  <div style="font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.75">My real portfolio. Real trades. Real thinking. Publicly — every step of the way.</div>
+</div>
 </div>
 
 <!-- INSIDE LOOK -->
@@ -387,6 +416,38 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     <strong>Important:</strong> These are Rattan&rsquo;s personal portfolio results, not guaranteed or typical returns. Past performance does not predict future results. This is shared for educational transparency only &mdash; not as investment advice. Members make their own independent decisions.
   </div>
 
+</div>
+</div>
+<div class="sec-divider"></div>
+
+
+<!-- PAIN → DESIRE -->
+<div style="background:#111009">
+<div class="section" style="max-width:860px;margin:0 auto;padding:clamp(44px,6vw,72px) 40px">
+  <div class="sec-eyebrow" style="color:rgba(212,165,52,0.5);text-align:center">Sound familiar?</div>
+  <div class="sec-title" style="text-align:center;color:#fff;margin-bottom:32px">Tired of&hellip;</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:36px" class="pain-grid">
+    <div style="background:#0d0b04;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start">
+      <span style="font-size:1.2rem;flex-shrink:0">📺</span>
+      <span style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7">Watching YouTube videos but still unsure what to actually buy?</span>
+    </div>
+    <div style="background:#0d0b04;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start">
+      <span style="font-size:1.2rem;flex-shrink:0">🎭</span>
+      <span style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7">&ldquo;Experts&rdquo; who give opinions but never show their real portfolio?</span>
+    </div>
+    <div style="background:#0d0b04;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start">
+      <span style="font-size:1.2rem;flex-shrink:0">😤</span>
+      <span style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7">Information overload — too much noise, not enough signal?</span>
+    </div>
+    <div style="background:#0d0b04;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:18px 20px;display:flex;gap:12px;align-items:flex-start">
+      <span style="font-size:1.2rem;flex-shrink:0">📉</span>
+      <span style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7">Missing moves because no one shows the actual process, not just the results?</span>
+    </div>
+  </div>
+  <div style="text-align:center;background:linear-gradient(135deg,rgba(212,165,52,0.08),rgba(212,165,52,0.04));border:1px solid rgba(212,165,52,0.15);border-radius:16px;padding:28px 32px">
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2vw,1.4rem);color:#fff;font-weight:800;margin-bottom:10px">That&rsquo;s exactly why I built this.</div>
+    <div style="font-size:0.85rem;color:rgba(255,255,255,0.45);line-height:1.75;max-width:480px;margin:0 auto">One real portfolio. Every trade logged. Every decision explained. No hiding behind hypotheticals.</div>
+  </div>
 </div>
 </div>
 <div class="sec-divider"></div>
@@ -446,6 +507,12 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <div class="section" style="max-width:1080px;margin:0 auto;padding:clamp(44px,6vw,72px) 40px">
   <div style="font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:#b8862a;font-weight:600;margin-bottom:10px">My Investing Philosophy</div>
   <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#1a1a1a;line-height:1.2;margin-bottom:10px">How I invest — so you know what to expect</div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px">
+    <span style="background:#f0ede8;border-radius:100px;padding:6px 16px;font-size:0.75rem;font-weight:600;color:#1a6b3c">✔ Long-term investor (5–10+ years)</span>
+    <span style="background:#f0ede8;border-radius:100px;padding:6px 16px;font-size:0.75rem;font-weight:600;color:#1a1a1a">✔ Focus on business, not charts</span>
+    <span style="background:#f0ede8;border-radius:100px;padding:6px 16px;font-size:0.75rem;font-weight:600;color:#b8862a">✔ Sells covered calls for income</span>
+    <span style="background:#f0ede8;border-radius:100px;padding:6px 16px;font-size:0.75rem;font-weight:600;color:#1a1a1a">✔ Holds through volatility</span>
+  </div>
   <div style="font-size:0.89rem;color:#777;line-height:1.75;max-width:600px;margin-bottom:36px">This isn't a trading group. I don't day trade. I don't chase momentum. Here's exactly how I think about money so you can decide if it resonates with you.</div>
   <div class="how-invest-cards" style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
     <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:24px 22px;border-top:3px solid #b8862a">
@@ -505,14 +572,14 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <!-- BOTTOM CTA -->
 <div class="bottom-cta">
   <div class="bottom-cta-inner">
-    <div class="bottom-cta-title">Ready to follow a real portfolio?</div>
+    <div class="bottom-cta-title">Get Inside the Portfolio Now</div>
     <div class="bottom-cta-sub"><span id="cm-members-cta">...</span> members are already inside — watching every trade, learning every move, for just <span id="cm-price-cta-sub">...</span>/month.</div>
     <div class="cta-stat-row">
       <div class="cta-stat"><div class="cta-stat-num" id="cm-best-month">...</div><div class="cta-stat-lbl">Best month from covered calls</div></div>
       <div class="cta-stat"><div class="cta-stat-num" id="cm-port-val2">...</div><div class="cta-stat-lbl">Portfolio value tracked</div></div>
       <div class="cta-stat"><div class="cta-stat-num" id="cm-price-cta">...</div><div class="cta-stat-lbl">Per month</div></div>
     </div>
-    <a class="btn-join" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join the Community</a>
+    <a class="btn-join" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join <span id="cm-members-cta2">...</span>+ Members Watching Every Trade</a>
   </div>
 </div>
 
@@ -670,7 +737,7 @@ function galleryScroll(dir){
 
     // ── Member count ──
     if(d.social && d.social.memberCount){
-      ['cm-members','cm-members-stat','cm-members-cta','cm-members-strip'].forEach(id=>{
+      ['cm-members','cm-members-stat','cm-members-cta','cm-members-strip','cm-members-cta2'].forEach(id=>{
         var el=document.getElementById(id); if(el) el.textContent=d.social.memberCount;
       });
     }
