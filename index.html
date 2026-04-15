@@ -331,6 +331,16 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   </div>
 </div>
 
+<!-- HERO HOOK -->
+<div style="background:#111009;padding:clamp(36px,5vw,56px) 40px;text-align:center;border-bottom:1px solid rgba(212,165,52,0.1);width:100%">
+  <div style="max-width:1080px;margin:0 auto">
+    <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:14px">Live Portfolio Dashboard</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:14px">A Real <span id="hook-val" style="color:#d4a534">...</span> Portfolio —<br>Every Trade Tracked.</div>
+    <div style="font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.8;margin-bottom:10px">Most people talk about investing. Very few show their real portfolio.</div>
+    <div style="font-size:0.78rem;color:rgba(255,255,255,0.3);line-height:1.8">Built over <span id="hook-years">9</span>+ years — through bull and bear markets.</div>
+  </div>
+</div>
+
 <div class="page"><!-- page wrapper -->
 <!-- OVERVIEW -->
 <div class="section section-cream">
@@ -340,7 +350,8 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
     <div class="stat highlight"><div class="stat-label">Unrealized P&amp;L</div><div class="stat-val" id="s-pnl">...</div><div class="stat-meta" id="s-pnl-pct">...</div></div>
     <div class="stat"><div class="stat-label">Investing Since</div><div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#b8862a;line-height:1">2017</div><div class="stat-meta" id="years-investing">...</div></div>
   </div>
-  <div class="disclaimer" style="margin-top:20px;margin-bottom:0"><strong>Disclaimer:</strong> Shared for educational &amp; transparency purposes only. Nothing constitutes financial advice. Past performance does not guarantee future results. Always do your own research.</div>
+  <div style="margin-top:16px;margin-bottom:12px;font-size:0.82rem;color:#888;line-height:1.75;max-width:640px">Members don&rsquo;t just see results — they see exactly how each position is built, managed, and monetized.</div>
+  <div class="disclaimer" style="margin-top:0;margin-bottom:0"><strong>Disclaimer:</strong> Shared for educational &amp; transparency purposes only. Nothing constitutes financial advice. Past performance does not guarantee future results. Always do your own research.</div>
 </div>
 <div class="section-divider"></div>
 
@@ -362,10 +373,11 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   <div class="unlock-bar" id="unlock-bar" style="display:none">
     <div class="unlock-bar-left">&#128274; <strong>Portfolio data is locked.</strong> &nbsp;Members see full details.</div>
     <div class="unlock-bar-right" style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="unlock-bar-btn" onclick="openModal()">&#128273; Enter Code</button>
+      <button class="unlock-bar-btn" onclick="openModal()">&#128273; Unlock Full Portfolio</button>
       <a class="unlock-bar-join" href="community.html">&#128172; Join Community</a>
     </div>
   </div>
+  <div style="font-size:0.78rem;color:#888;margin-bottom:14px">Full breakdown of every position — including allocation, cost basis, and performance.</div>
   <!-- Sort & Filter Controls -->
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center">
     <span style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#9a9a9a;font-weight:600">Sort by:</span>
@@ -407,6 +419,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 <!-- BARS -->
 <div class="section section-slate">
   <div class="sec-label">Return by Position</div>
+  <div style="font-size:0.75rem;color:#999;margin-bottom:14px">See which positions are driving returns — and how I manage winners vs underperformers.</div>
   <div class="bar-wrap" id="bar-chart"></div>
 </div>
 <div class="section-divider"></div>
@@ -414,6 +427,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 <!-- OPTIONS -->
 <div class="section section-cream">
   <div class="sec-label">Options Selling &mdash; Cumulative Premium Collected <span class="sec-label-tag gold">Income Strategy</span></div>
+  <div style="font-size:0.82rem;color:#888;margin-bottom:20px;max-width:600px">&#128176; This portfolio doesn&rsquo;t just grow — it generates income. Covered calls produce monthly cash flow, reinvested straight back into the portfolio. This is what separates active portfolio management from passive holding.</div>
   <div class="opts-outer">
 
     <!-- ticker tape -->
@@ -514,6 +528,8 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   const years = new Date().getFullYear() - 2017;
   const el = document.getElementById('years-investing');
   if(el) el.textContent = years + '+ years in the market';
+  const hy = document.getElementById('hook-years');
+  if(hy) hy.textContent = years;
 })();
 // Password is pulled from Google Sheet cell L3 (Portfolio tab)
 // Update it there each month — no code changes needed
@@ -922,6 +938,12 @@ function renderPortfolio(positions){
   const totPnlPct = totBookCAD>0 ? (totPnlCAD/totBookCAD*100) : 0;
 
   // Summary stats
+  // Populate hero hook with live value
+  var hookVal = document.getElementById('hook-val');
+  if(hookVal){
+    var shortVal = totMktCAD >= 1000000 ? '$'+(totMktCAD/1000000).toFixed(1)+'M+' : '$'+Math.round(totMktCAD/1000)+'K+';
+    hookVal.textContent = shortVal;
+  }
   document.getElementById('s-val').textContent = fmtC(totMktCAD);
   const pe = document.getElementById('s-pnl');
   pe.textContent = fmtC(totPnlCAD);
@@ -1079,6 +1101,12 @@ function renderOptions(options){
 
 // ── SHOW LOADING STATE ──
 function showLoading(){
+  // Populate hero hook with live value
+  var hookVal = document.getElementById('hook-val');
+  if(hookVal){
+    var shortVal = totMktCAD >= 1000000 ? '$'+(totMktCAD/1000000).toFixed(1)+'M+' : '$'+Math.round(totMktCAD/1000)+'K+';
+    hookVal.textContent = shortVal;
+  }
   document.getElementById('s-val').textContent = '...';
   document.getElementById('s-pnl').textContent = '...';
   document.getElementById('s-pnl-pct').textContent = 'Loading...';
