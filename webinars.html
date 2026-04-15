@@ -228,9 +228,10 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">&#127891; Members Only &nbsp;&middot;&nbsp; Included with Community</div>
+    <div class="hero-eyebrow">&#127891; Members Only &nbsp;&middot;&nbsp; Your Investing System</div>
     <div class="hero-title">Real Strategies.<br><em>Full Recordings.</em></div>
     <div class="hero-sub">Learn how I think, structure my portfolio, and execute strategies — step by step.<br>Start with any session. Watch everything at your own pace — all recordings unlocked when you join.</div>
+    <div style="margin-top:14px;font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.75;max-width:540px;margin-left:auto;margin-right:auto">Most people learn investing through random videos. Here, you follow a structured approach — from research to execution. That's the edge.</div>
     <div class="hero-disclaimer">
       <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
     </div>
@@ -265,7 +266,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   </div>
 </div>
 
-<div class="unlock-bar">
+<div class="unlock-bar" id="wb-unlock-bar">
   <div class="unlock-bar-left">&#128274; <strong>Recordings are members only.</strong> &nbsp;Enter your code to watch.</div>
   <div class="unlock-bar-right">
     <button class="unlock-bar-btn" onclick="openModal()">&#128273; Unlock Recordings</button>
@@ -309,7 +310,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     </div>
     <div class="lock-error" id="lock-error"></div>
     <div class="lock-divider">or</div>
-    <a class="lock-join-btn" href="https://www.nas.io/punjabifinance" target="_blank">&#128172; Join the Community</a>
+    <a class="lock-join-btn" href="community.html">&#128172; Get Access to the Full Library</a>
     <div class="lock-hint">Members receive the monthly code inside the WhatsApp group.<br>Code updates the 1st of every month.</div>
   </div>
 </div>
@@ -465,6 +466,8 @@ function renderWebinars(webinars, unlocked){
 
 function showContent(){
   document.getElementById('lock-section').style.display = 'none';
+  var bar = document.getElementById('wb-unlock-bar');
+  if(bar) bar.style.display = 'none';
   if(window._wbData) renderWebinars(window._wbData, true);
 }
 function openInlineUnlock(){ openModal(); }
