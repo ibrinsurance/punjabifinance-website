@@ -87,20 +87,27 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .wl-price-sub{font-size:0.6rem;color:rgba(255,255,255,0.3)}
 
 /* Stage colours */
-.stage-researching{background:rgba(74,127,193,0.12);border:1px solid rgba(74,127,193,0.25);color:#6a9fd8}
+/* Stage badge colours */
+.stage-research{background:rgba(74,127,193,0.12);border:1px solid rgba(74,127,193,0.25);color:#6a9fd8}
 .stage-watching{background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.22);color:#d4a534}
-.stage-ready{background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.22);color:#25d366}
-.stage-added{background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.3);color:#25d366}
-.stage-reeval{background:rgba(220,100,50,0.12);border:1px solid rgba(220,100,50,0.25);color:#e07040}
-.stage-default{background:rgba(150,150,150,0.1);border:1px solid rgba(150,150,150,0.2);color:rgba(255,255,255,0.45)}
+.stage-expensive{background:rgba(220,50,50,0.1);border:1px solid rgba(220,50,50,0.25);color:#e05555}
+.stage-buying{background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25);color:#25d366}
+.stage-core{background:rgba(20,160,80,0.15);border:1px solid rgba(20,160,80,0.35);color:#14a050}
+.stage-speculative{background:rgba(230,120,20,0.12);border:1px solid rgba(230,120,20,0.28);color:#e67814}
+.stage-reeval{background:rgba(180,100,220,0.1);border:1px solid rgba(180,100,220,0.25);color:#b464dc}
+.stage-exit{background:rgba(120,120,120,0.1);border:1px solid rgba(120,120,120,0.22);color:rgba(255,255,255,0.4)}
+.stage-default{background:rgba(150,150,150,0.08);border:1px solid rgba(150,150,150,0.15);color:rgba(255,255,255,0.35)}
 
 /* Stage top bar colours */
-.stage-researching-bar::before{background:linear-gradient(90deg,#4a7fc1,#6a9fd8)}
+.stage-research-bar::before{background:linear-gradient(90deg,#4a7fc1,#6a9fd8)}
 .stage-watching-bar::before{background:linear-gradient(90deg,#b8862a,#d4a534)}
-.stage-ready-bar::before{background:linear-gradient(90deg,#1fb356,#25d366)}
-.stage-added-bar::before{background:linear-gradient(90deg,#1fb356,#25d366)}
-.stage-reeval-bar::before{background:linear-gradient(90deg,#c05020,#e07040)}
-.stage-default-bar::before{background:linear-gradient(90deg,#555,#888)}
+.stage-expensive-bar::before{background:linear-gradient(90deg,#c02020,#e05555)}
+.stage-buying-bar::before{background:linear-gradient(90deg,#1a9e50,#25d366)}
+.stage-core-bar::before{background:linear-gradient(90deg,#0e8040,#14a050)}
+.stage-speculative-bar::before{background:linear-gradient(90deg,#c06010,#e67814)}
+.stage-reeval-bar::before{background:linear-gradient(90deg,#8030b0,#b464dc)}
+.stage-exit-bar::before{background:linear-gradient(90deg,#444,#777)}
+.stage-default-bar::before{background:linear-gradient(90deg,#444,#666)}
 
 /* ── RECENTLY ADDED ── */
 .recent-section{background:#111009;border-top:1px solid rgba(212,165,52,0.1);padding:clamp(32px,5vw,52px) 40px}
@@ -383,20 +390,34 @@ document.getElementById('wl-code-input').addEventListener('keydown', e => { if(e
 // ── STAGE HELPERS ──
 function stageClass(stage){
   const s = (stage||'').toLowerCase();
-  if(s.includes('research')) return 'stage-researching';
-  if(s.includes('watch')) return 'stage-watching';
-  if(s.includes('ready')) return 'stage-ready';
-  if(s.includes('add') || s.includes('portfolio')) return 'stage-added';
-  if(s.includes('re-eval') || s.includes('reeval') || s.includes('reconsidering') || s.includes('reviewing')) return 'stage-reeval';
+  // 🔵 Blue — Research / Analysis
+  if(s.includes('research') || s.includes('conviction') || s.includes('monitor')) return 'stage-research';
+  // 🟡 Gold — Watching / Waiting
+  if(s.includes('watch') || s.includes('catalyst') || s.includes('no urgency')) return 'stage-watching';
+  // 🔴 Red — Expensive / Blocked
+  if(s.includes('expensive') || s.includes('too exp')) return 'stage-expensive';
+  // 🟢 Green — Buying / Accumulating
+  if(s.includes('ready to buy') || s.includes('initiating') || s.includes('adding cautiously') || s.includes('adding to') || s.includes('adding')) return 'stage-buying';
+  // 🌿 Deep green — Fully in
+  if(s.includes('fully allocated') || s.includes('core holding')) return 'stage-core';
+  // 🟠 Orange — Speculative
+  if(s.includes('speculative') || s.includes('high risk')) return 'stage-speculative';
+  // 🔶 Amber — Re-evaluating
+  if(s.includes('re-eval') || s.includes('reeval') || s.includes('rotating')) return 'stage-reeval';
+  // ⚫ Grey/Red — Exiting
+  if(s.includes('exit') || s.includes('trim') || s.includes('broken')) return 'stage-exit';
   return 'stage-default';
 }
 function stageIcon(stage){
   const s = (stage||'').toLowerCase();
-  if(s.includes('research')) return '&#128269;';
-  if(s.includes('watch')) return '&#128064;';
-  if(s.includes('ready')) return '&#9989;';
-  if(s.includes('add') || s.includes('portfolio')) return '&#128200;';
-  if(s.includes('re-eval') || s.includes('reeval') || s.includes('reconsidering') || s.includes('reviewing')) return '&#9850;';
+  if(s.includes('research') || s.includes('conviction') || s.includes('monitor')) return '&#128269;';
+  if(s.includes('watch') || s.includes('catalyst') || s.includes('no urgency')) return '&#128064;';
+  if(s.includes('expensive')) return '&#128181;';
+  if(s.includes('ready to buy') || s.includes('initiating') || s.includes('adding')) return '&#128200;';
+  if(s.includes('fully allocated') || s.includes('core holding')) return '&#9989;';
+  if(s.includes('speculative') || s.includes('high risk')) return '&#9889;';
+  if(s.includes('re-eval') || s.includes('rotating')) return '&#9850;';
+  if(s.includes('exit') || s.includes('trim') || s.includes('broken')) return '&#128683;';
   return '&#128203;';
 }
 
