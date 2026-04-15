@@ -1101,12 +1101,6 @@ function renderOptions(options){
 
 // ── SHOW LOADING STATE ──
 function showLoading(){
-  // Populate hero hook with live value
-  var hookVal = document.getElementById('hook-val');
-  if(hookVal){
-    var shortVal = totMktCAD >= 1000000 ? '$'+(totMktCAD/1000000).toFixed(1)+'M+' : '$'+Math.round(totMktCAD/1000)+'K+';
-    hookVal.textContent = shortVal;
-  }
   document.getElementById('s-val').textContent = '...';
   document.getElementById('s-pnl').textContent = '...';
   document.getElementById('s-pnl-pct').textContent = 'Loading...';
