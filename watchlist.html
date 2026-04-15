@@ -217,6 +217,11 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     <div class="hero-eyebrow">&#128269; Members Only &nbsp;&middot;&nbsp; Included with Community</div>
     <div class="hero-title">Stocks I&rsquo;m<br><em>Watching Right Now</em></div>
     <div class="hero-sub">Not buy recommendations — just transparency into my research process. The stocks I&rsquo;m keeping an eye on and why.</div>
+    <div style="margin-top:14px;font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.8">Members see these stocks <strong style="color:rgba(255,255,255,0.8)">before I buy</strong> — with my reasoning at every stage. From first look to full position.</div>
+    <div style="margin:18px auto 0;max-width:520px;padding:14px 20px;background:rgba(212,165,52,0.06);border-left:2px solid #d4a534;border-radius:0 8px 8px 0;text-align:left">
+      <div style="font-size:0.85rem;color:#d4a534;font-weight:700;font-style:italic;margin-bottom:4px">&#8220;Most people only show stocks after they go up. I show them before I buy.&#8221;</div>
+      <div style="font-size:0.68rem;color:rgba(255,255,255,0.3)">Members see these before I buy — not after.</div>
+    </div>
     <div class="hero-disclaimer">
       <strong>Disclaimer:</strong> Shared for educational transparency only. Nothing here is financial advice or a recommendation to buy or sell. I am not a registered investment advisor — do your own research before making any investment decisions.
     </div>
@@ -228,10 +233,10 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   <div class="count-inner">
     <div class="count-item">
       <span class="count-num" id="wl-count">...</span>
-      <div class="count-label">On Watchlist</div>
+      <div class="count-label">On Watchlist &nbsp;·&nbsp; Updated April 2026</div>
     </div>
     <div class="count-item">
-      <span class="count-num" style="font-size:1.1rem;letter-spacing:-0.01em">Whenever I find something Interesting</span>
+      <span class="count-num" style="font-size:1.1rem;letter-spacing:-0.01em">Updated as new opportunities appear</span>
     </div>
     <div class="count-item">
       <span class="count-num">$<span id="wl-price"></span><span style="font-size:0.9rem;font-weight:400;opacity:0.6">/month</span></span>
@@ -264,7 +269,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   <div class="unlock-bar">
     <div class="unlock-bar-left">&#128274; <strong>Full watchlist is members only.</strong> &nbsp;Tickers, reasoning &amp; prices locked.</div>
     <div class="unlock-bar-right">
-      <button class="unlock-bar-btn" onclick="openWlModal()">&#128273; Enter Code</button>
+      <button class="unlock-bar-btn" onclick="openWlModal()">&#128273; Unlock Full Watchlist</button>
       <a class="unlock-bar-join" href="community.html">&#128172; Join Community</a>
     </div>
   </div>
@@ -300,10 +305,10 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <div style="background:#0a1a0e;border-top:1px solid rgba(37,211,102,0.1);padding:clamp(44px,6vw,72px) 40px;text-align:center">
   <div style="max-width:520px;margin:0 auto">
     <div style="font-size:0.63rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(37,211,102,0.5);font-weight:700;margin-bottom:10px">Get Full Access</div>
-    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:12px">See every ticker.<br>Follow every move.</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:12px">Watch Ideas Turn Into<br><em style="color:#d4a534;font-style:normal">Real Positions</em></div>
     <div style="font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.75;margin-bottom:28px">Full watchlist with tickers, reasoning and stage &mdash; plus real-time trade updates, options income, monthly webinars and group calls. All for $<span id="wl-price-cta"></span>/month.</div>
     <a href="community.html" style="display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#052a10;padding:16px 36px;border-radius:12px;font-weight:700;font-size:1rem;text-decoration:none;box-shadow:0 4px 28px rgba(37,211,102,0.25)">&#128172; Join the Community</a>
-    <div style="font-size:0.67rem;color:rgba(255,255,255,0.2);margin-top:14px">Cancel anytime &nbsp;&middot;&nbsp; <span id="cm-members-wl">...</span> members already inside</div>
+    <div style="font-size:0.67rem;color:rgba(255,255,255,0.2);margin-top:14px">Cancel anytime &nbsp;&middot;&nbsp; <span id="cm-members-wl">...</span> members already inside — serious investors watching every move</div>
   </div>
 </div>
 
@@ -481,7 +486,7 @@ function renderRecent(recentlyAdded, positions, unlocked){
       ${tickerHtml}
       ${pct !== null ? `<div class="recent-pct" style="${pctClass};font-size:1.1rem;font-weight:800;margin-top:4px">${pctStr}</div>
       <div class="recent-label" style="margin-top:2px">vs avg cost</div>` : ''}
-      <div class="recent-label" style="margin-top:8px">${unlocked ? 'Added to portfolio' : '&#128274; Join to see ticker'}</div>
+      <div class="recent-label" style="margin-top:8px">${unlocked ? 'Watchlist → Portfolio' : '&#128274; Join to see ticker'}</div>
     </div>`;
   }).join('');
 }
