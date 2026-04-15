@@ -143,7 +143,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .modal-join-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#052a10;padding:12px 20px;border-radius:9px;font-weight:700;font-size:0.83rem;text-decoration:none;max-width:320px;margin:0 auto}
 .modal-join-btn:hover{background:#1fb356}
 .modal-hint{font-size:0.65rem;color:#bbb;margin-top:14px;line-height:1.6}
-@media(max-width:640px){.unlock-bar{margin:16px 18px 20px;padding:10px 14px;gap:8px}.unlock-bar-left{font-size:0.7rem}.unlock-bar-right{width:100%}.unlock-bar-btn,.unlock-bar-join{flex:1;justify-content:center;font-size:0.7rem;padding:9px 10px}}
+@media(max-width:640px){.unlock-bar{margin:16px 18px 20px;padding:10px 14px;gap:8px}.unlock-bar-left{font-size:0.7rem}.unlock-bar-right{width:100%}.unlock-bar-btn,.unlock-bar-join{flex:1;justify-content:center;font-size:0.7rem;padding:9px 10px}[style*="display:flex;gap:32px"]{flex-direction:column;gap:16px}}
 
 /* ── FOOTER ── */
 .footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
@@ -229,8 +229,8 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-eyebrow">&#127891; Members Only &nbsp;&middot;&nbsp; Included with Community</div>
-    <div class="hero-title">Past Webinars &amp;<br><em>Deep Dives</em></div>
-    <div class="hero-sub">Recorded sessions on investing strategies, options selling, portfolio management, and market analysis.<br><strong>New webinar added every month.</strong></div>
+    <div class="hero-title">Real Strategies.<br><em>Full Recordings.</em></div>
+    <div class="hero-sub">Learn how I think, structure my portfolio, and execute strategies — step by step.<br>Start with any session. Watch everything at your own pace — all recordings unlocked when you join.</div>
     <div class="hero-disclaimer">
       <strong>Disclaimer:</strong> For educational purposes only. All content reflects my personal investments and is not financial advice or a recommendation to buy or sell any securities. I am not a registered investment advisor. You are solely responsible for your own investment decisions.
     </div>
@@ -260,18 +260,33 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     </div>
     <div class="modal-error" id="modal-error"></div>
     <div class="modal-divider">or</div>
-    <a class="modal-join-btn" href="community.html">&#128172; Join the Community</a>
-    <div class="modal-hint">Members receive the monthly code inside the WhatsApp group.</div>
+    <a class="modal-join-btn" href="community.html">&#128172; Get Access to the Full Library</a>
+    <div class="modal-hint">Join once — unlock everything. New sessions added every month.</div>
   </div>
 </div>
 
 <div class="unlock-bar">
   <div class="unlock-bar-left">&#128274; <strong>Recordings are members only.</strong> &nbsp;Enter your code to watch.</div>
   <div class="unlock-bar-right">
-    <button class="unlock-bar-btn" onclick="openModal()">&#128273; Enter Code</button>
-    <a class="unlock-bar-join" href="community.html">&#128172; Join Community</a>
+    <button class="unlock-bar-btn" onclick="openModal()">&#128273; Unlock Recordings</button>
+    <a class="unlock-bar-join" href="community.html">&#128172; Get Access</a>
   </div>
 </div>
+<!-- TESTIMONIALS -->
+<div style="background:#111009;border-top:1px solid rgba(212,165,52,0.08);border-bottom:1px solid rgba(212,165,52,0.08);padding:20px 40px">
+  <div style="max-width:900px;margin:0 auto;display:flex;gap:32px;flex-wrap:wrap;justify-content:center;align-items:center">
+    <div style="display:flex;gap:10px;align-items:flex-start;max-width:340px">
+      <span style="color:#d4a534;font-size:1.4rem;line-height:1;flex-shrink:0">&#8220;</span>
+      <span style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.7;font-style:italic">Best investing webinar I&rsquo;ve watched — straight to the point, no fluff.</span>
+    </div>
+    <div style="width:1px;height:36px;background:rgba(212,165,52,0.15);flex-shrink:0"></div>
+    <div style="display:flex;gap:10px;align-items:flex-start;max-width:340px">
+      <span style="color:#d4a534;font-size:1.4rem;line-height:1;flex-shrink:0">&#8220;</span>
+      <span style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.7;font-style:italic">Finally understood covered calls properly after the options session.</span>
+    </div>
+  </div>
+</div>
+
 <!-- WEBINAR GRID — titles always visible, watch buttons locked -->
 <div class="page">
 <div class="section" id="webinar-section">
