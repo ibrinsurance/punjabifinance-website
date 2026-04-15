@@ -327,13 +327,57 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <!-- CONTENT FOCUS -->
 <div class="section">
   <div class="sec-eyebrow">Content Focus</div>
-  <div class="sec-title">What I Create</div>
-  <div class="sec-sub">Every piece of content is designed to educate, empower, and build long-term financial confidence in the community.</div>
+  <div class="sec-title">What I Create &mdash; And Why It Works for Brands</div>
+  <div class="sec-sub">Content designed to educate and influence financially motivated audiences — with a focus on real-world investing, wealth building, and financial decision-making within the Punjabi-speaking community.</div>
   <div class="focus-grid">
-    <div class="focus-card"><div class="focus-icon">&#128200;</div><div><div class="focus-title">Stock Market Education</div><div class="focus-desc">Explaining how the TSX, S&amp;P 500, ETFs, and individual stocks work &mdash; in plain language for new investors.</div></div></div>
-    <div class="focus-card"><div class="focus-icon">&#128176;</div><div><div class="focus-title">Wealth Building Strategies</div><div class="focus-desc">Long-term frameworks for building generational wealth &mdash; TFSA/RRSP optimization, real estate, and passive income.</div></div></div>
-    <div class="focus-card"><div class="focus-icon">&#127891;</div><div><div class="focus-title">Investing Basics</div><div class="focus-desc">Foundational concepts made accessible &mdash; dollar cost averaging, diversification, index funds, risk management.</div></div></div>
-    <div class="focus-card"><div class="focus-icon">&#129534;</div><div><div class="focus-title">Personal Finance &amp; Financial Literacy</div><div class="focus-desc">Budgeting, debt management, credit building, insurance, and taxes &mdash; the full financial picture for Canadian immigrants.</div></div></div>
+    <div class="focus-card">
+      <div class="focus-icon">&#128200;</div>
+      <div>
+        <div class="focus-title">Real Investing &amp; Market Content</div>
+        <div class="focus-desc">Stocks, ETFs, and market trends explained in a simple, relatable way for new and intermediate investors.</div>
+        <div class="focus-hook">&#128073; Helps brands position themselves within real investing conversations.</div>
+      </div>
+    </div>
+    <div class="focus-card">
+      <div class="focus-icon">&#128176;</div>
+      <div>
+        <div class="focus-title">Wealth Building &amp; Financial Planning</div>
+        <div class="focus-desc">Long-term wealth strategies — TFSA/RRSP optimization, passive income, and financial growth for dual-income households.</div>
+        <div class="focus-hook">&#128073; Strong alignment with financial products and platforms.</div>
+      </div>
+    </div>
+    <div class="focus-card">
+      <div class="focus-icon">&#127891;</div>
+      <div>
+        <div class="focus-title">Simplified Financial Education</div>
+        <div class="focus-desc">Breaking down complex topics — diversification, risk management, compounding — into easy-to-understand content.</div>
+        <div class="focus-hook">&#128073; Builds trust and high engagement with first-time investors.</div>
+      </div>
+    </div>
+    <div class="focus-card">
+      <div class="focus-icon">&#129534;</div>
+      <div>
+        <div class="focus-title">Full Financial Ecosystem</div>
+        <div class="focus-desc">Content covering both growing wealth (investing) and protecting wealth (insurance, risk management).</div>
+        <div class="focus-hook">&#128073; Ideal for insurance, fintech, and financial service partnerships.</div>
+      </div>
+    </div>
+    <div class="focus-card">
+      <div class="focus-icon">&#127757;</div>
+      <div>
+        <div class="focus-title">Canadian Immigrant-Focused Content</div>
+        <div class="focus-desc">Tailored for Punjabi-speaking and South Asian audiences navigating Canadian financial systems, investing for the first time, and building long-term wealth in Canada.</div>
+        <div class="focus-hook">&#128073; Access to a high-intent, underserved demographic.</div>
+      </div>
+    </div>
+    <div class="focus-card" style="background:linear-gradient(135deg,#fff9ee,#fff);border-color:#e8d9b0">
+      <div class="focus-icon">&#129309;</div>
+      <div>
+        <div class="focus-title">Brand Integration Style</div>
+        <div class="focus-desc">All partnerships are educational-first (not sales-driven), integrated naturally into content, and designed to build trust and long-term brand recall — not disruptive ads.</div>
+        <div class="focus-hook">&#128073; Removes brand hesitation immediately.</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -426,7 +470,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:24px 22px">
         <div style="font-size:1.3rem;margin-bottom:10px">&#128202;</div>
         <div style="font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:8px">Real engagement, not vanity metrics</div>
-        <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.8"><span id="mk-reviews"></span> Google reviews from real community members. A paid WhatsApp community. An audience that spends money on the things they believe in.</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.8"><span id="mk-members-mk"></span> paying members inside a private investing community — not just followers, but people who spend money to follow the content. An audience that acts on what they learn.</div>
       </div>
     </div>
   </div>
@@ -503,6 +547,7 @@ document.addEventListener('click',function(e){
     set('mk-collab-short', totalFmt);
     set('mk-collab-fb',    totalFmt);
     set('mk-reviews',      s.reviewCount||'');
+    set('mk-members-mk',   s.memberCount||'');
   }catch(e){ console.warn('Mediakit data error:',e); }
 })();
 </script>
