@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Join the Community &mdash; Punjabi Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── TOPBAR ── */
+.topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;left:0;right:0;z-index:100;gap:12px;width:100%;box-sizing:border-box}
+.wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);flex-shrink:0}
+.wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
+.wm-gold{color:#d4a534}
+.topbar-nav{display:flex;align-items:center;gap:2px;flex:1}
+.nav-btn{display:inline-flex;align-items:center;color:rgba(255,255,255,0.5);font-size:0.67rem;font-weight:500;letter-spacing:0.04em;padding:7px 12px;border-radius:7px;text-decoration:none;border:1px solid transparent;white-space:nowrap;transition:all .15s}
+.nav-btn:hover{background:rgba(212,165,52,0.1);color:#d4a534;border-color:rgba(212,165,52,0.2)}
+.nav-btn.active{color:#d4a534;border-color:rgba(212,165,52,0.2);background:rgba(212,165,52,0.08)}
+.topbar-right-btns{display:none;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.ham-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:10px 12px;border:1px solid rgba(212,165,52,0.35);background:rgba(212,165,52,0.1);border-radius:8px;flex-shrink:0}
+.ham-btn:hover{background:rgba(212,165,52,0.2);border-color:rgba(212,165,52,0.5)}
+.ham-line{width:24px;height:2.5px;background:#d4a534;border-radius:2px;transition:all .25s;display:block}
+.ham-btn.open .ham-line:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham-btn.open .ham-line:nth-child(2){opacity:0;transform:scaleX(0)}
+.ham-btn.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-dropdown{display:none;position:fixed;top:58px;left:0;right:0;background:#111009;border-bottom:1px solid rgba(212,165,52,0.15);z-index:99;padding:8px 16px 14px;flex-direction:column;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+.nav-dropdown.open{display:flex}
+.nav-dropdown .nav-btn{font-size:0.89rem;padding:12px 14px;border-radius:9px;width:100%;letter-spacing:0.02em}
+@media(max-width:720px){.topbar-nav{display:none}.topbar-right-btns{display:flex}}
+@media(max-width:480px){.topbar{padding:0 14px;gap:8px}.wm-link{padding-right:14px}}
+
+/* ── BASE ── */
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:18px;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-height:1.6;min-height:100vh}
+
+/* ── HERO ── */
+.hero{background:#0d0b04;padding:clamp(56px,8vw,96px) 40px clamp(40px,6vw,72px);text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(37,211,102,0.1) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(212,165,52,0.06) 0%,transparent 60%);pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:700px;margin:0 auto}
+.hero-price{display:inline-flex;align-items:center;gap:8px;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25);padding:6px 18px;border-radius:100px;font-size:0.72rem;letter-spacing:0.1em;color:#25d366;font-weight:700;margin-bottom:24px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3.2rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-0.02em}
+.hero-title em{color:#d4a534;font-style:normal}
+.hero-sub{font-size:0.95rem;color:rgba(255,255,255,0.5);line-height:1.85;max-width:540px;margin:0 auto 32px}
+.hero-sub strong{color:rgba(255,255,255,0.8);font-weight:600}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.btn-join{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#25d366;color:#052a10;padding:16px 36px;border-radius:12px;font-weight:700;font-size:1rem;text-decoration:none;transition:all .2s;box-shadow:0 4px 28px rgba(37,211,102,0.25);white-space:nowrap}
+.btn-join:hover{background:#1fb356;transform:translateY(-2px)}
+.hero-note{font-size:0.67rem;color:rgba(255,255,255,0.25);letter-spacing:0.06em}
+.hero-disclaimer{font-size:0.67rem;color:rgba(255,255,255,0.3);line-height:1.75;max-width:520px;margin:16px auto 0;padding:12px 18px;background:rgba(255,255,255,0.04);border-left:2px solid rgba(212,165,52,0.3);border-radius:0 8px 8px 0;text-align:left}
+.hero-disclaimer strong{color:rgba(212,165,52,0.7)}
+
+/* ── STAT STRIP ── */
+.stat-strip{background:#111009;border-top:1px solid rgba(212,165,52,0.1);border-bottom:1px solid rgba(212,165,52,0.1);padding:28px 40px}
+.stat-strip-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.1);border-radius:14px;overflow:hidden}
+.ss-item{background:#111009;padding:22px 20px;text-align:center}
+.ss-num{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;color:#d4a534;line-height:1;margin-bottom:4px}
+.ss-label{font-size:0.63rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.3);font-weight:600}
+
+/* ── SECTIONS ── */
+.section{padding:clamp(44px,6vw,72px) 40px;max-width:1080px;margin:0 auto}
+.section-dark{background:#0d0b04}
+.section-mid{background:#111009}
+.section-light{background:#f4f2ee}
+.section-light .sec-eyebrow{color:#b8862a}
+.section-light .sec-title{color:#1a1a1a}
+.section-light .sec-sub{color:#777}
+.sec-divider{height:1px;background:rgba(212,165,52,0.1)}
+.sec-eyebrow{font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(212,165,52,0.6);font-weight:600;margin-bottom:10px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.sec-sub{font-size:0.89rem;color:rgba(255,255,255,0.45);line-height:1.75;max-width:560px;margin-bottom:32px}
+
+/* ── INSIDE LOOK — WhatsApp bubbles ── */
+.inside-wrap{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;width:100%}
+.bubble-col{display:flex;flex-direction:column;gap:10px}
+.bubble-label{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.45);font-weight:700;margin-bottom:4px}
+.bubble{background:#1f3327;border-radius:0 16px 16px 16px;padding:14px 16px;font-size:0.78rem;color:#e8f5e9;line-height:1.6;position:relative;max-width:340px}
+.bubble.sent{background:#1a4a2e;border-radius:16px 0 16px 16px;margin-left:auto}
+.bubble strong{color:#fff;font-weight:700}
+.bubble .meta{font-size:0.6rem;color:rgba(255,255,255,0.35);margin-top:8px;display:flex;align-items:center;justify-content:flex-end;gap:4px}
+.bubble .tag{display:inline-block;background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.25);color:#25d366;font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:100px;margin-bottom:8px;letter-spacing:0.08em}
+.bubble .premium{color:#d4a534;font-weight:700}
+.bubble-poll{background:#1a2e1a;border-radius:16px;padding:16px;max-width:340px}
+.bubble-poll .poll-q{font-size:0.83rem;font-weight:700;color:#fff;margin-bottom:12px}
+.bubble-poll .poll-opt{padding:8px 12px;border-radius:8px;font-size:0.72rem;color:#e8f5e9;margin-bottom:6px;position:relative;overflow:hidden}
+.bubble-poll .poll-opt::before{content:'';position:absolute;left:0;top:0;bottom:0;background:rgba(37,211,102,0.25);border-radius:8px}
+.bubble-poll .poll-opt.win::before{width:95%}
+.bubble-poll .poll-opt.mid::before{width:30%}
+.bubble-poll .poll-opt.low::before{width:5%}
+.bubble-poll .poll-opt.zero::before{width:0}
+.bubble-poll .poll-text{position:relative;z-index:1;display:flex;justify-content:space-between}
+.bubble-reply{background:#111009;border-left:3px solid #25d366;padding:8px 12px;border-radius:0 8px 8px 0;margin-bottom:8px;font-size:0.72rem;color:rgba(255,255,255,0.6);font-style:italic}
+
+/* ── WHAT YOU GET ── */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:0}
+.feat-card{background:rgba(255,255,255,0.04);border:1px solid rgba(212,165,52,0.1);border-radius:14px;padding:24px 20px;position:relative;overflow:hidden;transition:border-color .2s}
+.feat-card:hover{border-color:rgba(212,165,52,0.25)}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#b8862a,#d4a534)}
+.feat-icon{font-size:1.5rem;margin-bottom:12px;display:block}
+.feat-title{font-size:0.89rem;font-weight:700;color:#fff;margin-bottom:6px}
+.feat-desc{font-size:0.78rem;color:rgba(255,255,255,0.45);line-height:1.7}
+
+/* ── PRICING ── */
+.price-card{background:#111009;border:2px solid rgba(37,211,102,0.3);border-radius:20px;padding:40px 36px;max-width:480px;margin:0 auto;text-align:center;position:relative;overflow:hidden}
+.price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#25d366,transparent)}
+.price-badge{display:inline-block;background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.3);color:#25d366;font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:20px}
+.price-amount{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+.price-amount span{font-size:1.5rem;font-weight:400;color:rgba(255,255,255,0.4);vertical-align:top;margin-top:8px;display:inline-block}
+.price-period{font-size:0.78rem;color:rgba(255,255,255,0.35);margin-bottom:24px}
+.price-features{list-style:none;text-align:left;margin-bottom:28px}
+.price-features li{font-size:0.83rem;color:rgba(255,255,255,0.65);padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:10px}
+.price-features li::before{content:'✓';color:#25d366;font-weight:700;flex-shrink:0}
+.price-features li:last-child{border-bottom:none}
+.price-note{font-size:0.67rem;color:rgba(255,255,255,0.25);margin-top:14px;line-height:1.7}
+
+
+/* ── SCREENSHOT GALLERY ── */
+.gallery-section{background:#080600;padding:clamp(44px,6vw,72px) 0;border-top:1px solid rgba(212,165,52,0.1)}
+.gallery-inner{max-width:1080px;margin:0 auto;padding:0 40px}
+.gallery-label{font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(212,165,52,0.6);font-weight:600;margin-bottom:10px}
+.gallery-title{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800;color:#fff;margin-bottom:6px}
+.gallery-sub{font-size:0.83rem;color:rgba(255,255,255,0.35);margin-bottom:28px}
+.gallery-track-wrap{position:relative;overflow:hidden}
+.gallery-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:16px;cursor:grab}
+.gallery-track:active{cursor:grabbing}
+.gallery-track::-webkit-scrollbar{height:4px}
+.gallery-track::-webkit-scrollbar-track{background:rgba(255,255,255,0.05);border-radius:2px}
+.gallery-track::-webkit-scrollbar-thumb{background:rgba(212,165,52,0.3);border-radius:2px}
+.gallery-card{flex:0 0 280px;scroll-snap-align:start;border-radius:16px;overflow:hidden;border:1px solid rgba(212,165,52,0.1);background:#111009;position:relative}
+.gallery-card img{width:100%;height:420px;object-fit:cover;object-position:top;display:block}
+.gallery-card-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.85));padding:20px 14px 14px;font-size:0.67rem;color:rgba(255,255,255,0.7);font-weight:600}
+.gallery-hint{font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:10px;text-align:center;letter-spacing:0.08em}
+.gallery-controls{display:flex;gap:10px;margin-top:14px;justify-content:center}
+.gallery-btn{background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.2);color:#d4a534;font-size:1rem;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:sans-serif}
+.gallery-btn:hover{background:rgba(212,165,52,0.2)}
+@media(max-width:640px){
+  .gallery-inner{padding:0 20px}
+  .gallery-card{flex:0 0 240px}
+  .gallery-card img{height:360px}
+}
+@media(max-width:600px){
+  .pain-grid{grid-template-columns:1fr!important}
+}
+
+/* ── WIN CARDS ── */
+.wins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.win-card{border-radius:14px;padding:20px 18px;position:relative;overflow:hidden}
+.win-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.win-mega{background:linear-gradient(135deg,rgba(212,165,52,0.15),rgba(212,165,52,0.05));border:1px solid rgba(212,165,52,0.3);grid-column:span 2}
+.win-mega::before{background:linear-gradient(90deg,#d4a534,#b8862a)}
+.win-big{background:linear-gradient(135deg,rgba(37,211,102,0.12),rgba(37,211,102,0.04));border:1px solid rgba(37,211,102,0.25)}
+.win-big::before{background:#25d366}
+.win-mid{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)}
+.win-mid::before{background:rgba(255,255,255,0.2)}
+.win-ticker{font-size:0.67rem;letter-spacing:0.18em;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:6px}
+.win-pct{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:#fff;line-height:1;margin-bottom:8px}
+.win-mega .win-pct{font-size:2.8rem;color:#d4a534}
+.win-big .win-pct{color:#25d366}
+.win-detail{font-size:0.72rem;color:rgba(255,255,255,0.45);line-height:1.6;margin-bottom:8px}
+.win-pnl{color:#25d366;font-weight:600}
+.win-note{font-size:0.67rem;color:rgba(255,255,255,0.3);font-style:italic;margin-top:6px}
+.wins-total{display:flex;align-items:stretch;background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.15);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.wins-total-left,.wins-total-right{flex:1;text-align:center;padding:18px 12px;min-width:120px}
+.wins-total-label{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px}
+.wins-total-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#fff}
+.wins-total-divider{width:1px;background:rgba(212,165,52,0.12);flex-shrink:0}
+.wins-disclaimer{font-size:0.67rem;color:rgba(255,255,255,0.35);background:rgba(212,165,52,0.06);border:1px solid rgba(212,165,52,0.15);border-left:3px solid rgba(212,165,52,0.4);border-radius:0 8px 8px 0;padding:12px 16px;line-height:1.75}
+.wins-disclaimer strong{color:rgba(212,165,52,0.7)}
+@media(max-width:640px){
+  .wins-grid{grid-template-columns:1fr 1fr}
+  .win-mega{grid-column:span 2}
+  .wins-total{flex-direction:column;gap:12px}
+  .wins-total-divider{width:1px;background:rgba(212,165,52,0.12);flex-shrink:0}
+}
+
+/* ── WIN CARDS ── */
+.wins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.win-card{border-radius:14px;padding:20px 18px;position:relative;overflow:hidden}
+.win-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.win-mega{background:linear-gradient(135deg,rgba(212,165,52,0.15),rgba(212,165,52,0.05));border:1px solid rgba(212,165,52,0.3);grid-column:span 2}
+.win-mega::before{background:linear-gradient(90deg,#d4a534,#b8862a)}
+.win-big{background:linear-gradient(135deg,rgba(37,211,102,0.12),rgba(37,211,102,0.04));border:1px solid rgba(37,211,102,0.25)}
+.win-big::before{background:#25d366}
+.win-mid{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)}
+.win-mid::before{background:rgba(255,255,255,0.2)}
+.win-ticker{font-size:0.67rem;letter-spacing:0.18em;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:6px}
+.win-pct{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:#fff;line-height:1;margin-bottom:8px}
+.win-mega .win-pct{font-size:2.8rem;color:#d4a534}
+.win-big .win-pct{color:#25d366}
+.win-detail{font-size:0.72rem;color:rgba(255,255,255,0.45);line-height:1.6;margin-bottom:8px}
+.win-pnl{color:#25d366;font-weight:600}
+.win-note{font-size:0.67rem;color:rgba(255,255,255,0.3);font-style:italic;margin-top:6px}
+.wins-total{display:flex;align-items:stretch;background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.15);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.wins-total-left,.wins-total-right{flex:1;text-align:center;padding:18px 12px;min-width:120px}
+.wins-total-label{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px}
+.wins-total-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#fff}
+.wins-total-divider{width:1px;background:rgba(212,165,52,0.12);flex-shrink:0}
+.wins-disclaimer{font-size:0.67rem;color:rgba(255,255,255,0.35);background:rgba(212,165,52,0.06);border:1px solid rgba(212,165,52,0.15);border-left:3px solid rgba(212,165,52,0.4);border-radius:0 8px 8px 0;padding:12px 16px;line-height:1.75}
+.wins-disclaimer strong{color:rgba(212,165,52,0.7)}
+@media(max-width:640px){
+  .wins-grid{grid-template-columns:1fr 1fr}
+  .win-mega{grid-column:span 2}
+  .wins-total{flex-direction:column;gap:12px}
+  .wins-total-divider{width:1px;background:rgba(212,165,52,0.12);flex-shrink:0}
+}
+/* ── HOW IT WORKS ── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step{background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.1);border-radius:14px;padding:24px 20px;text-align:center}
+.step-num{width:40px;height:40px;border-radius:50%;background:#d4a534;color:#0a0800;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.step-title{font-size:0.89rem;font-weight:700;color:#fff;margin-bottom:6px}
+.step-desc{font-size:0.78rem;color:rgba(255,255,255,0.45);line-height:1.7}
+
+/* ── DISCLAIMER ── */
+.disclaimer-box{background:rgba(212,165,52,0.06);border:1px solid rgba(212,165,52,0.2);border-left:3px solid #d4a534;border-radius:0 10px 10px 0;padding:16px 20px;font-size:0.75rem;color:rgba(255,255,255,0.6);line-height:1.8;margin-top:32px}
+.disclaimer-box strong{color:#d4a534}
+
+
+/* ── SCREENSHOT GALLERY ── */
+.gallery-section{background:#080600;padding:clamp(44px,6vw,72px) 0;border-top:1px solid rgba(212,165,52,0.1);border-bottom:1px solid rgba(212,165,52,0.1)}
+.gallery-inner{max-width:1080px;margin:0 auto;padding:0 40px}
+.gallery-label{font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(212,165,52,0.6);font-weight:600;margin-bottom:10px}
+.gallery-title{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800;color:#fff;margin-bottom:6px}
+.gallery-sub{font-size:0.83rem;color:rgba(255,255,255,0.35);margin-bottom:28px}
+.gallery-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:16px;cursor:grab}
+.gallery-track:active{cursor:grabbing}
+.gallery-track::-webkit-scrollbar{height:4px}
+.gallery-track::-webkit-scrollbar-track{background:rgba(255,255,255,0.05);border-radius:2px}
+.gallery-track::-webkit-scrollbar-thumb{background:rgba(212,165,52,0.3);border-radius:2px}
+.gallery-card{flex:0 0 240px;scroll-snap-align:start;border-radius:16px;overflow:hidden;border:1px solid rgba(212,165,52,0.12);background:#111009;position:relative;cursor:pointer}.gallery-card:hover{border-color:rgba(212,165,52,0.35)}
+.gallery-card img{width:100%;height:380px;object-fit:cover;object-position:top center;display:block;transition:transform .2s}.gallery-card:hover img{transform:scale(1.02)}
+.gallery-card-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.88));padding:24px 14px 14px;font-size:0.65rem;color:rgba(255,255,255,0.75);font-weight:600;line-height:1.4}
+.gallery-hint{font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:10px;text-align:center;letter-spacing:0.08em}
+.gallery-controls{display:flex;gap:10px;margin-top:14px;justify-content:center}
+.gallery-btn{background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.2);color:#d4a534;font-size:1rem;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:sans-serif}
+.gallery-btn:hover{background:rgba(212,165,52,0.2)}
+@media(max-width:640px){
+  .gallery-inner{padding:0 20px}
+  .gallery-card{flex:0 0 220px}
+  .gallery-card img{height:340px}
+}
+
+/* ── LIGHTBOX ── */
+.lb-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.lb-backdrop.open{display:flex}
+.lb-img{max-width:90vw;max-height:90vh;border-radius:12px;object-fit:contain;box-shadow:0 0 60px rgba(0,0,0,0.8)}
+.lb-close{position:fixed;top:20px;right:24px;color:#fff;font-size:2rem;cursor:pointer;opacity:0.7;line-height:1;z-index:1001}
+.lb-close:hover{opacity:1}
+.lb-caption{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.6);font-size:0.72rem;text-align:center;max-width:480px;line-height:1.5}
+.lb-nav{position:fixed;top:50%;transform:translateY(-50%);color:#fff;font-size:2rem;cursor:pointer;opacity:0.5;padding:12px;z-index:1001;background:rgba(255,255,255,0.1);border-radius:50%;line-height:1}
+.lb-nav:hover{opacity:1;background:rgba(255,255,255,0.2)}
+.lb-prev{left:16px}
+.lb-next{right:16px}
+
+/* ── BOTTOM CTA ── */
+.bottom-cta{background:#0a1a0e;padding:clamp(56px,8vw,96px) 40px;text-align:center;border-top:1px solid rgba(37,211,102,0.1)}
+.bottom-cta-inner{max-width:560px;margin:0 auto}
+.bottom-cta-title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:#fff;margin-bottom:12px;line-height:1.2}
+.bottom-cta-sub{font-size:0.89rem;color:rgba(255,255,255,0.45);line-height:1.75;margin-bottom:32px}
+.cta-stat-row{display:flex;justify-content:center;gap:32px;margin-bottom:32px}
+.cta-stat{text-align:center}
+.cta-stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#d4a534}
+.cta-stat-lbl{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
+
+.page-footer{background:#060501;padding:20px 40px;text-align:center;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.12);border-top:1px solid rgba(212,165,52,0.06)}
+.page-footer a{color:rgba(212,165,52,0.3);text-decoration:none}
+
+@media(max-width:640px){
+  html{font-size:17px}
+  .how-invest-cards{grid-template-columns:1fr!important}
+  .hero{padding:48px 20px 36px}
+  .stat-strip{padding:20px 16px}
+  .stat-strip-inner{grid-template-columns:repeat(3,1fr)}
+  .ss-num{font-size:1.4rem}
+  .section{padding:36px 20px}
+  .sec-divider{margin:0}
+  .features-grid,.steps{grid-template-columns:1fr}
+  .inside-wrap{grid-template-columns:1fr}
+  .bottom-cta{padding:48px 20px}
+  .page-footer{padding:16px 20px}
+  .cta-stat-row{gap:20px}
+  .hero-actions{flex-direction:column;align-items:center}
+  .btn-join{width:100%;justify-content:center}
+  .how-invest-grid{grid-template-columns:1fr !important}
+}
+@media(min-width:641px) and (max-width:900px){
+  .features-grid,.steps{grid-template-columns:1fr 1fr}
+  .section{padding:44px 28px}
+}
+@media(max-width:640px){.expect-grid{grid-template-columns:1fr!important}.how-invest-cards{grid-template-columns:1fr!important}}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W5P90KB7HM"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-W5P90KB7HM');</script>
+  <!-- Open Graph / WhatsApp / Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Punjabi Finance">
+  <meta property="og:title" content="Punjabi Finance — Watch a Real Portfolio. Every Move. Every Trade.">
+  <meta property="og:description" content="One real investor sharing every buy, sell, and options trade in real time. Real portfolio. Real trades. Real thinking. Join 200+ members for $10/month.">
+  <meta property="og:image" content="https://punjabifinance.com/og-community.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://punjabifinance.com/community.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Punjabi Finance — Watch a Real Portfolio. Every Move. Every Trade.">
+  <meta name="twitter:description" content="One real investor sharing every buy, sell, and options trade in real time. Real portfolio. Real trades. Real thinking. Join 200+ members for $10/month.">
+  <meta name="twitter:image" content="https://punjabifinance.com/og-community.jpg">
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a class="wm-link" href="index.html">
+    <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
+  </a>
+  <div class="topbar-nav">
+  <a class="nav-btn" href="index.html">Live Portfolio</a>
+  <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn active" href="community.html" style="background:rgba(37,211,102,0.12);color:#1a9e50;border-color:rgba(37,211,102,0.25)">Join</a>
+  <a class="nav-btn" href="links.html">Links</a>
+  <a class="nav-btn" href="mediakit.html">Media Kit</a>
+</div>
+  <div class="topbar-right-btns">
+    <a class="nav-btn" href="index.html">Portfolio</a>
+    <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
+  </div>
+</div>
+<nav class="nav-dropdown" id="nav-dropdown">
+  <a class="nav-btn" href="index.html">Live Portfolio</a>
+  <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn active" href="community.html" style="color:#1a9e50">Join</a>
+  <a class="nav-btn" href="links.html">Links</a>
+  <a class="nav-btn" href="mediakit.html">Media Kit</a>
+  <a class="nav-btn active" href="philosophy.html">How I Invest</a>
+</nav>
+
+<!-- HERO -->
+<div style="background:#0d0b04;padding:clamp(52px,7vw,80px) 40px clamp(36px,5vw,56px);text-align:center;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(212,165,52,0.1) 0%,transparent 60%);pointer-events:none"></div>
+  <div style="position:relative;z-index:2;max-width:680px;margin:0 auto">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.25);padding:6px 18px;border-radius:100px;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#d4a534;font-weight:700;margin-bottom:22px">&#128269; How I Invest</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-0.02em">How I<br><em style="color:#d4a534;font-style:normal">Invest</em></div>
+    <div style="font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.85;max-width:520px;margin:0 auto">Not a strategy to copy. Not financial advice. Just a transparent look at how one real investor thinks — so you can decide if it resonates.</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div style="background:#f4f2ee">
+<div style="max-width:780px;margin:0 auto;padding:clamp(44px,6vw,72px) 40px">
+
+  <!-- Quick summary pills -->
+  <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px">
+    <span style="background:#fff;border:1px solid #e8e4dc;border-radius:100px;padding:7px 18px;font-size:0.75rem;font-weight:600;color:#1a6b3c">✔ Long-term mindset (5–10+ years)</span>
+    <span style="background:#fff;border:1px solid #e8e4dc;border-radius:100px;padding:7px 18px;font-size:0.75rem;font-weight:600;color:#1a1a1a">✔ Focus on business, not charts</span>
+    <span style="background:#fff;border:1px solid #e8e4dc;border-radius:100px;padding:7px 18px;font-size:0.75rem;font-weight:600;color:#b8862a">✔ Covered calls for income</span>
+    <span style="background:#fff;border:1px solid #e8e4dc;border-radius:100px;padding:7px 18px;font-size:0.75rem;font-weight:600;color:#1a1a1a">✔ Actively managed — not passive</span>
+  </div>
+
+  <!-- Section 1: Philosophy -->
+  <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:6px">01 — Philosophy</div>
+  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:6px">Long-term mindset — not a fixed timeline</div>
+  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:12px">Every position I take is with a long-term mindset — ideally 5–10+ years. But long-term mindset &ne; guaranteed holding period.</div>
+  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:32px">If the thesis changes, valuation stretches, or better opportunities arise, I may exit earlier. That&rsquo;s part of actively managing a real portfolio — not a passive index fund.</div>
+
+  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:6px">A dip isn&rsquo;t a reason to buy — the business is</div>
+  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:12px">I don&rsquo;t buy stocks just because they&rsquo;re down. A stock can fall 30% and still be a bad buy. I focus on:</div>
+  <ul style="font-size:0.85rem;color:#555;line-height:2;margin-bottom:12px;padding-left:20px">
+    <li>Revenue and user growth trajectory</li>
+    <li>Expansion potential and TAM</li>
+    <li>Path to profitability</li>
+    <li>Long-term narrative and competitive position</li>
+  </ul>
+  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:32px">Price follows business execution over time.</div>
+
+  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:6px">Options income compounds returns</div>
+  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:32px">I sell covered calls on my positions to generate income. That income is reinvested back into the portfolio — helping reduce cost basis and accelerate compounding. It&rsquo;s not a separate strategy — it&rsquo;s an extension of long-term holding.</div>
+
+  <div style="height:1px;background:#e8e4dc;margin:8px 0 36px"></div>
+
+  <!-- Section 2: Reality -->
+  <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:6px">02 — Reality</div>
+  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:6px">Not every position works</div>
+  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:12px">I&rsquo;m not right 100% of the time — and I don&rsquo;t try to be. Some positions underperform, some theses break, and I may exit well before my original timeline.</div>
+  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:32px">I share those decisions transparently — including the reasoning behind exits and mistakes. I only need a few positions to work really well over time for the portfolio to compound meaningfully.</div>
+
+  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:6px">Red months are part of the process</div>
+  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:32px">I&rsquo;ve held through multiple 30–50% drawdowns. I post more during red markets, not less. If you&rsquo;re joining to watch green numbers every month — this isn&rsquo;t the right community. If you want to understand how a real investor thinks during volatility — this is exactly what I show.</div>
+
+  <div style="height:1px;background:#e8e4dc;margin:8px 0 36px"></div>
+
+  <!-- Section 3: Research -->
+  <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:6px">03 — Research Process</div>
+  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:6px">How ideas are formed</div>
+  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:32px">I study multiple sources when researching ideas — including investor commentary, earnings calls, and industry insights. Ideas can come from anywhere. Conviction, position sizing, and execution are built independently — I don&rsquo;t follow anyone else&rsquo;s trades.</div>
+
+  <div style="height:1px;background:#e8e4dc;margin:8px 0 36px"></div>
+
+  <!-- Section 4: Expectations -->
+  <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:6px">04 — Expectations</div>
+  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:16px">What this community is — and isn&rsquo;t</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px" class="expect-grid">
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:18px 16px">
+      <div style="font-size:0.75rem;font-weight:700;color:#1a6b3c;margin-bottom:8px">✔ What it is</div>
+      <ul style="font-size:0.78rem;color:#555;line-height:2;padding-left:16px;margin:0">
+        <li>Transparency into a real portfolio</li>
+        <li>Real-time trade updates with reasoning</li>
+        <li>Options income strategy in practice</li>
+        <li>Honest posts during drawdowns</li>
+        <li>Research process — before I buy</li>
+      </ul>
+    </div>
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:18px 16px">
+      <div style="font-size:0.75rem;font-weight:700;color:#c0392b;margin-bottom:8px">✗ What it isn&rsquo;t</div>
+      <ul style="font-size:0.78rem;color:#555;line-height:2;padding-left:16px;margin:0">
+        <li>Buy/sell signals to copy</li>
+        <li>Guaranteed returns or performance</li>
+        <li>Financial advice of any kind</li>
+        <li>A trading alert service</li>
+        <li>A get-rich-quick community</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Closing -->
+  <div style="background:#111009;border-radius:16px;padding:32px 28px;text-align:center">
+    <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:10px">If this resonates — join the community</div>
+    <div style="font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.75;margin-bottom:24px;max-width:440px;margin-left:auto;margin-right:auto">You&rsquo;re not joining for tips. You&rsquo;re getting access to how one real investor thinks, acts, and manages a real portfolio — in real time.</div>
+    <a href="community.html" style="display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#052a10;padding:14px 36px;border-radius:12px;font-weight:700;font-size:0.95rem;text-decoration:none">&#128172; Join the Community</a>
+    <div style="font-size:0.68rem;color:rgba(255,255,255,0.2);margin-top:14px">$10/month &nbsp;&middot;&nbsp; Cancel anytime &nbsp;&middot;&nbsp; Not financial advice</div>
+  </div>
+
+</div>
+</div>
+
+<div class="page-footer">
+  &copy; 2025 Punjabi Finance &nbsp;&middot;&nbsp;
+  <a href="index.html">Portfolio</a> &nbsp;&middot;&nbsp;
+  <a href="links.html">Links</a> &nbsp;&middot;&nbsp;
+  <a href="mediakit.html">Media Kit</a> &nbsp;&middot;&nbsp;
+  Not financial advice
+</div>
+
+<script>
+function toggleMenu(){
+  document.getElementById('ham-btn').classList.toggle('open');
+  document.getElementById('nav-dropdown').classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  const btn=document.getElementById('ham-btn');
+  const drop=document.getElementById('nav-dropdown');
+  if(btn&&drop&&!btn.contains(e.target)&&!drop.contains(e.target)){
+    btn.classList.remove('open');
+    drop.classList.remove('open');
+  }
+});
+
+
+// Gallery touch swipe
+(function(){
+  var t=document.getElementById('gallery-track');
+  if(!t) return;
+  var sx=0;
+  t.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+  t.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>40) t.scrollBy({left:dx<0?260:-260,behavior:'smooth'});
+  },{passive:true});
+})();
+// Gallery drag scroll
+(function(){
+  const track = document.getElementById('gallery-track');
+  if(!track) return;
+  let isDown=false, startX, scrollLeft;
+  track.addEventListener('mousedown',e=>{isDown=true;startX=e.pageX-track.offsetLeft;scrollLeft=track.scrollLeft;});
+  track.addEventListener('mouseleave',()=>{isDown=false;});
+  track.addEventListener('mouseup',()=>{isDown=false;});
+  track.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-track.offsetLeft;track.scrollLeft=scrollLeft-(x-startX)*1.5;});
+})();
+function galleryScroll(dir){
+  const track=document.getElementById('gallery-track');
+  if(track) track.scrollBy({left:dir*300,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
