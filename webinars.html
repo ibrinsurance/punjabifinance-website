@@ -150,7 +150,8 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .modal-join-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#052a10;padding:12px 20px;border-radius:9px;font-weight:700;font-size:0.83rem;text-decoration:none;max-width:320px;margin:0 auto}
 .modal-join-btn:hover{background:#1fb356}
 .modal-hint{font-size:0.65rem;color:#bbb;margin-top:14px;line-height:1.6}
-@media(max-width:640px){.unlock-bar{margin:16px 18px 20px;padding:10px 14px;gap:8px}.unlock-bar-left{font-size:0.7rem}.unlock-bar-right{width:100%}.unlock-bar-btn,.unlock-bar-join{flex:1;justify-content:center;font-size:0.7rem;padding:9px 10px}[style*="display:flex;gap:32px"]{flex-direction:column;gap:16px}}
+@media(max-width:640px){
+  .watch-order-grid{grid-template-columns:repeat(2,1fr)!important}.unlock-bar{margin:16px 18px 20px;padding:10px 14px;gap:8px}.unlock-bar-left{font-size:0.7rem}.unlock-bar-right{width:100%}.unlock-bar-btn,.unlock-bar-join{flex:1;justify-content:center;font-size:0.7rem;padding:9px 10px}[style*="display:flex;gap:32px"]{flex-direction:column;gap:16px}}
 
 /* ── FOOTER ── */
 .footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
@@ -282,20 +283,6 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     <a class="unlock-bar-join" href="community.html">&#128172; Get Access</a>
   </div>
 </div>
-<!-- TESTIMONIALS -->
-<div style="background:#111009;border-top:1px solid rgba(212,165,52,0.08);border-bottom:1px solid rgba(212,165,52,0.08);padding:20px 40px">
-  <div style="max-width:900px;margin:0 auto;display:flex;gap:32px;flex-wrap:wrap;justify-content:center;align-items:center">
-    <div style="display:flex;gap:10px;align-items:flex-start;max-width:340px">
-      <span style="color:#d4a534;font-size:1.4rem;line-height:1;flex-shrink:0">&#8220;</span>
-      <span style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.7;font-style:italic">Best investing webinar I&rsquo;ve watched — straight to the point, no fluff.</span>
-    </div>
-    <div style="width:1px;height:36px;background:rgba(212,165,52,0.15);flex-shrink:0"></div>
-    <div style="display:flex;gap:10px;align-items:flex-start;max-width:340px">
-      <span style="color:#d4a534;font-size:1.4rem;line-height:1;flex-shrink:0">&#8220;</span>
-      <span style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.7;font-style:italic">Finally understood covered calls properly after the options session.</span>
-    </div>
-  </div>
-</div>
 
 <!-- WEBINAR GRID — titles always visible, watch buttons locked -->
 <div class="page">
@@ -311,25 +298,29 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
       <div style="font-size:0.7rem;color:#999">Most members start here before following live trades.</div>
     </div>
   </div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px">
-    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">1. Research Process</div>
-    <div style="color:#ccc">&rarr;</div>
-    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">2. Portfolio Management</div>
-    <div style="color:#ccc">&rarr;</div>
-    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">3. Options Selling</div>
-    <div style="color:#ccc">&rarr;</div>
-    <div style="background:#f4f2ee;border-radius:8px;padding:6px 14px;font-size:0.72rem;font-weight:600;color:#1a1a1a;white-space:nowrap">4. Risk Management</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px" class="watch-order-grid">
+    <div style="background:#f9f7f3;border:1px solid #e8e4dc;border-radius:10px;padding:10px 12px;display:flex;gap:8px;align-items:flex-start">
+      <span style="background:#1a1a1a;color:#fff;font-size:0.62rem;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px">1</span>
+      <span style="font-size:0.72rem;font-weight:600;color:#1a1a1a;line-height:1.4">Research Process</span>
+    </div>
+    <div style="background:#f9f7f3;border:1px solid #e8e4dc;border-radius:10px;padding:10px 12px;display:flex;gap:8px;align-items:flex-start">
+      <span style="background:#1a1a1a;color:#fff;font-size:0.62rem;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px">2</span>
+      <span style="font-size:0.72rem;font-weight:600;color:#1a1a1a;line-height:1.4">Portfolio Management</span>
+    </div>
+    <div style="background:#f9f7f3;border:1px solid #e8e4dc;border-radius:10px;padding:10px 12px;display:flex;gap:8px;align-items:flex-start">
+      <span style="background:#1a1a1a;color:#fff;font-size:0.62rem;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px">3</span>
+      <span style="font-size:0.72rem;font-weight:600;color:#1a1a1a;line-height:1.4">Options Selling</span>
+    </div>
+    <div style="background:#f9f7f3;border:1px solid #e8e4dc;border-radius:10px;padding:10px 12px;display:flex;gap:8px;align-items:flex-start">
+      <span style="background:#1a1a1a;color:#fff;font-size:0.62rem;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px">4</span>
+      <span style="font-size:0.72rem;font-weight:600;color:#1a1a1a;line-height:1.4">Risk Management</span>
+    </div>
   </div>
   <div style="border-top:1px solid #f0ede8;padding-top:14px">
     <div style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#aaa;font-weight:600;margin-bottom:8px">Filter by topic</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="wb-filter active" onclick="filterWebinars('all')">All</button>
-      <button class="wb-filter" onclick="filterWebinars('Research Process')">Research Process</button>
-      <button class="wb-filter" onclick="filterWebinars('Portfolio Management')">Portfolio Management</button>
-      <button class="wb-filter" onclick="filterWebinars('Options Selling')">Options Selling</button>
-      <button class="wb-filter" onclick="filterWebinars('Risk Management')">Risk Management</button>
-      <button class="wb-filter" onclick="filterWebinars('Personal Story')">Personal Story</button>
-      <button class="wb-filter" onclick="filterWebinars('Market Analysis')">Market Analysis</button>
+      <button class="wb-filter active" onclick="filterWebinars('all', this)">All</button>
+      <span id="dynamic-filters"></span>
     </div>
   </div>
 </div>
@@ -430,15 +421,6 @@ function tryUnlock(){
     document.getElementById('lock-error').textContent = 'Incorrect code. Get the code inside the WhatsApp community.';
   }
 }
-function filterWebinars(tag){
-  // Update active button
-  document.querySelectorAll('.wb-filter').forEach(b=>b.classList.remove('active'));
-  event.target.classList.add('active');
-  // Filter cards
-  if(!window._wbData) return;
-  var filtered = tag==='all' ? window._wbData : window._wbData.filter(w=>w.tag===tag);
-  renderWebinars(filtered, isUnlocked());
-}
 function openInlineUnlock(){ openModal(); }
 
 
@@ -529,11 +511,19 @@ function showContent(){
   if(bar) bar.style.display = 'none';
   if(window._wbData) renderWebinars(window._wbData, true);
 }
-function filterWebinars(tag){
-  // Update active button
+function buildFilterButtons(webinars){
+  var container = document.getElementById('dynamic-filters');
+  if(!container) return;
+  var preferred = ['Research Process','Portfolio Management','Options Selling','Risk Management','Personal Story','Market Analysis'];
+  var allTags = [...new Set(webinars.map(w=>w.tag).filter(Boolean))];
+  var ordered = [...preferred.filter(t=>allTags.includes(t)), ...allTags.filter(t=>!preferred.includes(t))];
+  container.innerHTML = ordered.map(function(tag){
+    return '<button class="wb-filter" onclick="filterWebinars(\''+tag+'\', this)">'+tag+'</button>';
+  }).join('');
+}
+function filterWebinars(tag, btn){
   document.querySelectorAll('.wb-filter').forEach(b=>b.classList.remove('active'));
-  event.target.classList.add('active');
-  // Filter cards
+  if(btn) btn.classList.add('active');
   if(!window._wbData) return;
   var filtered = tag==='all' ? window._wbData : window._wbData.filter(w=>w.tag===tag);
   renderWebinars(filtered, isUnlocked());
@@ -553,12 +543,12 @@ async function init(){
         var el2=document.getElementById('wb-price-modal');
         if(el2) el2.textContent=String(data.social.price).replace(/[$]/g,'');
       }
-      // Update webinar count in stat strip
       if(data.webinars){
         window._wbData = data.webinars;
         var published = data.webinars.filter(function(w){ return (w.status||'').toLowerCase()==='published'; }).length;
         var el3=document.getElementById('wb-count');
         if(el3) el3.textContent=published;
+        buildFilterButtons(data.webinars);
         renderWebinars(data.webinars, isUnlocked());
       }
     }
