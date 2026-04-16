@@ -50,7 +50,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .sec-label-tag.gold{background:#b8862a}
 .disclaimer{background:#fdf9ed;border-left:3px solid #b8862a;border-radius:0 8px 8px 0;padding:12px 18px;margin-bottom:28px;font-size:0.72rem;color:#6b5a1a;line-height:1.7}
 .disclaimer strong{color:#a07010;font-weight:600}
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .stat{background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:24px 22px;position:relative;overflow:hidden}
 .stat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#e8e4dc}
 .stat.highlight::before{background:#b8862a}
@@ -171,7 +171,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   .section{padding:28px 18px}
   .section-divider{margin:0 18px}
   .stats-row{grid-template-columns:repeat(2,1fr);gap:12px}
-  .stats-row .stat:last-child{grid-column:span 2}
+  .stats-row .stat:last-child{grid-column:span 1}
   .opts-hero-dark{grid-template-columns:1fr 1fr}
   .opts-hero-dark .ohd:last-child{grid-column:span 2;border-top:1px solid rgba(255,255,255,0.06)}
   .opts-hero-dark .ohd:last-child::after{display:none}
@@ -353,16 +353,17 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
     <div class="stat highlight"><div class="stat-label">Total Value</div><div class="stat-val" id="s-val">...</div><div class="stat-meta">Canadian Dollars</div></div>
     <div class="stat highlight"><div class="stat-label">Unrealized P&amp;L</div><div class="stat-val" id="s-pnl">...</div><div class="stat-meta" id="s-pnl-pct">...</div></div>
     <div class="stat"><div class="stat-label">Investing Since</div><div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#b8862a;line-height:1">2017</div><div class="stat-meta" id="years-investing">...</div></div>
+    <div class="stat"><div class="stat-label">Positions Held</div><div class="stat-val" id="s-positions">...</div><div class="stat-meta">Active holdings</div></div>
   </div>
   <div style="margin-top:16px;margin-bottom:12px;font-size:0.82rem;color:#888;line-height:1.75;max-width:640px">Members don&rsquo;t just see results — they see exactly how each position is built, managed, and monetized.</div>
   <div class="disclaimer" style="margin-top:0;margin-bottom:0"><strong>Disclaimer:</strong> Shared for educational &amp; transparency purposes only. Nothing constitutes financial advice. Past performance does not guarantee future results. Always do your own research.</div>
   <div style="margin-top:24px;text-align:center;padding:16px 0 4px">
     <div style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#aaa;font-weight:600;margin-bottom:10px">What&rsquo;s below</div>
-    <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:14px">
-      <span style="font-size:0.75rem;color:#666;display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#b8862a;display:inline-block"></span>Full allocation chart</span>
-      <span style="font-size:0.75rem;color:#666;display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#b8862a;display:inline-block"></span>Every position with returns</span>
-      <span style="font-size:0.75rem;color:#666;display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#1a6b3c;display:inline-block"></span>Monthly options income</span>
-      <span style="font-size:0.75rem;color:#666;display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#1a6b3c;display:inline-block"></span>Year-over-year growth</span>
+    <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+      <span style="font-size:0.7rem;font-weight:600;color:#b8862a;background:rgba(184,134,42,0.1);border:1px solid rgba(184,134,42,0.2);padding:5px 14px;border-radius:100px">&#128200; Portfolio allocation</span>
+      <span style="font-size:0.7rem;font-weight:600;color:#b8862a;background:rgba(184,134,42,0.1);border:1px solid rgba(184,134,42,0.2);padding:5px 14px;border-radius:100px">&#128202; Every position &amp; return</span>
+      <span style="font-size:0.7rem;font-weight:600;color:#b8862a;background:rgba(184,134,42,0.1);border:1px solid rgba(184,134,42,0.2);padding:5px 14px;border-radius:100px">&#128293; Return by position</span>
+      <span style="font-size:0.7rem;font-weight:600;color:#1a6b3c;background:rgba(26,107,60,0.08);border:1px solid rgba(26,107,60,0.2);padding:5px 14px;border-radius:100px">&#128176; Monthly options income</span>
     </div>
     <div style="display:inline-flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;opacity:0.5;animation:bounce 2s infinite" onclick="document.getElementById('pie-section').scrollIntoView({behavior:'smooth'})">
       <span style="font-size:0.68rem;color:#888;letter-spacing:0.1em">SCROLL TO EXPLORE</span>
@@ -474,12 +475,11 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   <div class="sec-label">Options Selling &mdash; Cumulative Premium Collected <span class="sec-label-tag gold">Income Strategy</span></div>
   <div style="font-size:0.82rem;color:#888;line-height:1.8;margin-bottom:20px;padding:14px 0;border-bottom:1px solid #e8e4dc">&#128176; This portfolio doesn&rsquo;t just grow — it generates income. Covered calls produce monthly cash flow, reinvested straight back into the portfolio. This is what separates active portfolio management from passive holding.</div>
   <!-- Monthly income callout -->
-  <div style="display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#1a1a0a,#111009);border:1px solid rgba(212,165,52,0.2);border-radius:14px;padding:18px 24px;margin-bottom:20px">
-    <div style="font-size:1.8rem;flex-shrink:0">&#128176;</div>
-    <div style="flex:1">
-      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#d4a534;line-height:1">~C$<span id="opts-monthly-avg">...</span><span style="font-size:0.8rem;font-weight:400;opacity:0.6">/month</span></div>
-      <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:3px">Average monthly income from covered calls — reinvested straight back into the portfolio</div>
-      <div style="font-size:0.72rem;color:rgba(255,255,255,0.25);font-style:italic;margin-top:6px">This is what separates this portfolio from a passive buy-and-hold strategy.</div>
+  <div style="display:flex;align-items:center;gap:20px;background:linear-gradient(135deg,#1a1a0a,#111009);border:1px solid rgba(212,165,52,0.2);border-radius:14px;padding:20px 28px;margin-bottom:20px">
+    <div style="font-size:2rem;flex-shrink:0">&#128176;</div>
+    <div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#d4a534;line-height:1.1">~C$<span id="opts-monthly-avg">...</span><span style="font-size:0.9rem;font-weight:400;opacity:0.5">/month</span></div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);margin-top:6px">Average monthly income from covered calls &mdash; reinvested straight back into the portfolio</div>
     </div>
   </div>
   <div class="opts-outer">
@@ -999,6 +999,7 @@ function renderPortfolio(positions){
     hookVal.textContent = shortVal;
   }
   document.getElementById('s-val').textContent = fmtC(totMktCAD);
+  var posEl=document.getElementById('s-positions'); if(posEl) posEl.textContent=positions.length;
   const pe = document.getElementById('s-pnl');
   pe.textContent = fmtC(totPnlCAD);
   pe.className = 'stat-val '+(totPnlCAD>=0?'up':'dn');
