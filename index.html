@@ -294,8 +294,9 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   <div class="topbar-nav">
   <a class="nav-btn active" href="index.html">Live Portfolio</a>
   <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="philosophy.html">How I Invest</a>
   <a class="nav-btn" href="webinars.html">Webinars</a>
-  <a class="nav-btn" href="community.html" style="background:rgba(37,211,102,0.12);color:#1a9e50;border-color:rgba(37,211,102,0.25)">Join</a>
+  <a class="nav-btn" href="community.html" style="color:#1a9e50">Join</a>
   <a class="nav-btn" href="links.html">Links</a>
   <a class="nav-btn" href="mediakit.html">Media Kit</a>
 </div>
@@ -309,11 +310,11 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 <nav class="nav-dropdown" id="nav-dropdown">
   <a class="nav-btn active" href="index.html">Live Portfolio</a>
   <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="philosophy.html">How I Invest</a>
   <a class="nav-btn" href="webinars.html">Webinars</a>
   <a class="nav-btn" href="community.html" style="color:#1a9e50">Join</a>
   <a class="nav-btn" href="links.html">Links</a>
   <a class="nav-btn" href="mediakit.html">Media Kit</a>
-  <a class="nav-btn" href="philosophy.html">How I Invest</a>
 </nav>
 
 <!-- UNLOCK MODAL -->
@@ -420,7 +421,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   <div class="unlock-bar" id="unlock-bar" style="display:none">
     <div class="unlock-bar-left">&#128274; <strong>Portfolio data is locked.</strong> &nbsp;Members see full details.</div>
     <div class="unlock-bar-right" style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="unlock-bar-btn" onclick="openModal()">&#128273; Unlock Full Portfolio &mdash; Positions, Entries &amp; Trade History</button>
+      <button class="unlock-bar-btn" onclick="openModal()">&#128273; Unlock Full Portfolio</button>
       <a class="unlock-bar-join" href="community.html">&#128172; Join Community</a>
     </div>
   </div>
@@ -473,15 +474,15 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 
 <!-- OPTIONS -->
 <div class="section section-cream">
-  <div class="sec-label">Options Selling &mdash; Cumulative Premium Collected <span class="sec-label-tag gold">Income Strategy</span></div>
-  <div style="font-size:0.82rem;color:#888;line-height:1.8;margin-bottom:20px;padding:14px 0;border-bottom:1px solid #e8e4dc">&#128176; This portfolio doesn&rsquo;t just grow — it generates income. Covered calls produce monthly cash flow, reinvested straight back into the portfolio. This is what separates active portfolio management from passive holding.</div>
+  <div class="sec-label">Options Income <span class="sec-label-tag gold">Covered Calls</span></div>
+
   <!-- Monthly income callout -->
-  <div style="display:flex;align-items:center;gap:20px;background:linear-gradient(135deg,#1a1a0a,#111009);border:1px solid rgba(212,165,52,0.2);border-radius:14px;padding:20px 28px;margin-bottom:20px">
+  <div style="display:flex;align-items:center;gap:20px;background:linear-gradient(135deg,#1a1a0a,#111009);border:1px solid rgba(212,165,52,0.2);border-radius:14px;padding:20px 28px;margin-bottom:24px">
     <div style="font-size:2rem;flex-shrink:0">&#128176;</div>
-    <div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#d4a534;line-height:1.1">~C$<span id="opts-monthly-avg">...</span><span style="font-size:0.9rem;font-weight:400;opacity:0.5">/month</span></div>
-      <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);margin-top:6px">Average monthly income from covered calls &mdash; reinvested straight back into the portfolio</div>
-      <div style="font-size:0.75rem;color:#d4a534;font-weight:600;margin-top:8px">At this rate: ~C$<span id="opts-annual-proj">...</span>/year generated from the same portfolio</div>
+    <div style="flex:1">
+      <div style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:4px">Monthly Covered Call Income</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#d4a534;line-height:1">~C$<span id="opts-monthly-avg">...</span><span style="font-size:1rem;font-weight:400;opacity:0.5">/mo</span></div>
+      <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);margin-top:5px">At this rate: ~C$<span id="opts-annual-proj">...</span>/year &mdash; reinvested back into the portfolio</div>
     </div>
   </div>
   <div class="opts-outer">
