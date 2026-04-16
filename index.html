@@ -4,7 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Punjabi Finance &mdash; Portfolio</title>
+<title>Live Portfolio &mdash; Punjabi Finance</title>
+<script>const PF_MONTHLY_CODE = "PF-APR-2026";</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -31,6 +32,9 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .nav-dropdown.open{display:flex}
 .nav-dropdown .nav-btn{font-size:0.89rem;padding:12px 14px;border-radius:9px;width:100%;letter-spacing:0.02em}
 .topbar-right-btns{display:none;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.topbar-mobile-btn{display:inline-flex;align-items:center;font-size:0.75rem;font-weight:700;padding:8px 16px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:all .15s}
+.topbar-mobile-btn.join{color:#1a9e50;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25)}
+.topbar-mobile-btn.portfolio{color:#d4a534;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.25)}
 @media(max-width:720px){
   .topbar-nav{display:none}
   .topbar-right-btns{display:flex}
@@ -164,7 +168,9 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 .proj-divider{display:none}
 .footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25);width:100%}
 .footer-bar a{color:rgba(255,255,255,0.4);text-decoration:none}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 @media(max-width:640px){
+  .how-managed-grid{grid-template-columns:1fr!important}
   .how-managed-grid{grid-template-columns:1fr!important}
   @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
   html{font-size:17px}
@@ -212,6 +218,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 .pie-share-btn{display:inline-flex;align-items:center;gap:8px;background:#1a1a1a;color:#fff;border:none;padding:11px 22px;border-radius:9px;font-size:0.83rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
 .pie-share-btn:hover{background:#333}
 .pie-share-hint{font-size:0.67rem;color:#aaa}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 @media(max-width:640px){.pie-wrap{gap:24px}.pie-legend{flex-direction:row;flex-wrap:wrap;gap:10px 20px}.pie-leg-item{min-width:80px}}
 .unlock-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#111009;border:1px solid rgba(212,165,52,0.25);border-radius:10px;padding:10px 16px;margin-bottom:16px;flex-wrap:wrap}
 .unlock-bar-left{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:rgba(255,255,255,0.65)}
@@ -263,7 +270,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 
 
 </style>
-<script>const PF_MONTHLY_CODE = "PF-APR-2026";</script>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W5P90KB7HM"></script>
 <script>
@@ -285,6 +292,14 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   <meta name="twitter:title" content="Punjabi Finance — Live Portfolio Dashboard">
   <meta name="twitter:description" content="Real-time portfolio dashboard showing live holdings, P&L, options income, and allocation. No filters. No hiding. Full transparency.">
   <meta name="twitter:image" content="https://punjabifinance.com/og-community.jpg">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Punjabi Finance">
+  <meta property="og:title" content="Punjabi Finance — Live Portfolio Dashboard">
+  <meta property="og:description" content="Real-time portfolio dashboard. No filters. No hiding. Full transparency.">
+  <meta property="og:image" content="https://punjabifinance.com/og-community.jpg">
+  <meta property="og:url" content="https://punjabifinance.com/index.html">
+  <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 <div class="topbar">
@@ -294,13 +309,14 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   <div class="topbar-nav">
   <a class="nav-btn active" href="index.html">Live Portfolio</a>
   <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="philosophy.html">How I Invest</a>
   <a class="nav-btn" href="webinars.html">Webinars</a>
-  <a class="nav-btn" href="community.html">Community</a>
+  <a class="nav-btn" href="community.html" style="color:#1a9e50">Join</a>
   <a class="nav-btn" href="links.html">Links</a>
   <a class="nav-btn" href="mediakit.html">Media Kit</a>
-</div>
+  </div>
   <div class="topbar-right-btns">
-    <a class="nav-btn nav-btn-webinars" href="community.html">Community</a>
+    <a class="topbar-mobile-btn join" href="community.html">Join</a>
     <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
       <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
     </button>
@@ -309,8 +325,9 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 <nav class="nav-dropdown" id="nav-dropdown">
   <a class="nav-btn active" href="index.html">Live Portfolio</a>
   <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="philosophy.html">How I Invest</a>
   <a class="nav-btn" href="webinars.html">Webinars</a>
-  <a class="nav-btn" href="community.html">Community</a>
+  <a class="nav-btn" href="community.html" style="color:#1a9e50">Join</a>
   <a class="nav-btn" href="links.html">Links</a>
   <a class="nav-btn" href="mediakit.html">Media Kit</a>
 </nav>
@@ -337,9 +354,9 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 <div style="background:#111009;padding:clamp(36px,5vw,56px) 40px;text-align:center;border-bottom:1px solid rgba(212,165,52,0.1);width:100%">
   <div style="max-width:1080px;margin:0 auto">
     <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:14px">Live Portfolio Dashboard</div>
-    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:14px">A Real <span id="hook-val" style="color:#d4a534">...</span> Portfolio —<br>Every Trade Tracked.</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:14px">A Real <span id="hook-val" style="color:#d4a534">...</span> Portfolio &mdash;<br>Every Trade Tracked.</div>
     <div style="font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.8;margin-bottom:10px">Most people talk about investing. Very few show their real portfolio.</div>
-    <div style="font-size:0.78rem;color:rgba(255,255,255,0.3);line-height:1.8">Built over <span id="hook-years">9</span>+ years — through bull and bear markets.</div>
+    <div style="font-size:0.78rem;color:rgba(255,255,255,0.3);line-height:1.8">Built over <span id="hook-years">9</span>+ years &mdash; through bull and bear markets.</div>
   </div>
 </div>
 
@@ -352,17 +369,17 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   <div class="stats-row">
     <div class="stat highlight"><div class="stat-label">Total Value</div><div class="stat-val" id="s-val">...</div><div class="stat-meta">Canadian Dollars</div></div>
     <div class="stat highlight"><div class="stat-label">Unrealized P&amp;L</div><div class="stat-val" id="s-pnl">...</div><div class="stat-meta" id="s-pnl-pct">...</div></div>
-    <div class="stat"><div class="stat-label">Investing Since</div><div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#b8862a;line-height:1">2017</div><div class="stat-meta" id="years-investing">...</div></div>
     <div class="stat"><div class="stat-label">Positions Held</div><div class="stat-val" id="s-positions">...</div><div class="stat-meta">Active holdings</div></div>
+    <div class="stat"><div class="stat-label">Investing Since</div><div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#b8862a;line-height:1">2017</div><div class="stat-meta" id="years-investing">...</div></div>
   </div>
   <div style="margin-top:16px;margin-bottom:12px;font-size:0.82rem;color:#888;line-height:1.75;max-width:640px">Members don&rsquo;t just see results — they see exactly how each position is built, managed, and monetized.</div>
   <div class="disclaimer" style="margin-top:0;margin-bottom:0"><strong>Disclaimer:</strong> Shared for educational &amp; transparency purposes only. Nothing constitutes financial advice. Past performance does not guarantee future results. Always do your own research.</div>
   <div style="margin-top:24px;text-align:center;padding:16px 0 4px">
     <div style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#aaa;font-weight:600;margin-bottom:10px">What&rsquo;s below</div>
     <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:14px">
-      <span style="font-size:0.7rem;font-weight:600;color:#b8862a;background:rgba(184,134,42,0.1);border:1px solid rgba(184,134,42,0.2);padding:5px 14px;border-radius:100px">&#128200; Portfolio allocation</span>
-      <span style="font-size:0.7rem;font-weight:600;color:#b8862a;background:rgba(184,134,42,0.1);border:1px solid rgba(184,134,42,0.2);padding:5px 14px;border-radius:100px">&#128202; Every position &amp; return</span>
-      <span style="font-size:0.7rem;font-weight:600;color:#b8862a;background:rgba(184,134,42,0.1);border:1px solid rgba(184,134,42,0.2);padding:5px 14px;border-radius:100px">&#128293; Return by position</span>
+      <span style="font-size:0.7rem;font-weight:600;color:#1a6b3c;background:rgba(26,107,60,0.08);border:1px solid rgba(26,107,60,0.2);padding:5px 14px;border-radius:100px">&#128200; Portfolio allocation</span>
+      <span style="font-size:0.7rem;font-weight:600;color:#1a6b3c;background:rgba(26,107,60,0.08);border:1px solid rgba(26,107,60,0.2);padding:5px 14px;border-radius:100px">&#128202; Every position &amp; return</span>
+      <span style="font-size:0.7rem;font-weight:600;color:#1a6b3c;background:rgba(26,107,60,0.08);border:1px solid rgba(26,107,60,0.2);padding:5px 14px;border-radius:100px">&#128293; Return by position</span>
       <span style="font-size:0.7rem;font-weight:600;color:#1a6b3c;background:rgba(26,107,60,0.08);border:1px solid rgba(26,107,60,0.2);padding:5px 14px;border-radius:100px">&#128176; Monthly options income</span>
     </div>
     <div style="display:inline-flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;opacity:0.5;animation:bounce 2s infinite" onclick="document.getElementById('pie-section').scrollIntoView({behavior:'smooth'})">
@@ -375,27 +392,28 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 
 <!-- HOW MANAGED -->
 <div class="section section-cream">
-  <div class="sec-label">How This Portfolio Is Actually Managed</div>
-  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:4px" class="how-managed-grid">
-    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px 18px;border-left:3px solid #b8862a">
-      <div style="font-size:0.85rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">&#128269; When I add vs when I wait</div>
-      <div style="font-size:0.75rem;color:#666;line-height:1.75">I only add to a position when the business thesis is intact — not just because a stock is down. Red days without thesis changes = opportunity, not panic.</div>
+  <div class="sec-label">How I Manage This Portfolio</div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:4px" class="how-managed-grid">
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:16px 18px;border-left:3px solid #b8862a">
+      <div style="font-size:0.82rem;font-weight:700;color:#1a1a1a;margin-bottom:3px">&#128269; Adding vs waiting</div>
+      <div style="font-size:0.72rem;color:#888;line-height:1.65">I only add when the business thesis is intact — not just because a stock is down.</div>
     </div>
-    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px 18px;border-left:3px solid #b8862a">
-      <div style="font-size:0.85rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">&#9878; Position sizing</div>
-      <div style="font-size:0.75rem;color:#666;line-height:1.75">Higher conviction = larger position. I don&rsquo;t spread equally — I concentrate in businesses I understand deeply and have held long enough to trust.</div>
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:16px 18px;border-left:3px solid #b8862a">
+      <div style="font-size:0.82rem;font-weight:700;color:#1a1a1a;margin-bottom:3px">&#9878; Position sizing</div>
+      <div style="font-size:0.72rem;color:#888;line-height:1.65">Higher conviction = larger positions. I concentrate, not diversify blindly.</div>
     </div>
-    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px 18px;border-left:3px solid #1a6b3c">
-      <div style="font-size:0.85rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">&#128176; When I sell covered calls</div>
-      <div style="font-size:0.75rem;color:#666;line-height:1.75">I sell calls on positions I&rsquo;m comfortable holding long-term — never on speculative positions. Strike selection is deliberate: I sell far enough out that I don&rsquo;t mind getting called away.</div>
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:16px 18px;border-left:3px solid #1a6b3c">
+      <div style="font-size:0.82rem;font-weight:700;color:#1a1a1a;margin-bottom:3px">&#128176; Covered calls</div>
+      <div style="font-size:0.72rem;color:#888;line-height:1.65">Sold on long-term positions only — with strikes I&rsquo;m comfortable letting go.</div>
     </div>
-    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px 18px;border-left:3px solid #1a6b3c">
-      <div style="font-size:0.85rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">&#128683; How I handle drawdowns</div>
-      <div style="font-size:0.75rem;color:#666;line-height:1.75">I don&rsquo;t sell into fear. If the thesis is intact, a 30–50% drawdown is noise. Every major drawdown in this portfolio has been held through — and recovered. Members see every step in real time.</div>
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:16px 18px;border-left:3px solid #1a6b3c">
+      <div style="font-size:0.82rem;font-weight:700;color:#1a1a1a;margin-bottom:3px">&#128683; Drawdowns</div>
+      <div style="font-size:0.72rem;color:#888;line-height:1.65">If the thesis holds, 30&ndash;50% drops are part of the process — not a reason to panic.</div>
     </div>
   </div>
-  <div style="margin-top:18px;padding:14px 18px;background:#f4f2ee;border-radius:10px;font-size:0.75rem;color:#888;line-height:1.75;border-left:2px solid #b8862a">
-    &#128172; <strong style="color:#1a1a1a">Want to follow this in real time?</strong> Members see every trade, covered call, and decision as it happens. &nbsp;<a href="community.html" style="color:#b8862a;font-weight:600;text-decoration:none">See what&rsquo;s included &rarr;</a> &nbsp;&nbsp; <a href="watchlist.html" style="color:#1a6b3c;font-weight:600;text-decoration:none">See what I&rsquo;m watching next &rarr;</a>
+  <div style="margin-top:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+    <a href="philosophy.html" style="font-size:0.78rem;font-weight:600;color:#b8862a;text-decoration:none;border-bottom:1px solid rgba(184,134,42,0.3);padding-bottom:2px">Read full investing approach &rarr;</a>
+    <a href="watchlist.html" style="font-size:0.75rem;color:#1a6b3c;font-weight:600;text-decoration:none">See what I&rsquo;m watching next &rarr;</a>
   </div>
 </div>
 
@@ -419,7 +437,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   <div class="unlock-bar" id="unlock-bar" style="display:none">
     <div class="unlock-bar-left">&#128274; <strong>Portfolio data is locked.</strong> &nbsp;Members see full details.</div>
     <div class="unlock-bar-right" style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="unlock-bar-btn" onclick="openModal()">&#128273; See Every Position, Cost Basis &amp; Trade History</button>
+      <button class="unlock-bar-btn" onclick="openModal()">&#128273; Unlock Full Portfolio</button>
       <a class="unlock-bar-join" href="community.html">&#128172; Join Community</a>
     </div>
   </div>
@@ -472,14 +490,13 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 
 <!-- OPTIONS -->
 <div class="section section-cream">
-  <div class="sec-label">Options Selling &mdash; Cumulative Premium Collected <span class="sec-label-tag gold">Income Strategy</span></div>
-  <div style="font-size:0.82rem;color:#888;line-height:1.8;margin-bottom:20px;padding:14px 0;border-bottom:1px solid #e8e4dc">&#128176; This portfolio doesn&rsquo;t just grow — it generates income. Covered calls produce monthly cash flow, reinvested straight back into the portfolio. This is what separates active portfolio management from passive holding.</div>
-  <!-- Monthly income callout -->
-  <div style="display:flex;align-items:center;gap:20px;background:linear-gradient(135deg,#1a1a0a,#111009);border:1px solid rgba(212,165,52,0.2);border-radius:14px;padding:20px 28px;margin-bottom:20px">
+  <div class="sec-label">Options Income <span class="sec-label-tag gold">Covered Calls</span></div>
+  <div style="display:flex;align-items:center;gap:20px;background:linear-gradient(135deg,#1a1a0a,#111009);border:1px solid rgba(212,165,52,0.2);border-radius:14px;padding:20px 28px;margin-bottom:24px">
     <div style="font-size:2rem;flex-shrink:0">&#128176;</div>
-    <div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#d4a534;line-height:1.1">~C$<span id="opts-monthly-avg">...</span><span style="font-size:0.9rem;font-weight:400;opacity:0.5">/month</span></div>
-      <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);margin-top:6px">Average monthly income from covered calls &mdash; reinvested straight back into the portfolio</div>
+    <div style="flex:1">
+      <div style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:4px">Monthly Covered Call Income</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#d4a534;line-height:1">~C$<span id="opts-monthly-avg">...</span><span style="font-size:1rem;font-weight:400;opacity:0.5">/mo</span></div>
+      <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);margin-top:5px">At this rate: ~C$<span id="opts-annual-proj">...</span>/year &mdash; reinvested back into the portfolio</div>
     </div>
   </div>
   <div class="opts-outer">
@@ -1146,6 +1163,16 @@ function renderOptions(options){
   };
   mk(byYear[curYear],  'bars-cur');
   mk(byYear[prevYear], 'bars-prev');
+
+  // Tape values
+  setT('tape-total','tape-total2','C$'+Math.round(totalAllCAD).toLocaleString());
+  setT('tape-ytd','tape-ytd2','C$'+Math.round(curYearCAD).toLocaleString());
+  setT('tape-prev','tape-prev2',prevYear?'C$'+Math.round(prevYearCAD).toLocaleString():'C$0');
+  setT('tape-proj','tape-proj2','C$'+Math.round(projected).toLocaleString());
+  setT('tape-avg','tape-avg2','C$'+Math.round(curAvg).toLocaleString());
+
+  // Monthly avg callout
+    var annEl=document.getElementById('opts-annual-proj');if(annEl) annEl.textContent=Math.round(curAvg*12).toLocaleString();
 
   // Projection band
   document.getElementById('proj-num').textContent = 'C$'+Math.round(projected).toLocaleString();
