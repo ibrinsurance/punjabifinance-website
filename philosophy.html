@@ -286,7 +286,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   .features-grid,.steps{grid-template-columns:1fr 1fr}
   .section{padding:44px 28px}
 }
-@media(max-width:640px){.expect-grid{grid-template-columns:1fr!important}.how-invest-cards{grid-template-columns:1fr!important}}
+@media(max-width:640px){.expect-grid{grid-template-columns:1fr!important}.how-invest-cards{grid-template-columns:1fr!important}.phil-grid{grid-template-columns:1fr!important}}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W5P90KB7HM"></script>
@@ -343,7 +343,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(212,165,52,0.1) 0%,transparent 60%);pointer-events:none"></div>
   <div style="position:relative;z-index:2;max-width:680px;margin:0 auto">
     <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.25);padding:6px 18px;border-radius:100px;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:#d4a534;font-weight:700;margin-bottom:22px">&#128269; How I Invest</div>
-    <div style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-0.02em">How I<br><em style="color:#d4a534;font-style:normal">Invest</em></div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-0.02em">How I <em style="color:#d4a534;font-style:normal">Invest</em></div>
     <div style="font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.85;max-width:520px;margin:0 auto">Not a strategy to copy. Not financial advice. Just a transparent look at how one real investor thinks — so you can decide if it resonates.</div>
   </div>
 </div>
@@ -360,72 +360,70 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     <span style="background:#fff;border:1px solid #e8e4dc;border-radius:100px;padding:7px 18px;font-size:0.75rem;font-weight:600;color:#1a1a1a">✔ Actively managed — not passive</span>
   </div>
 
-  <!-- Section 1: Philosophy -->
-  <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:6px">01 — Philosophy</div>
-  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:6px">Long-term mindset — not a fixed timeline</div>
-  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:12px">Every position I take is with a long-term mindset — ideally 5–10+ years. But long-term mindset &ne; guaranteed holding period.</div>
-  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:32px">If the thesis changes, valuation stretches, or better opportunities arise, I may exit earlier. That&rsquo;s part of actively managing a real portfolio — not a passive index fund.</div>
+  <!-- Section 1: Philosophy cards -->
+  <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:16px">01 — Philosophy</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:36px" class="phil-grid">
 
-  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:6px">A dip isn&rsquo;t a reason to buy — the business is</div>
-  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:12px">I don&rsquo;t buy stocks just because they&rsquo;re down. A stock can fall 30% and still be a bad buy. I focus on:</div>
-  <ul style="font-size:0.85rem;color:#555;line-height:2;margin-bottom:12px;padding-left:20px">
-    <li>Revenue and user growth trajectory</li>
-    <li>Expansion potential and TAM</li>
-    <li>Path to profitability</li>
-    <li>Long-term narrative and competitive position</li>
-  </ul>
-  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:32px">Price follows business execution over time.</div>
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:22px 20px;border-top:3px solid #b8862a">
+      <div style="font-size:1.3rem;margin-bottom:10px">🕐</div>
+      <div style="font-size:0.88rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">Long-term mindset — not a fixed timeline</div>
+      <div style="font-size:0.76rem;color:#666;line-height:1.8">Ideally 5–10+ years. But long-term mindset ≠ guaranteed holding period. If the thesis changes, valuation stretches, or better opportunities arise, I may exit earlier. That&rsquo;s part of actively managing a real portfolio.</div>
+    </div>
 
-  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:6px">Options income compounds returns</div>
-  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:32px">I sell covered calls on my positions to generate income. That income is reinvested back into the portfolio — helping reduce cost basis and accelerate compounding. It&rsquo;s not a separate strategy — it&rsquo;s an extension of long-term holding.</div>
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:22px 20px;border-top:3px solid #b8862a">
+      <div style="font-size:1.3rem;margin-bottom:10px">🔍</div>
+      <div style="font-size:0.88rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">A dip isn&rsquo;t a reason to buy — the business is</div>
+      <div style="font-size:0.76rem;color:#666;line-height:1.8">I focus on revenue and user growth, expansion potential, path to profitability, and long-term narrative. Price follows business execution over time — not short-term price action.</div>
+    </div>
 
-  <div style="height:1px;background:#e8e4dc;margin:8px 0 36px"></div>
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:22px 20px;border-top:3px solid #1a6b3c">
+      <div style="font-size:1.3rem;margin-bottom:10px">💰</div>
+      <div style="font-size:0.88rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">Options income compounds returns</div>
+      <div style="font-size:0.76rem;color:#666;line-height:1.8">I sell covered calls to generate income, reinvested back into the portfolio. Reduces cost basis, accelerates compounding — an extension of long-term holding, not a separate strategy.</div>
+    </div>
 
-  <!-- Section 2: Reality -->
-  <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:6px">02 — Reality</div>
-  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:6px">Not every position works</div>
-  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:12px">I&rsquo;m not right 100% of the time — and I don&rsquo;t try to be. Some positions underperform, some theses break, and I may exit well before my original timeline.</div>
-  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:32px">I share those decisions transparently — including the reasoning behind exits and mistakes. I only need a few positions to work really well over time for the portfolio to compound meaningfully.</div>
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:22px 20px;border-top:3px solid #1a6b3c">
+      <div style="font-size:1.3rem;margin-bottom:10px">😐</div>
+      <div style="font-size:0.88rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">Red months don&rsquo;t change the plan</div>
+      <div style="font-size:0.76rem;color:#666;line-height:1.8">I&rsquo;ve held through multiple 30–50% drawdowns. I post more during red markets, not less. This isn&rsquo;t about showing green months — it&rsquo;s about showing the full process.</div>
+    </div>
 
-  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:6px">Red months are part of the process</div>
-  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:32px">I&rsquo;ve held through multiple 30–50% drawdowns. I post more during red markets, not less. If you&rsquo;re joining to watch green numbers every month — this isn&rsquo;t the right community. If you want to understand how a real investor thinks during volatility — this is exactly what I show.</div>
+  </div>
 
-  <div style="height:1px;background:#e8e4dc;margin:8px 0 36px"></div>
+  <!-- Section 2: Reality cards -->
+  <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:16px">02 — Reality</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:36px" class="phil-grid">
+
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:22px 20px;border-top:3px solid #888">
+      <div style="font-size:1.3rem;margin-bottom:10px">⚖️</div>
+      <div style="font-size:0.88rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">Not every position works</div>
+      <div style="font-size:0.76rem;color:#666;line-height:1.8">I&rsquo;m not right 100% of the time. Some theses break, some positions underperform, and I may exit early. I share those decisions transparently — with full reasoning. I only need a few to work really well.</div>
+    </div>
+
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:22px 20px;border-top:3px solid #888">
+      <div style="font-size:1.3rem;margin-bottom:10px">⚠️</div>
+      <div style="font-size:0.88rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">Results will differ</div>
+      <div style="font-size:0.76rem;color:#666;line-height:1.8">Members may not enter or exit at the same prices or times as me. Every member makes their own independent decisions. Nothing shared should be interpreted as instructions to act.</div>
+    </div>
+
+  </div>
 
   <!-- Section 3: Research -->
-  <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:6px">03 — Research Process</div>
-  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:6px">How ideas are formed</div>
-  <div style="font-size:0.85rem;color:#555;line-height:1.85;margin-bottom:32px">I study multiple sources when researching ideas — including investor commentary, earnings calls, and industry insights. Ideas can come from anywhere. Conviction, position sizing, and execution are built independently — I don&rsquo;t follow anyone else&rsquo;s trades.</div>
-
-  <div style="height:1px;background:#e8e4dc;margin:8px 0 36px"></div>
-
-  <!-- Section 4: Expectations -->
-  <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:6px">04 — Expectations</div>
-  <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:16px">What this community is — and isn&rsquo;t</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px" class="expect-grid">
-    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:18px 16px">
-      <div style="font-size:0.75rem;font-weight:700;color:#1a6b3c;margin-bottom:8px">✔ What it is</div>
-      <ul style="font-size:0.78rem;color:#555;line-height:2;padding-left:16px;margin:0">
-        <li>Transparency into a real portfolio</li>
-        <li>Real-time trade updates with reasoning</li>
-        <li>Options income strategy in practice</li>
-        <li>Honest posts during drawdowns</li>
-        <li>Research process — before I buy</li>
-      </ul>
-    </div>
-    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:18px 16px">
-      <div style="font-size:0.75rem;font-weight:700;color:#c0392b;margin-bottom:8px">✗ What it isn&rsquo;t</div>
-      <ul style="font-size:0.78rem;color:#555;line-height:2;padding-left:16px;margin:0">
-        <li>Buy/sell signals to copy</li>
-        <li>Guaranteed returns or performance</li>
-        <li>Financial advice of any kind</li>
-        <li>A trading alert service</li>
-        <li>A get-rich-quick community</li>
-      </ul>
+  <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:16px">03 — Research Process</div>
+  <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:24px 22px;margin-bottom:36px;display:flex;gap:16px;align-items:flex-start">
+    <div style="font-size:1.5rem;flex-shrink:0">🔎</div>
+    <div>
+      <div style="font-size:0.88rem;font-weight:700;color:#1a1a1a;margin-bottom:6px">How ideas are formed</div>
+      <div style="font-size:0.76rem;color:#666;line-height:1.8">I study multiple sources — investor commentary, earnings calls, and industry insights. Ideas can come from anywhere. Conviction, position sizing, and execution are built independently. I don&rsquo;t follow anyone else&rsquo;s trades.</div>
     </div>
   </div>
 
-  <!-- Closing -->
+  <!-- Compliance note -->
+  <div style="background:#f4f2ee;border:1px solid #e8e4dc;border-radius:12px;padding:18px 20px;margin-bottom:32px;font-size:0.72rem;color:#888;line-height:1.8">
+    <strong style="color:#1a1a1a">Important:</strong> Investing involves risk, including the potential loss of capital. Past performance does not guarantee future results. Nothing shared here is financial advice or a recommendation to buy or sell any securities.
+  </div>
+
+    <!-- Closing -->
   <div style="background:#111009;border-radius:16px;padding:32px 28px;text-align:center">
     <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:10px">If this resonates — join the community</div>
     <div style="font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.75;margin-bottom:24px;max-width:440px;margin-left:auto;margin-right:auto">You&rsquo;re not joining for tips. You&rsquo;re getting access to how one real investor thinks, acts, and manages a real portfolio — in real time.</div>
