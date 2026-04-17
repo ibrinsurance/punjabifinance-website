@@ -613,16 +613,14 @@ localStorage.removeItem('pf_unlock_expiry');
 localStorage.removeItem('pf_unlock_ver');
 
 function isUnlocked(){
-  // If the code has changed since they last unlocked, force re-lock
-  if(localStorage.getItem(LOCK_VER) !== MONTHLY_CODE){ clearUnlock(); return false; }
+  if(localStorage.getItem(LOCK_VER) !== MONTHLY_CODE.toUpperCase()){ clearUnlock(); return false; }
   const expiry = localStorage.getItem(LOCK_EXPIRY);
   if(!expiry) return false;
   if(Date.now() > parseInt(expiry)){ clearUnlock(); return false; }
   return localStorage.getItem(LOCK_KEY) === '1';
 }
 function setUnlocked(){
-  const now = new Date();
-  const expiry = Date.now() + 7*24*60*60*1000; // 7 days
+  const expiry = Date.now() + 7*24*60*60*1000;
   localStorage.setItem(LOCK_KEY, '1');
   localStorage.setItem(LOCK_EXPIRY, expiry);
   localStorage.setItem(LOCK_VER, MONTHLY_CODE.toUpperCase());
@@ -646,9 +644,7 @@ function tryUnlockModal(){
   if(val === MONTHLY_CODE.toUpperCase()){
     setUnlocked();
     closeModal();
-    document.getElementById('lock-gate-section').style.display = unlocked ? 'none' : 'block';
-    document.getElementById('lock-gate-divider').style.display = 'none';
-    document.getElementById('unlock-bar').style.display = 'none';
+    applyLockState();
     if(lastPositions.length) renderPortfolio(lastPositions);
   } else {
     document.getElementById('modal-error').textContent = 'Incorrect code. Get the code inside the WhatsApp community.';
@@ -658,9 +654,7 @@ function tryUnlock(){
   const val = (document.getElementById('lock-code-input').value||'').trim().toUpperCase();
   if(val === MONTHLY_CODE.toUpperCase()){
     setUnlocked();
-    document.getElementById('lock-gate-section').style.display = unlocked ? 'none' : 'block';
-    document.getElementById('lock-gate-divider').style.display = 'none';
-    document.getElementById('unlock-bar').style.display = 'none';
+    applyLockState();
     if(lastPositions.length) renderPortfolio(lastPositions);
   } else {
     document.getElementById('lock-error').textContent = 'Incorrect code. Get the code inside the WhatsApp community.';
