@@ -459,8 +459,8 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
     </div>
   </div>
   <div style="font-size:0.78rem;color:#888;margin-bottom:14px">Full breakdown of every position — including allocation, cost basis, and performance.</div>
-  <!-- Sort & Filter Controls -->
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center">
+  <!-- Sort & Filter Controls — only shown when unlocked -->
+  <div id="sort-controls" style="display:none;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center">
     <span style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#9a9a9a;font-weight:600">Sort by:</span>
     <button class="filter-btn" onclick="setSort('mktCAD')">Market Value</button>
     <button class="filter-btn" onclick="setSort('plCAD')">P&amp;L $</button>
@@ -682,9 +682,11 @@ function applyLockState(){
   const lg = document.getElementById('lock-gate-section');
   const lgd = document.getElementById('lock-gate-divider');
   const ub = document.getElementById('unlock-bar');
+  const sc = document.getElementById('sort-controls');
   if(lg) lg.style.display = unlocked ? 'none' : 'block';
   if(lgd) lgd.style.display = unlocked ? 'none' : 'block';
   if(ub) ub.style.display = unlocked ? 'none' : 'flex';
+  if(sc) sc.style.display = unlocked ? 'flex' : 'none';
   document.querySelectorAll('.lockable').forEach(el=>{
     el.classList.toggle('locked', !unlocked);
   });
