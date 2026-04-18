@@ -210,6 +210,10 @@ html,body{overflow-x:hidden;max-width:100%}
 .band .lk:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15)}
 .band-2 .lk.feat-wa{background:rgba(37,211,102,0.1);border-color:rgba(37,211,102,0.2)}
 .band-1 .lk.feat-port{background:rgba(212,165,52,0.08);border-color:rgba(212,165,52,0.18)}
+
+@media(max-width:360px){
+  .topbar-mobile-btn{display:none!important}
+}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W5P90KB7HM"></script>
@@ -236,6 +240,7 @@ html,body{overflow-x:hidden;max-width:100%}
   <a class="nav-btn" href="mediakit.html">Media Kit</a>
 </div>
   <div class="topbar-right-btns">
+    <a class="topbar-mobile-btn portfolio" href="index.html">Portfolio</a>
     <a class="topbar-mobile-btn join" href="community.html">Join</a>
     <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
       <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
