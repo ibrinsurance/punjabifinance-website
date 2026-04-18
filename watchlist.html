@@ -494,11 +494,18 @@ function renderWatchlist(watchlist, positions){
   const grid = document.getElementById('wl-grid');
   if(!grid) return;
 
+  // Sort newest first by added date
+  const sorted = [...watchlist].sort((a, b) => {
+    const da = a.added ? new Date(a.added) : new Date(0);
+    const db = b.added ? new Date(b.added) : new Date(0);
+    return db - da;
+  });
+
   // Build price lookup from positions
   const priceMap = {};
   (positions||[]).forEach(p => { priceMap[p.ticker] = p; });
 
-  grid.innerHTML = watchlist.map(w => {
+  grid.innerHTML = sorted.map(w => {
     const pos = priceMap[w.ticker];
     const sc = stageClass(w.stage);
     const bc = sc + '-bar';
