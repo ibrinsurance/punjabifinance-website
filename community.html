@@ -652,6 +652,24 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 </div>
 
 <script>
+const LOCK_KEY    = 'pf_unlocked_v2';
+const EXPIRY_KEY  = 'pf_unlock_expiry_v2';
+const EXPIRY_DAYS = 30;
+function isUnlocked(){
+  try{
+    if(localStorage.getItem(LOCK_KEY)!=='true') return false;
+    var exp=parseInt(localStorage.getItem(EXPIRY_KEY)||'0');
+    if(Date.now()>exp){ localStorage.removeItem(LOCK_KEY); return false; }
+    return true;
+  }catch(e){ return false; }
+}
+function setUnlocked(){
+  try{
+    localStorage.setItem(LOCK_KEY,'true');
+    localStorage.setItem(EXPIRY_KEY, String(Date.now()+EXPIRY_DAYS*24*60*60*1000));
+  }catch(e){}
+}
+
 function toggleMenu(){
   document.getElementById('ham-btn').classList.toggle('open');
   document.getElementById('nav-dropdown').classList.toggle('open');
@@ -706,12 +724,7 @@ function galleryScroll(dir){
       if(Math.abs(n)>=1000) return 'C$'+Math.round(n/1000)+'K';
       return 'C$'+Math.round(n);
     }
-    function isUnlocked(){
-      try{
-        if(localStorage.getItem('pf_unlocked_v2')!=='true') return false;
-        const exp=parseInt(localStorage.getItem('pf_unlock_expiry_v2')||'0');
-        return Date.now()<exp;
-      }catch(e){ return false; }
+    catch(e){ return false; }
     }
 
     // ── Member count ──

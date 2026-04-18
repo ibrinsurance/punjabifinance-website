@@ -621,32 +621,39 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 })();
 // Password is pulled from Google Sheet cell L3 (Portfolio tab)
 // Update it there each month — no code changes needed
-let MONTHLY_CODE = PF_MONTHLY_CODE; // fallback until sheet loads
-const LOCK_KEY     = 'pf_unlocked_v2';
-const LOCK_EXPIRY  = 'pf_unlock_expiry_v2';
-const LOCK_VER     = 'pf_unlock_ver_v2';
-localStorage.removeItem('pf_unlocked');
-localStorage.removeItem('pf_unlock_expiry');
-localStorage.removeItem('pf_unlock_ver');
-
+const LOCK_KEY    = 'pf_unlocked_v2';
+const EXPIRY_KEY  = 'pf_unlock_expiry_v2';
+const EXPIRY_DAYS = 30;
 function isUnlocked(){
-  if(localStorage.getItem(LOCK_VER) !== MONTHLY_CODE.toUpperCase()){ clearUnlock(); return false; }
+  try{
+    if(localStorage.getItem(LOCK_KEY)!=='true') return false;
+    var exp=parseInt(localStorage.getItem(EXPIRY_KEY)||'0');
+    if(Date.now()>exp){ localStorage.removeItem(LOCK_KEY); return false; }
+    return true;
+  }catch(e){ return false; }
+}
+function setUnlocked(){
+  try{
+    localStorage.setItem(LOCK_KEY,'true');
+    localStorage.setItem(EXPIRY_KEY, String(Date.now()+EXPIRY_DAYS*24*60*60*1000));
+  }catch(e){}
+}
+function clearUnlock(){
+  try{
+    localStorage.removeItem(LOCK_KEY);
+    localStorage.removeItem(EXPIRY_KEY);
+  }catch(e){}
+}
+
+let MONTHLY_CODE = PF_MONTHLY_CODE; // fallback until sheet loads
+
   const expiry = localStorage.getItem(LOCK_EXPIRY);
   if(!expiry) return false;
   if(Date.now() > parseInt(expiry)){ clearUnlock(); return false; }
   return localStorage.getItem(LOCK_KEY) === '1';
 }
-function setUnlocked(){
-  const expiry = Date.now() + 7*24*60*60*1000;
-  localStorage.setItem(LOCK_KEY, '1');
-  localStorage.setItem(LOCK_EXPIRY, expiry);
-  localStorage.setItem(LOCK_VER, MONTHLY_CODE.toUpperCase());
-}
-function clearUnlock(){
-  localStorage.removeItem(LOCK_KEY);
-  localStorage.removeItem(LOCK_EXPIRY);
-  localStorage.removeItem(LOCK_VER);
-}
+
+
 function openModal(){
   document.getElementById('unlock-modal').classList.add('open');
   document.getElementById('modal-error').textContent = '';

@@ -396,30 +396,38 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 // Same localStorage keys as index.html — unlock once, works on both pages
 const SHEET_URL   = 'https://script.google.com/macros/s/AKfycbzdFEAIQYN6jhhUMXpRHIz-xSsBdUzteRgmdTKy7AqQX7716uHSlkSnmwifhmVmeAeD0w/exec';
 const LOCK_KEY    = 'pf_unlocked_v2';
-const LOCK_EXPIRY = 'pf_unlock_expiry_v2';
-const LOCK_VER    = 'pf_unlock_ver_v2';
+const EXPIRY_KEY  = 'pf_unlock_expiry_v2';
+const EXPIRY_DAYS = 30;
+function isUnlocked(){
+  try{
+    if(localStorage.getItem(LOCK_KEY)!=='true') return false;
+    var exp=parseInt(localStorage.getItem(EXPIRY_KEY)||'0');
+    if(Date.now()>exp){ localStorage.removeItem(LOCK_KEY); return false; }
+    return true;
+  }catch(e){ return false; }
+}
+function setUnlocked(){
+  try{
+    localStorage.setItem(LOCK_KEY,'true');
+    localStorage.setItem(EXPIRY_KEY, String(Date.now()+EXPIRY_DAYS*24*60*60*1000));
+  }catch(e){}
+}
+function clearUnlock(){
+  try{
+    localStorage.removeItem(LOCK_KEY);
+    localStorage.removeItem(EXPIRY_KEY);
+  }catch(e){}
+}
 
 let MONTHLY_CODE = PF_MONTHLY_CODE; // updated from sheet
 
-function isUnlocked(){
-  const exp = localStorage.getItem(LOCK_EXPIRY);
-  if(!exp || Date.now() > parseInt(exp)){ clearUnlock(); return false; }
+
   if(localStorage.getItem(LOCK_KEY) !== '1') return false;
   // Case-insensitive compare so index unlock (uppercase) matches here
-  const stored = (localStorage.getItem(LOCK_VER)||'').toUpperCase();
-  return stored === MONTHLY_CODE.toUpperCase();
+  const stored = (  return stored === MONTHLY_CODE.toUpperCase();
 }
-function setUnlocked(){
-  const exp = Date.now() + 7*24*60*60*1000;
-  localStorage.setItem(LOCK_KEY, '1');
-  localStorage.setItem(LOCK_EXPIRY, String(exp));
-  localStorage.setItem(LOCK_VER, MONTHLY_CODE.toUpperCase());
-}
-function clearUnlock(){
-  localStorage.removeItem(LOCK_KEY);
-  localStorage.removeItem(LOCK_EXPIRY);
-  localStorage.removeItem(LOCK_VER);
-}
+
+
 function openModal(){
   document.getElementById('wb-modal').classList.add('open');
   setTimeout(()=>document.getElementById('modal-code-input').focus(),100);
