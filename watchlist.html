@@ -439,14 +439,6 @@ let allData = null;
 
 // ── UNLOCK ──
 
-    const ver = localStorage.getItem(VER_KEY)||'';
-    return ver === MONTHLY_CODE;
-  }catch(e){ return false; }
-}
-
-catch(e){}
-}
-
 function openWlModal(){
   document.getElementById('wl-modal').classList.add('open');
   setTimeout(()=>document.getElementById('wl-code-input').focus(),100);

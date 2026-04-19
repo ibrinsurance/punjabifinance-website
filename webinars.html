@@ -422,10 +422,6 @@ function clearUnlock(){
 let MONTHLY_CODE = PF_MONTHLY_CODE; // updated from sheet
 
 
-  if(localStorage.getItem(LOCK_KEY) !== '1') return false;
-  // Case-insensitive compare so index unlock (uppercase) matches here
-  const stored = (  return stored === MONTHLY_CODE.toUpperCase();
-}
 
 
 function openModal(){
