@@ -647,11 +647,6 @@ function clearUnlock(){
 
 let MONTHLY_CODE = PF_MONTHLY_CODE; // fallback until sheet loads
 
-  const expiry = localStorage.getItem(LOCK_EXPIRY);
-  if(!expiry) return false;
-  if(Date.now() > parseInt(expiry)){ clearUnlock(); return false; }
-  return localStorage.getItem(LOCK_KEY) === '1';
-}
 
 
 function openModal(){
