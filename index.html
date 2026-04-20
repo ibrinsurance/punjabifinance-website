@@ -464,8 +464,8 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
     <span style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#9a9a9a;font-weight:600">Sort by:</span>
     <button class="filter-btn" onclick="setSort('mktCAD')">Market Value</button>
     <button class="filter-btn" onclick="setSort('plCAD')">P&amp;L $</button>
-    <button class="filter-btn active" onclick="setSort('plPct')">P&amp;L %</button>
-    <button class="filter-btn" onclick="setSort('allocPct')">Allocation</button>
+    <button class="filter-btn" onclick="setSort('plPct')">P&amp;L %</button>
+    <button class="filter-btn active" onclick="setSort('allocPct')">Allocation</button>
     <button class="filter-btn" onclick="setSort('ticker')">Ticker A-Z</button>
   </div>
   <div class="table-wrap"><div class="tscroll">
@@ -994,7 +994,7 @@ function roundRect(ctx,x,y,w,h,r){
   ctx.quadraticCurveTo(x,y+h,x,y+h-r); ctx.lineTo(x,y+r);
   ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath();
 }
-let currentSort = 'plPct';
+let currentSort = 'allocPct';
 let lastPositions = [];
 
 function setSort(field){
