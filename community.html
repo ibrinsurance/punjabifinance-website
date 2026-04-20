@@ -332,6 +332,10 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 @media(max-width:360px){
   .topbar-mobile-btn{display:none!important}
 }
+@media(max-width:640px){
+  .testimonial-grid{grid-template-columns:1fr!important}
+  .testimonial-grid-2{grid-template-columns:1fr!important;max-width:100%!important}
+}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W5P90KB7HM"></script>
@@ -510,6 +514,79 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 
 </div>
 </div>
+<div class="sec-divider"></div>
+
+<!-- TESTIMONIALS -->
+<div style="background:#0d0b04;padding:clamp(36px,5vw,56px) 40px">
+<div style="max-width:900px;margin:0 auto">
+
+  <div style="text-align:center;margin-bottom:28px">
+    <div style="font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:8px">What Members Are Saying</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:800;color:#fff">Real feedback from inside the community</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px" class="testimonial-grid">
+
+    <!-- Card 1: Results -->
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(26,107,60,0.12);border:1px solid rgba(26,107,60,0.2);border-radius:100px;padding:4px 12px;width:fit-content">
+        <span style="font-size:0.65rem;color:#4caf7d;font-weight:700">📈 Results</span>
+      </div>
+      <div style="background:#111009;border:1px solid rgba(255,255,255,0.06);border-radius:14px;overflow:hidden">
+        <img src="Screenshots/memberphoto1.jpg" alt="Member result" style="width:100%;display:block;border-radius:14px">
+      </div>
+    </div>
+
+    <!-- Card 2: Community experience -->
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.2);border-radius:100px;padding:4px 12px;width:fit-content">
+        <span style="font-size:0.65rem;color:#d4a534;font-weight:700">💬 Community experience</span>
+      </div>
+      <div style="background:#111009;border:1px solid rgba(255,255,255,0.06);border-radius:14px;overflow:hidden">
+        <img src="Screenshots/memberphoto2.jpg" alt="Community feedback" style="width:100%;display:block;border-radius:14px">
+      </div>
+    </div>
+
+    <!-- Card 3: Learning & mindset -->
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,127,193,0.12);border:1px solid rgba(74,127,193,0.2);border-radius:100px;padding:4px 12px;width:fit-content">
+        <span style="font-size:0.65rem;color:#6aa3d5;font-weight:700">🧠 Learning & mindset</span>
+      </div>
+      <div style="background:#111009;border:1px solid rgba(255,255,255,0.06);border-radius:14px;overflow:hidden">
+        <img src="Screenshots/memberphoto3.jpg" alt="Learning mindset" style="width:100%;display:block;border-radius:14px">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Row 2: remaining 2 photos centered -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;max-width:620px;margin-left:auto;margin-right:auto" class="testimonial-grid-2">
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.2);border-radius:100px;padding:4px 12px;width:fit-content">
+        <span style="font-size:0.65rem;color:#d4a534;font-weight:700">💬 Community experience</span>
+      </div>
+      <div style="background:#111009;border:1px solid rgba(255,255,255,0.06);border-radius:14px;overflow:hidden">
+        <img src="Screenshots/memberphoto4.jpg" alt="Community experience" style="width:100%;display:block;border-radius:14px">
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,127,193,0.12);border:1px solid rgba(74,127,193,0.2);border-radius:100px;padding:4px 12px;width:fit-content">
+        <span style="font-size:0.65rem;color:#6aa3d5;font-weight:700">🧠 Learning & mindset</span>
+      </div>
+      <div style="background:#111009;border:1px solid rgba(255,255,255,0.06);border-radius:14px;overflow:hidden">
+        <img src="Screenshots/memberphoto5.jpg" alt="Learning mindset" style="width:100%;display:block;border-radius:14px">
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:22px;font-size:0.7rem;color:rgba(255,255,255,0.2);font-style:italic">Real messages from community members. Names redacted for privacy.</div>
+
+</div>
+</div>
+
 <div class="sec-divider"></div>
 
 <!-- HOW I INVEST — SHORT VERSION -->
