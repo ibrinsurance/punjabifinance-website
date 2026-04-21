@@ -1054,6 +1054,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
               <th>CESG Grant</th>
               <th>Year Total</th>
               <th>Balance (End of Year)</th>
+              <th style="color:#b8862a">Growth (Cumulative)</th>
             </tr>
           </thead>
           <tbody id="resp-table-body"></tbody>
@@ -1822,6 +1823,7 @@ function calcRESP(){
     cumInvested += contrib + grant;
     cumLifeContrib += contrib;
 
+    const cumGrowth = bal - cumContrib - cumGrants;
     finalRows.push({
       yr: row.yr,
       age: row.childAgeThisYear,
@@ -1831,6 +1833,7 @@ function calcRESP(){
       endBal: bal,
       cumContrib: cumContrib,
       cumGrants: cumGrants,
+      cumGrowth: cumGrowth,
     });
   }
 
@@ -1917,6 +1920,7 @@ function calcRESP(){
       <td class="${row.grant > 0 ? 'td-grant' : 'no-grant'}">${row.grant > 0 ? '+'+respFmtFull(row.grant) : '—'}</td>
       <td class="td-total">${respFmtFull(row.yearTotal)}</td>
       <td class="td-balance">${respFmtFull(row.endBal)}</td>
+      <td style="color:#b8862a;font-weight:600">${row.cumGrowth > 0 ? '+'+respFmtFull(row.cumGrowth) : '—'}</td>
     </tr>
   `).join('');
 
