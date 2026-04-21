@@ -84,7 +84,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .calc-tab.active{color:#d4a534;border-bottom-color:#d4a534}
 
 /* ── MAIN CALC AREA ── */
-.calc-area{max-width:960px;margin:0 auto;padding:clamp(32px,4vw,52px) 40px;overflow:hidden;background:#f4f2ee}
+.calc-area{max-width:960px;margin:0 auto;padding:clamp(32px,4vw,52px) 40px;background:#f4f2ee}
 
 /* ── PANELS ── */
 .calc-panel{display:none}
@@ -94,6 +94,8 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 
 /* ── TWO-COL LAYOUT ── */
 .calc-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.two-col{display:grid;grid-template-columns:360px 1fr;gap:20px;align-items:start}
+.two-col>*{min-width:0}
 
 /* ── INPUTS ── */
 .input-group{margin-bottom:20px}
@@ -132,8 +134,8 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .result-bar-text{font-size:0.63rem;color:rgba(255,255,255,0.45);text-align:right;white-space:nowrap}
 
 /* ── CTA ── */
-.calc-cta{background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px 22px;margin-top:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.calc-cta-text{font-size:0.8rem;color:#555;line-height:1.6;max-width:400px}
+.calc-cta{background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:28px 32px;margin-top:24px;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;text-align:center}
+.calc-cta-text{font-size:0.8rem;color:#555;line-height:1.6;max-width:400px;text-align:center}
 .calc-cta-text strong{color:#1a1a1a;display:block;margin-bottom:2px}
 .calc-cta-btn{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#052a10;padding:11px 22px;border-radius:9px;font-weight:700;font-size:0.78rem;text-decoration:none;white-space:nowrap;flex-shrink:0}
 
@@ -155,7 +157,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   .calc-tabs-wrap{padding:0}
   .hero{padding:32px 16px 22px}
   .hero-sub{font-size:0.8rem}
-  .calc-cta{flex-direction:column;align-items:flex-start}
+  .calc-cta{flex-direction:column;align-items:center}
   .calc-tab{padding:13px 14px;font-size:0.6rem}
   .result-val{font-size:1.25rem}
   .panel-title{font-size:1.05rem}
@@ -165,6 +167,132 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   .input-label{font-size:0.58rem}
   .input-val{font-size:0.75rem}
 }
+
+.input-panel{background:#fff;border:1px solid #e8e4dc;border-radius:18px;overflow:hidden}
+.input-panel-head{background:#111009;padding:20px 24px;border-bottom:1px solid rgba(212,165,52,0.12)}
+.input-panel-title{font-size:0.72rem;font-weight:700;color:#d4a534;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px}
+.input-panel-sub{font-size:0.72rem;color:rgba(255,255,255,0.35)}
+.input-panel-body{padding:24px}
+.field{margin-bottom:20px}
+.field-label{font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:#888;font-weight:600;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.field-hint{font-size:0.6rem;color:#b8862a;font-weight:600;white-space:nowrap}
+.field-input{width:100%;padding:11px 14px;border:1.5px solid #e8e4dc;border-radius:10px;font-size:0.88rem;font-family:'DM Sans',sans-serif;background:#fafaf8;color:#1a1a1a;outline:none;transition:border-color .15s}
+.field-input:focus{border-color:#b8862a;background:#fff}
+.field-input-wrap{position:relative}
+.field-prefix{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:0.85rem;color:#888;pointer-events:none}
+.field-input.has-prefix{padding-left:28px}
+.field-input.has-suffix{padding-right:32px}
+.field-suffix{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:0.85rem;color:#888;pointer-events:none}
+.field-range{width:100%;margin-top:8px;accent-color:#b8862a;cursor:pointer}
+.field-note{font-size:0.65rem;color:#bbb;margin-top:5px;line-height:1.5}
+.section-divider{height:1px;background:#f0ede8;margin:8px 0 20px}
+.section-label{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:14px}
+
+/* ── UPFRONT TOGGLE ── */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#f9f7f3;border-radius:10px;margin-bottom:16px;cursor:pointer;border:1.5px solid #e8e4dc;transition:border-color .15s}
+.toggle-row:hover{border-color:#b8862a}
+.toggle-label{font-size:0.78rem;font-weight:600;color:#1a1a1a}
+.toggle-sub{font-size:0.65rem;color:#aaa;margin-top:1px}
+.toggle-switch{width:38px;height:22px;background:#ddd;border-radius:100px;position:relative;transition:background .2s;flex-shrink:0}
+.toggle-switch.on{background:#b8862a}
+.toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.toggle-switch.on::after{transform:translateX(16px)}
+.upfront-field{display:none}
+.upfront-field.visible{display:block}
+
+/* ── RESULT PANEL ── */
+.result-panel{display:flex;flex-direction:column;gap:20px;min-width:0;width:100%}
+.result-summary{background:#111009;border-radius:18px;overflow:hidden;position:relative;min-width:0;width:100%}
+.result-summary::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#b8862a,#d4a534)}
+.result-head{padding:22px 24px 0}
+.result-eyebrow{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:14px}
+.result-big{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);min-width:0}
+.result-big-item{background:#111009;padding:16px 18px;min-width:0;overflow:hidden}
+.result-big-item.span2{grid-column:span 2;background:#0d0b04}
+.rbi-label{font-size:0.58rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rbi-val{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#d4a534;line-height:1}
+.rbi-val.white{color:#fff}
+.rbi-val.green{color:#4caf7d}
+.rbi-sub{font-size:0.62rem;color:rgba(255,255,255,0.25);margin-top:3px}
+.result-strips{padding:14px 18px;display:flex;flex-direction:column;gap:8px}
+.result-strip{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(255,255,255,0.04);border-radius:8px;gap:8px;min-width:0}
+.rs-label{font-size:0.67rem;color:rgba(255,255,255,0.45);min-width:0}
+.rs-val{font-size:0.72rem;font-weight:700;color:#fff;white-space:nowrap;flex-shrink:0}
+.rs-val.gold{color:#d4a534}
+.rs-val.green{color:#4caf7d}
+.rs-val.red{color:#e74c3c}
+
+/* ── GRANT INFO BOX ── */
+.grant-box{background:#fff;border:1px solid #e8e4dc;border-radius:14px;overflow:hidden;min-width:0;width:100%}
+.grant-box-head{background:#f9f7f3;padding:14px 18px;border-bottom:1px solid #e8e4dc;font-size:0.68rem;font-weight:700;color:#1a1a1a;letter-spacing:0.06em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.grant-box-body{padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.grant-row{display:flex;justify-content:space-between;align-items:center;font-size:0.75rem}
+.grant-label{color:#666}
+.grant-val{font-weight:700;color:#1a1a1a}
+.grant-val.gold{color:#b8862a}
+.grant-val.green{color:#1a6b3c}
+.grant-val.red{color:#c0392b}
+.grant-progress-wrap{margin-top:10px}
+.grant-progress-label{font-size:0.62rem;color:#aaa;margin-bottom:5px;display:flex;justify-content:space-between}
+.grant-progress-track{height:8px;background:#f0ede8;border-radius:100px;overflow:hidden}
+.grant-progress-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,#b8862a,#d4a534);transition:width .5s ease}
+
+/* ── CHART ── */
+.chart-panel{background:#fff;border:1px solid #e8e4dc;border-radius:14px;overflow:hidden;min-width:0;width:100%}
+.chart-head{padding:16px 20px;border-bottom:1px solid #f0ede8;display:flex;align-items:center;justify-content:space-between}
+.chart-title{font-size:0.72rem;font-weight:700;color:#1a1a1a;letter-spacing:0.06em;text-transform:uppercase}
+.chart-legend{display:flex;gap:14px}
+.chart-legend-item{display:flex;align-items:center;gap:5px;font-size:0.62rem;color:#666}
+.chart-legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.chart-body{padding:16px 20px}
+
+/* ── YEAR TABLE ── */
+.table-panel{background:#fff;border:1px solid #e8e4dc;border-radius:14px;overflow:hidden;margin-top:0;min-width:0;width:100%}
+.table-head-bar{padding:14px 20px;border-bottom:1px solid #f0ede8;display:flex;align-items:center;justify-content:space-between}
+.table-title{font-size:0.68rem;font-weight:700;color:#1a1a1a;letter-spacing:0.06em;text-transform:uppercase}
+.table-wrap{overflow-x:auto;max-height:320px;overflow-y:auto}
+.resp-table{width:100%;border-collapse:collapse;font-size:0.72rem}
+.resp-table th{position:sticky;top:0;background:#f9f7f3;padding:9px 12px;text-align:right;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:#888;font-weight:700;white-space:nowrap;border-bottom:1px solid #e8e4dc;z-index:1}
+.resp-table th:first-child,.resp-table th:nth-child(2){text-align:left}
+.resp-table td{padding:9px 12px;border-bottom:1px solid #f0ede8;text-align:right;white-space:nowrap;color:#444}
+.resp-table td:first-child,.resp-table td:nth-child(2){text-align:left;color:#1a1a1a;font-weight:600}
+.resp-table tr:last-child td{border-bottom:none}
+.resp-table tr:hover td{background:#fafaf8}
+.td-grant{color:#b8862a;font-weight:600}
+.td-total{color:#1a1a1a;font-weight:700}
+.td-balance{color:#1a6b3c;font-weight:700}
+.no-grant{color:#ccc}
+
+/* ── RULES BOX ── */
+.rules-box{background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px}
+.rules-title{font-size:0.68rem;font-weight:700;color:#1a1a1a;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rule-item{background:#f9f7f3;border-radius:10px;padding:12px 14px}
+.rule-item-label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:#aaa;margin-bottom:3px}
+.rule-item-val{font-size:0.82rem;font-weight:700;color:#b8862a}
+.rule-item-note{font-size:0.65rem;color:#888;margin-top:2px;line-height:1.4}
+
+/* ── DISCLAIMER ── */
+.disclaimer{font-size:0.65rem;color:#bbb;line-height:1.7;padding:14px 18px;background:#fff;border-radius:10px;border-left:2px solid #e8e4dc;margin-top:4px}
+
+/* ── FOOTER ── */
+.footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-top:40px}
+.footer-bar a{color:rgba(255,255,255,0.4);text-decoration:none}
+
+@media(max-width:900px){
+  .two-col{grid-template-columns:1fr}
+  .main-wrap{padding:20px 16px}
+  .hero{padding:32px 16px 24px}
+  .result-big{grid-template-columns:1fr 1fr}
+  .rules-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:500px){
+  .result-big{grid-template-columns:1fr}
+  .result-big-item.span2{grid-column:span 1}
+  .rules-grid{grid-template-columns:1fr}
+}
+
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
@@ -222,6 +350,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   <button class="calc-tab" onclick="switchTab('swp')">Withdrawal (SWP)</button>
   <button class="calc-tab" onclick="switchTab('cagr')">CAGR</button>
   <button class="calc-tab" onclick="switchTab('options')">Options Income</button>
+  <button class="calc-tab" onclick="switchTab('resp')">🇨🇦 RESP</button>
 </div>
 </div>
 
@@ -296,6 +425,12 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
     </div>
   </div>
+  <div style="margin-top:20px">
+    <a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none">
+      <div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div>
+      <span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span>
+    </a>
+  </div>
   <div class="calc-disclaimer">For illustrative purposes only. Returns are not guaranteed. Actual market returns vary and may be higher or lower than the assumed rate. Always do your own research before investing.</div>
 </div>
 
@@ -368,6 +503,12 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
     </div>
   </div>
+  <div style="margin-top:20px">
+    <a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none">
+      <div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div>
+      <span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span>
+    </a>
+  </div>
   <div class="calc-disclaimer">For illustrative purposes only. Returns are not guaranteed. Actual market returns vary significantly. Past performance does not predict future results.</div>
 </div>
 
@@ -427,6 +568,12 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
         </div>
       </div>
     </div>
+  </div>
+  <div style="margin-top:20px">
+    <a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none">
+      <div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div>
+      <span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span>
+    </a>
   </div>
   <div class="calc-disclaimer">For illustrative purposes only. Returns are not guaranteed. Assumes consistent monthly contributions and a fixed annual return rate.</div>
 </div>
@@ -488,6 +635,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
     </div>
   </div>
+
   <div class="calc-disclaimer">For illustrative purposes only. Withdrawal sustainability depends on market returns, inflation, and actual portfolio performance. Consult a financial advisor for retirement planning.</div>
 </div>
 
@@ -629,6 +777,297 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   <div class="calc-disclaimer">Options involve risk. This calculator assumes consistent monthly contracts at the same premium — actual premiums vary with volatility, time to expiry, and strike selection. Not financial advice.</div>
 </div>
 
+<!-- ════════════════════════════════════════ -->
+<!-- PANEL 7: RESP CALCULATOR -->
+<!-- ════════════════════════════════════════ -->
+<div class="calc-panel" id="panel-resp">
+  <div class="panel-title">🇨🇦 RESP Calculator</div>
+  <div class="panel-sub">Calculates government CESG grants automatically based on your child's date of birth. Enter your contribution plan to see projected growth by age 18.</div>
+  <div class="two-col">
+
+  <!-- ── LEFT: INPUTS ── -->
+  <div>
+    <div class="input-panel">
+      <div class="input-panel-head">
+        <div class="input-panel-title">📋 Your RESP Details</div>
+        <div class="input-panel-sub">Enter your child's info — grants calculate automatically</div>
+      </div>
+      <div class="input-panel-body">
+
+        <div class="section-label">Child Information</div>
+
+        <div class="field">
+          <div class="field-label">Child's Date of Birth <span class="field-hint" id="child-age-display">Age: —</span></div>
+          <input class="field-input" type="date" id="child-dob" onchange="calcRESP()">
+          <div class="field-note">Used to calculate grant eligibility years. CESG stops end of calendar year child turns 17 (grant contributions until 14th birthday year).</div>
+        </div>
+
+        <div class="section-divider"></div>
+        <div class="section-label">Contributions</div>
+
+        <div class="field">
+          <div class="field-label">Annual Contribution <span class="field-hint" id="annual-hint">Optimal: $2,500/yr</span></div>
+          <div class="field-input-wrap">
+            <span class="field-prefix">$</span>
+            <input class="field-input has-prefix" type="number" id="annual-contrib" value="2500" min="0" max="50000" step="100" oninput="respSyncRange('annual-contrib','annual-range');calcRESP()">
+          </div>
+          <input class="field-range" type="range" id="annual-range" min="0" max="10000" step="100" value="2500" oninput="document.getElementById('annual-contrib').value=this.value;calcRESP()">
+          <div class="field-note">Max $2,500/yr gets full $500 CESG grant. Over $5,000/yr still allowed but no extra grant. Lifetime max $50,000.</div>
+        </div>
+
+        <!-- Upfront lump sum toggle -->
+        <div class="toggle-row" onclick="toggleUpfront()">
+          <div>
+            <div class="toggle-label">Add lump sum contribution?</div>
+            <div class="toggle-sub">One-time deposit at account opening</div>
+          </div>
+          <div class="toggle-switch" id="upfront-toggle"></div>
+        </div>
+        <div class="upfront-field" id="upfront-field">
+          <div class="field">
+            <div class="field-label">Lump Sum Amount <span class="field-hint" id="lump-hint"></span></div>
+            <div class="field-input-wrap">
+              <span class="field-prefix">$</span>
+              <input class="field-input has-prefix" type="number" id="lump-sum" value="5000" min="0" max="50000" step="500" oninput="respSyncRange('lump-sum','lump-range');calcRESP()">
+            </div>
+            <input class="field-range" type="range" id="lump-range" min="0" max="50000" step="500" value="5000" oninput="document.getElementById('lump-sum').value=this.value;calcRESP()">
+            <div class="field-note">Applied in year 1. Counts toward lifetime $50,000 limit. No grant on lump sum above annual contribution amount.</div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+        <div class="section-label">Growth Assumptions</div>
+
+        <div class="field">
+          <div class="field-label">Annual Return Rate <span class="field-hint" id="rate-display">10%</span></div>
+          <div class="field-input-wrap">
+            <input class="field-input has-suffix" type="number" id="return-rate" value="10" min="1" max="30" step="0.5" oninput="respSyncRange('return-rate','rate-range');calcRESP()">
+            <span class="field-suffix">%</span>
+          </div>
+          <input class="field-range" type="range" id="rate-range" min="1" max="20" step="0.5" value="10" oninput="document.getElementById('return-rate').value=this.value;calcRESP()">
+        </div>
+
+        <div class="field">
+          <div class="field-label">RESP Start Year</div>
+          <input class="field-input" type="number" id="start-year" value="2026" min="2000" max="2040" oninput="calcRESP()">
+          <div class="field-note">Year you open the RESP account.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RESP Rules Quick Reference -->
+    <div class="rules-box" style="margin-top:16px">
+      <div class="rules-title">📋 RESP Grant Rules (Canada)</div>
+      <div class="rules-grid">
+        <div class="rule-item">
+          <div class="rule-item-label">Annual CESG Grant</div>
+          <div class="rule-item-val">20% of $2,500</div>
+          <div class="rule-item-note">= $500/year max per child</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-item-label">Lifetime CESG Max</div>
+          <div class="rule-item-val">$7,200</div>
+          <div class="rule-item-note">Total government grants ever</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-item-label">Grant Cutoff</div>
+          <div class="rule-item-val">Age 14</div>
+          <div class="rule-item-note">Last year of contributions eligible for full grant</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-item-label">Contribution Limit</div>
+          <div class="rule-item-val">$50,000</div>
+          <div class="rule-item-note">Lifetime per beneficiary. No annual contribution limit.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-item-label">Catch-Up Grants</div>
+          <div class="rule-item-val">$1,000/yr</div>
+          <div class="rule-item-note">Contribute $5,000/yr to use prior unused room at $500 extra</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-item-label">RESP Duration</div>
+          <div class="rule-item-val">35 Years</div>
+          <div class="rule-item-note">Must be collapsed after 35 years</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RIGHT: RESULTS ── -->
+  <div class="result-panel">
+
+    <!-- Summary Card -->
+    <div class="result-summary">
+      <div class="result-head">
+        <div class="result-eyebrow">Projected Outcome at Age 18</div>
+      </div>
+      <div class="result-big">
+        <div class="result-big-item span2" style="background:#0d0b04;padding:22px 24px">
+          <div class="rbi-label">Total Portfolio Value</div>
+          <div class="rbi-val" id="res-total" style="font-size:2.2rem">$—</div>
+          <div class="rbi-sub" id="res-years">When your child is ready for post-secondary</div>
+        </div>
+        <div class="result-big-item">
+          <div class="rbi-label">Your Contributions</div>
+          <div class="rbi-val white" id="res-contrib">$—</div>
+          <div class="rbi-sub" id="res-contrib-pct"></div>
+        </div>
+        <div class="result-big-item">
+          <div class="rbi-label">Government Grants</div>
+          <div class="rbi-val green" id="res-grants">$—</div>
+          <div class="rbi-sub" id="res-grants-note">Free money from Ottawa</div>
+        </div>
+        <div class="result-big-item">
+          <div class="rbi-label">Investment Growth</div>
+          <div class="rbi-val" id="res-growth" style="color:#d4a534">$—</div>
+          <div class="rbi-sub">Compounding returns</div>
+        </div>
+        <div class="result-big-item">
+          <div class="rbi-label">Total Invested</div>
+          <div class="rbi-val white" id="res-total-invested">$—</div>
+          <div class="rbi-sub">Before market growth</div>
+        </div>
+      </div>
+      <div class="result-strips">
+        <div class="result-strip">
+          <span class="rs-label">Grants collected so far</span>
+          <span class="rs-val gold" id="res-grant-pct">—</span>
+        </div>
+        <div class="result-strip">
+          <span class="rs-label">Grants remaining available</span>
+          <span class="rs-val green" id="res-grant-remain">—</span>
+        </div>
+        <div class="result-strip">
+          <span class="rs-label">Years of grant eligibility left</span>
+          <span class="rs-val" id="res-grant-years">—</span>
+        </div>
+        <div class="result-strip" id="over-limit-strip" style="display:none">
+          <span class="rs-label">⚠ Lifetime limit status</span>
+          <span class="rs-val red" id="res-limit-warn">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grant Progress -->
+    <div class="grant-box">
+      <div class="grant-box-head">🎁 CESG Grant Tracker</div>
+      <div class="grant-box-body">
+        <div class="grant-row">
+          <span class="grant-label">Projected total CESG received</span>
+          <span class="grant-val gold" id="gt-collected">$—</span>
+        </div>
+        <div class="grant-row">
+          <span class="grant-label">Lifetime CESG limit</span>
+          <span class="grant-val">$7,200</span>
+        </div>
+        <div class="grant-row">
+          <span class="grant-label">Remaining CESG available</span>
+          <span class="grant-val green" id="gt-remaining">$—</span>
+        </div>
+        <div class="grant-progress-wrap">
+          <div class="grant-progress-label">
+            <span id="gt-pct-label">0% of lifetime grant used</span>
+            <span>$7,200 max</span>
+          </div>
+          <div class="grant-progress-track">
+            <div class="grant-progress-fill" id="gt-bar" style="width:0%"></div>
+          </div>
+        </div>
+        <div class="grant-row" style="margin-top:10px;padding-top:10px;border-top:1px solid #f0ede8">
+          <span class="grant-label">Contribution limit used</span>
+          <span class="grant-val" id="gt-contrib-pct">—</span>
+        </div>
+        <div class="grant-progress-wrap">
+          <div class="grant-progress-label">
+            <span id="gt-contrib-label">of $50,000 lifetime limit</span>
+            <span>$50,000 max</span>
+          </div>
+          <div class="grant-progress-track">
+            <div class="grant-progress-fill" id="gt-contrib-bar" style="width:0%;background:linear-gradient(90deg,#1a6b3c,#4caf7d)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- $50K LIMIT WIDGET -->
+    <div id="limit-widget" style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;overflow:hidden;display:none">
+      <div style="background:#1a1a1a;padding:14px 18px;display:flex;align-items:center;gap:10px">
+        <span style="font-size:1rem">⏸️</span>
+        <div>
+          <div style="font-size:0.68rem;font-weight:700;color:#d4a534;letter-spacing:0.1em;text-transform:uppercase">$50,000 Limit Reached</div>
+          <div style="font-size:0.65rem;color:rgba(255,255,255,0.35);margin-top:1px">Pause contributions after this point</div>
+        </div>
+      </div>
+      <div style="padding:16px 18px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fff8f0;border:1px solid rgba(212,165,52,0.2);border-radius:9px">
+          <span style="font-size:0.72rem;color:#555;font-weight:500">Limit hit in year</span>
+          <span style="font-size:0.88rem;font-weight:800;color:#b8862a" id="limit-year">—</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#f9f7f3;border:1px solid #e8e4dc;border-radius:9px">
+          <span style="font-size:0.72rem;color:#555;font-weight:500">Child's age at that point</span>
+          <span style="font-size:0.88rem;font-weight:800;color:#1a1a1a" id="limit-age">—</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#f9f7f3;border:1px solid #e8e4dc;border-radius:9px">
+          <span style="font-size:0.72rem;color:#555;font-weight:500">Approx. month to pause</span>
+          <span style="font-size:0.84rem;font-weight:700;color:#1a6b3c" id="limit-month">—</span>
+        </div>
+        <div style="font-size:0.65rem;color:#bbb;line-height:1.6;border-top:1px solid #f0ede8;padding-top:10px">After the $50,000 lifetime limit is reached, no further contributions are allowed. The portfolio continues to grow tax-sheltered. You don't need to close the account — just stop contributing.</div>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-panel">
+      <div class="chart-head">
+        <div class="chart-title">Growth Over Time</div>
+        <div class="chart-legend">
+          <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#b8862a"></div>Contributions</div>
+          <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#4caf7d"></div>Grants</div>
+          <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#d4a534"></div>Portfolio Value</div>
+        </div>
+      </div>
+      <div class="chart-body">
+        <canvas id="resp-chart" height="220"></canvas>
+      </div>
+    </div>
+
+    <!-- Year-by-year table -->
+    <div class="table-panel">
+      <div class="table-head-bar">
+        <div class="table-title">Year-by-Year Breakdown</div>
+        <div style="font-size:0.65rem;color:#aaa">Scroll to see all years</div>
+      </div>
+      <div class="table-wrap">
+        <table class="resp-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Age</th>
+              <th>Your Contribution</th>
+              <th>CESG Grant</th>
+              <th>Year Total</th>
+              <th>Balance (End of Year)</th>
+            </tr>
+          </thead>
+          <tbody id="resp-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-top:20px">
+    <a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none">
+      <div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div>
+      <span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span>
+    </a>
+  </div>
+  <div class="calc-disclaimer">For illustrative and educational purposes only. RESP rules, grant amounts, and eligibility may change. Results assume contributions at the start of each year and a fixed annual return rate. Actual returns will vary. Enhanced CESG grants based on family income are not included. Consult a financial advisor for personalized RESP advice.</div>
+
+  </div>
+</div>
+</div>
+</div>
+
+
 <!-- CTA -->
 <div class="calc-cta">
   <div class="calc-cta-text">
@@ -655,11 +1094,25 @@ document.addEventListener('click',function(e){
   }
 });
 
+var respInitialized = false;
 function switchTab(id){
   document.querySelectorAll('.calc-tab').forEach((t,i)=>t.classList.remove('active'));
   event.target.classList.add('active');
   document.querySelectorAll('.calc-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+id).classList.add('active');
+  // Init RESP on first open
+  if(id==='resp' && !respInitialized){
+    respInitialized = true;
+    const today = new Date();
+    const y = today.getFullYear();
+    const m = String(today.getMonth()+1).padStart(2,'0');
+    const d = String(today.getDate()).padStart(2,'0');
+    const dob = document.getElementById('child-dob');
+    if(dob && !dob.value) dob.value = y+'-'+m+'-'+d;
+    const sy = document.getElementById('start-year');
+    if(sy && !sy.value) sy.value = y;
+    calcRESP();
+  }
 }
 
 const fmt = n => n >= 1000000 ? '$'+(n/1000000).toFixed(2).replace(/\.?0+$/,'')+'M'
@@ -972,6 +1425,411 @@ const _calcOptions=calcOptions; calcOptions=function(){_calcOptions();chartOptio
 
 // Init all charts
 setTimeout(function(){chartSIP();chartLS();chartGoal();chartSWP();chartOptions();}, 100);
+
+
+
+// ── RESP CALCULATOR ──
+// ── UPFRONT TOGGLE ──
+let upfrontEnabled = false;
+function toggleUpfront(){
+  upfrontEnabled = !upfrontEnabled;
+  const toggle = document.getElementById('upfront-toggle');
+  const field = document.getElementById('upfront-field');
+  toggle.classList.toggle('on', upfrontEnabled);
+  field.classList.toggle('visible', upfrontEnabled);
+  calcRESP();
+}
+
+// ── SYNC RANGE/INPUT ──
+function respSyncRange(inputId, rangeId){
+  const v = document.getElementById(inputId).value;
+  const r = document.getElementById(rangeId);
+  if(r) r.value = v;
+}
+
+// ── FORMATTERS ──
+const respFmtC = n => {
+  if(n >= 1000000) return '$'+(n/1000000).toFixed(2).replace(/\.?0+$/,'')+'M';
+  if(n >= 10000) return '$'+(n/1000).toFixed(1).replace(/\.0$/,'')+'K';
+  return '$'+Math.round(n).toLocaleString();
+};
+const respFmtFull = n => '$'+Math.round(n).toLocaleString();
+const respFmtPct = (n, tot) => tot > 0 ? (n/tot*100).toFixed(1)+'%' : '0%';
+
+// ── CHART ──
+let respChart = null;
+
+function respUpdateChart(years, contribData, grantData, portfolioData){
+  const ctx = document.getElementById('resp-chart').getContext('2d');
+  if(respChart) respChart.destroy();
+  respChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [
+        {
+          label: 'Portfolio Value',
+          data: portfolioData,
+          borderColor: '#d4a534',
+          backgroundColor: 'rgba(212,165,52,0.08)',
+          fill: true,
+          tension: 0.4,
+          borderWidth: 2.5,
+          pointRadius: 2,
+        },
+        {
+          label: 'Total Contributed',
+          data: contribData,
+          borderColor: '#b8862a',
+          backgroundColor: 'transparent',
+          fill: false,
+          tension: 0.4,
+          borderWidth: 1.5,
+          borderDash: [4,3],
+          pointRadius: 0,
+        },
+        {
+          label: 'Cumulative Grants',
+          data: grantData,
+          borderColor: '#4caf7d',
+          backgroundColor: 'transparent',
+          fill: false,
+          tension: 0.4,
+          borderWidth: 1.5,
+          borderDash: [2,3],
+          pointRadius: 0,
+        },
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ' '+ctx.dataset.label+': '+respFmtFull(ctx.parsed.y)
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(0,0,0,0.04)' },
+          ticks: { font: { size: 10, family: 'DM Sans' }, color: '#999', maxTicksLimit: 10 }
+        },
+        y: {
+          grid: { color: 'rgba(0,0,0,0.04)' },
+          ticks: {
+            font: { size: 10, family: 'DM Sans' }, color: '#999',
+            callback: v => respFmtC(v)
+          }
+        }
+      }
+    }
+  });
+}
+
+// ── MAIN CALCULATION ──
+function calcRESP(){
+  // ── Inputs ──
+  const dob = document.getElementById('child-dob').value;
+  const annualContrib = parseFloat(document.getElementById('annual-contrib').value) || 0;
+  const returnRate = parseFloat(document.getElementById('return-rate').value) || 0;
+  const startYear = parseInt(document.getElementById('start-year').value) || new Date().getFullYear();
+  const lumpSum = upfrontEnabled ? (parseFloat(document.getElementById('lump-sum').value) || 0) : 0;
+
+  // Update hints
+  document.getElementById('rate-display').textContent = returnRate + '%';
+  document.getElementById('annual-hint').textContent = annualContrib <= 2500 ? 'Optimal: $2,500/yr' : annualContrib <= 5000 ? 'Catch-up eligible' : 'Above catch-up threshold';
+
+  // ── Age calculation ──
+  let childBirthYear, childCurrentAge;
+  if(dob){
+    const dobDate = new Date(dob);
+    childBirthYear = dobDate.getFullYear();
+    const today = new Date();
+    childCurrentAge = today.getFullYear() - dobDate.getFullYear();
+    if(today < new Date(today.getFullYear(), dobDate.getMonth(), dobDate.getDate())) childCurrentAge--;
+    childCurrentAge = Math.max(0, childCurrentAge);
+    document.getElementById('child-age-display').textContent = 'Age: ' + childCurrentAge;
+  } else {
+    // Default: newborn, starting this year
+    childBirthYear = startYear;
+    childCurrentAge = 0;
+    document.getElementById('child-age-display').textContent = 'Age: Enter DOB';
+  }
+
+  // ── CESG Rules ──
+  // Grant: 20% on first $2,500/year = $500/year max
+  // Grant eligible: years where contribution made AND child was under 18 AND year <= year child turns 17
+  // Catch-up: if missed years, can contribute $5,000 and get $1,000 grant (up to 1 year catch-up per year)
+  // Lifetime CESG: $7,200 max
+  // Lifetime contribution: $50,000 max
+  const CESG_RATE = 0.20;
+  const CESG_MAX_ANNUAL = 500; // on first $2,500
+  const CESG_CATCH_UP_MAX = 1000; // on $5,000 if catch-up available
+  const CESG_LIFETIME = 7200;
+  const CONTRIB_LIFETIME = 50000;
+  const GRANT_CONTRIB_THRESHOLD = 2500; // annual amount that gets full grant
+  const CATCH_UP_CONTRIB = 5000; // annual amount for catch-up grant
+
+  // ── Run simulation from startYear to year child turns 18 ──
+  const year18 = childBirthYear + 18;
+  const endYear = Math.max(year18, startYear + 1);
+
+  let balance = 0;
+  let totalContrib = 0; // user money only
+  let totalGrants = 0;
+  let totalInvested = 0; // contrib + grants
+  let unusedGrantRoom = 0; // accumulated unused CESG room (in $ terms, each missed year = $500)
+  let lifeContrib = 0;
+  const r = returnRate / 100;
+
+  // Track for chart
+  const chartYears = [];
+  const chartContrib = [];
+  const chartGrants = [];
+  const chartPortfolio = [];
+  const tableRows = [];
+
+  for(let yr = startYear; yr <= endYear; yr++){
+    const childAgeThisYear = yr - childBirthYear; // age at END of calendar year (simplified)
+
+    // Is this year eligible for grants?
+    // CESG: contributions made in calendar year when child is 0-17 (and contribution year <= year child turns 17)
+    // Last full grant year: year child turns 14 (can get $500)
+    // Year child turns 15: can get grant on prior year's missed room but not new room - simplified: no new room after yr child is 14
+    // Per CRA: Beneficiary must be under 18 at end of year, AND contributions before end of year child turns 17
+    // CESG room accumulates from birth, stops accumulating after Dec 31 of year child turns 17
+
+    const grantEligible = childAgeThisYear <= 17 && totalGrants < CESG_LIFETIME;
+
+    // How much room accumulates this year (only if age <= 17)?
+    // Room = $500 per year, from birth
+    // Room stops accumulating after year child turns 17
+    const roomAccumulatedThisYear = (childAgeThisYear <= 17 && yr >= startYear) ? CESG_MAX_ANNUAL : 0;
+    unusedGrantRoom += roomAccumulatedThisYear;
+
+    // Determine contribution for this year
+    let yearContrib = annualContrib;
+
+    // Apply lump sum in year 1
+    if(yr === startYear && lumpSum > 0){
+      yearContrib = Math.min(lumpSum, CONTRIB_LIFETIME - lifeContrib);
+    } else {
+      yearContrib = Math.min(annualContrib, Math.max(0, CONTRIB_LIFETIME - lifeContrib));
+    }
+
+    // Calc CESG for this year
+    let yearGrant = 0;
+    if(grantEligible && yearContrib > 0){
+      // Base grant: 20% on first $2,500 of contribution this year, up to available room
+      const baseGrantable = Math.min(yearContrib, GRANT_CONTRIB_THRESHOLD);
+      const baseGrant = baseGrantable * CESG_RATE;
+
+      // Catch-up: if contributed $5,000 this year and there's prior unused room
+      let catchUpGrant = 0;
+      if(yearContrib >= CATCH_UP_CONTRIB && unusedGrantRoom > CESG_MAX_ANNUAL){
+        // Can use one extra year of room (up to $500 more)
+        catchUpGrant = Math.min(CESG_MAX_ANNUAL, unusedGrantRoom - CESG_MAX_ANNUAL);
+      }
+
+      yearGrant = Math.min(baseGrant + catchUpGrant, unusedGrantRoom, CESG_LIFETIME - totalGrants);
+      yearGrant = Math.max(0, yearGrant);
+
+      // Reduce unused room by grant paid (room consumed)
+      unusedGrantRoom -= yearGrant;
+    }
+
+    // Update totals
+    totalContrib += yearContrib;
+    totalGrants += yearGrant;
+    lifeContrib += yearContrib;
+    const yearDeposit = yearContrib + yearGrant;
+    totalInvested += yearDeposit;
+
+    // Balance: start of year balance grows at r, then add year deposit
+    // Per Excel: balance_start_of_year × (1 + r) + year_deposit
+    // Wait — Excel shows: acc_start = prev_end, then end = (acc_start + yearDeposit) * ... 
+    // Actually from Excel: year 1: start=2500, end=2750 → (2500+500)*r/2 + (2500+500) doesn't work
+    // Excel: 2026 start=2500, end=2750 → it looks like contributions are made mid-year: 3000*(1+0.10/2)=3150? No...
+    // 2750 = 2500 + (3000 * 0.10 / 2 + ... ) → actually 2500*(1+0.10) = 2750! 
+    // So: year 1 starts with just the cash contribution (no grant yet?), grows at r
+    // Year 2: start=5750 = 2750 + 3000, end = 5750*(1+0.10) = 6325 ✓
+    // So logic: deposit at START of year, then balance grows at r by year end
+    // Year 1: deposit 3000, end = 3000*(1+r/2) = 3000*1.05 = 3150? No = 2750
+    // Actually: year1 end = (2500)*(1+r) = 2500*1.1 = 2750. Grant is added to START of year 2? 
+    // Year 2 start = 2750 + 3000 = 5750. So grant IS included in each year's deposit.
+    // Year 1: only 2500 contrib grows (grant of 500 added but somehow = 2750). 2500*1.1=2750. Grant not in year 1?
+    // Looking again: year1 deposit col = 3000 (2500+500), acc_start=2500, acc_end=2750=2500*1.1
+    // So the pattern is: contrib is deposited at start, grant added at END of prior period, grows from year 2
+    // Simpler: year end = (balance + contribution) * (1+r), grant included from next year? 
+    // No — easier: balance_end = balance_start * (1+r) + yearContrib*(1+r/2) + yearGrant*(1+r/2)
+    // Let's just do: end = (balance + yearDeposit) * (1+r) — test: (0+3000)*1.1=3300 ≠ 2750
+    // Try: end = balance*(1+r) + yearDeposit — year1: 0*1.1+3000=3000 ≠ 2750
+    // Try: end = (balance + yearContrib)*(1+r) ignoring grant for growth: (0+2500)*1.1=2750 ✓
+    //      year2: (2750+2500)*1.1=5775 ≠ 6325. Nope.
+    // Try year2: (2750+3000)*1.1=6325 ✓! So year1 was special.
+    // Actually year1: contrib=2500, grant=500 added mid-year? 2500*1.1=2750, then 2750+500=3250 start of yr2? No start=5750
+    // Year2 start=5750=2750+3000(new deposit). Year2 end=6325=5750*1.1. Yes!
+    // Year1 end=2750=2500*1.1. So year1: deposit=2500 only. Grant (500) added to START of year2.
+    // Actually simplest: contributions at start of year, grant received partway, 
+    // Model: end = (prevBalance + contrib) * (1+r) + grant [grant received at end, doesn't grow this year]
+    // Year1: (0+2500)*1.1 + 500? = 3250 ≠ 2750.
+    // OK let me just follow what works: year1 end=2500*(1+r), year2+ end=(prevEnd+deposit)*(1+r)
+    // General formula that matches: balance = (balance + yearDeposit) * (1+r), but year1 contrib only gets half effect?
+    // Most likely formula: balance_end = balance_start*(1+r) + yearDeposit
+    // year1: 0*(1.1) + 2500 = 2500 ≠ 2750
+    // I think simplest match: contributions at start, balance grows at year end
+    // year1: (0+2500+500)*(1+0.10) = 3300 ≠ 2750
+    // Let's accept: the Excel uses balance_start=only_contrib (not grant), end=start*(1+r), then grant added to next year start
+    // This matches: yr1 end=2500*1.1=2750; yr2 start=2750+500+2500=5750; yr2 end=5750*1.1=6325 ✓
+    // So: Deposits to balance: contrib at START (included in this year's growth), grant received at YEAR END (added to next year's start)
+    
+    // Re-derive with correct approach:
+    // Will track properly below using pending_grant
+    balance = balance; // will recalculate properly
+
+    tableRows.push({ yr, childAgeThisYear, yearContrib, yearGrant, yearDeposit, grantEligible });
+    chartYears.push(yr);
+  }
+
+  // ── Re-run with correct balance logic (grant adds to next year's base) ──
+  let bal = 0;
+  let pendingGrant = 0;
+  let cumContrib = 0, cumGrants = 0, cumInvested = 0, cumLifeContrib = 0;
+  let unusedRoom = 0;
+  const finalRows = [];
+
+  for(let i = 0; i < tableRows.length; i++){
+    const row = tableRows[i];
+    const contrib = row.yearContrib;
+    const grant = row.yearGrant;
+
+    // Start of year: previous pending grant + this year's contribution enters balance
+    const startBal = bal + pendingGrant + contrib;
+    cumContrib += contrib;
+    cumGrants += grant;
+    cumInvested += contrib + grant;
+    cumLifeContrib += contrib;
+
+    // End of year: balance grows
+    const endBal = startBal * (1 + r);
+
+    // Grant is held as pending (received at year-end, goes into next year's base)
+    pendingGrant = grant;
+    bal = endBal;
+
+    finalRows.push({
+      yr: row.yr,
+      age: row.childAgeThisYear,
+      contrib: contrib,
+      grant: grant,
+      yearTotal: contrib + grant,
+      startBal: startBal,
+      endBal: endBal,
+      cumContrib: cumContrib,
+      cumGrants: cumGrants,
+    });
+  }
+
+  // Last row = projection at 18
+  const last = finalRows[finalRows.length - 1] || {};
+  const projTotal = last.endBal || 0;
+  const projContrib = last.cumContrib || 0;
+  const projGrants = last.cumGrants || 0;
+  const projGrowth = projTotal - projContrib - projGrants;
+
+  // Grant calculations
+  const grantCollected = projGrants;
+  const grantRemaining = Math.max(0, CESG_LIFETIME - grantCollected);
+  const grantPct = Math.min(100, grantCollected / CESG_LIFETIME * 100);
+  const contribLifetime = Math.min(lifeContrib, 50000);
+  const contribPct = Math.min(100, contribLifetime / CONTRIB_LIFETIME * 100);
+
+  // Grant eligibility years remaining
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const grantEndYear = childBirthYear + 17; // last year can get grant
+  const grantYearsLeft = Math.max(0, grantEndYear - currentYear + 1);
+
+  // ── Update UI ──
+  document.getElementById('res-total').textContent = respFmtFull(projTotal);
+  document.getElementById('res-contrib').textContent = respFmtFull(projContrib);
+  document.getElementById('res-contrib-pct').textContent = respFmtPct(projContrib, projTotal) + ' of total';
+  document.getElementById('res-grants').textContent = '+' + respFmtFull(projGrants);
+  document.getElementById('res-grants-note').textContent = respFmtPct(projGrants, projTotal) + ' of total value';
+  document.getElementById('res-growth').textContent = '+' + respFmtFull(Math.max(0, projGrowth));
+  document.getElementById('res-total-invested').textContent = respFmtFull(projContrib + projGrants);
+  document.getElementById('res-years').textContent = 'Projected value at age 18 (' + (childBirthYear + 18) + ')';
+
+  document.getElementById('res-grant-pct').textContent = respFmtFull(grantCollected) + ' of $7,200 max';
+  document.getElementById('res-grant-remain').textContent = respFmtFull(grantRemaining) + ' still available';
+  document.getElementById('res-grant-years').textContent = grantYearsLeft + ' year' + (grantYearsLeft !== 1 ? 's' : '') + ' of grants left';
+
+  const overLimit = contribLifetime >= CONTRIB_LIFETIME;
+  document.getElementById('over-limit-strip').style.display = overLimit ? 'flex' : 'none';
+  if(overLimit) document.getElementById('res-limit-warn').textContent = 'At $50,000 limit — no more contributions';
+
+  // ── Find which year/month the $50K limit is hit ──
+  let limitHitRow = null;
+  let runningContrib = 0;
+  for(const row of finalRows){
+    runningContrib += row.contrib;
+    if(runningContrib >= 50000 && !limitHitRow){
+      limitHitRow = row;
+      break;
+    }
+  }
+  const limitWidget = document.getElementById('limit-widget');
+  if(limitHitRow){
+    limitWidget.style.display = 'block';
+    document.getElementById('limit-year').textContent = limitHitRow.yr;
+    document.getElementById('limit-age').textContent = 'Age ' + limitHitRow.age;
+    // Estimate which month — if annual contrib fills the remaining gap
+    const prevRunning = runningContrib - limitHitRow.contrib;
+    const remaining = 50000 - prevRunning;
+    const monthNum = limitHitRow.contrib > 0 ? Math.ceil((remaining / limitHitRow.contrib) * 12) : 12;
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const mo = Math.min(12, Math.max(1, monthNum));
+    document.getElementById('limit-month').textContent = months[mo-1] + ' ' + limitHitRow.yr;
+  } else {
+    limitWidget.style.display = 'none';
+  }
+
+  // Grant tracker
+  document.getElementById('gt-collected').textContent = respFmtFull(grantCollected);
+  document.getElementById('gt-remaining').textContent = respFmtFull(grantRemaining);
+  document.getElementById('gt-pct-label').textContent = grantPct.toFixed(0) + '% of lifetime grant used';
+  document.getElementById('gt-bar').style.width = grantPct + '%';
+  document.getElementById('gt-contrib-pct').textContent = respFmtFull(contribLifetime);
+  document.getElementById('gt-contrib-label').textContent = contribPct.toFixed(0) + '% of $50,000 lifetime limit';
+  document.getElementById('gt-contrib-bar').style.width = contribPct + '%';
+
+  // ── Table ──
+  const tbody = document.getElementById('resp-table-body');
+  tbody.innerHTML = finalRows.map(row => `
+    <tr>
+      <td>${row.yr}</td>
+      <td>Age ${row.age}</td>
+      <td>${row.contrib > 0 ? respFmtFull(row.contrib) : '<span class="no-grant">—</span>'}</td>
+      <td class="${row.grant > 0 ? 'td-grant' : 'no-grant'}">${row.grant > 0 ? '+'+respFmtFull(row.grant) : '—'}</td>
+      <td class="td-total">${respFmtFull(row.yearTotal)}</td>
+      <td class="td-balance">${respFmtFull(row.endBal)}</td>
+    </tr>
+  `).join('');
+
+  // ── Chart ──
+  const cYears = finalRows.map(r => r.yr);
+  const cContrib = finalRows.map(r => r.cumContrib);
+  const cGrants = finalRows.map(r => r.cumGrants);
+  const cPortfolio = finalRows.map(r => r.endBal);
+  respUpdateChart(cYears, cContrib, cGrants, cPortfolio);
+}
+
+// RESP initialized on first tab open
+
+
 
 </script>
 </body>
