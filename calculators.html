@@ -293,6 +293,24 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 }
 
 
+
+.resp-freq-btn{flex:1;padding:8px 6px;border:1.5px solid #e8e4dc;border-radius:8px;background:#fafaf8;font-size:0.72rem;font-weight:600;color:#888;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.resp-freq-btn.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.resp-freq-btn:hover:not(.active){border-color:#b8862a;color:#b8862a}
+.sched-row{background:#fafaf8;border:1.5px solid #e8e4dc;border-radius:12px;padding:14px 14px 10px;margin-bottom:10px;position:relative}
+.sched-row-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sched-row-label{font-size:0.65rem;font-weight:700;color:#b8862a;letter-spacing:0.1em;text-transform:uppercase}
+.sched-row-del{background:none;border:none;color:#ccc;font-size:1rem;cursor:pointer;padding:2px 6px;border-radius:6px;line-height:1;transition:color .15s}
+.sched-row-del:hover{color:#e74c3c}
+.sched-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.sched-mini-label{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:#aaa;font-weight:600;margin-bottom:4px}
+.sched-select{width:100%;padding:7px 10px;border:1.5px solid #e8e4dc;border-radius:8px;font-size:0.78rem;font-family:'DM Sans',sans-serif;background:#fff;color:#1a1a1a;outline:none;cursor:pointer}
+.sched-select:focus{border-color:#b8862a}
+.sched-input{width:100%;padding:7px 10px 7px 22px;border:1.5px solid #e8e4dc;border-radius:8px;font-size:0.78rem;font-family:'DM Sans',sans-serif;background:#fff;color:#1a1a1a;outline:none}
+.sched-input:focus{border-color:#b8862a}
+.sched-input-wrap{position:relative}
+.sched-prefix{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:0.75rem;color:#aaa;pointer-events:none}
+.sched-annual-equiv{font-size:0.65rem;color:#b8862a;margin-top:5px;font-weight:600}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
@@ -425,13 +443,10 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
     </div>
   </div>
-  <div style="margin-top:20px">
-    <a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none">
-      <div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div>
-      <span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span>
-    </a>
-  </div>
+  
   <div class="calc-disclaimer">For illustrative purposes only. Returns are not guaranteed. Actual market returns vary and may be higher or lower than the assumed rate. Always do your own research before investing.</div>
+
+  <div style="margin-top:20px"><a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none"><div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div><span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span></a></div>
 </div>
 
 <!-- ════════════════════════════════════════ -->
@@ -503,13 +518,10 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
     </div>
   </div>
-  <div style="margin-top:20px">
-    <a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none">
-      <div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div>
-      <span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span>
-    </a>
-  </div>
+  
   <div class="calc-disclaimer">For illustrative purposes only. Returns are not guaranteed. Actual market returns vary significantly. Past performance does not predict future results.</div>
+
+  <div style="margin-top:20px"><a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none"><div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div><span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span></a></div>
 </div>
 
 <!-- ════════════════════════════════════════ -->
@@ -569,13 +581,10 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
     </div>
   </div>
-  <div style="margin-top:20px">
-    <a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none">
-      <div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div>
-      <span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span>
-    </a>
-  </div>
+  
   <div class="calc-disclaimer">For illustrative purposes only. Returns are not guaranteed. Assumes consistent monthly contributions and a fixed annual return rate.</div>
+
+  <div style="margin-top:20px"><a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none"><div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div><span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span></a></div>
 </div>
 
 <!-- ════════════════════════════════════════ -->
@@ -803,17 +812,15 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
         </div>
 
         <div class="section-divider"></div>
-        <div class="section-label">Contributions</div>
+        <div class="section-label">Contribution Schedule</div>
+        <div class="field-note" style="margin-bottom:12px">Add one or more periods with different amounts &amp; frequencies — e.g. high contributions early, then lower later.</div>
 
-        <div class="field">
-          <div class="field-label">Annual Contribution <span class="field-hint" id="annual-hint">Optimal: $2,500/yr</span></div>
-          <div class="field-input-wrap">
-            <span class="field-prefix">$</span>
-            <input class="field-input has-prefix" type="number" id="annual-contrib" value="2500" min="0" max="50000" step="100" oninput="respSyncRange('annual-contrib','annual-range');calcRESP()">
-          </div>
-          <input class="field-range" type="range" id="annual-range" min="0" max="10000" step="100" value="2500" oninput="document.getElementById('annual-contrib').value=this.value;calcRESP()">
-          <div class="field-note">Max $2,500/yr gets full $500 CESG grant. Over $5,000/yr still allowed but no extra grant. Lifetime max $50,000.</div>
-        </div>
+        <div id="contrib-schedule-rows"></div>
+
+        <button onclick="addContribRow()" style="display:flex;align-items:center;gap:6px;background:transparent;border:1.5px dashed #b8862a;border-radius:9px;padding:9px 16px;color:#b8862a;font-size:0.75rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;justify-content:center;margin-top:4px;transition:all .15s" onmouseover="this.style.background='rgba(184,134,42,0.06)'" onmouseout="this.style.background='transparent'">
+          + Add Another Period
+        </button>
+        <div class="field-note" style="margin-top:10px">Periods run in order from the start year. Max $2,500/yr per period gets full $500 CESG grant. Lifetime max $50,000.</div>
 
         <!-- Upfront lump sum toggle -->
         <div class="toggle-row" onclick="toggleUpfront()">
@@ -831,7 +838,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
               <input class="field-input has-prefix" type="number" id="lump-sum" value="5000" min="0" max="50000" step="500" oninput="respSyncRange('lump-sum','lump-range');calcRESP()">
             </div>
             <input class="field-range" type="range" id="lump-range" min="0" max="50000" step="500" value="5000" oninput="document.getElementById('lump-sum').value=this.value;calcRESP()">
-            <div class="field-note">Applied in year 1. Counts toward lifetime $50,000 limit. No grant on lump sum above annual contribution amount.</div>
+            <div class="field-note">Applied in year 1 alongside your regular contribution. Both count toward the lifetime $50,000 limit.</div>
           </div>
         </div>
 
@@ -1054,17 +1061,15 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
     </div>
 
-    <div style="margin-top:20px">
-    <a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none">
-      <div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div>
-      <span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span>
-    </a>
   </div>
+</div>
   <div class="calc-disclaimer">For illustrative and educational purposes only. RESP rules, grant amounts, and eligibility may change. Results assume contributions at the start of each year and a fixed annual return rate. Actual returns will vary. Enhanced CESG grants based on family income are not included. Consult a financial advisor for personalized RESP advice.</div>
 
-  </div>
+  <div style="margin-top:20px"><a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none"><div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div><span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span></a></div>
 </div>
-</div>
+
+  
+  
 </div>
 
 
@@ -1111,6 +1116,8 @@ function switchTab(id){
     if(dob && !dob.value) dob.value = y+'-'+m+'-'+d;
     const sy = document.getElementById('start-year');
     if(sy && !sy.value) sy.value = y;
+    // Add default schedule rows
+    addContribRow(14, 'annual', 2500);
     calcRESP();
   }
 }
@@ -1529,18 +1536,121 @@ function respUpdateChart(years, contribData, grantData, portfolioData){
   });
 }
 
+// ── RESP CONTRIBUTION SCHEDULE ──
+let schedRowCount = 0;
+
+function toAnnual(amount, freq){
+  if(freq === 'monthly') return amount * 12;
+  if(freq === 'weekly')  return amount * 52;
+  return amount; // annual
+}
+
+function addContribRow(years=5, freq='annual', amount=2500){
+  schedRowCount++;
+  const id = schedRowCount;
+  const freqOpts = ['annual','monthly','weekly'].map(f =>
+    `<option value="${f}" ${f===freq?'selected':''}>${f.charAt(0).toUpperCase()+f.slice(1)}</option>`
+  ).join('');
+  const annualEquiv = toAnnual(amount, freq);
+  const html = `
+  <div class="sched-row" id="sched-row-${id}">
+    <div class="sched-row-head">
+      <span class="sched-row-label">Period ${id}</span>
+      <button class="sched-row-del" onclick="removeContribRow(${id})" title="Remove period">✕</button>
+    </div>
+    <div class="sched-grid">
+      <div>
+        <div class="sched-mini-label">Duration</div>
+        <div style="display:flex;align-items:center;gap:4px">
+          <input class="sched-input" style="padding-left:10px" type="number" id="sched-yrs-${id}" value="${years}" min="1" max="18" step="1" oninput="calcRESP()" placeholder="Yrs">
+          <span style="font-size:0.72rem;color:#aaa;white-space:nowrap">years</span>
+        </div>
+      </div>
+      <div>
+        <div class="sched-mini-label">Frequency</div>
+        <select class="sched-select" id="sched-freq-${id}" onchange="updateSchedHint(${id});calcRESP()">${freqOpts}</select>
+      </div>
+      <div>
+        <div class="sched-mini-label">Amount</div>
+        <div class="sched-input-wrap">
+          <span class="sched-prefix">$</span>
+          <input class="sched-input" type="number" id="sched-amt-${id}" value="${amount}" min="0" step="1" oninput="updateSchedHint(${id});calcRESP()">
+        </div>
+      </div>
+    </div>
+    <div class="sched-annual-equiv" id="sched-hint-${id}">= $${annualEquiv.toLocaleString()}/yr</div>
+  </div>`;
+  document.getElementById('contrib-schedule-rows').insertAdjacentHTML('beforeend', html);
+  updateRowLabels();
+}
+
+function removeContribRow(id){
+  const el = document.getElementById('sched-row-'+id);
+  if(el) el.remove();
+  updateRowLabels();
+  calcRESP();
+}
+
+function updateRowLabels(){
+  const rows = document.querySelectorAll('.sched-row');
+  rows.forEach((row, i) => {
+    const label = row.querySelector('.sched-row-label');
+    if(label) label.textContent = 'Period '+(i+1);
+    // Don't show delete button if only 1 row
+    const del = row.querySelector('.sched-row-del');
+    if(del) del.style.visibility = rows.length > 1 ? 'visible' : 'hidden';
+  });
+}
+
+function updateSchedHint(id){
+  const freqEl = document.getElementById('sched-freq-'+id);
+  const amtEl  = document.getElementById('sched-amt-'+id);
+  if(!freqEl || !amtEl) return;
+  const freq = freqEl.value || 'annual';
+  const amt  = parseFloat(amtEl.value) || 0;
+  const annual = toAnnual(amt, freq);
+  const el = document.getElementById('sched-hint-'+id);
+  if(el) el.textContent = '= $'+Math.round(annual).toLocaleString()+'/yr';
+}
+
+function getContribSchedule(){
+  // Returns array of {annualAmount, years} in order
+  const rows = document.querySelectorAll('.sched-row');
+  const schedule = [];
+  rows.forEach(row => {
+    const rowId = row.id.replace('sched-row-','');
+    const yrs = parseInt(document.getElementById('sched-yrs-'+rowId)?.value) || 0;
+    const freq = document.getElementById('sched-freq-'+rowId)?.value || 'annual';
+    const amt  = parseFloat(document.getElementById('sched-amt-'+rowId)?.value) || 0;
+    if(yrs > 0) schedule.push({ annualAmount: toAnnual(amt, freq), years: yrs });
+  });
+  return schedule;
+}
+
 // ── MAIN CALCULATION ──
 function calcRESP(){
-  // ── Inputs ──
+  // ── Inputs — read ALL scalar inputs first ──
   const dob = document.getElementById('child-dob').value;
-  const annualContrib = parseFloat(document.getElementById('annual-contrib').value) || 0;
   const returnRate = parseFloat(document.getElementById('return-rate').value) || 0;
   const startYear = parseInt(document.getElementById('start-year').value) || new Date().getFullYear();
   const lumpSum = upfrontEnabled ? (parseFloat(document.getElementById('lump-sum').value) || 0) : 0;
 
+  // ── Build contribution schedule map (needs startYear) ──
+  const schedule = getContribSchedule();
+  if(schedule.length === 0) return; // nothing to compute yet
+  const schedMap = {}; // yr -> annualAmount
+  let schedYr = startYear;
+  for(const seg of schedule){
+    for(let s = 0; s < seg.years; s++){
+      schedMap[schedYr] = seg.annualAmount;
+      schedYr++;
+    }
+  }
+  const lastSegAmt = schedule.length > 0 ? schedule[schedule.length-1].annualAmount : 2500;
+
   // Update hints
   document.getElementById('rate-display').textContent = returnRate + '%';
-  document.getElementById('annual-hint').textContent = annualContrib <= 2500 ? 'Optimal: $2,500/yr' : annualContrib <= 5000 ? 'Catch-up eligible' : 'Above catch-up threshold';
+  // annual-hint now shown per schedule row
 
   // ── Age calculation ──
   let childBirthYear, childCurrentAge;
@@ -1610,12 +1720,12 @@ function calcRESP(){
     const roomAccumulatedThisYear = (childAgeThisYear <= 17 && yr >= startYear) ? CESG_MAX_ANNUAL : 0;
     unusedGrantRoom += roomAccumulatedThisYear;
 
-    // Determine contribution for this year
-    let yearContrib = annualContrib;
-
-    // Apply lump sum in year 1
+    // Determine contribution for this year from schedule
+    const annualContrib = schedMap[yr] !== undefined ? schedMap[yr] : lastSegAmt;
+    let yearContrib;
+    // Year 1: lump sum PLUS annual contribution (both apply)
     if(yr === startYear && lumpSum > 0){
-      yearContrib = Math.min(lumpSum, CONTRIB_LIFETIME - lifeContrib);
+      yearContrib = Math.min(lumpSum + annualContrib, CONTRIB_LIFETIME - lifeContrib);
     } else {
       yearContrib = Math.min(annualContrib, Math.max(0, CONTRIB_LIFETIME - lifeContrib));
     }
