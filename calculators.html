@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Investing Calculators — Punjabi Finance</title>
+<script>const PF_MONTHLY_CODE = "PF-APR-2026";</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:18px;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-height:1.6;min-height:100vh}
+
+/* ── TOPBAR ── */
+.topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;z-index:100;gap:12px;width:100%;box-sizing:border-box}
+.wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);flex-shrink:0}
+.wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
+.wm-gold{color:#d4a534}
+.topbar-nav{display:flex;align-items:center;gap:2px;flex:1}
+.nav-btn{display:inline-flex;align-items:center;color:rgba(255,255,255,0.5);font-size:0.67rem;font-weight:500;letter-spacing:0.04em;padding:7px 12px;border-radius:7px;text-decoration:none;border:1px solid transparent;white-space:nowrap;transition:all .15s}
+.nav-btn:hover{background:rgba(212,165,52,0.1);color:#d4a534;border-color:rgba(212,165,52,0.2)}
+.nav-btn.active{color:#d4a534;border-color:rgba(212,165,52,0.2);background:rgba(212,165,52,0.08)}
+.nav-dropdown .nav-btn{font-size:0.89rem;padding:12px 14px;border-radius:9px;width:100%;letter-spacing:0.02em}
+.topbar-right-btns{display:none;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.topbar-mobile-btn{display:inline-flex;align-items:center;font-size:0.75rem;font-weight:700;padding:8px 16px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:all .15s}
+.topbar-mobile-btn.join{color:#1a9e50;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25)}
+.ham-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:10px 12px;border:1px solid rgba(212,165,52,0.35);background:rgba(212,165,52,0.1);border-radius:8px;flex-shrink:0}
+.ham-btn:hover{background:rgba(212,165,52,0.2);border-color:rgba(212,165,52,0.5)}
+.ham-line{width:24px;height:2.5px;background:#d4a534;border-radius:2px;transition:all .25s;display:block}
+.ham-btn.open .ham-line:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham-btn.open .ham-line:nth-child(2){opacity:0;transform:scaleX(0)}
+.ham-btn.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-dropdown{display:none;position:fixed;top:58px;left:0;right:0;background:#111009;border-bottom:1px solid rgba(212,165,52,0.15);z-index:99;padding:8px 16px 14px;flex-direction:column;gap:3px;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+.nav-dropdown.open{display:flex}
+@media(max-width:720px){.topbar-nav{display:none}.topbar-right-btns{display:flex}}
+@media(max-width:480px){.topbar{padding:0 14px;gap:8px}.wm-link{padding-right:14px}}
+@media(max-width:360px){.topbar-mobile-btn{display:none!important}}
+
+/* ── HERO ── */
+.hero{background:#0d0b04;padding:clamp(44px,6vw,72px) 40px clamp(28px,4vw,48px);text-align:center;position:relative;overflow:hidden;border-bottom:1px solid rgba(212,165,52,0.08)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(212,165,52,0.12) 0%,transparent 65%);pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:640px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.2);padding:6px 18px;border-radius:100px;font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:#d4a534;font-weight:700;margin-bottom:20px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4.5vw,3rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:14px;letter-spacing:-0.02em}
+.hero-title em{color:#d4a534;font-style:normal}
+.hero-sub{font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.75;max-width:480px;margin:0 auto;text-align:center}
+
+/* ── CALC TABS ── */
+.calc-tabs-wrap{background:#111009;padding:0 40px;border-top:1px solid rgba(212,165,52,0.12);border-bottom:1px solid rgba(212,165,52,0.12)}
+.calc-tabs{display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;max-width:1080px;margin:0 auto}
+.calc-tabs::-webkit-scrollbar{display:none}
+.calc-tab{flex-shrink:0;padding:16px 20px;font-size:0.68rem;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:0.1em;cursor:pointer;border-bottom:2.5px solid transparent;transition:all .2s;white-space:nowrap;text-transform:uppercase;background:none;border-top:none;border-left:none;border-right:none;font-family:'DM Sans',sans-serif}
+.calc-tab:hover{color:rgba(212,165,52,0.7)}
+.calc-tab.active{color:#d4a534;border-bottom-color:#d4a534}
+
+/* ── MAIN CALC AREA ── */
+.calc-area{max-width:960px;margin:0 auto;padding:clamp(32px,4vw,52px) 40px;overflow:hidden;background:#f4f2ee}
+
+/* ── PANELS ── */
+.calc-panel{display:none}
+.calc-panel.active{display:block}
+.panel-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;color:#1a1a1a;margin-bottom:4px}
+.panel-sub{font-size:0.78rem;color:#999;margin-bottom:28px;line-height:1.6}
+
+/* ── TWO-COL LAYOUT ── */
+.calc-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+
+/* ── INPUTS ── */
+.input-group{margin-bottom:20px}
+.input-label{font-size:0.63rem;letter-spacing:0.12em;text-transform:uppercase;color:#888;font-weight:600;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;min-width:0}
+.input-val{font-size:0.8rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0}
+.input-wrap{position:relative}
+.input-prefix{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:0.85rem;font-weight:600;color:#888;pointer-events:none}
+.calc-input{width:100%;padding:12px 14px 12px 30px;border:1.5px solid #e8e4dc;border-radius:10px;font-size:0.88rem;font-family:'DM Sans',sans-serif;background:#fff;color:#1a1a1a;outline:none;transition:border-color .15s}
+.calc-input:focus{border-color:#b8862a}
+.calc-input.no-prefix{padding-left:14px}
+.calc-input.suffix-pad{padding-right:36px}
+.input-suffix{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:0.85rem;font-weight:600;color:#888;pointer-events:none}
+.calc-range{width:100%;margin-top:8px;accent-color:#b8862a;cursor:pointer}
+
+/* ── RESULT CARD ── */
+.result-card{background:#111009;border-radius:16px;padding:28px 24px;position:relative;overflow:hidden;width:100%}
+.result-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#b8862a,#d4a534)}
+.result-eyebrow{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:16px}
+.result-row{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.result-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.result-label{font-size:0.68rem;color:rgba(255,255,255,0.35);margin-bottom:4px;letter-spacing:0.06em;text-transform:uppercase}
+.result-val{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#d4a534;line-height:1}
+.result-val.white{color:#fff}
+.result-val.green{color:#4caf7d}
+.result-note{font-size:0.68rem;color:rgba(255,255,255,0.25);margin-top:4px;line-height:1.5}
+
+/* ── CHART BAR ── */
+.result-bar-wrap{margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.06)}
+.result-bar-label{font-size:0.6rem;color:rgba(255,255,255,0.3);margin-bottom:10px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600}
+.result-bar-name{font-size:0.63rem;color:rgba(255,255,255,0.4);white-space:nowrap;display:flex;align-items:center;gap:5px}
+.result-bar-row{display:grid;grid-template-columns:90px 1fr 72px;gap:8px;align-items:center;margin-bottom:10px}
+.result-bar-track{flex:1;height:10px;background:rgba(255,255,255,0.08);border-radius:100px;overflow:hidden}
+.result-bar-fill{height:100%;border-radius:100px;transition:width .6s ease}
+.result-bar-fill.gold{background:linear-gradient(90deg,#b8862a,#d4a534)}
+.result-bar-fill.green{background:linear-gradient(90deg,#1a6b3c,#4caf7d)}
+.result-bar-text{font-size:0.63rem;color:rgba(255,255,255,0.45);text-align:right;white-space:nowrap}
+
+/* ── CTA ── */
+.calc-cta{background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:20px 22px;margin-top:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.calc-cta-text{font-size:0.8rem;color:#555;line-height:1.6;max-width:400px}
+.calc-cta-text strong{color:#1a1a1a;display:block;margin-bottom:2px}
+.calc-cta-btn{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#052a10;padding:11px 22px;border-radius:9px;font-weight:700;font-size:0.78rem;text-decoration:none;white-space:nowrap;flex-shrink:0}
+
+/* ── DISCLAIMER ── */
+.calc-disclaimer{font-size:0.65rem;color:#bbb;line-height:1.7;margin-top:20px;padding:12px 16px;background:#fff;border-radius:8px;border-left:2px solid #e8e4dc}
+
+/* ── FOOTER ── */
+
+.chart-wrap{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06)}
+.chart-label{font-size:0.6rem;color:rgba(255,255,255,0.3);margin-bottom:8px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600}
+.chart-canvas-wrap{position:relative;height:150px}
+
+.footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
+.footer-bar a{color:rgba(255,255,255,0.4);text-decoration:none}
+
+@media(max-width:720px){
+  .calc-layout{grid-template-columns:1fr}
+  .calc-area{padding:20px 16px;overflow:hidden}
+  .calc-tabs-wrap{padding:0}
+  .hero{padding:32px 16px 22px}
+  .hero-sub{font-size:0.8rem}
+  .calc-cta{flex-direction:column;align-items:flex-start}
+  .calc-tab{padding:13px 14px;font-size:0.6rem}
+  .result-val{font-size:1.25rem}
+  .panel-title{font-size:1.05rem}
+  .result-card{padding:18px 16px}
+  .input-group{margin-bottom:14px}
+  .calc-input{font-size:0.82rem}
+  .input-label{font-size:0.58rem}
+  .input-val{font-size:0.75rem}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a class="wm-link" href="index.html">
+    <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
+  </a>
+  <div class="topbar-nav">
+  <a class="nav-btn" href="index.html">Live Portfolio</a>
+  <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="philosophy.html">How I Invest</a>
+  <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn" href="community.html" style="color:#1a9e50">Join</a>
+  <a class="nav-btn active" href="calculators.html">Calculators</a>
+  <a class="nav-btn" href="links.html">Links</a>
+  <a class="nav-btn" href="mediakit.html">Media Kit</a>
+  </div>
+  <div class="topbar-right-btns">
+    <a class="topbar-mobile-btn join" href="community.html">Join</a>
+    <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
+  </div>
+</div>
+<nav class="nav-dropdown" id="nav-dropdown">
+  <a class="nav-btn" href="index.html">Live Portfolio</a>
+  <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="philosophy.html">How I Invest</a>
+  <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn" href="community.html" style="color:#1a9e50">Join</a>
+  <a class="nav-btn active" href="calculators.html">Calculators</a>
+  <a class="nav-btn" href="links.html">Links</a>
+  <a class="nav-btn" href="mediakit.html">Media Kit</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">🧮 Investing Tools</div>
+    <div class="hero-title">Run the <em>numbers</em><br>before you invest</div>
+    <div class="hero-sub">Simple, honest calculators to help you plan your investing journey — compound growth, monthly investing, withdrawal planning, and more.</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="calc-tabs-wrap">
+<div class="calc-tabs">
+  <button class="calc-tab active" onclick="switchTab('sip')">Monthly Investing</button>
+  <button class="calc-tab" onclick="switchTab('lumpsum')">Lump Sum</button>
+  <button class="calc-tab" onclick="switchTab('goal')">Goal Planner</button>
+  <button class="calc-tab" onclick="switchTab('swp')">Withdrawal (SWP)</button>
+  <button class="calc-tab" onclick="switchTab('cagr')">CAGR</button>
+  <button class="calc-tab" onclick="switchTab('options')">Options Income</button>
+</div>
+</div>
+
+<div style="height:3px;background:linear-gradient(90deg,#b8862a,#d4a534,#b8862a);opacity:0.3"></div>
+<!-- ════════════════════════════════════════ -->
+<!-- PANEL 1: Monthly Investing (SIP) -->
+<!-- ════════════════════════════════════════ -->
+<div class="calc-area">
+<div class="calc-panel active" id="panel-sip">
+  <div class="panel-title">Monthly Investing Calculator</div>
+  <div class="panel-sub">See how regular monthly contributions grow over time through compound returns.</div>
+  <div class="calc-layout">
+    <div>
+      <div class="input-group">
+        <div class="input-label">Monthly Investment <span class="input-val" id="sip-amt-val">$500</span></div>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input class="calc-input" id="sip-amt" type="number" value="500" min="1" oninput="calcSIP()">
+        </div>
+        <input class="calc-range" type="range" id="sip-amt-r" min="50" max="10000" step="50" value="500" oninput="document.getElementById('sip-amt').value=this.value;calcSIP()">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Annual Return Rate <span class="input-val" id="sip-rate-val">10%</span></div>
+        <div class="input-wrap">
+          <input class="calc-input no-prefix suffix-pad" id="sip-rate" type="number" value="10" min="1" max="50" step="0.5" oninput="calcSIP()">
+          <span class="input-suffix">%</span>
+        </div>
+        <input class="calc-range" type="range" id="sip-rate-r" min="1" max="30" step="0.5" value="10" oninput="document.getElementById('sip-rate').value=this.value;calcSIP()">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Time Period <span class="input-val" id="sip-yrs-val">20 years</span></div>
+        <div class="input-wrap">
+          <input class="calc-input no-prefix suffix-pad" id="sip-yrs" type="number" value="20" min="1" max="50" oninput="calcSIP()">
+          <span class="input-suffix">yrs</span>
+        </div>
+        <input class="calc-range" type="range" id="sip-yrs-r" min="1" max="50" step="1" value="20" oninput="document.getElementById('sip-yrs').value=this.value;calcSIP()">
+      </div>
+    </div>
+    <div>
+      <div class="result-card">
+        <div class="result-eyebrow">Projected Outcome</div>
+        <div class="result-row">
+          <div class="result-label">Total Value</div>
+          <div class="result-val" id="sip-total">$378,016</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Total Invested</div>
+          <div class="result-val white" id="sip-invested">$120,000</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Gains from Compounding</div>
+          <div class="result-val green" id="sip-gain">$258,016</div>
+          <div class="result-note" id="sip-gain-pct">215% return on investment</div>
+        </div>
+        <div class="result-bar-wrap">
+          <div class="result-bar-label">How your money breaks down</div>
+          <div class="result-bar-row">
+            <div class="result-bar-name"><span style="width:8px;height:8px;border-radius:50%;background:#d4a534;display:inline-block;flex-shrink:0"></span>Invested</div>
+            <div class="result-bar-track"><div class="result-bar-fill gold" id="sip-bar-inv" style="width:32%"></div></div>
+            <div class="result-bar-text" id="sip-bar-inv-t">32%</div>
+          </div>
+          <div class="result-bar-row">
+            <div class="result-bar-name"><span style="width:8px;height:8px;border-radius:50%;background:#4caf7d;display:inline-block;flex-shrink:0"></span>Growth</div>
+            <div class="result-bar-track"><div class="result-bar-fill green" id="sip-bar-gain" style="width:68%"></div></div>
+            <div class="result-bar-text" id="sip-bar-gain-t">68%</div>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-label">Portfolio Growth Over Time</div>
+          <div class="chart-canvas-wrap"><canvas id="chart-sip"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="calc-disclaimer">For illustrative purposes only. Returns are not guaranteed. Actual market returns vary and may be higher or lower than the assumed rate. Always do your own research before investing.</div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- PANEL 2: Lump Sum -->
+<!-- ════════════════════════════════════════ -->
+<div class="calc-panel" id="panel-lumpsum">
+  <div class="panel-title">Lump Sum Calculator</div>
+  <div class="panel-sub">See how a one-time investment grows over time with compound returns.</div>
+  <div class="calc-layout">
+    <div>
+      <div class="input-group">
+        <div class="input-label">Investment Amount <span class="input-val" id="ls-amt-val">$10,000</span></div>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input class="calc-input" id="ls-amt" type="number" value="10000" min="1" oninput="calcLS()">
+        </div>
+        <input class="calc-range" type="range" id="ls-amt-r" min="1000" max="500000" step="1000" value="10000" oninput="document.getElementById('ls-amt').value=this.value;calcLS()">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Annual Return Rate <span class="input-val" id="ls-rate-val">10%</span></div>
+        <div class="input-wrap">
+          <input class="calc-input no-prefix suffix-pad" id="ls-rate" type="number" value="10" min="1" max="50" step="0.5" oninput="calcLS()">
+          <span class="input-suffix">%</span>
+        </div>
+        <input class="calc-range" type="range" id="ls-rate-r" min="1" max="30" step="0.5" value="10" oninput="document.getElementById('ls-rate').value=this.value;calcLS()">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Time Period <span class="input-val" id="ls-yrs-val">20 years</span></div>
+        <div class="input-wrap">
+          <input class="calc-input no-prefix suffix-pad" id="ls-yrs" type="number" value="20" min="1" max="50" oninput="calcLS()">
+          <span class="input-suffix">yrs</span>
+        </div>
+        <input class="calc-range" type="range" id="ls-yrs-r" min="1" max="50" step="1" value="20" oninput="document.getElementById('ls-yrs').value=this.value;calcLS()">
+      </div>
+    </div>
+    <div>
+      <div class="result-card">
+        <div class="result-eyebrow">Projected Outcome</div>
+        <div class="result-row">
+          <div class="result-label">Future Value</div>
+          <div class="result-val" id="ls-total">$67,275</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Initial Investment</div>
+          <div class="result-val white" id="ls-invested">$10,000</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Total Gain</div>
+          <div class="result-val green" id="ls-gain">$57,275</div>
+          <div class="result-note" id="ls-gain-pct">573% return on investment</div>
+        </div>
+        <div class="result-bar-wrap">
+          <div class="result-bar-label">Principal vs Growth</div>
+          <div class="result-bar-row">
+            <div class="result-bar-name"><span style="width:8px;height:8px;border-radius:50%;background:#d4a534;display:inline-block;flex-shrink:0"></span>Principal</div>
+            <div class="result-bar-track"><div class="result-bar-fill gold" id="ls-bar-inv" style="width:15%"></div></div>
+            <div class="result-bar-text" id="ls-bar-inv-t">15%</div>
+          </div>
+          <div class="result-bar-row">
+            <div class="result-bar-name"><span style="width:8px;height:8px;border-radius:50%;background:#4caf7d;display:inline-block;flex-shrink:0"></span>Growth</div>
+            <div class="result-bar-track"><div class="result-bar-fill green" id="ls-bar-gain" style="width:85%"></div></div>
+            <div class="result-bar-text" id="ls-bar-gain-t">85%</div>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-label">Value Growth Over Time</div>
+          <div class="chart-canvas-wrap"><canvas id="chart-ls"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="calc-disclaimer">For illustrative purposes only. Returns are not guaranteed. Actual market returns vary significantly. Past performance does not predict future results.</div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- PANEL 3: Goal Planner -->
+<!-- ════════════════════════════════════════ -->
+<div class="calc-panel" id="panel-goal">
+  <div class="panel-title">Goal Planner</div>
+  <div class="panel-sub">How much do you need to invest monthly to reach a specific goal?</div>
+  <div class="calc-layout">
+    <div>
+      <div class="input-group">
+        <div class="input-label">Target Amount <span class="input-val" id="goal-target-val">$500,000</span></div>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input class="calc-input" id="goal-target" type="number" value="500000" min="1000" oninput="calcGoal()">
+        </div>
+        <input class="calc-range" type="range" id="goal-target-r" min="10000" max="5000000" step="10000" value="500000" oninput="document.getElementById('goal-target').value=this.value;calcGoal()">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Annual Return Rate <span class="input-val" id="goal-rate-val">10%</span></div>
+        <div class="input-wrap">
+          <input class="calc-input no-prefix suffix-pad" id="goal-rate" type="number" value="10" min="1" max="50" step="0.5" oninput="calcGoal()">
+          <span class="input-suffix">%</span>
+        </div>
+        <input class="calc-range" type="range" id="goal-rate-r" min="1" max="30" step="0.5" value="10" oninput="document.getElementById('goal-rate').value=this.value;calcGoal()">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Time to Goal <span class="input-val" id="goal-yrs-val">20 years</span></div>
+        <div class="input-wrap">
+          <input class="calc-input no-prefix suffix-pad" id="goal-yrs" type="number" value="20" min="1" max="50" oninput="calcGoal()">
+          <span class="input-suffix">yrs</span>
+        </div>
+        <input class="calc-range" type="range" id="goal-yrs-r" min="1" max="50" step="1" value="20" oninput="document.getElementById('goal-yrs').value=this.value;calcGoal()">
+      </div>
+    </div>
+    <div>
+      <div class="result-card">
+        <div class="result-eyebrow">What You Need to Invest</div>
+        <div class="result-row">
+          <div class="result-label">Monthly Contribution Needed</div>
+          <div class="result-val" id="goal-monthly">$662</div>
+          <div class="result-note">To reach your goal</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Total You'll Invest</div>
+          <div class="result-val white" id="goal-total-invested">$158,832</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Gained from Markets</div>
+          <div class="result-val green" id="goal-gain">$341,168</div>
+          <div class="result-note" id="goal-pct">68% of your goal comes from compounding</div>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-label">Monthly Contribution Needed vs Time</div>
+          <div class="chart-canvas-wrap"><canvas id="chart-goal"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="calc-disclaimer">For illustrative purposes only. Returns are not guaranteed. Assumes consistent monthly contributions and a fixed annual return rate.</div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- PANEL 4: Withdrawal (SWP) -->
+<!-- ════════════════════════════════════════ -->
+<div class="calc-panel" id="panel-swp">
+  <div class="panel-title">Withdrawal Planner</div>
+  <div class="panel-sub">How long will your portfolio last if you withdraw a fixed amount each month?</div>
+  <div class="calc-layout">
+    <div>
+      <div class="input-group">
+        <div class="input-label">Starting Portfolio Value <span class="input-val" id="swp-start-val">$500,000</span></div>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input class="calc-input" id="swp-start" type="number" value="500000" min="1000" oninput="calcSWP()">
+        </div>
+        <input class="calc-range" type="range" id="swp-start-r" min="10000" max="5000000" step="10000" value="500000" oninput="document.getElementById('swp-start').value=this.value;calcSWP()">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Monthly Withdrawal <span class="input-val" id="swp-amt-val">$2,000</span></div>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input class="calc-input" id="swp-amt" type="number" value="2000" min="1" oninput="calcSWP()">
+        </div>
+        <input class="calc-range" type="range" id="swp-amt-r" min="100" max="20000" step="100" value="2000" oninput="document.getElementById('swp-amt').value=this.value;calcSWP()">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Annual Return Rate <span class="input-val" id="swp-rate-val">7%</span></div>
+        <div class="input-wrap">
+          <input class="calc-input no-prefix suffix-pad" id="swp-rate" type="number" value="7" min="0" max="30" step="0.5" oninput="calcSWP()">
+          <span class="input-suffix">%</span>
+        </div>
+        <input class="calc-range" type="range" id="swp-rate-r" min="0" max="20" step="0.5" value="7" oninput="document.getElementById('swp-rate').value=this.value;calcSWP()">
+      </div>
+    </div>
+    <div>
+      <div class="result-card">
+        <div class="result-eyebrow">Portfolio Longevity</div>
+        <div class="result-row">
+          <div class="result-label">Portfolio Lasts</div>
+          <div class="result-val" id="swp-duration">Indefinitely</div>
+          <div class="result-note" id="swp-note">Your returns exceed withdrawals</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Total Withdrawn</div>
+          <div class="result-val white" id="swp-total">$240,000+</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Annual Withdrawal Rate</div>
+          <div class="result-val" id="swp-rate-show" style="color:#d4a534">4.8%</div>
+          <div class="result-note" id="swp-rate-note">The 4% rule is a common safe withdrawal guideline</div>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-label">Portfolio Balance Over Time</div>
+          <div class="chart-canvas-wrap"><canvas id="chart-swp"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="calc-disclaimer">For illustrative purposes only. Withdrawal sustainability depends on market returns, inflation, and actual portfolio performance. Consult a financial advisor for retirement planning.</div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- PANEL 5: CAGR -->
+<!-- ════════════════════════════════════════ -->
+<div class="calc-panel" id="panel-cagr">
+  <div class="panel-title">CAGR Calculator</div>
+  <div class="panel-sub">Calculate the Compound Annual Growth Rate of any investment — or find out what a position is worth at a given CAGR.</div>
+  <div class="calc-layout">
+    <div>
+      <div style="background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:16px 18px;margin-bottom:20px;display:flex;gap:0">
+        <button id="cagr-mode-calc" onclick="setCagrMode('calc')" style="flex:1;padding:9px;border-radius:8px;border:none;font-size:0.72rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;background:#1a1a1a;color:#fff;transition:all .15s">Find CAGR</button>
+        <button id="cagr-mode-proj" onclick="setCagrMode('proj')" style="flex:1;padding:9px;border-radius:8px;border:none;font-size:0.72rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;background:transparent;color:#888;transition:all .15s">Project Future Value</button>
+      </div>
+      <div id="cagr-calc-inputs">
+        <div class="input-group">
+          <div class="input-label">Initial Investment <span class="input-val" id="cagr-initial-val">$10,000</span></div>
+          <div class="input-wrap"><span class="input-prefix">$</span><input class="calc-input" id="cagr-initial" type="number" value="10000" min="1" oninput="calcCAGR()"></div>
+          <input class="calc-range" type="range" id="cagr-initial-r" min="1000" max="1000000" step="1000" value="10000" oninput="document.getElementById('cagr-initial').value=this.value;calcCAGR()">
+        </div>
+        <div class="input-group">
+          <div class="input-label">Final Value <span class="input-val" id="cagr-final-val">$50,000</span></div>
+          <div class="input-wrap"><span class="input-prefix">$</span><input class="calc-input" id="cagr-final" type="number" value="50000" min="1" oninput="calcCAGR()"></div>
+          <input class="calc-range" type="range" id="cagr-final-r" min="1000" max="2000000" step="1000" value="50000" oninput="document.getElementById('cagr-final').value=this.value;calcCAGR()">
+        </div>
+        <div class="input-group">
+          <div class="input-label">Years Held <span class="input-val" id="cagr-yrs-val">10 years</span></div>
+          <div class="input-wrap"><input class="calc-input no-prefix suffix-pad" id="cagr-yrs" type="number" value="10" min="1" max="50" oninput="calcCAGR()"><span class="input-suffix">yrs</span></div>
+          <input class="calc-range" type="range" id="cagr-yrs-r" min="1" max="50" step="1" value="10" oninput="document.getElementById('cagr-yrs').value=this.value;calcCAGR()">
+        </div>
+      </div>
+      <div id="cagr-proj-inputs" style="display:none">
+        <div class="input-group">
+          <div class="input-label">Initial Investment <span class="input-val" id="cagr-p-initial-val">$10,000</span></div>
+          <div class="input-wrap"><span class="input-prefix">$</span><input class="calc-input" id="cagr-p-initial" type="number" value="10000" min="1" oninput="calcCAGRProj()"></div>
+          <input class="calc-range" type="range" min="1000" max="1000000" step="1000" value="10000" oninput="document.getElementById('cagr-p-initial').value=this.value;calcCAGRProj()">
+        </div>
+        <div class="input-group">
+          <div class="input-label">CAGR <span class="input-val" id="cagr-p-rate-val">15%</span></div>
+          <div class="input-wrap"><input class="calc-input no-prefix suffix-pad" id="cagr-p-rate" type="number" value="15" min="1" max="100" step="0.5" oninput="calcCAGRProj()"><span class="input-suffix">%</span></div>
+          <input class="calc-range" type="range" min="1" max="50" step="0.5" value="15" oninput="document.getElementById('cagr-p-rate').value=this.value;calcCAGRProj()">
+        </div>
+        <div class="input-group">
+          <div class="input-label">Years <span class="input-val" id="cagr-p-yrs-val">10 years</span></div>
+          <div class="input-wrap"><input class="calc-input no-prefix suffix-pad" id="cagr-p-yrs" type="number" value="10" min="1" max="50" oninput="calcCAGRProj()"><span class="input-suffix">yrs</span></div>
+          <input class="calc-range" type="range" min="1" max="50" step="1" value="10" oninput="document.getElementById('cagr-p-yrs').value=this.value;calcCAGRProj()">
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="result-card">
+        <div class="result-eyebrow">Result</div>
+        <div class="result-row">
+          <div class="result-label" id="cagr-res-label">Compound Annual Growth Rate</div>
+          <div class="result-val" id="cagr-result">17.46%</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Total Return</div>
+          <div class="result-val green" id="cagr-total-return">400%</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Gain</div>
+          <div class="result-val white" id="cagr-gain">$40,000</div>
+          <div class="result-note" id="cagr-note">Over 10 years</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="calc-disclaimer">CAGR shows smoothed annual return and does not reflect year-to-year volatility. For illustrative purposes only.</div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- PANEL 6: Options Income -->
+<!-- ════════════════════════════════════════ -->
+<div class="calc-panel" id="panel-options">
+  <div class="panel-title">Covered Call Income Calculator</div>
+  <div class="panel-sub">Estimate monthly and annual income from selling covered calls on your stock positions.</div>
+  <div class="calc-layout">
+    <div>
+      <div class="input-group">
+        <div class="input-label">Number of Shares <span class="input-val" id="opt-shares-val">100</span></div>
+        <div class="input-wrap"><input class="calc-input no-prefix" id="opt-shares" type="number" value="100" min="100" step="100" oninput="calcOptions()"></div>
+        <input class="calc-range" type="range" id="opt-shares-r" min="100" max="10000" step="100" value="100" oninput="document.getElementById('opt-shares').value=this.value;calcOptions()">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Current Stock Price <span class="input-val" id="opt-price-val">$50</span></div>
+        <div class="input-wrap"><span class="input-prefix">$</span><input class="calc-input" id="opt-price" type="number" value="50" min="1" step="0.5" oninput="calcOptions()"></div>
+        <input class="calc-range" type="range" id="opt-price-r" min="5" max="1000" step="5" value="50" oninput="document.getElementById('opt-price').value=this.value;calcOptions()">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Premium per Share <span class="input-val" id="opt-prem-val">$1.50</span></div>
+        <div class="input-wrap"><span class="input-prefix">$</span><input class="calc-input" id="opt-prem" type="number" value="1.50" min="0.01" step="0.05" oninput="calcOptions()"></div>
+        <input class="calc-range" type="range" id="opt-prem-r" min="0.05" max="20" step="0.05" value="1.5" oninput="document.getElementById('opt-prem').value=this.value;calcOptions()">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Contracts per Month <span class="input-val" id="opt-contracts-val">1</span></div>
+        <div class="input-wrap"><input class="calc-input no-prefix" id="opt-contracts" type="number" value="1" min="1" oninput="calcOptions()"></div>
+        <input class="calc-range" type="range" id="opt-contracts-r" min="1" max="50" step="1" value="1" oninput="document.getElementById('opt-contracts').value=this.value;calcOptions()">
+        <div style="font-size:0.65rem;color:#aaa;margin-top:4px">1 contract = 100 shares</div>
+      </div>
+    </div>
+    <div>
+      <div class="result-card">
+        <div class="result-eyebrow">Income Estimate</div>
+        <div class="result-row">
+          <div class="result-label">Monthly Premium Income</div>
+          <div class="result-val" id="opt-monthly">$150</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Annual Income Projection</div>
+          <div class="result-val green" id="opt-annual">$1,800</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">Yield on Position</div>
+          <div class="result-val white" id="opt-yield">36%</div>
+          <div class="result-note" id="opt-pos-val">Position value: $5,000</div>
+        </div>
+        <div class="result-bar-wrap">
+          <div class="result-bar-label">Monthly vs Annual</div>
+          <div class="result-bar-row">
+            <div class="result-bar-name"><span style="width:8px;height:8px;border-radius:50%;background:#d4a534;display:inline-block;flex-shrink:0"></span>Monthly</div>
+            <div class="result-bar-track"><div class="result-bar-fill gold" style="width:8%"></div></div>
+            <div class="result-bar-text" id="opt-bar-mo-t">$150</div>
+          </div>
+          <div class="result-bar-row">
+            <div class="result-bar-name"><span style="width:8px;height:8px;border-radius:50%;background:#4caf7d;display:inline-block;flex-shrink:0"></span>Annual</div>
+            <div class="result-bar-track"><div class="result-bar-fill green" style="width:100%"></div></div>
+            <div class="result-bar-text" id="opt-bar-yr-t">$1,800</div>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-label">Cumulative Income Over 12 Months</div>
+          <div class="chart-canvas-wrap"><canvas id="chart-options"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="calc-disclaimer">Options involve risk. This calculator assumes consistent monthly contracts at the same premium — actual premiums vary with volatility, time to expiry, and strike selection. Not financial advice.</div>
+</div>
+
+<!-- CTA -->
+<div class="calc-cta">
+  <div class="calc-cta-text">
+    <strong>See how I apply this in my real portfolio</strong>
+    I share every covered call, position sizing decision, and trade in real time — with full reasoning. Members see the numbers behind the numbers.
+  </div>
+  <a class="calc-cta-btn" href="community.html">&#128172; Join the Community</a>
+</div>
+
+</div><!-- /calc-area -->
+
+<div class="footer-bar">Not financial advice &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp; <a href="community.html">Community</a> &nbsp;&middot;&nbsp; <a href="links.html">Links</a></div>
+
+<script>
+function toggleMenu(){
+  document.getElementById('ham-btn').classList.toggle('open');
+  document.getElementById('nav-dropdown').classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  const btn=document.getElementById('ham-btn');
+  const drop=document.getElementById('nav-dropdown');
+  if(btn&&drop&&!btn.contains(e.target)&&!drop.contains(e.target)){
+    btn.classList.remove('open');drop.classList.remove('open');
+  }
+});
+
+function switchTab(id){
+  document.querySelectorAll('.calc-tab').forEach((t,i)=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.calc-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+}
+
+const fmt = n => n >= 1000000 ? '$'+(n/1000000).toFixed(2).replace(/\.?0+$/,'')+'M'
+  : n >= 1000 ? '$'+(n/1000).toFixed(1).replace(/\.0$/,'')+'K'
+  : '$'+Math.round(n).toLocaleString();
+const fmtFull = n => '$'+Math.round(n).toLocaleString();
+const syncRange = (inputId, rangeId, labelId, suffix) => {
+  const v = parseFloat(document.getElementById(inputId).value)||0;
+  const r = document.getElementById(rangeId);
+  if(r) r.value = v;
+  if(labelId) document.getElementById(labelId).textContent = suffix ? v+suffix : '$'+v.toLocaleString();
+};
+
+// ── SIP ──
+function calcSIP(){
+  const mo = parseFloat(document.getElementById('sip-amt').value)||0;
+  const r = parseFloat(document.getElementById('sip-rate').value)||0;
+  const yrs = parseInt(document.getElementById('sip-yrs').value)||0;
+  document.getElementById('sip-amt-val').textContent = '$'+mo.toLocaleString();
+  document.getElementById('sip-rate-val').textContent = r+'%';
+  document.getElementById('sip-yrs-val').textContent = yrs+' year'+(yrs!==1?'s':'');
+  const n = yrs*12, mr = r/100/12;
+  const total = mo * ((Math.pow(1+mr,n)-1)/mr) * (1+mr);
+  const invested = mo * n;
+  const gain = total - invested;
+  const pct = invested > 0 ? (gain/invested*100).toFixed(0) : 0;
+  const invPct = Math.round(invested/total*100);
+  document.getElementById('sip-total').textContent = fmtFull(total);
+  document.getElementById('sip-invested').textContent = fmtFull(invested);
+  document.getElementById('sip-gain').textContent = '+'+fmtFull(gain);
+  document.getElementById('sip-gain-pct').textContent = pct+'% return on investment';
+  document.getElementById('sip-bar-inv').style.width = invPct+'%';
+  document.getElementById('sip-bar-gain').style.width = (100-invPct)+'%';
+  document.getElementById('sip-bar-inv-t').textContent = invPct+'%';
+  document.getElementById('sip-bar-gain-t').textContent = (100-invPct)+'%';
+}
+calcSIP();
+
+// ── LUMP SUM ──
+function calcLS(){
+  const p = parseFloat(document.getElementById('ls-amt').value)||0;
+  const r = parseFloat(document.getElementById('ls-rate').value)||0;
+  const y = parseInt(document.getElementById('ls-yrs').value)||0;
+  document.getElementById('ls-amt-val').textContent = '$'+p.toLocaleString();
+  document.getElementById('ls-rate-val').textContent = r+'%';
+  document.getElementById('ls-yrs-val').textContent = y+' year'+(y!==1?'s':'');
+  const total = p * Math.pow(1+r/100, y);
+  const gain = total - p;
+  const pct = p > 0 ? (gain/p*100).toFixed(0) : 0;
+  const invPct = Math.round(p/total*100);
+  document.getElementById('ls-total').textContent = fmtFull(total);
+  document.getElementById('ls-invested').textContent = fmtFull(p);
+  document.getElementById('ls-gain').textContent = '+'+fmtFull(gain);
+  document.getElementById('ls-gain-pct').textContent = pct+'% return on investment';
+  document.getElementById('ls-bar-inv').style.width = invPct+'%';
+  document.getElementById('ls-bar-gain').style.width = (100-invPct)+'%';
+  document.getElementById('ls-bar-inv-t').textContent = invPct+'%';
+  document.getElementById('ls-bar-gain-t').textContent = (100-invPct)+'%';
+}
+calcLS();
+
+// ── GOAL ──
+function calcGoal(){
+  const target = parseFloat(document.getElementById('goal-target').value)||0;
+  const r = parseFloat(document.getElementById('goal-rate').value)||0;
+  const y = parseInt(document.getElementById('goal-yrs').value)||0;
+  document.getElementById('goal-target-val').textContent = '$'+target.toLocaleString();
+  document.getElementById('goal-rate-val').textContent = r+'%';
+  document.getElementById('goal-yrs-val').textContent = y+' year'+(y!==1?'s':'');
+  const n = y*12, mr = r/100/12;
+  const mo = mr > 0 ? target * mr / ((Math.pow(1+mr,n)-1) * (1+mr)) : target/n;
+  const invested = mo * n;
+  const gain = target - invested;
+  const gainPct = target > 0 ? Math.round(gain/target*100) : 0;
+  document.getElementById('goal-monthly').textContent = fmtFull(mo);
+  document.getElementById('goal-total-invested').textContent = fmtFull(invested);
+  document.getElementById('goal-gain').textContent = '+'+fmtFull(gain);
+  document.getElementById('goal-pct').textContent = gainPct+'% of your goal comes from compounding';
+}
+calcGoal();
+
+// ── SWP ──
+function calcSWP(){
+  const start = parseFloat(document.getElementById('swp-start').value)||0;
+  const mo = parseFloat(document.getElementById('swp-amt').value)||0;
+  const r = parseFloat(document.getElementById('swp-rate').value)||0;
+  document.getElementById('swp-start-val').textContent = '$'+start.toLocaleString();
+  document.getElementById('swp-amt-val').textContent = '$'+mo.toLocaleString();
+  document.getElementById('swp-rate-val').textContent = r+'%';
+  const mr = r/100/12;
+  const annualRate = mo*12/start*100;
+  document.getElementById('swp-rate-show').textContent = annualRate.toFixed(1)+'%';
+  document.getElementById('swp-rate-note').textContent = annualRate <= 4 ? '✔ Below 4% — generally considered sustainable' : annualRate <= 6 ? '⚠ Moderate withdrawal rate — monitor portfolio' : '⚠ High rate — portfolio may deplete faster';
+  if(mr > 0 && mo < start * mr){
+    document.getElementById('swp-duration').textContent = 'Indefinitely';
+    document.getElementById('swp-note').textContent = '✔ Your returns exceed withdrawals — portfolio grows';
+    document.getElementById('swp-total').textContent = fmt(mo*12*30)+' over 30 yrs';
+  } else {
+    let bal = start, months = 0;
+    while(bal > 0 && months < 1200){
+      bal = bal * (1+mr) - mo;
+      months++;
+    }
+    const yrs = Math.floor(months/12);
+    const mos = months % 12;
+    document.getElementById('swp-duration').textContent = yrs > 0 ? yrs+' yrs '+(mos>0?mos+' mo':'') : mos+' months';
+    document.getElementById('swp-note').textContent = 'Before portfolio is depleted';
+    document.getElementById('swp-total').textContent = fmtFull(months*mo);
+  }
+}
+calcSWP();
+
+// ── CAGR ──
+var cagrMode = 'calc';
+function setCagrMode(mode){
+  cagrMode = mode;
+  document.getElementById('cagr-calc-inputs').style.display = mode==='calc' ? 'block' : 'none';
+  document.getElementById('cagr-proj-inputs').style.display = mode==='proj' ? 'block' : 'none';
+  document.getElementById('cagr-mode-calc').style.background = mode==='calc' ? '#1a1a1a' : 'transparent';
+  document.getElementById('cagr-mode-calc').style.color = mode==='calc' ? '#fff' : '#888';
+  document.getElementById('cagr-mode-proj').style.background = mode==='proj' ? '#1a1a1a' : 'transparent';
+  document.getElementById('cagr-mode-proj').style.color = mode==='proj' ? '#fff' : '#888';
+  mode==='calc' ? calcCAGR() : calcCAGRProj();
+}
+function calcCAGR(){
+  const init = parseFloat(document.getElementById('cagr-initial').value)||0;
+  const fin = parseFloat(document.getElementById('cagr-final').value)||0;
+  const y = parseInt(document.getElementById('cagr-yrs').value)||1;
+  document.getElementById('cagr-initial-val').textContent = '$'+init.toLocaleString();
+  document.getElementById('cagr-final-val').textContent = '$'+fin.toLocaleString();
+  document.getElementById('cagr-yrs-val').textContent = y+' year'+(y!==1?'s':'');
+  const cagr = (Math.pow(fin/init, 1/y)-1)*100;
+  const totalReturn = (fin-init)/init*100;
+  document.getElementById('cagr-res-label').textContent = 'Compound Annual Growth Rate';
+  document.getElementById('cagr-result').textContent = cagr.toFixed(2)+'%';
+  document.getElementById('cagr-total-return').textContent = totalReturn.toFixed(0)+'%';
+  document.getElementById('cagr-gain').textContent = (fin > init ? '+' : '')+fmtFull(fin-init);
+  document.getElementById('cagr-note').textContent = 'Over '+y+' year'+(y!==1?'s':'');
+}
+calcCAGR();
+function calcCAGRProj(){
+  const init = parseFloat(document.getElementById('cagr-p-initial').value)||0;
+  const rate = parseFloat(document.getElementById('cagr-p-rate').value)||0;
+  const y = parseInt(document.getElementById('cagr-p-yrs').value)||1;
+  document.getElementById('cagr-p-initial-val').textContent = '$'+init.toLocaleString();
+  document.getElementById('cagr-p-rate-val').textContent = rate+'%';
+  document.getElementById('cagr-p-yrs-val').textContent = y+' year'+(y!==1?'s':'');
+  const fin = init * Math.pow(1+rate/100, y);
+  const gain = fin - init;
+  const totalReturn = init > 0 ? (gain/init*100).toFixed(0) : 0;
+  document.getElementById('cagr-res-label').textContent = 'Projected Value';
+  document.getElementById('cagr-result').textContent = fmtFull(fin);
+  document.getElementById('cagr-total-return').textContent = totalReturn+'%';
+  document.getElementById('cagr-gain').textContent = '+'+fmtFull(gain);
+  document.getElementById('cagr-note').textContent = 'Over '+y+' year'+(y!==1?'s':'');
+}
+
+// ── OPTIONS ──
+function calcOptions(){
+  const shares = parseInt(document.getElementById('opt-shares').value)||0;
+  const price = parseFloat(document.getElementById('opt-price').value)||0;
+  const prem = parseFloat(document.getElementById('opt-prem').value)||0;
+  const contracts = parseInt(document.getElementById('opt-contracts').value)||1;
+  document.getElementById('opt-shares-val').textContent = shares.toLocaleString();
+  document.getElementById('opt-price-val').textContent = '$'+price;
+  document.getElementById('opt-prem-val').textContent = '$'+prem.toFixed(2);
+  document.getElementById('opt-contracts-val').textContent = contracts;
+  const monthly = prem * contracts * 100;
+  const annual = monthly * 12;
+  const posVal = shares * price;
+  const yieldPct = posVal > 0 ? (annual/posVal*100).toFixed(1) : 0;
+  document.getElementById('opt-monthly').textContent = fmtFull(monthly);
+  document.getElementById('opt-annual').textContent = fmtFull(annual);
+  document.getElementById('opt-yield').textContent = yieldPct+'%';
+  document.getElementById('opt-pos-val').textContent = 'Position value: '+fmtFull(posVal);
+  document.getElementById('opt-bar-mo-t').textContent = 'Monthly '+fmt(monthly);
+  document.getElementById('opt-bar-yr-t').textContent = 'Annual '+fmt(annual);
+}
+calcOptions();
+
+// ── CHART HELPERS ──
+const charts = {};
+const CHART_DEFAULTS = {
+  animation:{duration:400},
+  plugins:{legend:{display:false}},
+  scales:{
+    x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'rgba(255,255,255,0.3)',font:{size:10},maxTicksLimit:8}},
+    y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'rgba(255,255,255,0.3)',font:{size:10},callback:v=>v>=1000000?'$'+(v/1000000).toFixed(1)+'M':v>=1000?'$'+(v/1000).toFixed(0)+'K':'$'+v}}
+  }
+};
+
+function makeChart(id, labels, datasets){
+  const canvas = document.getElementById(id);
+  if(!canvas) return;
+  if(charts[id]) charts[id].destroy();
+  charts[id] = new Chart(canvas, {
+    type:'line',
+    data:{labels, datasets},
+    options:{...CHART_DEFAULTS, responsive:true, maintainAspectRatio:false}
+  });
+}
+
+function makeBarChart(id, labels, datasets){
+  const canvas = document.getElementById(id);
+  if(!canvas) return;
+  if(charts[id]) charts[id].destroy();
+  charts[id] = new Chart(canvas, {
+    type:'bar',
+    data:{labels, datasets},
+    options:{...CHART_DEFAULTS, responsive:true, maintainAspectRatio:false,
+      scales:{...CHART_DEFAULTS.scales, x:{...CHART_DEFAULTS.scales.x, stacked:true}, y:{...CHART_DEFAULTS.scales.y, stacked:true}},
+      plugins:{legend:{display:false}}
+    }
+  });
+}
+
+function chartSIP(){
+  const mo = parseFloat(document.getElementById('sip-amt').value)||0;
+  const r = parseFloat(document.getElementById('sip-rate').value)||0;
+  const yrs = parseInt(document.getElementById('sip-yrs').value)||0;
+  const mr = r/100/12;
+  const labels=[], invested=[], total=[];
+  for(let y=1;y<=yrs;y++){
+    const n=y*12;
+    const t = mr>0 ? mo*((Math.pow(1+mr,n)-1)/mr)*(1+mr) : mo*n;
+    labels.push('Yr '+y);
+    invested.push(Math.round(mo*n));
+    total.push(Math.round(t));
+  }
+  makeChart('chart-sip', labels, [
+    {label:'Total Value',data:total,borderColor:'#d4a534',backgroundColor:'rgba(212,165,52,0.08)',fill:true,tension:0.3,pointRadius:0,borderWidth:2},
+    {label:'Invested',data:invested,borderColor:'rgba(255,255,255,0.2)',backgroundColor:'transparent',fill:false,tension:0.3,pointRadius:0,borderWidth:1,borderDash:[4,4]}
+  ]);
+}
+
+function chartLS(){
+  const p = parseFloat(document.getElementById('ls-amt').value)||0;
+  const r = parseFloat(document.getElementById('ls-rate').value)||0;
+  const y = parseInt(document.getElementById('ls-yrs').value)||0;
+  const labels=[], total=[], gain=[];
+  for(let i=1;i<=y;i++){
+    const t = p*Math.pow(1+r/100,i);
+    labels.push('Yr '+i);
+    total.push(Math.round(t));
+    gain.push(Math.round(t-p));
+  }
+  makeChart('chart-ls', labels, [
+    {label:'Value',data:total,borderColor:'#d4a534',backgroundColor:'rgba(212,165,52,0.08)',fill:true,tension:0.3,pointRadius:0,borderWidth:2}
+  ]);
+}
+
+function chartGoal(){
+  // Show: if I wait N years to start, how much more per month do I need?
+  const target = parseFloat(document.getElementById('goal-target').value)||0;
+  const r = parseFloat(document.getElementById('goal-rate').value)||0;
+  const y = parseInt(document.getElementById('goal-yrs').value)||0;
+  const labels=[], monthly=[];
+  const maxY = Math.max(y, 5);
+  for(let yr=1;yr<=maxY;yr++){
+    const n=yr*12, mr=r/100/12;
+    const mo = mr>0 ? target*mr/((Math.pow(1+mr,n)-1)*(1+mr)) : target/n;
+    labels.push(yr+' yr'+(yr!==1?'s':''));
+    monthly.push(Math.round(mo));
+  }
+  makeChart('chart-goal', labels, [
+    {label:'Monthly Needed',data:monthly,borderColor:'#4caf7d',backgroundColor:'rgba(76,175,61,0.08)',fill:true,tension:0.3,pointRadius:3,borderWidth:2,
+     pointBackgroundColor:'#4caf7d',pointRadius:labels.indexOf(y+' yr'+(y!==1?'s':''))>=0?[...labels.map((_,i)=>i===y-1?5:0)]:3}
+  ]);
+}
+
+function chartSWP(){
+  const start = parseFloat(document.getElementById('swp-start').value)||0;
+  const mo = parseFloat(document.getElementById('swp-amt').value)||0;
+  const r = parseFloat(document.getElementById('swp-rate').value)||0;
+  const mr = r/100/12;
+  const labels=[], bal=[];
+  let b=start;
+  const maxYrs = Math.min(50, 100);
+  for(let y=1;y<=maxYrs;y++){
+    for(let m=0;m<12;m++){ b=b*(1+mr)-mo; if(b<0){b=0;} }
+    labels.push('Yr '+y);
+    bal.push(Math.round(b));
+    if(b===0) break;
+  }
+  makeChart('chart-swp', labels, [
+    {label:'Balance',data:bal,borderColor:'#6aa3d5',backgroundColor:'rgba(106,163,213,0.08)',fill:true,tension:0.3,pointRadius:0,borderWidth:2}
+  ]);
+}
+
+function chartOptions(){
+  const prem = parseFloat(document.getElementById('opt-prem').value)||0;
+  const contracts = parseInt(document.getElementById('opt-contracts').value)||1;
+  const monthly = prem*contracts*100;
+  const labels=[], cumulative=[];
+  for(let m=1;m<=12;m++){
+    labels.push('Mo '+m);
+    cumulative.push(Math.round(monthly*m));
+  }
+  makeChart('chart-options', labels, [
+    {label:'Cumulative Income',data:cumulative,borderColor:'#4caf7d',backgroundColor:'rgba(76,175,61,0.1)',fill:true,tension:0.3,pointRadius:3,pointBackgroundColor:'#4caf7d',borderWidth:2}
+  ]);
+}
+
+// Wrap each calc function to also update chart
+const _calcSIP=calcSIP; calcSIP=function(){_calcSIP();chartSIP();}
+const _calcLS=calcLS; calcLS=function(){_calcLS();chartLS();}
+const _calcGoal=calcGoal; calcGoal=function(){_calcGoal();chartGoal();}
+const _calcSWP=calcSWP; calcSWP=function(){_calcSWP();chartSWP();}
+const _calcOptions=calcOptions; calcOptions=function(){_calcOptions();chartOptions();}
+
+// Init all charts
+setTimeout(function(){chartSIP();chartLS();chartGoal();chartSWP();chartOptions();}, 100);
+
+</script>
+</body>
+</html>
