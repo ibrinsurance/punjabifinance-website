@@ -1776,7 +1776,8 @@ function calcRESP(){
   let totalInvested = 0;
   let unusedGrantRoom = 0;
   let lifeContrib = 0;
-  let cumCLB = 0; // tracks total CLB received
+  let cumCLB = 0; // tracks total CLB received (for display)
+  let totalCLB = 0; // running CLB in first pass
   const r = returnRate / 100;
 
   // Track for chart
@@ -1819,11 +1820,10 @@ function calcRESP(){
     // ── CLB calculation ──
     let yearCLB = 0;
     if(clbEnabled && childBirthYear >= 2004 && childAgeThisYear <= 15){
-      const clbReceived = finalRows.reduce ? 0 : 0; // tracked below via cumCLB
-      if(typeof cumCLB === 'undefined') {}  // initialized below
-      const clbThisYear = (cumCLB === 0) ? 500 : (cumCLB < 2000 ? 100 : 0);
-      yearCLB = Math.min(clbThisYear, 2000 - cumCLB);
+      const clbThisYear = (totalCLB === 0) ? 500 : (totalCLB < 2000 ? 100 : 0);
+      yearCLB = Math.min(clbThisYear, 2000 - totalCLB);
     }
+    totalCLB += yearCLB;
 
     // Calc CESG for this year
     let yearGrant = 0;
@@ -1850,7 +1850,7 @@ function calcRESP(){
     totalContrib += yearContrib;
     totalGrants += yearGrant + yearCLB;
     lifeContrib += yearContrib;
-    cumCLB += yearCLB;
+    cumCLB += yearCLB; // track for display
     const yearDeposit = yearContrib + yearGrant + yearCLB;
     totalInvested += yearDeposit;
 
@@ -1931,7 +1931,7 @@ function calcRESP(){
       cumContrib: cumContrib,
       cumGrants: cumGrants,
       cumGrowth: cumGrowth,
-    }));
+    }); 
   }
 
   // Last row = projection at 18
