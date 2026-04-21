@@ -152,6 +152,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .footer-bar a{color:rgba(255,255,255,0.4);text-decoration:none}
 
 @media(max-width:720px){
+  .sched-grid{grid-template-columns:1fr 1fr!important}
   .calc-layout{grid-template-columns:1fr}
   .calc-area{padding:20px 16px;overflow:hidden}
   .calc-tabs-wrap{padding:0}
@@ -250,7 +251,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .table-panel{background:#fff;border:1px solid #e8e4dc;border-radius:14px;overflow:hidden;margin-top:0;min-width:0;width:100%}
 .table-head-bar{padding:14px 20px;border-bottom:1px solid #f0ede8;display:flex;align-items:center;justify-content:space-between}
 .table-title{font-size:0.68rem;font-weight:700;color:#1a1a1a;letter-spacing:0.06em;text-transform:uppercase}
-.table-wrap{overflow-x:auto;max-height:320px;overflow-y:auto}
+.table-wrap{overflow-x:auto;max-height:420px;overflow-y:auto}
 .resp-table{width:100%;border-collapse:collapse;font-size:0.72rem}
 .resp-table th{position:sticky;top:0;background:#f9f7f3;padding:9px 12px;text-align:right;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:#888;font-weight:700;white-space:nowrap;border-bottom:1px solid #e8e4dc;z-index:1}
 .resp-table th:first-child,.resp-table th:nth-child(2){text-align:left}
@@ -302,7 +303,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .sched-row-label{font-size:0.65rem;font-weight:700;color:#b8862a;letter-spacing:0.1em;text-transform:uppercase}
 .sched-row-del{background:none;border:none;color:#ccc;font-size:1rem;cursor:pointer;padding:2px 6px;border-radius:6px;line-height:1;transition:color .15s}
 .sched-row-del:hover{color:#e74c3c}
-.sched-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.sched-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
 .sched-mini-label{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:#aaa;font-weight:600;margin-bottom:4px}
 .sched-select{width:100%;padding:7px 10px;border:1.5px solid #e8e4dc;border-radius:8px;font-size:0.78rem;font-family:'DM Sans',sans-serif;background:#fff;color:#1a1a1a;outline:none;cursor:pointer}
 .sched-select:focus{border-color:#b8862a}
@@ -842,6 +843,18 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
           </div>
         </div>
 
+        <!-- CLB Toggle -->
+        <div class="toggle-row" onclick="toggleCLB()" style="margin-top:12px">
+          <div>
+            <div class="toggle-label">Eligible for Canada Learning Bond (CLB)?</div>
+            <div class="toggle-sub">Low-income families — up to $2,000, no contribution needed</div>
+          </div>
+          <div class="toggle-switch" id="clb-toggle"></div>
+        </div>
+        <div id="clb-info" style="display:none;background:#f0f7f0;border:1px solid #c3e0c3;border-radius:10px;padding:12px 14px;margin-top:8px;font-size:0.72rem;color:#1a6b3c;line-height:1.6">
+          <strong>CLB included:</strong> $500 in year 1 + $100/yr for each subsequent year child is eligible (up to age 15), max $2,000 total. Child must be born 2004 or later. No personal contribution required to receive CLB.
+        </div>
+
         <div class="section-divider"></div>
         <div class="section-label">Growth Assumptions</div>
 
@@ -856,7 +869,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 
         <div class="field">
           <div class="field-label">RESP Start Year</div>
-          <input class="field-input" type="number" id="start-year" value="2026" min="2000" max="2040" oninput="calcRESP()">
+          <input class="field-input" type="number" id="start-year" value="2026" min="2000" max="2040" oninput="syncFirstRowYear();calcRESP()">
           <div class="field-note">Year you open the RESP account.</div>
         </div>
 
@@ -1038,39 +1051,37 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
       </div>
     </div>
 
-    <!-- Year-by-year table -->
-    <div class="table-panel">
-      <div class="table-head-bar">
-        <div class="table-title">Year-by-Year Breakdown</div>
-        <div style="font-size:0.65rem;color:#aaa">Scroll to see all years</div>
-      </div>
-      <div class="table-wrap">
-        <table class="resp-table">
-          <thead>
-            <tr>
-              <th>Year</th>
-              <th>Age</th>
-              <th>Your Contribution</th>
-              <th>CESG Grant</th>
-              <th>Year Total</th>
-              <th>Balance (End of Year)</th>
-              <th style="color:#b8862a">Growth (Cumulative)</th>
-            </tr>
-          </thead>
-          <tbody id="resp-table-body"></tbody>
-        </table>
-      </div>
-    </div>
-
   </div>
 </div>
+
+  <!-- Year-by-year table — full width below both columns -->
+  <div class="table-panel" style="margin-top:20px">
+    <div class="table-head-bar">
+      <div class="table-title">Year-by-Year Breakdown</div>
+      <div style="font-size:0.65rem;color:#aaa">Scroll to see all years</div>
+    </div>
+    <div class="table-wrap">
+      <table class="resp-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Age</th>
+            <th>Your Contribution</th>
+            <th>CESG Grant</th>
+            <th>Year Total</th>
+            <th>Balance (End of Year)</th>
+            <th style="color:#b8862a">Growth (Cumulative)</th>
+          </tr>
+        </thead>
+        <tbody id="resp-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
   <div class="calc-disclaimer">For illustrative and educational purposes only. RESP rules, grant amounts, and eligibility may change. Results assume contributions at the start of each year and a fixed annual return rate. Actual returns will vary. Enhanced CESG grants based on family income are not included. Consult a financial advisor for personalized RESP advice.</div>
 
   <div style="margin-top:20px"><a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none"><div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div><span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span></a></div>
 </div>
-
-  
-  
 </div>
 
 
@@ -1118,7 +1129,8 @@ function switchTab(id){
     const sy = document.getElementById('start-year');
     if(sy && !sy.value) sy.value = y;
     // Add default schedule rows
-    addContribRow(14, 'annual', 2500);
+    const initStartYr = parseInt(document.getElementById('start-year')?.value) || new Date().getFullYear();
+    addContribRow(initStartYr, initStartYr + 13, 'annual', 2500, 1, 12);
     calcRESP();
   }
 }
@@ -1540,33 +1552,84 @@ function respUpdateChart(years, contribData, grantData, portfolioData){
 // ── RESP CONTRIBUTION SCHEDULE ──
 let schedRowCount = 0;
 
+// ── CLB TOGGLE ──
+let clbEnabled = false;
+function toggleCLB(){
+  clbEnabled = !clbEnabled;
+  document.getElementById('clb-toggle').classList.toggle('on', clbEnabled);
+  document.getElementById('clb-info').style.display = clbEnabled ? 'block' : 'none';
+  const clbHdr = document.getElementById('clb-col-header');
+  if(clbHdr) clbHdr.style.display = clbEnabled ? 'table-cell' : 'none';
+  calcRESP();
+}
+
+function syncFirstRowYear(){
+  // When start year changes, update first row's From Year to match
+  const startYr = parseInt(document.getElementById('start-year')?.value) || 0;
+  const firstFrom = document.querySelector('.sched-from');
+  if(firstFrom && startYr > 0) {
+    firstFrom.value = startYr;
+    // Update hint for first row
+    const rowId = document.querySelector('.sched-row')?.id?.replace('sched-row-','');
+    if(rowId) updateSchedHint(rowId);
+  }
+}
+
 function toAnnual(amount, freq){
   if(freq === 'monthly') return amount * 12;
   if(freq === 'weekly')  return amount * 52;
   return amount; // annual
 }
 
-function addContribRow(years=5, freq='annual', amount=2500){
+function addContribRow(fromYr, toYr, freq='annual', amount=2500, fromMo=1, toMo=12){
   schedRowCount++;
   const id = schedRowCount;
+  const startYr = parseInt(document.getElementById('start-year')?.value) || new Date().getFullYear();
+  if(!fromYr){
+    // Find max toYr/toMo of existing rows and start from next month
+    let maxToYr = startYr - 1, maxToMo = 12;
+    document.querySelectorAll('.sched-row').forEach(row => {
+      const rid = row.id.replace('sched-row-','');
+      const ty = parseInt(document.getElementById('sched-to-'+rid)?.value)||0;
+      const tm = parseInt(document.getElementById('sched-tomo-'+rid)?.value)||12;
+      if(ty > maxToYr || (ty === maxToYr && tm >= maxToMo)){ maxToYr = ty; maxToMo = tm; }
+    });
+    // Next period starts month after previous ends
+    fromMo = maxToMo === 12 ? 1 : maxToMo + 1;
+    fromYr = maxToMo === 12 ? maxToYr + 1 : maxToYr;
+    toYr   = fromYr + 4;
+    toMo   = 12;
+  }
   const freqOpts = ['annual','monthly','weekly'].map(f =>
     `<option value="${f}" ${f===freq?'selected':''}>${f.charAt(0).toUpperCase()+f.slice(1)}</option>`
   ).join('');
   const annualEquiv = toAnnual(amount, freq);
+  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const fromMoOpts = monthNames.map((m,i) => `<option value="${i+1}" ${i+1===fromMo?'selected':''}>${m}</option>`).join('');
+  const toMoOpts   = monthNames.map((m,i) => `<option value="${i+1}" ${i+1===toMo?'selected':''}>${m}</option>`).join('');
   const html = `
   <div class="sched-row" id="sched-row-${id}">
     <div class="sched-row-head">
       <span class="sched-row-label">Period ${id}</span>
       <button class="sched-row-del" onclick="removeContribRow(${id})" title="Remove period">✕</button>
     </div>
-    <div class="sched-grid">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
       <div>
-        <div class="sched-mini-label">Duration</div>
-        <div style="display:flex;align-items:center;gap:4px">
-          <input class="sched-input" style="padding-left:10px" type="number" id="sched-yrs-${id}" value="${years}" min="1" max="18" step="1" oninput="calcRESP()" placeholder="Yrs">
-          <span style="font-size:0.72rem;color:#aaa;white-space:nowrap">years</span>
+        <div class="sched-mini-label">From</div>
+        <div style="display:flex;gap:4px">
+          <select class="sched-select sched-from-mo" id="sched-frmo-${id}" style="width:72px;flex-shrink:0" onchange="updateSchedHint(${id});calcRESP()">${fromMoOpts}</select>
+          <input class="sched-input sched-from" style="padding-left:8px;min-width:0" type="number" id="sched-from-${id}" value="${fromYr}" min="2000" max="2060" step="1" oninput="updateSchedHint(${id});calcRESP()">
         </div>
       </div>
+      <div>
+        <div class="sched-mini-label">To</div>
+        <div style="display:flex;gap:4px">
+          <select class="sched-select sched-to-mo" id="sched-tomo-${id}" style="width:72px;flex-shrink:0" onchange="updateSchedHint(${id});calcRESP()">${toMoOpts}</select>
+          <input class="sched-input sched-to" style="padding-left:8px;min-width:0" type="number" id="sched-to-${id}" value="${toYr}" min="2000" max="2060" step="1" oninput="updateSchedHint(${id});calcRESP()">
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div>
         <div class="sched-mini-label">Frequency</div>
         <select class="sched-select" id="sched-freq-${id}" onchange="updateSchedHint(${id});calcRESP()">${freqOpts}</select>
@@ -1579,7 +1642,7 @@ function addContribRow(years=5, freq='annual', amount=2500){
         </div>
       </div>
     </div>
-    <div class="sched-annual-equiv" id="sched-hint-${id}">= $${annualEquiv.toLocaleString()}/yr</div>
+    <div class="sched-annual-equiv" id="sched-hint-${id}"></div>
   </div>`;
   document.getElementById('contrib-schedule-rows').insertAdjacentHTML('beforeend', html);
   updateRowLabels();
@@ -1604,27 +1667,45 @@ function updateRowLabels(){
 }
 
 function updateSchedHint(id){
-  const freqEl = document.getElementById('sched-freq-'+id);
-  const amtEl  = document.getElementById('sched-amt-'+id);
+  const freqEl  = document.getElementById('sched-freq-'+id);
+  const amtEl   = document.getElementById('sched-amt-'+id);
+  const fromEl  = document.getElementById('sched-from-'+id);
+  const toEl    = document.getElementById('sched-to-'+id);
+  const fromMoEl= document.getElementById('sched-frmo-'+id);
+  const toMoEl  = document.getElementById('sched-tomo-'+id);
   if(!freqEl || !amtEl) return;
-  const freq = freqEl.value || 'annual';
-  const amt  = parseFloat(amtEl.value) || 0;
-  const annual = toAnnual(amt, freq);
-  const el = document.getElementById('sched-hint-'+id);
-  if(el) el.textContent = '= $'+Math.round(annual).toLocaleString()+'/yr';
+  const freq    = freqEl.value || 'annual';
+  const amt     = parseFloat(amtEl.value) || 0;
+  const annual  = toAnnual(amt, freq);
+  const fromYr  = parseInt(fromEl?.value) || 0;
+  const toYr    = parseInt(toEl?.value) || 0;
+  const fromMo  = parseInt(fromMoEl?.value) || 1;
+  const toMo    = parseInt(toMoEl?.value) || 12;
+  const months  = Math.max(0, (toYr - fromYr)*12 + (toMo - fromMo + 1));
+  const moNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const durStr  = months >= 12 ? Math.round(months/12*10)/10+' yr'+(months>=24?'s':'') : months+' mo';
+  const hintEl  = document.getElementById('sched-hint-'+id);
+  if(hintEl) hintEl.innerHTML = '= $'+Math.round(annual).toLocaleString()+'/yr &nbsp;·&nbsp; '+durStr;
 }
 
 function getContribSchedule(){
-  // Returns array of {annualAmount, years} in order
+  // Returns array of {annualAmount, fromYr, fromMo, toYr, toMo}
   const rows = document.querySelectorAll('.sched-row');
   const schedule = [];
   rows.forEach(row => {
-    const rowId = row.id.replace('sched-row-','');
-    const yrs = parseInt(document.getElementById('sched-yrs-'+rowId)?.value) || 0;
-    const freq = document.getElementById('sched-freq-'+rowId)?.value || 'annual';
-    const amt  = parseFloat(document.getElementById('sched-amt-'+rowId)?.value) || 0;
-    if(yrs > 0) schedule.push({ annualAmount: toAnnual(amt, freq), years: yrs });
+    const rid   = row.id.replace('sched-row-','');
+    const fromYr= parseInt(document.getElementById('sched-from-'+rid)?.value) || 0;
+    const toYr  = parseInt(document.getElementById('sched-to-'+rid)?.value)   || 0;
+    const fromMo= parseInt(document.getElementById('sched-frmo-'+rid)?.value) || 1;
+    const toMo  = parseInt(document.getElementById('sched-tomo-'+rid)?.value) || 12;
+    const freq  = document.getElementById('sched-freq-'+rid)?.value || 'annual';
+    const amt   = parseFloat(document.getElementById('sched-amt-'+rid)?.value) || 0;
+    const annualAmount = toAnnual(amt, freq);
+    if(fromYr > 0 && (toYr > fromYr || (toYr === fromYr && toMo >= fromMo))){
+      schedule.push({ annualAmount, fromYr, fromMo, toYr, toMo });
+    }
   });
+  schedule.sort((a,b) => a.fromYr !== b.fromYr ? a.fromYr-b.fromYr : a.fromMo-b.fromMo);
   return schedule;
 }
 
@@ -1639,12 +1720,13 @@ function calcRESP(){
   // ── Build contribution schedule map (needs startYear) ──
   const schedule = getContribSchedule();
   if(schedule.length === 0) return; // nothing to compute yet
-  const schedMap = {}; // yr -> annualAmount
-  let schedYr = startYear;
+  const schedMap = {}; // yr -> annualAmount (prorated for partial years)
   for(const seg of schedule){
-    for(let s = 0; s < seg.years; s++){
-      schedMap[schedYr] = seg.annualAmount;
-      schedYr++;
+    for(let yr = seg.fromYr; yr <= seg.toYr; yr++){
+      const moStart = yr === seg.fromYr ? seg.fromMo : 1;
+      const moEnd   = yr === seg.toYr   ? seg.toMo   : 12;
+      const fraction = (moEnd - moStart + 1) / 12;
+      schedMap[yr] = (schedMap[yr] || 0) + seg.annualAmount * fraction;
     }
   }
   const lastSegAmt = schedule.length > 0 ? schedule[schedule.length-1].annualAmount : 2500;
@@ -1689,11 +1771,12 @@ function calcRESP(){
   const endYear = Math.max(year18, startYear + 1);
 
   let balance = 0;
-  let totalContrib = 0; // user money only
+  let totalContrib = 0;
   let totalGrants = 0;
-  let totalInvested = 0; // contrib + grants
-  let unusedGrantRoom = 0; // accumulated unused CESG room (in $ terms, each missed year = $500)
+  let totalInvested = 0;
+  let unusedGrantRoom = 0;
   let lifeContrib = 0;
+  let cumCLB = 0; // tracks total CLB received
   const r = returnRate / 100;
 
   // Track for chart
@@ -1713,6 +1796,8 @@ function calcRESP(){
     // Per CRA: Beneficiary must be under 18 at end of year, AND contributions before end of year child turns 17
     // CESG room accumulates from birth, stops accumulating after Dec 31 of year child turns 17
 
+    // CRA: CESG room accumulates each year child is 0-17 (inclusive)
+    // Last eligible contribution year = calendar year child turns 17
     const grantEligible = childAgeThisYear <= 17 && totalGrants < CESG_LIFETIME;
 
     // How much room accumulates this year (only if age <= 17)?
@@ -1729,6 +1814,15 @@ function calcRESP(){
       yearContrib = Math.min(lumpSum + annualContrib, CONTRIB_LIFETIME - lifeContrib);
     } else {
       yearContrib = Math.min(annualContrib, Math.max(0, CONTRIB_LIFETIME - lifeContrib));
+    }
+
+    // ── CLB calculation ──
+    let yearCLB = 0;
+    if(clbEnabled && childBirthYear >= 2004 && childAgeThisYear <= 15){
+      const clbReceived = finalRows.reduce ? 0 : 0; // tracked below via cumCLB
+      if(typeof cumCLB === 'undefined') {}  // initialized below
+      const clbThisYear = (cumCLB === 0) ? 500 : (cumCLB < 2000 ? 100 : 0);
+      yearCLB = Math.min(clbThisYear, 2000 - cumCLB);
     }
 
     // Calc CESG for this year
@@ -1754,9 +1848,10 @@ function calcRESP(){
 
     // Update totals
     totalContrib += yearContrib;
-    totalGrants += yearGrant;
+    totalGrants += yearGrant + yearCLB;
     lifeContrib += yearContrib;
-    const yearDeposit = yearContrib + yearGrant;
+    cumCLB += yearCLB;
+    const yearDeposit = yearContrib + yearGrant + yearCLB;
     totalInvested += yearDeposit;
 
     // Balance: start of year balance grows at r, then add year deposit
@@ -1801,7 +1896,7 @@ function calcRESP(){
     // Will track properly below using pending_grant
     balance = balance; // will recalculate properly
 
-    tableRows.push({ yr, childAgeThisYear, yearContrib, yearGrant, yearDeposit, grantEligible });
+    tableRows.push({ yr, childAgeThisYear, yearContrib, yearGrant, yearCLB, yearDeposit, grantEligible });
     chartYears.push(yr);
   }
 
@@ -1815,26 +1910,28 @@ function calcRESP(){
     const contrib = row.yearContrib;
     const grant = row.yearGrant;
 
-    // Both contribution and grant enter at start of year and earn full year growth
-    bal = (bal + contrib + grant) * (1 + r);
+    const clb = row.yearCLB || 0;
+    // Contribution + CESG grant + CLB all deposited at start of year, earn full year growth
+    bal = (bal + contrib + grant + clb) * (1 + r);
 
     cumContrib += contrib;
-    cumGrants += grant;
-    cumInvested += contrib + grant;
+    cumGrants += grant + clb;
+    cumInvested += contrib + grant + clb;
     cumLifeContrib += contrib;
 
-    const cumGrowth = bal - cumContrib - cumGrants;
+    const cumGrowth = Math.max(0, bal - cumContrib - cumGrants);
     finalRows.push({
       yr: row.yr,
       age: row.childAgeThisYear,
       contrib: contrib,
       grant: grant,
-      yearTotal: contrib + grant,
+      yearCLB: clb,
+      yearTotal: contrib + grant + clb,
       endBal: bal,
       cumContrib: cumContrib,
       cumGrants: cumGrants,
       cumGrowth: cumGrowth,
-    });
+    }));
   }
 
   // Last row = projection at 18
@@ -1918,6 +2015,7 @@ function calcRESP(){
       <td>Age ${row.age}</td>
       <td>${row.contrib > 0 ? respFmtFull(row.contrib) : '<span class="no-grant">—</span>'}</td>
       <td class="${row.grant > 0 ? 'td-grant' : 'no-grant'}">${row.grant > 0 ? '+'+respFmtFull(row.grant) : '—'}</td>
+      <td style="color:#1a6b3c;font-weight:600;display:${clbEnabled?'table-cell':'none'}">${(row.yearCLB||0) > 0 ? '+'+respFmtFull(row.yearCLB||0) : '—'}</td>
       <td class="td-total">${respFmtFull(row.yearTotal)}</td>
       <td class="td-balance">${respFmtFull(row.endBal)}</td>
       <td style="color:#b8862a;font-weight:600">${row.cumGrowth > 0 ? '+'+respFmtFull(row.cumGrowth) : '—'}</td>
