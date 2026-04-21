@@ -971,8 +971,11 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 
     <!-- Grant Progress -->
     <div class="grant-box">
-      <div class="grant-box-head">🎁 CESG Grant Tracker</div>
+      <div class="grant-box-head">🏛️ Government Grants Tracker</div>
       <div class="grant-box-body">
+
+        <!-- CESG Section -->
+        <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#b8862a;margin-bottom:2px">Canada Education Savings Grant (CESG)</div>
         <div class="grant-row">
           <span class="grant-label">Projected total CESG received</span>
           <span class="grant-val gold" id="gt-collected">$—</span>
@@ -994,6 +997,40 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
             <div class="grant-progress-fill" id="gt-bar" style="width:0%"></div>
           </div>
         </div>
+
+        <!-- CLB Section — shown only when CLB enabled -->
+        <div id="clb-tracker-section" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid #f0ede8">
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#1a6b3c;margin-bottom:6px">Canada Learning Bond (CLB)</div>
+          <div class="grant-row">
+            <span class="grant-label">Projected CLB received</span>
+            <span class="grant-val green" id="gt-clb-received">$—</span>
+          </div>
+          <div class="grant-row">
+            <span class="grant-label">Lifetime CLB max</span>
+            <span class="grant-val">$2,000</span>
+          </div>
+          <div class="grant-row">
+            <span class="grant-label">CLB remaining available</span>
+            <span class="grant-val" id="gt-clb-remaining">$—</span>
+          </div>
+          <div class="grant-progress-wrap">
+            <div class="grant-progress-label">
+              <span id="gt-clb-pct-label">0% of CLB received</span>
+              <span>$2,000 max</span>
+            </div>
+            <div class="grant-progress-track">
+              <div class="grant-progress-fill" id="gt-clb-bar" style="width:0%;background:linear-gradient(90deg,#1a6b3c,#4caf7d)"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total government money -->
+        <div id="gt-total-row" style="margin-top:12px;padding:10px 14px;background:#f9f7f3;border-radius:8px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:0.72rem;font-weight:700;color:#1a1a1a">Total govt. grants projected</span>
+          <span style="font-size:0.82rem;font-weight:800;color:#b8862a" id="gt-total-grants">$—</span>
+        </div>
+
+        <!-- Contribution limit -->
         <div class="grant-row" style="margin-top:10px;padding-top:10px;border-top:1px solid #f0ede8">
           <span class="grant-label">Contribution limit used</span>
           <span class="grant-val" id="gt-contrib-pct">—</span>
@@ -1560,6 +1597,8 @@ function toggleCLB(){
   document.getElementById('clb-info').style.display = clbEnabled ? 'block' : 'none';
   const clbHdr = document.getElementById('clb-col-header');
   if(clbHdr) clbHdr.style.display = clbEnabled ? 'table-cell' : 'none';
+  const clbSec = document.getElementById('clb-tracker-section');
+  if(clbSec) clbSec.style.display = clbEnabled ? 'block' : 'none';
   calcRESP();
 }
 
@@ -1999,10 +2038,32 @@ function calcRESP(){
   }
 
   // Grant tracker
+  // ── CESG rows ──
   document.getElementById('gt-collected').textContent = respFmtFull(grantCollected);
   document.getElementById('gt-remaining').textContent = respFmtFull(grantRemaining);
-  document.getElementById('gt-pct-label').textContent = grantPct.toFixed(0) + '% of lifetime grant used';
+  document.getElementById('gt-pct-label').textContent = grantPct.toFixed(0) + '% of lifetime CESG used';
   document.getElementById('gt-bar').style.width = grantPct + '%';
+
+  // ── CLB rows (show/hide section) ──
+  const clbSection = document.getElementById('clb-tracker-section');
+  const totalClbProjected = finalRows.reduce((s, r) => s + (r.yearCLB || 0), 0);
+  if(clbEnabled && clbSection){
+    clbSection.style.display = 'block';
+    const clbRemaining = Math.max(0, 2000 - totalClbProjected);
+    const clbBarPct = Math.min(100, totalClbProjected / 2000 * 100);
+    document.getElementById('gt-clb-received').textContent = '+' + respFmtFull(totalClbProjected);
+    document.getElementById('gt-clb-remaining').textContent = respFmtFull(clbRemaining);
+    document.getElementById('gt-clb-pct-label').textContent = clbBarPct.toFixed(0) + '% of CLB received';
+    document.getElementById('gt-clb-bar').style.width = clbBarPct + '%';
+  } else if(clbSection){
+    clbSection.style.display = 'none';
+  }
+
+  // ── Total govt. grants ──
+  const totalGovt = grantCollected + (clbEnabled ? totalClbProjected : 0);
+  document.getElementById('gt-total-grants').textContent = '+' + respFmtFull(totalGovt);
+
+  // ── Contribution limit ──
   document.getElementById('gt-contrib-pct').textContent = respFmtFull(contribLifetime);
   document.getElementById('gt-contrib-label').textContent = contribPct.toFixed(0) + '% of $50,000 lifetime limit';
   document.getElementById('gt-contrib-bar').style.width = contribPct + '%';
