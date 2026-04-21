@@ -1804,11 +1804,9 @@ function calcRESP(){
     chartYears.push(yr);
   }
 
-  // ── Re-run with correct balance logic (grant adds to next year's base) ──
+  // ── Balance calculation: contrib + grant both deposited at start of year ──
   let bal = 0;
-  let pendingGrant = 0;
   let cumContrib = 0, cumGrants = 0, cumInvested = 0, cumLifeContrib = 0;
-  let unusedRoom = 0;
   const finalRows = [];
 
   for(let i = 0; i < tableRows.length; i++){
@@ -1816,19 +1814,13 @@ function calcRESP(){
     const contrib = row.yearContrib;
     const grant = row.yearGrant;
 
-    // Start of year: previous pending grant + this year's contribution enters balance
-    const startBal = bal + pendingGrant + contrib;
+    // Both contribution and grant enter at start of year and earn full year growth
+    bal = (bal + contrib + grant) * (1 + r);
+
     cumContrib += contrib;
     cumGrants += grant;
     cumInvested += contrib + grant;
     cumLifeContrib += contrib;
-
-    // End of year: balance grows
-    const endBal = startBal * (1 + r);
-
-    // Grant is held as pending (received at year-end, goes into next year's base)
-    pendingGrant = grant;
-    bal = endBal;
 
     finalRows.push({
       yr: row.yr,
@@ -1836,8 +1828,7 @@ function calcRESP(){
       contrib: contrib,
       grant: grant,
       yearTotal: contrib + grant,
-      startBal: startBal,
-      endBal: endBal,
+      endBal: bal,
       cumContrib: cumContrib,
       cumGrants: cumGrants,
     });
