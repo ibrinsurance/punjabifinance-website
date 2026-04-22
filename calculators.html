@@ -892,8 +892,8 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
         </div>
         <div class="rule-item">
           <div class="rule-item-label">Grant Cutoff</div>
-          <div class="rule-item-val">Age 14</div>
-          <div class="rule-item-note">Last year of contributions eligible for full grant</div>
+          <div class="rule-item-val">Age 17</div>
+          <div class="rule-item-note">CESG room stops accumulating Dec 31 of the year child turns 17</div>
         </div>
         <div class="rule-item">
           <div class="rule-item-label">Contribution Limit</div>
@@ -906,9 +906,9 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
           <div class="rule-item-note">Contribute $5,000/yr to use prior unused room at $500 extra</div>
         </div>
         <div class="rule-item">
-          <div class="rule-item-label">RESP Duration</div>
-          <div class="rule-item-val">35 Years</div>
-          <div class="rule-item-note">Must be collapsed after 35 years</div>
+          <div class="rule-item-label">Account Must Close By</div>
+          <div class="rule-item-val" id="rule-close-year">35 yrs after opening</div>
+          <div class="rule-item-note">Account must be closed by Dec 31 of the 35th year after it was opened</div>
         </div>
       </div>
     </div>
@@ -1772,7 +1772,9 @@ function calcRESP(){
 
   // Update hints
   document.getElementById('rate-display').textContent = returnRate + '%';
-  // annual-hint now shown per schedule row
+  // Update account close year
+  const closeYearEl = document.getElementById('rule-close-year');
+  if(closeYearEl) closeYearEl.textContent = 'By Dec 31, ' + (startYear + 35);
 
   // ── Age calculation ──
   let childBirthYear, childCurrentAge;
