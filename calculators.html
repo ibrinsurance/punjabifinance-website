@@ -447,7 +447,10 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   
   <div class="calc-disclaimer">For illustrative purposes only. Returns are not guaranteed. Actual market returns vary and may be higher or lower than the assumed rate. Always do your own research before investing.</div>
 
-  <div style="margin-top:20px"><a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none"><div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div><span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span></a></div>
+  <div style="margin-top:20px"><div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <span style="font-size:0.8rem;color:#555;font-weight:500">Looking to learn more about this setup?</span>
+      <a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(37,211,102,0.12);color:#1a9e50;border:1.5px solid rgba(37,211,102,0.3);padding:9px 20px;border-radius:9px;font-size:0.78rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .15s" onmouseover="this.style.background='rgba(37,211,102,0.2)'" onmouseout="this.style.background='rgba(37,211,102,0.12)'">Learn More →</a>
+    </div></div>
 </div>
 
 <!-- ════════════════════════════════════════ -->
@@ -522,7 +525,10 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   
   <div class="calc-disclaimer">For illustrative purposes only. Returns are not guaranteed. Actual market returns vary significantly. Past performance does not predict future results.</div>
 
-  <div style="margin-top:20px"><a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none"><div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div><span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span></a></div>
+  <div style="margin-top:20px"><div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <span style="font-size:0.8rem;color:#555;font-weight:500">Looking to learn more about this setup?</span>
+      <a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(37,211,102,0.12);color:#1a9e50;border:1.5px solid rgba(37,211,102,0.3);padding:9px 20px;border-radius:9px;font-size:0.78rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .15s" onmouseover="this.style.background='rgba(37,211,102,0.2)'" onmouseout="this.style.background='rgba(37,211,102,0.12)'">Learn More →</a>
+    </div></div>
 </div>
 
 <!-- ════════════════════════════════════════ -->
@@ -585,7 +591,10 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   
   <div class="calc-disclaimer">For illustrative purposes only. Returns are not guaranteed. Assumes consistent monthly contributions and a fixed annual return rate.</div>
 
-  <div style="margin-top:20px"><a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none"><div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div><span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span></a></div>
+  <div style="margin-top:20px"><div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <span style="font-size:0.8rem;color:#555;font-weight:500">Looking to learn more about this setup?</span>
+      <a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(37,211,102,0.12);color:#1a9e50;border:1.5px solid rgba(37,211,102,0.3);padding:9px 20px;border-radius:9px;font-size:0.78rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .15s" onmouseover="this.style.background='rgba(37,211,102,0.2)'" onmouseout="this.style.background='rgba(37,211,102,0.12)'">Learn More →</a>
+    </div></div>
 </div>
 
 <!-- ════════════════════════════════════════ -->
@@ -808,7 +817,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 
         <div class="field">
           <div class="field-label">Child's Date of Birth <span class="field-hint" id="child-age-display">Age: —</span></div>
-          <input class="field-input" type="date" id="child-dob" onchange="calcRESP()">
+          <input class="field-input" type="date" id="child-dob" onchange="autoAdjustEndDates()">
           <div class="field-note">Used to calculate grant eligibility years. CESG stops end of calendar year child turns 17 (grant contributions until 14th birthday year).</div>
         </div>
 
@@ -836,13 +845,26 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
             <div class="field-label">Lump Sum Amount <span class="field-hint" id="lump-hint"></span></div>
             <div class="field-input-wrap">
               <span class="field-prefix">$</span>
-              <input class="field-input has-prefix" type="number" id="lump-sum" value="5000" min="0" max="50000" step="500" oninput="respSyncRange('lump-sum','lump-range');calcRESP()">
+              <input class="field-input has-prefix" type="number" id="lump-sum" value="5000" min="0" max="50000" step="500" oninput="respSyncRange('lump-sum','lump-range');autoAdjustEndDates()">
             </div>
-            <input class="field-range" type="range" id="lump-range" min="0" max="50000" step="500" value="5000" oninput="document.getElementById('lump-sum').value=this.value;calcRESP()">
+            <input class="field-range" type="range" id="lump-range" min="0" max="50000" step="500" value="5000" oninput="document.getElementById('lump-sum').value=this.value;autoAdjustEndDates()">
             <div class="field-note">Applied in year 1 alongside your regular contribution. Both count toward the lifetime $50,000 limit.</div>
           </div>
         </div>
 
+
+        <!-- Frontloading suggestion -->
+        <div id="frontload-banner" style="display:none;background:#fff8ec;border:1px solid rgba(212,165,52,0.3);border-left:3px solid #d4a534;border-radius:10px;padding:12px 14px;margin-top:4px">
+          <div style="font-size:0.7rem;font-weight:700;color:#b8862a;margin-bottom:3px">💡 Frontloading opportunity</div>
+          <div style="font-size:0.68rem;color:#666;line-height:1.6" id="frontload-msg"></div>
+          <button onclick="applyFrontload()" style="margin-top:8px;background:#b8862a;color:#fff;border:none;border-radius:7px;padding:6px 14px;font-size:0.68rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif">Apply suggestion</button>
+        </div>
+
+        <!-- Over limit error -->
+        <div id="over-limit-error" style="display:none;background:#fff0f0;border:1px solid rgba(231,76,60,0.25);border-left:3px solid #e74c3c;border-radius:10px;padding:12px 14px;margin-top:8px">
+          <div style="font-size:0.7rem;font-weight:700;color:#c0392b;margin-bottom:2px">⚠ Exceeds $50,000 lifetime limit</div>
+          <div style="font-size:0.68rem;color:#888;line-height:1.6" id="over-limit-msg">Your schedule contributes more than the lifetime limit. Contributions will be capped automatically in the calculation.</div>
+        </div>
         <!-- CLB Toggle -->
         <div class="toggle-row" onclick="toggleCLB()" style="margin-top:12px">
           <div>
@@ -869,49 +891,13 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 
         <div class="field">
           <div class="field-label">RESP Start Year</div>
-          <input class="field-input" type="number" id="start-year" value="2026" min="2000" max="2040" oninput="syncFirstRowYear();calcRESP()">
+          <input class="field-input" type="number" id="start-year" value="2026" min="2000" max="2040" oninput="syncFirstRowYear();autoAdjustEndDates()">
           <div class="field-note">Year you open the RESP account.</div>
         </div>
 
       </div>
     </div>
 
-    <!-- RESP Rules Quick Reference -->
-    <div class="rules-box" style="margin-top:16px">
-      <div class="rules-title">📋 RESP Grant Rules (Canada)</div>
-      <div class="rules-grid">
-        <div class="rule-item">
-          <div class="rule-item-label">Annual CESG Grant</div>
-          <div class="rule-item-val">20% of $2,500</div>
-          <div class="rule-item-note">= $500/year max per child</div>
-        </div>
-        <div class="rule-item">
-          <div class="rule-item-label">Lifetime CESG Max</div>
-          <div class="rule-item-val">$7,200</div>
-          <div class="rule-item-note">Total government grants ever</div>
-        </div>
-        <div class="rule-item">
-          <div class="rule-item-label">Grant Cutoff</div>
-          <div class="rule-item-val">Age 17</div>
-          <div class="rule-item-note">CESG room stops accumulating Dec 31 of the year child turns 17</div>
-        </div>
-        <div class="rule-item">
-          <div class="rule-item-label">Contribution Limit</div>
-          <div class="rule-item-val">$50,000</div>
-          <div class="rule-item-note">Lifetime per beneficiary. No annual contribution limit.</div>
-        </div>
-        <div class="rule-item">
-          <div class="rule-item-label">Catch-Up Grants</div>
-          <div class="rule-item-val">$1,000/yr</div>
-          <div class="rule-item-note">Contribute $5,000/yr to use prior unused room at $500 extra</div>
-        </div>
-        <div class="rule-item">
-          <div class="rule-item-label">Account Must Close By</div>
-          <div class="rule-item-val" id="rule-close-year">35 yrs after opening</div>
-          <div class="rule-item-note">Account must be closed by Dec 31 of the 35th year after it was opened</div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- ── RIGHT: RESULTS ── -->
@@ -1115,9 +1101,28 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     </div>
   </div>
 
+
+  <!-- RESP Rules Reference — moved after table -->
+  <details style="margin-top:12px">
+    <summary style="cursor:pointer;font-size:0.68rem;font-weight:700;color:#888;letter-spacing:0.08em;text-transform:uppercase;padding:12px 16px;background:#f9f7f3;border:1px solid #e8e4dc;border-radius:10px;list-style:none;display:flex;justify-content:space-between;align-items:center">
+      <span>📋 RESP Grant Rules Reference</span>
+      <span style="font-size:0.7rem;color:#b8862a">Show / Hide</span>
+    </summary>
+    <div class="rules-grid" style="margin-top:8px">
+      <div class="rule-item"><div class="rule-item-label">Annual CESG Grant</div><div class="rule-item-val">20% of $2,500</div><div class="rule-item-note">$500/yr max per child</div></div>
+      <div class="rule-item"><div class="rule-item-label">Lifetime CESG Max</div><div class="rule-item-val">$7,200</div><div class="rule-item-note">Total govt. grants ever</div></div>
+      <div class="rule-item"><div class="rule-item-label">Grant Cutoff</div><div class="rule-item-val">Age 17</div><div class="rule-item-note">CESG room stops Dec 31 of year child turns 17</div></div>
+      <div class="rule-item"><div class="rule-item-label">Contribution Limit</div><div class="rule-item-val">$50,000</div><div class="rule-item-note">Lifetime per beneficiary</div></div>
+      <div class="rule-item"><div class="rule-item-label">Catch-Up Grants</div><div class="rule-item-val">$1,000/yr</div><div class="rule-item-note">Contribute $5,000 to use prior unused room</div></div>
+      <div class="rule-item"><div class="rule-item-label">Account Closes By</div><div class="rule-item-val" id="rule-close-year">35 yrs after opening</div><div class="rule-item-note">Dec 31 of the 35th year</div></div>
+    </div>
+  </details>
   <div class="calc-disclaimer">For illustrative and educational purposes only. RESP rules, grant amounts, and eligibility may change. Results assume contributions at the start of each year and a fixed annual return rate. Actual returns will vary. Enhanced CESG grants based on family income are not included. Consult a financial advisor for personalized RESP advice.</div>
 
-  <div style="margin-top:20px"><a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f9f7f3;border:1.5px solid #e8e4dc;border-left:3px solid #b8862a;border-radius:10px;padding:14px 18px;text-decoration:none"><div style="font-size:0.78rem;font-weight:600;color:#555">Looking to learn more about this setup?</div><span style="font-size:0.78rem;font-weight:700;color:#b8862a;white-space:nowrap;flex-shrink:0">Learn More →</span></a></div>
+  <div style="margin-top:20px"><div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <span style="font-size:0.8rem;color:#555;font-weight:500">Looking to learn more about this setup?</span>
+      <a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(37,211,102,0.12);color:#1a9e50;border:1.5px solid rgba(37,211,102,0.3);padding:9px 20px;border-radius:9px;font-size:0.78rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .15s" onmouseover="this.style.background='rgba(37,211,102,0.2)'" onmouseout="this.style.background='rgba(37,211,102,0.12)'">Learn More →</a>
+    </div></div>
 </div>
 </div>
 
@@ -1167,7 +1172,7 @@ function switchTab(id){
     if(sy && !sy.value) sy.value = y;
     // Add default schedule rows
     const initStartYr = parseInt(document.getElementById('start-year')?.value) || new Date().getFullYear();
-    addContribRow(initStartYr, initStartYr + 13, 'annual', 2500, 1, 12);
+    addContribRow(initStartYr+'-01-01', null, 'annual', 2500);
     calcRESP();
   }
 }
@@ -1561,11 +1566,22 @@ function respUpdateChart(years, contribData, grantData, portfolioData){
     options: {
       responsive: true,
       maintainAspectRatio: true,
+      interaction: { mode: 'index', intersect: false },
       plugins: {
         legend: { display: false },
         tooltip: {
+          backgroundColor: '#111009',
+          titleColor: 'rgba(255,255,255,0.5)',
+          bodyColor: '#fff',
+          borderColor: 'rgba(212,165,52,0.2)',
+          borderWidth: 1,
+          padding: 12,
           callbacks: {
-            label: ctx => ' '+ctx.dataset.label+': '+respFmtFull(ctx.parsed.y)
+            title: items => 'Year ' + items[0].label,
+            label: ctx => {
+              const icons = ['📈','💰','🎁'];
+              return ' ' + (icons[ctx.datasetIndex]||'') + ' ' + ctx.dataset.label + ': ' + respFmtFull(ctx.parsed.y);
+            }
           }
         }
       },
@@ -1603,12 +1619,12 @@ function toggleCLB(){
 }
 
 function syncFirstRowYear(){
-  // When start year changes, update first row's From Year to match
   const startYr = parseInt(document.getElementById('start-year')?.value) || 0;
-  const firstFrom = document.querySelector('.sched-from');
-  if(firstFrom && startYr > 0) {
-    firstFrom.value = startYr;
-    // Update hint for first row
+  const firstFrom = document.querySelector('.sched-from-date');
+  if(firstFrom && startYr > 0){
+    const cur = firstFrom.value || '';
+    const parts = cur.split('-');
+    firstFrom.value = startYr + '-' + (parts[1]||'01') + '-' + (parts[2]||'01');
     const rowId = document.querySelector('.sched-row')?.id?.replace('sched-row-','');
     if(rowId) updateSchedHint(rowId);
   }
@@ -1620,32 +1636,39 @@ function toAnnual(amount, freq){
   return amount; // annual
 }
 
-function addContribRow(fromYr, toYr, freq='annual', amount=2500, fromMo=1, toMo=12){
+function addContribRow(fromDate, toDate, freq='annual', amount=2500){
   schedRowCount++;
   const id = schedRowCount;
   const startYr = parseInt(document.getElementById('start-year')?.value) || new Date().getFullYear();
-  if(!fromYr){
-    // Find max toYr/toMo of existing rows and start from next month
-    let maxToYr = startYr - 1, maxToMo = 12;
-    document.querySelectorAll('.sched-row').forEach(row => {
-      const rid = row.id.replace('sched-row-','');
-      const ty = parseInt(document.getElementById('sched-to-'+rid)?.value)||0;
-      const tm = parseInt(document.getElementById('sched-tomo-'+rid)?.value)||12;
-      if(ty > maxToYr || (ty === maxToYr && tm >= maxToMo)){ maxToYr = ty; maxToMo = tm; }
+  // Calculate default end date: Dec 31 of year child turns 17
+  const dob = document.getElementById('child-dob')?.value;
+  const childBirthYr = dob ? new Date(dob).getFullYear() : startYr;
+  const defaultEndYr = childBirthYr + 17;
+  const defaultEndDate = defaultEndYr + '-12-31';
+
+  if(!fromDate){
+    // Find max toDate of existing rows
+    let maxDate = null;
+    document.querySelectorAll('.sched-to-date').forEach(el => {
+      if(!maxDate || el.value > maxDate) maxDate = el.value;
     });
-    // Next period starts month after previous ends
-    fromMo = maxToMo === 12 ? 1 : maxToMo + 1;
-    fromYr = maxToMo === 12 ? maxToYr + 1 : maxToYr;
-    toYr   = fromYr + 4;
-    toMo   = 12;
+    if(maxDate){
+      const d = new Date(maxDate);
+      d.setDate(d.getDate() + 1); // day after last row ends
+      fromDate = d.toISOString().split('T')[0];
+    } else {
+      fromDate = startYr + '-01-01';
+    }
+    toDate = defaultEndDate;
   }
+  const fromYr = parseInt((fromDate||'').split('-')[0]) || startYr;
+  const fromMo = parseInt((fromDate||'').split('-')[1]) || 1;
+  const toYr   = parseInt((toDate||defaultEndDate).split('-')[0]) || defaultEndYr;
+  const toMo   = parseInt((toDate||defaultEndDate).split('-')[1]) || 12;
   const freqOpts = ['annual','monthly','weekly'].map(f =>
     `<option value="${f}" ${f===freq?'selected':''}>${f.charAt(0).toUpperCase()+f.slice(1)}</option>`
   ).join('');
   const annualEquiv = toAnnual(amount, freq);
-  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const fromMoOpts = monthNames.map((m,i) => `<option value="${i+1}" ${i+1===fromMo?'selected':''}>${m}</option>`).join('');
-  const toMoOpts   = monthNames.map((m,i) => `<option value="${i+1}" ${i+1===toMo?'selected':''}>${m}</option>`).join('');
   const html = `
   <div class="sched-row" id="sched-row-${id}">
     <div class="sched-row-head">
@@ -1654,30 +1677,24 @@ function addContribRow(fromYr, toYr, freq='annual', amount=2500, fromMo=1, toMo=
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
       <div>
-        <div class="sched-mini-label">From</div>
-        <div style="display:flex;gap:4px">
-          <select class="sched-select sched-from-mo" id="sched-frmo-${id}" style="width:72px;flex-shrink:0" onchange="updateSchedHint(${id});calcRESP()">${fromMoOpts}</select>
-          <input class="sched-input sched-from" style="padding-left:8px;min-width:0" type="number" id="sched-from-${id}" value="${fromYr}" min="2000" max="2060" step="1" oninput="updateSchedHint(${id});calcRESP()">
-        </div>
+        <div class="sched-mini-label">From Date</div>
+        <input class="sched-input sched-from-date" type="date" id="sched-from-${id}" value="${fromYr}-${String(fromMo).padStart(2,'0')}-01" onchange="updateSchedHint(${id});autoAdjustEndDates()" style="padding-left:8px;width:100%">
       </div>
       <div>
-        <div class="sched-mini-label">To</div>
-        <div style="display:flex;gap:4px">
-          <select class="sched-select sched-to-mo" id="sched-tomo-${id}" style="width:72px;flex-shrink:0" onchange="updateSchedHint(${id});calcRESP()">${toMoOpts}</select>
-          <input class="sched-input sched-to" style="padding-left:8px;min-width:0" type="number" id="sched-to-${id}" value="${toYr}" min="2000" max="2060" step="1" oninput="updateSchedHint(${id});calcRESP()">
-        </div>
+        <div class="sched-mini-label">To Date</div>
+        <input class="sched-input sched-to-date" type="date" id="sched-to-${id}" value="${toYr}-${String(toMo).padStart(2,'0')}-31" onchange="updateSchedHint(${id});autoAdjustEndDates()" style="padding-left:8px;width:100%">
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div>
         <div class="sched-mini-label">Frequency</div>
-        <select class="sched-select" id="sched-freq-${id}" onchange="updateSchedHint(${id});calcRESP()">${freqOpts}</select>
+        <select class="sched-select" id="sched-freq-${id}" onchange="updateSchedHint(${id});autoAdjustEndDates()">${freqOpts}</select>
       </div>
       <div>
         <div class="sched-mini-label">Amount</div>
         <div class="sched-input-wrap">
           <span class="sched-prefix">$</span>
-          <input class="sched-input" type="number" id="sched-amt-${id}" value="${amount}" min="0" step="1" oninput="updateSchedHint(${id});calcRESP()">
+          <input class="sched-input" type="number" id="sched-amt-${id}" value="${amount}" min="0" step="1" oninput="updateSchedHint(${id});autoAdjustEndDates()">
         </div>
       </div>
     </div>
@@ -1706,48 +1723,138 @@ function updateRowLabels(){
 }
 
 function updateSchedHint(id){
-  const freqEl  = document.getElementById('sched-freq-'+id);
-  const amtEl   = document.getElementById('sched-amt-'+id);
-  const fromEl  = document.getElementById('sched-from-'+id);
-  const toEl    = document.getElementById('sched-to-'+id);
-  const fromMoEl= document.getElementById('sched-frmo-'+id);
-  const toMoEl  = document.getElementById('sched-tomo-'+id);
-  if(!freqEl || !amtEl) return;
-  const freq    = freqEl.value || 'annual';
-  const amt     = parseFloat(amtEl.value) || 0;
-  const annual  = toAnnual(amt, freq);
-  const fromYr  = parseInt(fromEl?.value) || 0;
-  const toYr    = parseInt(toEl?.value) || 0;
-  const fromMo  = parseInt(fromMoEl?.value) || 1;
-  const toMo    = parseInt(toMoEl?.value) || 12;
-  const months  = Math.max(0, (toYr - fromYr)*12 + (toMo - fromMo + 1));
-  const moNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const durStr  = months >= 12 ? Math.round(months/12*10)/10+' yr'+(months>=24?'s':'') : months+' mo';
-  const hintEl  = document.getElementById('sched-hint-'+id);
+  const freqEl = document.getElementById('sched-freq-'+id);
+  const amtEl  = document.getElementById('sched-amt-'+id);
+  const fromEl = document.getElementById('sched-from-'+id);
+  const toEl   = document.getElementById('sched-to-'+id);
+  if(!freqEl || !amtEl || !fromEl || !toEl) return;
+  const freq   = freqEl.value || 'annual';
+  const amt    = parseFloat(amtEl.value) || 0;
+  const annual = toAnnual(amt, freq);
+  const from   = new Date(fromEl.value);
+  const to     = new Date(toEl.value);
+  const months = Math.max(0, (to.getFullYear()-from.getFullYear())*12 + (to.getMonth()-from.getMonth()) + 1);
+  const durStr = months >= 24 ? (months/12).toFixed(1).replace('.0','')+' yrs'
+               : months >= 12 ? '1 yr'
+               : months+' mo';
+  const hintEl = document.getElementById('sched-hint-'+id);
   if(hintEl) hintEl.innerHTML = '= $'+Math.round(annual).toLocaleString()+'/yr &nbsp;·&nbsp; '+durStr;
 }
 
 function getContribSchedule(){
-  // Returns array of {annualAmount, fromYr, fromMo, toYr, toMo}
   const rows = document.querySelectorAll('.sched-row');
   const schedule = [];
   rows.forEach(row => {
-    const rid   = row.id.replace('sched-row-','');
-    const fromYr= parseInt(document.getElementById('sched-from-'+rid)?.value) || 0;
-    const toYr  = parseInt(document.getElementById('sched-to-'+rid)?.value)   || 0;
-    const fromMo= parseInt(document.getElementById('sched-frmo-'+rid)?.value) || 1;
-    const toMo  = parseInt(document.getElementById('sched-tomo-'+rid)?.value) || 12;
-    const freq  = document.getElementById('sched-freq-'+rid)?.value || 'annual';
-    const amt   = parseFloat(document.getElementById('sched-amt-'+rid)?.value) || 0;
+    const rid    = row.id.replace('sched-row-','');
+    const fromEl = document.getElementById('sched-from-'+rid);
+    const toEl   = document.getElementById('sched-to-'+rid);
+    const freq   = document.getElementById('sched-freq-'+rid)?.value || 'annual';
+    const amt    = parseFloat(document.getElementById('sched-amt-'+rid)?.value) || 0;
+    if(!fromEl || !toEl) return;
+    const fromDate = fromEl.value;
+    const toDate   = toEl.value;
+    if(!fromDate || !toDate) return;
+    const fromYr = parseInt(fromDate.split('-')[0]);
+    const fromMo = parseInt(fromDate.split('-')[1]);
+    const fromDay= parseInt(fromDate.split('-')[2]);
+    const toYr   = parseInt(toDate.split('-')[0]);
+    const toMo   = parseInt(toDate.split('-')[1]);
+    const toDay  = parseInt(toDate.split('-')[2]);
     const annualAmount = toAnnual(amt, freq);
-    if(fromYr > 0 && (toYr > fromYr || (toYr === fromYr && toMo >= fromMo))){
-      schedule.push({ annualAmount, fromYr, fromMo, toYr, toMo });
+    if(fromYr > 0 && toDate >= fromDate){
+      schedule.push({ annualAmount, fromYr, fromMo, fromDay, toYr, toMo, toDay });
     }
   });
   schedule.sort((a,b) => a.fromYr !== b.fromYr ? a.fromYr-b.fromYr : a.fromMo-b.fromMo);
   return schedule;
 }
 
+
+// ── FRONTLOADING SUGGESTION ──
+let frontloadSuggestion = null;
+function checkFrontload(schedule, lifeContribTotal, startYear, childBirthYear){
+  const banner = document.getElementById('frontload-banner');
+  const msgEl  = document.getElementById('frontload-msg');
+  if(!banner || !msgEl) return;
+  // Suggest frontloading if total contributions < $50k and there's room in early years
+  const grantEndYr = childBirthYear + 17;
+  const yearsLeft  = grantEndYr - startYear + 1;
+  const maxGrantContrib = yearsLeft * 2500; // optimal for full CESG
+  const currentAnnualAvg = schedule.length ? schedule[0].annualAmount : 0;
+  const suggestedLump = Math.min(50000 - lifeContribTotal, 14000); // up to 5 yrs of catch-up
+  if(suggestedLump > 2500 && lifeContribTotal < 48000){
+    frontloadSuggestion = suggestedLump;
+    msgEl.textContent = "You have room to frontload $" + Math.round(suggestedLump).toLocaleString() + " now \u2014 maximizing early compound growth. This won\u2019t exceed your $50,000 lifetime limit.";
+    banner.style.display = 'block';
+  } else {
+    banner.style.display = 'none';
+    frontloadSuggestion = null;
+  }
+}
+function applyFrontload(){
+  if(!frontloadSuggestion) return;
+  const lumpToggle = document.getElementById('upfront-toggle');
+  const lumpField  = document.getElementById('upfront-field');
+  const lumpInput  = document.getElementById('lump-sum');
+  if(!upfrontEnabled){ upfrontEnabled = true; if(lumpToggle) lumpToggle.classList.add('on'); if(lumpField) lumpField.classList.add('visible'); }
+  if(lumpInput){ lumpInput.value = Math.round(frontloadSuggestion); respSyncRange('lump-sum','lump-range'); }
+  document.getElementById('frontload-banner').style.display = 'none';
+  calcRESP();
+}
+
+// ── AUTO-ADJUST END DATES ──
+function autoAdjustEndDates(){
+  const dob = document.getElementById('child-dob')?.value;
+  const startYr = parseInt(document.getElementById('start-year')?.value) || new Date().getFullYear();
+  const childBirthYr = dob ? new Date(dob).getFullYear() : startYr;
+  const grantEndDate = (childBirthYr + 17) + '-12-31';
+  const lumpSumAmt = upfrontEnabled ? (parseFloat(document.getElementById('lump-sum')?.value) || 0) : 0;
+  const LIFETIME = 50000;
+
+  // Walk through rows in order, allocating remaining contribution room
+  const rows = document.querySelectorAll('.sched-row');
+  let remainingRoom = LIFETIME - lumpSumAmt;
+
+  rows.forEach((row, idx) => {
+    const rid = row.id.replace('sched-row-','');
+    const fromEl = document.getElementById('sched-from-'+rid);
+    const toEl   = document.getElementById('sched-to-'+rid);
+    const freqEl = document.getElementById('sched-freq-'+rid);
+    const amtEl  = document.getElementById('sched-amt-'+rid);
+    if(!fromEl || !toEl || !freqEl || !amtEl) return;
+
+    const annualAmt = toAnnual(parseFloat(amtEl.value)||0, freqEl.value||'annual');
+    const fromDate  = fromEl.value;
+    if(!fromDate || annualAmt <= 0 || remainingRoom <= 0){
+      // No room left — set end = start (0 duration) or show error
+      if(remainingRoom <= 0) toEl.style.borderColor = '#e74c3c';
+      return;
+    }
+    toEl.style.borderColor = '';
+
+    // How many years until room runs out? Always snap to Dec 31 to avoid mid-year splits.
+    // The $50k cap in the main calc handles partial years cleanly.
+    const yearsOfRoom = annualAmt > 0 ? remainingRoom / annualAmt : 99;
+    const fromDt = new Date(fromDate);
+    const fromYearInt = fromDt.getFullYear();
+    // Last year that gets ANY contribution = fromYear + ceil(yearsOfRoom) - 1
+    // Snap to Dec 31 of that year so schedMap never splits mid-year
+    const lastContribYear = fromYearInt + Math.ceil(yearsOfRoom) - 1;
+    const maxByRoomStr = lastContribYear + '-12-31';
+
+    // Pick the earlier of: room exhausted vs grant end date
+    const autoEnd = maxByRoomStr < grantEndDate ? maxByRoomStr : grantEndDate;
+    toEl.value = autoEnd;
+
+    // Deduct full years only (partial handled by $50k cap in calc loop)
+    const fullYears = Math.floor(yearsOfRoom);
+    remainingRoom -= annualAmt * fullYears;
+
+    updateSchedHint(rid);
+  });
+
+  calcRESP();
+}
 // ── MAIN CALCULATION ──
 function calcRESP(){
   // ── Inputs — read ALL scalar inputs first ──
@@ -1759,13 +1866,12 @@ function calcRESP(){
   // ── Build contribution schedule map (needs startYear) ──
   const schedule = getContribSchedule();
   if(schedule.length === 0) return; // nothing to compute yet
-  const schedMap = {}; // yr -> annualAmount (prorated for partial years)
+  const schedMap = {}; // yr -> annualAmount
+  // End dates are always Dec 31 so every year gets the full annual amount.
+  // The $50k cap (CONTRIB_LIFETIME) in the main loop handles partial final years.
   for(const seg of schedule){
     for(let yr = seg.fromYr; yr <= seg.toYr; yr++){
-      const moStart = yr === seg.fromYr ? seg.fromMo : 1;
-      const moEnd   = yr === seg.toYr   ? seg.toMo   : 12;
-      const fraction = (moEnd - moStart + 1) / 12;
-      schedMap[yr] = (schedMap[yr] || 0) + seg.annualAmount * fraction;
+      schedMap[yr] = (schedMap[yr] || 0) + seg.annualAmount;
     }
   }
   const lastSegAmt = schedule.length > 0 ? schedule[schedule.length-1].annualAmount : 2500;
@@ -2012,6 +2118,17 @@ function calcRESP(){
   const overLimit = contribLifetime >= CONTRIB_LIFETIME;
   document.getElementById('over-limit-strip').style.display = overLimit ? 'flex' : 'none';
   if(overLimit) document.getElementById('res-limit-warn').textContent = 'At $50,000 limit — no more contributions';
+
+  // Over-limit error banner
+  const errBanner = document.getElementById('over-limit-error');
+  const totalScheduleContrib = schedule.reduce((s,seg)=>{
+    const mos = (seg.toYr-seg.fromYr)*12+(seg.toMo-seg.fromMo+1);
+    return s + seg.annualAmount * (mos/12);
+  }, 0) + lumpSum;
+  if(errBanner) errBanner.style.display = totalScheduleContrib > 50000 ? 'block' : 'none';
+
+  // Frontloading suggestion
+  checkFrontload(schedule, contribLifetime, startYear, childBirthYear);
 
   // ── Find which year/month the $50K limit is hit ──
   let limitHitRow = null;
