@@ -313,6 +313,20 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .sched-prefix{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:0.75rem;color:#aaa;pointer-events:none}
 .sched-annual-equiv{font-size:0.65rem;color:#b8862a;margin-top:5px;font-weight:600}
 .resp-flag{display:none}@media(max-width:720px){.resp-flag{display:inline}}
+
+.sugg-card{background:#fff;border:1.5px solid #e8e4dc;border-radius:12px;overflow:hidden;transition:border-color .15s}
+.sugg-card:hover{border-color:rgba(212,165,52,0.4)}
+.sugg-card-head{padding:12px 14px 8px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.sugg-card-label{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#aaa;margin-bottom:3px}
+.sugg-card-title{font-size:0.82rem;font-weight:700;color:#1a1a1a;line-height:1.3}
+.sugg-card-cesg{font-size:0.68rem;color:#1a6b3c;font-weight:600;margin-top:2px}
+.sugg-card-body{padding:0 14px 10px;font-size:0.7rem;color:#666;line-height:1.6}
+.sugg-card-rows{padding:0 14px 10px;display:flex;flex-direction:column;gap:4px}
+.sugg-row-pill{display:inline-flex;align-items:center;gap:6px;background:#f9f7f3;border:1px solid #e8e4dc;border-radius:6px;padding:4px 10px;font-size:0.68rem;color:#555}
+.sugg-row-pill .pill-amt{font-weight:700;color:#1a1a1a}
+.sugg-card-footer{padding:10px 14px;border-top:1px solid #f0ede8;display:flex;justify-content:flex-end}
+.sugg-apply-btn{background:#1a1a1a;color:#fff;border:none;border-radius:7px;padding:7px 18px;font-size:0.72rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
+.sugg-apply-btn:hover{background:#333}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
@@ -854,12 +868,14 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
         </div>
 
 
-        <!-- Frontloading suggestion -->
-        <div id="frontload-banner" style="display:none;background:#fff8ec;border:1px solid rgba(212,165,52,0.3);border-left:3px solid #d4a534;border-radius:10px;padding:12px 14px;margin-top:4px">
-          <div style="font-size:0.7rem;font-weight:700;color:#b8862a;margin-bottom:3px">💡 Frontloading opportunity</div>
-          <div style="font-size:0.68rem;color:#666;line-height:1.6" id="frontload-msg"></div>
-          <button onclick="applyFrontload()" style="margin-top:8px;background:#b8862a;color:#fff;border:none;border-radius:7px;padding:6px 14px;font-size:0.68rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif">Apply suggestion</button>
+        <!-- Smart Suggestions -->
+        <div id="suggestions-trigger" style="display:none;margin-top:8px">
+          <button onclick="toggleSuggestions()" style="display:flex;align-items:center;justify-content:space-between;width:100%;background:rgba(212,165,52,0.08);border:1.5px dashed rgba(212,165,52,0.4);border-radius:10px;padding:10px 16px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s" onmouseover="this.style.background='rgba(212,165,52,0.14)'" onmouseout="this.style.background='rgba(212,165,52,0.08)'">
+            <span style="display:flex;align-items:center;gap:8px;font-size:0.78rem;font-weight:700;color:#b8862a">💡 See smart suggestions</span>
+            <span id="suggestions-chevron" style="font-size:0.75rem;color:#b8862a;transition:transform .2s">▼</span>
+          </button>
         </div>
+        <div id="suggestions-panel" style="display:none;margin-top:8px;flex-direction:column;gap:10px"></div>
 
         <!-- Over limit error -->
         <div id="over-limit-error" style="display:none;background:#fff0f0;border:1px solid rgba(231,76,60,0.25);border-left:3px solid #e74c3c;border-radius:10px;padding:12px 14px;margin-top:8px">
@@ -1162,6 +1178,13 @@ function switchTab(id){
     const initStartYr = parseInt(document.getElementById('start-year')?.value) || new Date().getFullYear();
     addContribRow(initStartYr+'-01-01', null, 'annual', 2500);
     calcRESP();
+  }
+  if(id==='resp'){
+    // Always show suggestions trigger when RESP tab is active
+    setTimeout(()=>{
+      const t = document.getElementById('suggestions-trigger');
+      if(t) t.style.display = 'block';
+    }, 50);
   }
 }
 
@@ -1791,8 +1814,23 @@ function getContribSchedule(){
 }
 
 
-// ── FRONTLOADING SUGGESTION ──
-let frontloadSuggestion = null;
+// ── SMART SUGGESTIONS SYSTEM ──
+let suggestionsOpen = false;
+let currentSuggestions = [];
+
+function toggleSuggestions(){
+  suggestionsOpen = !suggestionsOpen;
+  const panel = document.getElementById('suggestions-panel');
+  const chevron = document.getElementById('suggestions-chevron');
+  if(suggestionsOpen && currentSuggestions.length > 0){
+    renderSuggestions(currentSuggestions);
+    if(panel) panel.style.display = 'flex';
+  } else {
+    if(panel) panel.style.display = 'none';
+  }
+  if(chevron) chevron.style.transform = suggestionsOpen ? 'rotate(180deg)' : '';
+}
+
 function optimizeRESP(dobYr, startYr, lifetime){
   // Advanced optimizer: accounts for catch-up grants from missed years
   // CRA allows $5,000/yr contribution to catch up on prior missed grant room
@@ -1809,11 +1847,9 @@ function optimizeRESP(dobYr, startYr, lifetime){
     grantRoomUnused = Math.min(grantRoomUnused + 500, cesgRemaining);
     let grant, contrib;
     if(grantRoomUnused >= 1000){
-      // Catch-up year: contribute $5,000, get $1,000 grant
       grant  = Math.min(1000, cesgRemaining, grantRoomUnused);
       contrib = Math.min(5000, lifetime - totalContrib);
     } else {
-      // Regular year: contribute only what earns the remaining grant
       grant  = Math.min(500, cesgRemaining, grantRoomUnused);
       const minForGrant = grant > 0 ? grant / 0.20 : 2500;
       contrib = Math.min(minForGrant, 2500, lifetime - totalContrib);
@@ -1826,68 +1862,186 @@ function optimizeRESP(dobYr, startYr, lifetime){
     currentYr++;
   }
 
-  const totalCESG   = 7200 - cesgRemaining;
-  const grantContrib = plan.reduce((s,p)=>s+p.contrib,0);
-  const lumpSum     = Math.max(0, lifetime - grantContrib);
-  const catchupYrs  = plan.filter(p=>p.catchup).length;
-  const regularYrs  = plan.filter(p=>!p.catchup).length;
+  const totalCESG    = 7200 - cesgRemaining;
+  const grantContrib = plan.reduce((s,p)=>s+p.contrib, 0);
+  const lumpSum      = Math.max(0, lifetime - grantContrib);
+  const catchupYrs   = plan.filter(p=>p.catchup).length;
+  const regularYrs   = plan.filter(p=>!p.catchup).length;
   return { lumpSum, totalCESG, grantContrib, catchupYrs, regularYrs, plan };
 }
 
-function checkFrontload(schedule, lifeContribTotal, startYear, childBirthYear){
-  const banner = document.getElementById('frontload-banner');
-  const msgEl  = document.getElementById('frontload-msg');
-  if(!banner || !msgEl) return;
-  if(upfrontEnabled){ banner.style.display='none'; return; }
-  if(lifeContribTotal >= 49000){ banner.style.display='none'; return; }
-
+function buildSuggestions(childBirthYear, startYear){
+  // Returns array of suggestion objects for different strategies
   const opt = optimizeRESP(childBirthYear, startYear, 50000);
-  frontloadSuggestion = opt.lumpSum;
+  const grantEndYr = childBirthYear + 17;
+  const missedYrs  = Math.max(0, startYear - childBirthYear);
+  const suggs = [];
 
-  const lumpStr   = '$' + Math.round(opt.lumpSum).toLocaleString();
-  const cesgStr   = '$' + Math.round(opt.totalCESG).toLocaleString();
-  const missedYrs = Math.max(0, startYear - childBirthYear);
-  const late      = missedYrs > 0;
-
-  let msg = '';
-  if(opt.totalCESG === 0){
-    msg = 'Child is past grant eligibility age. Contribute the full <strong>$50,000</strong> now to maximize compound growth.';
-  } else if(opt.lumpSum === 0){
-    msg = 'Contribute <strong>$2,500/yr</strong> for <strong>' + opt.regularYrs + ' years</strong> to earn up to <strong>' + cesgStr + '</strong> in government grants.';
-  } else if(late && opt.catchupYrs > 0){
-    msg = 'Starting late — add <strong>' + lumpStr + '</strong> upfront, then <strong>$5,000/yr × ' + opt.catchupYrs + ' years</strong> (catch-up) + <strong>$2,500/yr × ' + opt.regularYrs + ' years</strong> (regular) to earn <strong>' + cesgStr + '</strong> in government grants while maxing your $50,000 limit.';
-  } else {
-    msg = 'Add <strong>' + lumpStr + '</strong> upfront (earns no grant) + <strong>$2,500/yr</strong> for <strong>' + opt.regularYrs + ' years</strong> to earn the full <strong>' + cesgStr + '</strong> in government grants while maxing your $50,000 limit.';
+  // ── Strategy 1: Full frontload (all non-grant money upfront, $2,500/yr for grants) ──
+  const s1rows = [];
+  if(opt.catchupYrs > 0){
+    s1rows.push({label:'Catch-up years', amount:5000, freq:'annual', years:opt.catchupYrs,
+      fromYr:startYear, toYr:startYear+opt.catchupYrs-1});
   }
-  msgEl.innerHTML = msg;
-  banner.style.display = 'block';
+  if(opt.regularYrs > 0){
+    const regStart = startYear + opt.catchupYrs;
+    s1rows.push({label:'Grant years', amount:2500, freq:'annual', years:opt.regularYrs,
+      fromYr:regStart, toYr:regStart+opt.regularYrs-1});
+  }
+  suggs.push({
+    id:1,
+    title: opt.lumpSum > 0 ? 'Max upfront + optimal annual' : 'Optimal annual only',
+    subtitle: 'Earn ' + fmtS(opt.totalCESG) + ' in grants, max $50k',
+    lump: opt.lumpSum,
+    rows: s1rows,
+    cesg: opt.totalCESG,
+    description: opt.lumpSum > 0
+      ? 'Add ' + fmtS(opt.lumpSum) + ' upfront (earns no grant), then follow the grant-optimized schedule below.'
+      : 'Follow the grant-optimized schedule — no lump sum needed.',
+  });
+
+  // ── Strategy 2: Spread frontload over 2 years ──
+  if(opt.lumpSum >= 5000){
+    const halfLump = Math.round(opt.lumpSum / 2 / 500) * 500;
+    const s2rows = [];
+    s2rows.push({label:'Extra first 2 yrs', amount:halfLump + (opt.catchupYrs>0?5000:2500),
+      freq:'annual', years:2, fromYr:startYear, toYr:startYear+1});
+    if(opt.catchupYrs > 2){
+      s2rows.push({label:'Catch-up', amount:5000, freq:'annual', years:opt.catchupYrs-2,
+        fromYr:startYear+2, toYr:startYear+opt.catchupYrs-1});
+    }
+    if(opt.regularYrs > 0){
+      const rStart = startYear + Math.max(2, opt.catchupYrs);
+      s2rows.push({label:'Regular', amount:2500, freq:'annual', years:opt.regularYrs,
+        fromYr:rStart, toYr:rStart+opt.regularYrs-1});
+    }
+    suggs.push({
+      id:2,
+      title:'Spread frontload over 2 years',
+      subtitle:'Same ' + fmtS(opt.totalCESG) + ' in grants, easier on cash flow',
+      lump:0,
+      rows:s2rows,
+      cesg:opt.totalCESG,
+      description:'Split the extra upfront contribution across 2 years instead of all on day 1.',
+    });
+  }
+
+  // ── Strategy 3: Monthly contributions (no lump sum) ──
+  const monthlyAmt = opt.catchupYrs > 0 ? 417 : 209; // $5000/12 or $2500/12 rounded
+  const s3rows = [];
+  if(opt.catchupYrs > 0){
+    s3rows.push({label:'Catch-up monthly', amount:417, freq:'monthly', years:opt.catchupYrs,
+      fromYr:startYear, toYr:startYear+opt.catchupYrs-1});
+  }
+  if(opt.regularYrs > 0){
+    const rStart3 = startYear + opt.catchupYrs;
+    s3rows.push({label:'Regular monthly', amount:209, freq:'monthly', years:opt.regularYrs,
+      fromYr:rStart3, toYr:rStart3+opt.regularYrs-1});
+  }
+  const s3lump = opt.lumpSum > 0 ? opt.lumpSum : 0;
+  suggs.push({
+    id:3,
+    title:'Monthly contributions' + (s3lump > 0 ? ' + ' + fmtS(s3lump) + ' upfront' : ''),
+    subtitle:'Same outcome, paid monthly for easier budgeting',
+    lump:s3lump,
+    rows:s3rows,
+    cesg:opt.totalCESG,
+    description:'Equivalent to the optimal strategy but broken into monthly payments.',
+  });
+
+  return suggs;
 }
-function applyFrontload(){
-  if(!frontloadSuggestion) return;
-  if(!upfrontEnabled){ toggleUpfront(); }
+
+function fmtS(n){ return '$' + Math.round(n).toLocaleString(); }
+
+function renderSuggestions(suggs){
+  const panel = document.getElementById('suggestions-panel');
+  if(!panel) return;
+  panel.innerHTML = suggs.map((s,i) => `
+    <div class="sugg-card">
+      <div class="sugg-card-head">
+        <div>
+          <div class="sugg-card-label">Option ${i+1}</div>
+          <div class="sugg-card-title">${s.title}</div>
+          <div class="sugg-card-cesg">✓ Up to ${fmtS(s.cesg)} in government grants</div>
+        </div>
+      </div>
+      <div class="sugg-card-body">${s.description}</div>
+      <div class="sugg-card-rows">
+        ${s.lump > 0 ? '<div class="sugg-row-pill">🎯 <span class="pill-amt">Lump sum: ' + fmtS(s.lump) + '</span> on day 1</div>' : ''}
+        ${s.rows.map(r => '<div class="sugg-row-pill">📅 <span class="pill-amt">' + fmtS(r.amount) + '/' + r.freq.slice(0,2) + '</span> × ' + r.years + ' yr' + (r.years!==1?'s':'') + ' (' + r.fromYr + '–' + r.toYr + ')</div>').join('')}
+      </div>
+      <div class="sugg-card-footer">
+        <button class="sugg-apply-btn" onclick="applySuggestion(${i})">Apply this plan →</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function applySuggestion(idx){
+  const s = currentSuggestions[idx];
+  if(!s) return;
+  
+  // Set lump sum
   const lumpInput = document.getElementById('lump-sum');
   const lumpRange = document.getElementById('lump-range');
-  if(lumpInput){ lumpInput.value = Math.round(frontloadSuggestion); }
-  if(lumpRange){ lumpRange.value = Math.round(frontloadSuggestion); }
-  // Set all schedule rows to $2,500/yr annual, clear any user-set flags
-  const startYr4fl = parseInt(document.getElementById('start-year')?.value) || new Date().getFullYear();
-  document.querySelectorAll('.sched-row').forEach((row, idx) => {
-    const rid = row.id.replace('sched-row-','');
-    const amtEl  = document.getElementById('sched-amt-'+rid);
-    const freqEl = document.getElementById('sched-freq-'+rid);
-    const fromEl = document.getElementById('sched-from-'+rid);
-    const toEl   = document.getElementById('sched-to-'+rid);
-    if(amtEl) amtEl.value = 2500;
-    if(freqEl) freqEl.value = 'annual';
-    if(idx === 0 && fromEl) fromEl.value = startYr4fl + '-01-01';
-    // Clear user-set flag so autoAdjustEndDates recalculates the end date
-    if(toEl) delete toEl.dataset.userSet;
-    updateSchedHint(rid);
+  if(s.lump > 0){
+    if(!upfrontEnabled) toggleUpfront();
+    if(lumpInput) lumpInput.value = Math.round(s.lump);
+    if(lumpRange) lumpRange.value = Math.round(s.lump);
+  } else if(upfrontEnabled){
+    toggleUpfront(); // turn off lump sum
+  }
+
+  // Clear existing rows and rebuild from suggestion
+  const container = document.getElementById('contrib-schedule-rows');
+  if(container) container.innerHTML = '';
+  schedRowCount = 0;
+
+  s.rows.forEach(row => {
+    addContribRow(
+      row.fromYr + '-01-01',
+      row.toYr + '-12-31',
+      row.freq,
+      row.amount
+    );
+    // Clear user-set flag on the new row
+    const lastRow = document.querySelector('.sched-row:last-child');
+    if(lastRow){
+      const rid = lastRow.id.replace('sched-row-','');
+      const toEl = document.getElementById('sched-to-'+rid);
+      if(toEl) delete toEl.dataset.userSet;
+      const amtEl = document.getElementById('sched-amt-'+rid);
+      if(amtEl){ amtEl.value = row.amount; }
+      updateSchedHint(rid);
+    }
   });
-  document.getElementById('frontload-banner').style.display = 'none';
-  // Now let autoAdjust calculate the correct end date based on lump + $2,500/yr → $50k
-  autoAdjustEndDates();
+
+  // Close suggestions panel
+  suggestionsOpen = false;
+  const panel = document.getElementById('suggestions-panel');
+  const chevron = document.getElementById('suggestions-chevron');
+  if(panel) panel.style.display = 'none';
+  if(chevron) chevron.style.transform = '';
+
+  calcRESP();
 }
+
+function checkFrontload(schedule, lifeContribTotal, startYear, childBirthYear){
+  const trigger = document.getElementById('suggestions-trigger');
+  if(!trigger) return;
+  if(lifeContribTotal >= 49000){ trigger.style.display='none'; return; }
+
+  // Generate suggestions
+  currentSuggestions = buildSuggestions(childBirthYear, startYear);
+  trigger.style.display = 'block';
+
+  // If panel is open, re-render with fresh suggestions
+  if(suggestionsOpen){
+    renderSuggestions(currentSuggestions);
+  }
+}
+
 
 // ── AUTO-ADJUST END DATES ──
 function autoAdjustEndDates(){
