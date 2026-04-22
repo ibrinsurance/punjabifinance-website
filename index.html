@@ -257,11 +257,11 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 .pie-share-hint{font-size:0.67rem;color:#aaa}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 @media(max-width:640px){.pie-wrap{gap:24px}.pie-legend{flex-direction:row;flex-wrap:wrap;gap:10px 20px}.pie-leg-item{min-width:80px}}
-.unlock-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#111009;border:1px solid rgba(212,165,52,0.25);border-radius:10px;padding:10px 16px;margin-bottom:16px;flex-wrap:wrap}
+.unlock-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(212,165,52,0.06);border:1px solid rgba(212,165,52,0.2);border-radius:10px;padding:12px 18px;margin-bottom:16px;flex-wrap:wrap}
 .unlock-bar-left{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:rgba(255,255,255,0.65)}
-.unlock-bar-left strong{color:#ffffff}
-.unlock-bar-btn{display:inline-flex;align-items:center;gap:6px;background:#1a1a1a;color:#fff;font-size:0.72rem;font-weight:600;padding:7px 16px;border-radius:7px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:background .15s}
-.unlock-bar-btn:hover{background:#333}
+.unlock-bar-left strong{color:#f0e8d0}
+.unlock-bar-btn{display:inline-flex;align-items:center;gap:6px;background:#d4a534;color:#0a0800;font-size:0.72rem;font-weight:700;padding:8px 18px;border-radius:7px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:background .15s}
+.unlock-bar-btn:hover{background:#b8862a}
 .unlock-bar-join{display:inline-flex;align-items:center;gap:6px;background:#25d366;color:#052a10;font-size:0.72rem;font-weight:600;padding:7px 16px;border-radius:7px;text-decoration:none;white-space:nowrap;transition:background .15s}
 .unlock-bar-join:hover{background:#1fb356}
 
@@ -454,9 +454,9 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 <div class="section section-white">
   <!-- Unlock bar — shown when locked -->
   <div class="unlock-bar" id="unlock-bar" style="display:none">
-    <div class="unlock-bar-left">&#128274; <strong>Portfolio data is locked.</strong> &nbsp;Members see full details.</div>
+    <div class="unlock-bar-left">&#128274; <strong>Members only.</strong> &nbsp;Enter your code to see full portfolio details.</div>
     <div class="unlock-bar-right" style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="unlock-bar-btn" onclick="openModal()">&#128273; Unlock Full Portfolio</button>
+      <button class="unlock-bar-btn" onclick="openModal()">🔐 Enter Code to Unlock Portfolio</button>
       <a class="unlock-bar-join" href="community.html">&#128172; Join Community</a>
     </div>
   </div>
