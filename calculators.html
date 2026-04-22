@@ -312,6 +312,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .sched-input-wrap{position:relative}
 .sched-prefix{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:0.75rem;color:#aaa;pointer-events:none}
 .sched-annual-equiv{font-size:0.65rem;color:#b8862a;margin-top:5px;font-weight:600}
+.resp-flag{display:none}@media(max-width:720px){.resp-flag{display:inline}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
@@ -365,11 +366,11 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <div class="calc-tabs">
   <button class="calc-tab active" onclick="switchTab('sip')">Monthly Investing</button>
   <button class="calc-tab" onclick="switchTab('lumpsum')">Lump Sum</button>
+  <button class="calc-tab" onclick="switchTab('resp')"><span class="resp-flag">🇨🇦 </span>RESP <span style="font-size:0.55rem;background:rgba(212,165,52,0.15);color:#d4a534;border:1px solid rgba(212,165,52,0.3);border-radius:4px;padding:1px 5px;letter-spacing:0.06em;vertical-align:middle;margin-left:3px">Advanced</span></button>
   <button class="calc-tab" onclick="switchTab('goal')">Goal Planner</button>
   <button class="calc-tab" onclick="switchTab('swp')">Withdrawal (SWP)</button>
   <button class="calc-tab" onclick="switchTab('cagr')">CAGR</button>
   <button class="calc-tab" onclick="switchTab('options')">Options Income</button>
-  <button class="calc-tab" onclick="switchTab('resp')">🇨🇦 RESP <span style="font-size:0.55rem;background:rgba(212,165,52,0.15);color:#d4a534;border:1px solid rgba(212,165,52,0.3);border-radius:4px;padding:1px 5px;letter-spacing:0.06em;vertical-align:middle;margin-left:3px">Advanced</span></button>
 </div>
 </div>
 
@@ -801,7 +802,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <!-- ════════════════════════════════════════ -->
 <div class="calc-panel" id="panel-resp">
   <div class="panel-title">🇨🇦 RESP Calculator <span style="font-size:0.6rem;background:rgba(212,165,52,0.12);color:#b8862a;border:1px solid rgba(212,165,52,0.25);border-radius:6px;padding:2px 8px;letter-spacing:0.08em;vertical-align:middle;margin-left:6px;font-family:'DM Sans',sans-serif;font-weight:700">ADVANCED</span></div>
-  <div class="panel-sub">Calculates government CESG grants automatically based on your child's date of birth. Enter your contribution plan to see projected growth by age 18.</div>
+  <div class="panel-sub">Automatically calculates CESG and CLB government grants based on your child's date of birth. Enter your contribution plan to see projected growth by age 18.</div>
   <div class="two-col">
 
   <!-- ── LEFT: INPUTS ── -->
@@ -830,7 +831,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
         <button onclick="addContribRow()" style="display:flex;align-items:center;gap:6px;background:transparent;border:1.5px dashed #b8862a;border-radius:9px;padding:9px 16px;color:#b8862a;font-size:0.75rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;justify-content:center;margin-top:4px;transition:all .15s" onmouseover="this.style.background='rgba(184,134,42,0.06)'" onmouseout="this.style.background='transparent'">
           + Add Another Period
         </button>
-        <div class="field-note" style="margin-top:10px">Periods run in order from the start year. Max $2,500/yr per period gets full $500 CESG grant. Lifetime max $50,000.</div>
+        <div class="field-note" style="margin-top:10px">Periods run in order. $2,500/yr per period gets full $500 grant. Lifetime max $50,000. <span style="color:#b8862a">Tip: on phone, tap the month/year header in the calendar to jump to any year.</span></div>
 
         <!-- Upfront lump sum toggle -->
         <div class="toggle-row" onclick="toggleUpfront()">
@@ -916,9 +917,9 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
           <div class="rbi-sub" id="res-contrib-pct"></div>
         </div>
         <div class="result-big-item">
-          <div class="rbi-label">Government Grants</div>
+          <div class="rbi-label">Govt. Grants (CESG + CLB)</div>
           <div class="rbi-val green" id="res-grants">$—</div>
-          <div class="rbi-sub" id="res-grants-note">Free money from Ottawa</div>
+          <div class="rbi-sub" id="res-grants-note">CESG + CLB grants</div>
         </div>
         <div class="result-big-item">
           <div class="rbi-label">Investment Growth</div>
@@ -932,18 +933,9 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
         </div>
       </div>
       <div class="result-strips">
-        <div class="result-strip">
-          <span class="rs-label">Grants collected so far</span>
-          <span class="rs-val gold" id="res-grant-pct">—</span>
-        </div>
-        <div class="result-strip">
-          <span class="rs-label">Grants remaining available</span>
-          <span class="rs-val green" id="res-grant-remain">—</span>
-        </div>
-        <div class="result-strip">
-          <span class="rs-label">Years of grant eligibility left</span>
-          <span class="rs-val" id="res-grant-years">—</span>
-        </div>
+
+
+
         <div class="result-strip" id="over-limit-strip" style="display:none">
           <span class="rs-label">⚠ Lifetime limit status</span>
           <span class="rs-val red" id="res-limit-warn">—</span>
@@ -1691,11 +1683,11 @@ function addContribRow(fromDate, toDate, freq='annual', amount=2500){
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
       <div>
         <div class="sched-mini-label">From Date</div>
-        <input class="sched-input sched-from-date" type="date" id="sched-from-${id}" value="${toDateStr(fromYr, fromMo, 1)}" onchange="updateSchedHint(${id});autoAdjustEndDates()" oninput="updateSchedHint(${id})" style="padding-left:8px;width:100%;font-family:inherit">
+        <input class="sched-input sched-from-date" type="date" id="sched-from-${id}" value="${toDateStr(fromYr, fromMo, 1)}" onchange="updateSchedHint(${id});autoAdjustEndDates()" oninput="updateSchedHint(${id})" style="padding-left:8px;width:100%;font-family:inherit" min="2000-01-01" max="2060-12-31">
       </div>
       <div>
         <div class="sched-mini-label">To Date</div>
-        <input class="sched-input sched-to-date" type="date" id="sched-to-${id}" value="${toDateStr(toYr, toMo, lastDayOfMonth(toYr, toMo))}" onchange="markUserEdited(${id});updateSchedHint(${id});calcRESP()" oninput="markUserEdited(${id});updateSchedHint(${id});calcRESP()" style="padding-left:8px;width:100%;font-family:inherit;cursor:text">
+        <input class="sched-input sched-to-date" type="date" id="sched-to-${id}" value="${toDateStr(toYr, toMo, lastDayOfMonth(toYr, toMo))}" onchange="markUserEdited(${id});updateSchedHint(${id});calcRESP()" oninput="markUserEdited(${id});updateSchedHint(${id});calcRESP()" style="padding-left:8px;width:100%;font-family:inherit;cursor:text" min="2000-01-01" max="2060-12-31">
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
@@ -1801,47 +1793,74 @@ function getContribSchedule(){
 
 // ── FRONTLOADING SUGGESTION ──
 let frontloadSuggestion = null;
+function optimizeRESP(dobYr, startYr, lifetime){
+  // Advanced optimizer: accounts for catch-up grants from missed years
+  // CRA allows $5,000/yr contribution to catch up on prior missed grant room
+  // Each catch-up year = $1,000 grant (vs $500 regular)
+  const grantEndYr = dobYr + 17;
+  const missedYrs  = Math.max(0, startYr - dobYr);
+  let grantRoomUnused = missedYrs * 500;
+  let cesgRemaining   = 7200;
+  let currentYr       = startYr;
+  let totalContrib    = 0;
+  const plan = [];
+
+  while(currentYr <= grantEndYr && cesgRemaining > 0 && totalContrib < lifetime){
+    grantRoomUnused = Math.min(grantRoomUnused + 500, cesgRemaining);
+    let grant, contrib;
+    if(grantRoomUnused >= 1000){
+      // Catch-up year: contribute $5,000, get $1,000 grant
+      grant  = Math.min(1000, cesgRemaining, grantRoomUnused);
+      contrib = Math.min(5000, lifetime - totalContrib);
+    } else {
+      // Regular year: contribute only what earns the remaining grant
+      grant  = Math.min(500, cesgRemaining, grantRoomUnused);
+      const minForGrant = grant > 0 ? grant / 0.20 : 2500;
+      contrib = Math.min(minForGrant, 2500, lifetime - totalContrib);
+    }
+    if(contrib <= 0) break;
+    grantRoomUnused -= grant;
+    cesgRemaining   -= grant;
+    totalContrib    += contrib;
+    plan.push({ yr: currentYr, contrib, grant, catchup: contrib > 2500 });
+    currentYr++;
+  }
+
+  const totalCESG   = 7200 - cesgRemaining;
+  const grantContrib = plan.reduce((s,p)=>s+p.contrib,0);
+  const lumpSum     = Math.max(0, lifetime - grantContrib);
+  const catchupYrs  = plan.filter(p=>p.catchup).length;
+  const regularYrs  = plan.filter(p=>!p.catchup).length;
+  return { lumpSum, totalCESG, grantContrib, catchupYrs, regularYrs, plan };
+}
+
 function checkFrontload(schedule, lifeContribTotal, startYear, childBirthYear){
   const banner = document.getElementById('frontload-banner');
   const msgEl  = document.getElementById('frontload-msg');
   if(!banner || !msgEl) return;
   if(upfrontEnabled){ banner.style.display='none'; return; }
+  if(lifeContribTotal >= 49000){ banner.style.display='none'; return; }
 
-  // Formula accounts for late starters:
-  // grantYearsLeft = years from startYear to Dec 31 of year child turns 17
-  // effectiveGrantYears = min(14.4, grantYearsLeft)  ← late starters can't get full $7,200
-  // grantEarningContrib = effectiveGrantYears × $2,500  ← what $2,500/yr will cover
-  // optimalLump = $50,000 - grantEarningContrib  ← everything else goes upfront (earns no grant)
-  const CESG_MAX       = 7200;
-  const CESG_ANNUAL    = 500;
-  const GRANT_ANNUAL   = 2500;
-  const LIFETIME       = 50000;
-  const grantEndYr     = childBirthYear + 17;
-  const grantYearsLeft = Math.max(0, grantEndYr - startYear + 1);
-  const maxGrantYears  = CESG_MAX / CESG_ANNUAL;                      // 14.4
-  const effGrantYears  = Math.min(maxGrantYears, grantYearsLeft);
-  const grantContrib   = effGrantYears * GRANT_ANNUAL;
-  const optimalLump    = Math.max(0, LIFETIME - grantContrib);
-  const maxCESG        = Math.min(CESG_MAX, effGrantYears * CESG_ANNUAL);
+  const opt = optimizeRESP(childBirthYear, startYear, 50000);
+  frontloadSuggestion = opt.lumpSum;
 
-  if(lifeContribTotal < 49000){
-    frontloadSuggestion = optimalLump;
-    const late = grantYearsLeft < maxGrantYears;
-    const lumpStr  = '$' + Math.round(optimalLump).toLocaleString();
-    const cesgStr  = '$' + Math.round(maxCESG).toLocaleString();
-    const yearStr  = Math.ceil(effGrantYears) + ' year' + (Math.ceil(effGrantYears) !== 1 ? 's' : '');
-    if(optimalLump === 0){
-      msgEl.innerHTML = 'Contribute <strong>$2,500/yr</strong> for <strong>' + yearStr + '</strong> to earn up to <strong>' + cesgStr + '</strong> in CESG grants.';
-    } else if(late){
-      msgEl.innerHTML = 'Starting late — add <strong>' + lumpStr + '</strong> upfront (earns no grant at this stage) + <strong>$2,500/yr</strong> for <strong>' + yearStr + '</strong> to earn up to <strong>' + cesgStr + '</strong> in CESG while maxing your $50,000 limit.';
-    } else {
-      msgEl.innerHTML = 'Add <strong>' + lumpStr + '</strong> upfront (earns no grant) + <strong>$2,500/yr</strong> for <strong>' + yearStr + '</strong> to earn the full <strong>' + cesgStr + '</strong> in CESG while maxing your $50,000 limit.';
-    }
-    banner.style.display = 'block';
+  const lumpStr   = '$' + Math.round(opt.lumpSum).toLocaleString();
+  const cesgStr   = '$' + Math.round(opt.totalCESG).toLocaleString();
+  const missedYrs = Math.max(0, startYear - childBirthYear);
+  const late      = missedYrs > 0;
+
+  let msg = '';
+  if(opt.totalCESG === 0){
+    msg = 'Child is past grant eligibility age. Contribute the full <strong>$50,000</strong> now to maximize compound growth.';
+  } else if(opt.lumpSum === 0){
+    msg = 'Contribute <strong>$2,500/yr</strong> for <strong>' + opt.regularYrs + ' years</strong> to earn up to <strong>' + cesgStr + '</strong> in government grants.';
+  } else if(late && opt.catchupYrs > 0){
+    msg = 'Starting late — add <strong>' + lumpStr + '</strong> upfront, then <strong>$5,000/yr × ' + opt.catchupYrs + ' years</strong> (catch-up) + <strong>$2,500/yr × ' + opt.regularYrs + ' years</strong> (regular) to earn <strong>' + cesgStr + '</strong> in government grants while maxing your $50,000 limit.';
   } else {
-    banner.style.display = 'none';
-    frontloadSuggestion = null;
+    msg = 'Add <strong>' + lumpStr + '</strong> upfront (earns no grant) + <strong>$2,500/yr</strong> for <strong>' + opt.regularYrs + ' years</strong> to earn the full <strong>' + cesgStr + '</strong> in government grants while maxing your $50,000 limit.';
   }
+  msgEl.innerHTML = msg;
+  banner.style.display = 'block';
 }
 function applyFrontload(){
   if(!frontloadSuggestion) return;
@@ -2175,9 +2194,9 @@ function calcRESP(){
   document.getElementById('res-total-invested').textContent = respFmtFull(projContrib + projGrants);
   document.getElementById('res-years').textContent = 'Projected value at age 18 (' + (childBirthYear + 18) + ')';
 
-  document.getElementById('res-grant-pct').textContent = respFmtFull(grantCollected) + ' of $7,200 max';
-  document.getElementById('res-grant-remain').textContent = respFmtFull(grantRemaining) + ' still available';
-  document.getElementById('res-grant-years').textContent = grantYearsLeft + ' year' + (grantYearsLeft !== 1 ? 's' : '') + ' of grants left';
+
+
+
 
   const overLimit = contribLifetime >= CONTRIB_LIFETIME;
   document.getElementById('over-limit-strip').style.display = overLimit ? 'flex' : 'none';
