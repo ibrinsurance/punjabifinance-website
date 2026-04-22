@@ -889,11 +889,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
           <input class="field-range" type="range" id="rate-range" min="1" max="20" step="0.5" value="10" oninput="document.getElementById('return-rate').value=this.value;calcRESP()">
         </div>
 
-        <div class="field">
-          <div class="field-label">RESP Start Year</div>
-          <input class="field-input" type="number" id="start-year" value="2026" min="2000" max="2040" oninput="syncFirstRowYear();autoAdjustEndDates()">
-          <div class="field-note">Year you open the RESP account.</div>
-        </div>
+        <input type="hidden" id="start-year" value="2026">
 
       </div>
     </div>
@@ -1618,6 +1614,14 @@ function toggleCLB(){
   calcRESP();
 }
 
+function markUserEdited(id){
+  const toEl = document.getElementById('sched-to-'+id);
+  if(toEl) toEl.dataset.userSet = '1';
+}
+function clearUserEdited(id){
+  const toEl = document.getElementById('sched-to-'+id);
+  if(toEl) delete toEl.dataset.userSet;
+}
 function syncFirstRowYear(){
   const startYr = parseInt(document.getElementById('start-year')?.value) || 0;
   const firstFrom = document.querySelector('.sched-from-date');
@@ -1630,6 +1634,15 @@ function syncFirstRowYear(){
   }
 }
 
+function lastDayOfMonth(yr, mo){ return new Date(yr, mo, 0).getDate(); }
+function toDateStr(yr, mo, day){ return yr+'-'+String(mo).padStart(2,'0')+'-'+String(day).padStart(2,'0'); }
+function snapToMonthEnd(dateStr){
+  // Snap any date to Dec 31 of its year (since we always want Dec 31)
+  const yr = parseInt(dateStr.split('-')[0]);
+  return yr + '-12-31';
+}
+function parseDateYr(dateStr){ return parseInt((dateStr||'').split('-')[0]) || 0; }
+function parseDateMo(dateStr){ return parseInt((dateStr||'').split('-')[1]) || 1; }
 function toAnnual(amount, freq){
   if(freq === 'monthly') return amount * 12;
   if(freq === 'weekly')  return amount * 52;
@@ -1678,23 +1691,23 @@ function addContribRow(fromDate, toDate, freq='annual', amount=2500){
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
       <div>
         <div class="sched-mini-label">From Date</div>
-        <input class="sched-input sched-from-date" type="date" id="sched-from-${id}" value="${fromYr}-${String(fromMo).padStart(2,'0')}-01" onchange="updateSchedHint(${id});autoAdjustEndDates()" style="padding-left:8px;width:100%">
+        <input class="sched-input sched-from-date" type="date" id="sched-from-${id}" value="${toDateStr(fromYr, fromMo, 1)}" onchange="updateSchedHint(${id});autoAdjustEndDates()" oninput="updateSchedHint(${id})" style="padding-left:8px;width:100%;font-family:inherit">
       </div>
       <div>
         <div class="sched-mini-label">To Date</div>
-        <input class="sched-input sched-to-date" type="date" id="sched-to-${id}" value="${toYr}-${String(toMo).padStart(2,'0')}-31" onchange="updateSchedHint(${id});autoAdjustEndDates()" style="padding-left:8px;width:100%">
+        <input class="sched-input sched-to-date" type="date" id="sched-to-${id}" value="${toDateStr(toYr, toMo, lastDayOfMonth(toYr, toMo))}" onchange="markUserEdited(${id});updateSchedHint(${id});calcRESP()" oninput="markUserEdited(${id});updateSchedHint(${id});calcRESP()" style="padding-left:8px;width:100%;font-family:inherit;cursor:text">
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div>
         <div class="sched-mini-label">Frequency</div>
-        <select class="sched-select" id="sched-freq-${id}" onchange="updateSchedHint(${id});autoAdjustEndDates()">${freqOpts}</select>
+        <select class="sched-select" id="sched-freq-${id}" onchange="clearUserEdited(${id});updateSchedHint(${id});autoAdjustEndDates()">${freqOpts}</select>
       </div>
       <div>
         <div class="sched-mini-label">Amount</div>
         <div class="sched-input-wrap">
           <span class="sched-prefix">$</span>
-          <input class="sched-input" type="number" id="sched-amt-${id}" value="${amount}" min="0" step="1" oninput="updateSchedHint(${id});autoAdjustEndDates()">
+          <input class="sched-input" type="number" id="sched-amt-${id}" value="${amount}" min="0" step="1" oninput="clearUserEdited(${id});updateSchedHint(${id});autoAdjustEndDates()">
         </div>
       </div>
     </div>
@@ -1731,12 +1744,28 @@ function updateSchedHint(id){
   const freq   = freqEl.value || 'annual';
   const amt    = parseFloat(amtEl.value) || 0;
   const annual = toAnnual(amt, freq);
-  const from   = new Date(fromEl.value);
-  const to     = new Date(toEl.value);
-  const months = Math.max(0, (to.getFullYear()-from.getFullYear())*12 + (to.getMonth()-from.getMonth()) + 1);
-  const durStr = months >= 24 ? (months/12).toFixed(1).replace('.0','')+' yrs'
-               : months >= 12 ? '1 yr'
-               : months+' mo';
+  const fromYr2 = parseDateYr(fromEl.value), fromMo2 = parseDateMo(fromEl.value);
+  const fromDay2 = parseInt((fromEl.value||'').split('-')[2]) || 1;
+  const toYr2   = parseDateYr(toEl.value),   toMo2   = parseDateMo(toEl.value);
+  const toDay2  = parseInt((toEl.value||'').split('-')[2]) || 28;
+
+  // Calculate fractional years more accurately
+  // Full years = year difference, then adjust for partial start/end months
+  let totalMonths = (toYr2 - fromYr2) * 12 + (toMo2 - fromMo2);
+  // If start is Jan 1 and end is Dec 31, it's a clean full year span
+  // e.g. Jan 2026 → Dec 2043 = 17 full years + Dec = 18 years total including both endpoints
+  if(fromDay2 === 1 && toDay2 >= 28) totalMonths += 1; // include end month
+
+  let durStr;
+  if(totalMonths <= 0){ durStr = '0 mo'; }
+  else if(totalMonths < 12){ durStr = totalMonths + ' mo'; }
+  else {
+    const fullYrs = Math.floor(totalMonths / 12);
+    const remMo   = totalMonths % 12;
+    if(remMo === 0)     durStr = fullYrs + ' yr' + (fullYrs !== 1 ? 's' : '');
+    else if(remMo <= 2) durStr = fullYrs + ' yr' + (fullYrs !== 1 ? 's' : ''); // ignore tiny fractions
+    else                durStr = fullYrs + ' yr' + (fullYrs !== 1 ? 's' : '') + ' ' + remMo + 'mo';
+  }
   const hintEl = document.getElementById('sched-hint-'+id);
   if(hintEl) hintEl.innerHTML = '= $'+Math.round(annual).toLocaleString()+'/yr &nbsp;·&nbsp; '+durStr;
 }
@@ -1754,12 +1783,12 @@ function getContribSchedule(){
     const fromDate = fromEl.value;
     const toDate   = toEl.value;
     if(!fromDate || !toDate) return;
-    const fromYr = parseInt(fromDate.split('-')[0]);
-    const fromMo = parseInt(fromDate.split('-')[1]);
-    const fromDay= parseInt(fromDate.split('-')[2]);
-    const toYr   = parseInt(toDate.split('-')[0]);
-    const toMo   = parseInt(toDate.split('-')[1]);
-    const toDay  = parseInt(toDate.split('-')[2]);
+    const fromYr = parseDateYr(fromDate);
+    const fromMo = parseDateMo(fromDate);
+    const fromDay= parseInt(fromDate.split('-')[2]) || 1;
+    const toYr   = parseDateYr(toDate);
+    const toMo   = parseDateMo(toDate);
+    const toDay  = parseInt(toDate.split('-')[2]) || 31;
     const annualAmount = toAnnual(amt, freq);
     if(fromYr > 0 && toDate >= fromDate){
       schedule.push({ annualAmount, fromYr, fromMo, fromDay, toYr, toMo, toDay });
@@ -1776,15 +1805,38 @@ function checkFrontload(schedule, lifeContribTotal, startYear, childBirthYear){
   const banner = document.getElementById('frontload-banner');
   const msgEl  = document.getElementById('frontload-msg');
   if(!banner || !msgEl) return;
-  // Suggest frontloading if total contributions < $50k and there's room in early years
-  const grantEndYr = childBirthYear + 17;
-  const yearsLeft  = grantEndYr - startYear + 1;
-  const maxGrantContrib = yearsLeft * 2500; // optimal for full CESG
-  const currentAnnualAvg = schedule.length ? schedule[0].annualAmount : 0;
-  const suggestedLump = Math.min(50000 - lifeContribTotal, 14000); // up to 5 yrs of catch-up
-  if(suggestedLump > 2500 && lifeContribTotal < 48000){
-    frontloadSuggestion = suggestedLump;
-    msgEl.textContent = "You have room to frontload $" + Math.round(suggestedLump).toLocaleString() + " now \u2014 maximizing early compound growth. This won\u2019t exceed your $50,000 lifetime limit.";
+  if(upfrontEnabled){ banner.style.display='none'; return; }
+
+  // Formula accounts for late starters:
+  // grantYearsLeft = years from startYear to Dec 31 of year child turns 17
+  // effectiveGrantYears = min(14.4, grantYearsLeft)  ← late starters can't get full $7,200
+  // grantEarningContrib = effectiveGrantYears × $2,500  ← what $2,500/yr will cover
+  // optimalLump = $50,000 - grantEarningContrib  ← everything else goes upfront (earns no grant)
+  const CESG_MAX       = 7200;
+  const CESG_ANNUAL    = 500;
+  const GRANT_ANNUAL   = 2500;
+  const LIFETIME       = 50000;
+  const grantEndYr     = childBirthYear + 17;
+  const grantYearsLeft = Math.max(0, grantEndYr - startYear + 1);
+  const maxGrantYears  = CESG_MAX / CESG_ANNUAL;                      // 14.4
+  const effGrantYears  = Math.min(maxGrantYears, grantYearsLeft);
+  const grantContrib   = effGrantYears * GRANT_ANNUAL;
+  const optimalLump    = Math.max(0, LIFETIME - grantContrib);
+  const maxCESG        = Math.min(CESG_MAX, effGrantYears * CESG_ANNUAL);
+
+  if(lifeContribTotal < 49000){
+    frontloadSuggestion = optimalLump;
+    const late = grantYearsLeft < maxGrantYears;
+    const lumpStr  = '$' + Math.round(optimalLump).toLocaleString();
+    const cesgStr  = '$' + Math.round(maxCESG).toLocaleString();
+    const yearStr  = Math.ceil(effGrantYears) + ' year' + (Math.ceil(effGrantYears) !== 1 ? 's' : '');
+    if(optimalLump === 0){
+      msgEl.innerHTML = 'Contribute <strong>$2,500/yr</strong> for <strong>' + yearStr + '</strong> to earn up to <strong>' + cesgStr + '</strong> in CESG grants.';
+    } else if(late){
+      msgEl.innerHTML = 'Starting late — add <strong>' + lumpStr + '</strong> upfront (earns no grant at this stage) + <strong>$2,500/yr</strong> for <strong>' + yearStr + '</strong> to earn up to <strong>' + cesgStr + '</strong> in CESG while maxing your $50,000 limit.';
+    } else {
+      msgEl.innerHTML = 'Add <strong>' + lumpStr + '</strong> upfront (earns no grant) + <strong>$2,500/yr</strong> for <strong>' + yearStr + '</strong> to earn the full <strong>' + cesgStr + '</strong> in CESG while maxing your $50,000 limit.';
+    }
     banner.style.display = 'block';
   } else {
     banner.style.display = 'none';
@@ -1793,13 +1845,29 @@ function checkFrontload(schedule, lifeContribTotal, startYear, childBirthYear){
 }
 function applyFrontload(){
   if(!frontloadSuggestion) return;
-  const lumpToggle = document.getElementById('upfront-toggle');
-  const lumpField  = document.getElementById('upfront-field');
-  const lumpInput  = document.getElementById('lump-sum');
-  if(!upfrontEnabled){ upfrontEnabled = true; if(lumpToggle) lumpToggle.classList.add('on'); if(lumpField) lumpField.classList.add('visible'); }
-  if(lumpInput){ lumpInput.value = Math.round(frontloadSuggestion); respSyncRange('lump-sum','lump-range'); }
+  if(!upfrontEnabled){ toggleUpfront(); }
+  const lumpInput = document.getElementById('lump-sum');
+  const lumpRange = document.getElementById('lump-range');
+  if(lumpInput){ lumpInput.value = Math.round(frontloadSuggestion); }
+  if(lumpRange){ lumpRange.value = Math.round(frontloadSuggestion); }
+  // Set all schedule rows to $2,500/yr annual, clear any user-set flags
+  const startYr4fl = parseInt(document.getElementById('start-year')?.value) || new Date().getFullYear();
+  document.querySelectorAll('.sched-row').forEach((row, idx) => {
+    const rid = row.id.replace('sched-row-','');
+    const amtEl  = document.getElementById('sched-amt-'+rid);
+    const freqEl = document.getElementById('sched-freq-'+rid);
+    const fromEl = document.getElementById('sched-from-'+rid);
+    const toEl   = document.getElementById('sched-to-'+rid);
+    if(amtEl) amtEl.value = 2500;
+    if(freqEl) freqEl.value = 'annual';
+    if(idx === 0 && fromEl) fromEl.value = startYr4fl + '-01-01';
+    // Clear user-set flag so autoAdjustEndDates recalculates the end date
+    if(toEl) delete toEl.dataset.userSet;
+    updateSchedHint(rid);
+  });
   document.getElementById('frontload-banner').style.display = 'none';
-  calcRESP();
+  // Now let autoAdjust calculate the correct end date based on lump + $2,500/yr → $50k
+  autoAdjustEndDates();
 }
 
 // ── AUTO-ADJUST END DATES ──
@@ -1825,30 +1893,26 @@ function autoAdjustEndDates(){
 
     const annualAmt = toAnnual(parseFloat(amtEl.value)||0, freqEl.value||'annual');
     const fromDate  = fromEl.value;
-    if(!fromDate || annualAmt <= 0 || remainingRoom <= 0){
-      // No room left — set end = start (0 duration) or show error
-      if(remainingRoom <= 0) toEl.style.borderColor = '#e74c3c';
-      return;
+    // Parse year directly from string to avoid JS timezone issues
+    const fromYearInt = parseDateYr(fromDate);
+    if(!fromDate || !fromYearInt || annualAmt <= 0){
+      if(remainingRoom <= 0){ toEl.style.borderColor='#e74c3c'; return; }
     }
     toEl.style.borderColor = '';
+    if(remainingRoom <= 0){ toEl.value = fromDate; return; }
+    if(toEl.dataset.userSet === '1') { remainingRoom -= toAnnual(parseFloat(amtEl.value)||0, freqEl.value)*Math.max(1,parseDateYr(toEl.value)-parseDateYr(fromDate)+1); return; } // user-set: respect it
 
-    // How many years until room runs out? Always snap to Dec 31 to avoid mid-year splits.
-    // The $50k cap in the main calc handles partial years cleanly.
-    const yearsOfRoom = annualAmt > 0 ? remainingRoom / annualAmt : 99;
-    const fromDt = new Date(fromDate);
-    const fromYearInt = fromDt.getFullYear();
-    // Last year that gets ANY contribution = fromYear + ceil(yearsOfRoom) - 1
-    // Snap to Dec 31 of that year so schedMap never splits mid-year
+    // Years of room: always snap end to Dec 31 — never mid-year
+    const yearsOfRoom = remainingRoom / annualAmt; // e.g. 14.4
     const lastContribYear = fromYearInt + Math.ceil(yearsOfRoom) - 1;
     const maxByRoomStr = lastContribYear + '-12-31';
 
-    // Pick the earlier of: room exhausted vs grant end date
+    // Pick earlier of: room exhausted vs grant end date
     const autoEnd = maxByRoomStr < grantEndDate ? maxByRoomStr : grantEndDate;
     toEl.value = autoEnd;
 
-    // Deduct full years only (partial handled by $50k cap in calc loop)
-    const fullYears = Math.floor(yearsOfRoom);
-    remainingRoom -= annualAmt * fullYears;
+    // Deduct full years (partial handled by $50k cap in calc)
+    remainingRoom -= annualAmt * Math.floor(yearsOfRoom);
 
     updateSchedHint(rid);
   });
@@ -1866,15 +1930,15 @@ function calcRESP(){
   // ── Build contribution schedule map (needs startYear) ──
   const schedule = getContribSchedule();
   if(schedule.length === 0) return; // nothing to compute yet
-  const schedMap = {}; // yr -> annualAmount
-  // End dates are always Dec 31 so every year gets the full annual amount.
-  // The $50k cap (CONTRIB_LIFETIME) in the main loop handles partial final years.
+  const schedMap = {}; // yr -> annualAmount (0 if no segment covers that year)
+  let maxSchedYr = 0;
   for(const seg of schedule){
     for(let yr = seg.fromYr; yr <= seg.toYr; yr++){
       schedMap[yr] = (schedMap[yr] || 0) + seg.annualAmount;
+      if(yr > maxSchedYr) maxSchedYr = yr;
     }
   }
-  const lastSegAmt = schedule.length > 0 ? schedule[schedule.length-1].annualAmount : 2500;
+  const lastSegAmt = 0; // 0 = no contribution beyond schedule end
 
   // Update hints
   document.getElementById('rate-display').textContent = returnRate + '%';
