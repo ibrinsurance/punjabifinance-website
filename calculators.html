@@ -1173,10 +1173,11 @@ function switchTab(id){
     const dob = document.getElementById('child-dob');
     if(dob && !dob.value) dob.value = y+'-'+m+'-'+d;
     const sy = document.getElementById('start-year');
-    if(sy && !sy.value) sy.value = y;
+    if(sy) sy.value = y; // always sync start year to today's year
     // Add default schedule rows
     const initStartYr = parseInt(document.getElementById('start-year')?.value) || new Date().getFullYear();
-    addContribRow(initStartYr+'-01-01', null, 'annual', 2500);
+    const todayStr = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    addContribRow(todayStr, null, 'annual', 2500);
     calcRESP();
   }
   if(id==='resp'){
@@ -1685,7 +1686,9 @@ function addContribRow(fromDate, toDate, freq='annual', amount=2500){
       d.setDate(d.getDate() + 1); // day after last row ends
       fromDate = d.toISOString().split('T')[0];
     } else {
-      fromDate = startYr + '-01-01';
+      // Default: today's date
+      const _td = new Date();
+      fromDate = _td.getFullYear() + '-' + String(_td.getMonth()+1).padStart(2,'0') + '-' + String(_td.getDate()).padStart(2,'0');
     }
     toDate = defaultEndDate;
   }
@@ -1706,7 +1709,7 @@ function addContribRow(fromDate, toDate, freq='annual', amount=2500){
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
       <div>
         <div class="sched-mini-label">From Date</div>
-        <input class="sched-input sched-from-date" type="date" id="sched-from-${id}" value="${toDateStr(fromYr, fromMo, 1)}" onchange="updateSchedHint(${id});autoAdjustEndDates()" oninput="updateSchedHint(${id})" style="padding-left:8px;width:100%;font-family:inherit" min="2000-01-01" max="2060-12-31">
+        <input class="sched-input sched-from-date" type="date" id="sched-from-${id}" value="${toDateStr(fromYr, fromMo, 1)}" onchange="updateSchedHint(${id});autoAdjustEndDates()" oninput="updateSchedHint(${id})" style="padding-left:8px;width:100%;font-family:inherit" max="2060-12-31">
       </div>
       <div>
         <div class="sched-mini-label">To Date</div>
@@ -1831,6 +1834,21 @@ function toggleSuggestions(){
   if(chevron) chevron.style.transform = suggestionsOpen ? 'rotate(180deg)' : '';
 }
 
+function addMonths(dateStr, n){
+  const d = new Date(dateStr);
+  d.setMonth(d.getMonth() + n);
+  // Snap to last day of that month
+  const yr = d.getFullYear(), mo = d.getMonth()+1;
+  const lastDay = new Date(yr, mo, 0).getDate();
+  return yr + '-' + String(mo).padStart(2,'0') + '-' + String(lastDay).padStart(2,'0');
+}
+function addMonthsStart(dateStr, n){
+  // Start of month N months after dateStr
+  const d = new Date(dateStr);
+  d.setMonth(d.getMonth() + n);
+  const yr = d.getFullYear(), mo = d.getMonth()+1;
+  return yr + '-' + String(mo).padStart(2,'0') + '-01';
+}
 function optimizeRESP(dobYr, startYr, lifetime){
   // Advanced optimizer: accounts for catch-up grants from missed years
   // CRA allows $5,000/yr contribution to catch up on prior missed grant room
@@ -1871,83 +1889,98 @@ function optimizeRESP(dobYr, startYr, lifetime){
 }
 
 function buildSuggestions(childBirthYear, startYear){
-  // Returns array of suggestion objects for different strategies
   const opt = optimizeRESP(childBirthYear, startYear, 50000);
   const grantEndYr = childBirthYear + 17;
-  const missedYrs  = Math.max(0, startYear - childBirthYear);
   const suggs = [];
 
-  // ── Strategy 1: Full frontload (all non-grant money upfront, $2,500/yr for grants) ──
+  // ── Shared helpers ──
+  const yr1End   = startYear + '-12-31';
+  const yr2End   = (startYear + 1) + '-12-31';
+  const grantEnd = grantEndYr + '-12-31';
+  const totalRegYrs = opt.regularYrs;
+  const totalCUYrs  = opt.catchupYrs;
+
+  // ── OPTION 1: Max upfront + optimal annual schedule ──
+  // Get actual start date from first schedule row
+  const firstFromEl2 = document.querySelector('.sched-from-date');
+  const actualStart  = (firstFromEl2 && firstFromEl2.value) ? firstFromEl2.value : (startYear + '-01-01');
   const s1rows = [];
-  if(opt.catchupYrs > 0){
-    s1rows.push({label:'Catch-up years', amount:5000, freq:'annual', years:opt.catchupYrs,
-      fromYr:startYear, toYr:startYear+opt.catchupYrs-1});
+  if(totalCUYrs > 0){
+    s1rows.push({amount:5000, freq:'annual', fromDate:actualStart, toDate:(startYear+totalCUYrs-1)+'-12-31'});
   }
-  if(opt.regularYrs > 0){
-    const regStart = startYear + opt.catchupYrs;
-    s1rows.push({label:'Grant years', amount:2500, freq:'annual', years:opt.regularYrs,
-      fromYr:regStart, toYr:regStart+opt.regularYrs-1});
+  if(totalRegYrs > 0){
+    const rStart = startYear + totalCUYrs;
+    const r1From = totalCUYrs > 0 ? rStart+'-01-01' : actualStart;
+    s1rows.push({amount:2500, freq:'annual', fromDate:r1From, toDate:(rStart+totalRegYrs-1)+'-12-31'});
   }
   suggs.push({
-    id:1,
-    title: opt.lumpSum > 0 ? 'Max upfront + optimal annual' : 'Optimal annual only',
-    subtitle: 'Earn ' + fmtS(opt.totalCESG) + ' in grants, max $50k',
+    title: opt.lumpSum > 0 ? 'Lump sum upfront + optimal annual' : 'Optimal annual only',
+    badge: opt.lumpSum > 0 ? 'Best returns' : 'Simplest',
+    cesg: opt.totalCESG,
     lump: opt.lumpSum,
     rows: s1rows,
-    cesg: opt.totalCESG,
     description: opt.lumpSum > 0
-      ? 'Add ' + fmtS(opt.lumpSum) + ' upfront (earns no grant), then follow the grant-optimized schedule below.'
-      : 'Follow the grant-optimized schedule — no lump sum needed.',
+      ? 'Add ' + fmtS(opt.lumpSum) + ' upfront on day 1 — this is the money that earns no grant regardless, so invest it early for maximum compound growth. Then contribute $2,500/yr to earn every available grant.'
+      : 'Contribute $2,500/yr through the grant period to earn all available grants.',
   });
 
-  // ── Strategy 2: Spread frontload over 2 years ──
-  if(opt.lumpSum >= 5000){
-    const halfLump = Math.round(opt.lumpSum / 2 / 500) * 500;
-    const s2rows = [];
-    s2rows.push({label:'Extra first 2 yrs', amount:halfLump + (opt.catchupYrs>0?5000:2500),
-      freq:'annual', years:2, fromYr:startYear, toYr:startYear+1});
-    if(opt.catchupYrs > 2){
-      s2rows.push({label:'Catch-up', amount:5000, freq:'annual', years:opt.catchupYrs-2,
-        fromYr:startYear+2, toYr:startYear+opt.catchupYrs-1});
-    }
-    if(opt.regularYrs > 0){
-      const rStart = startYear + Math.max(2, opt.catchupYrs);
-      s2rows.push({label:'Regular', amount:2500, freq:'annual', years:opt.regularYrs,
-        fromYr:rStart, toYr:rStart+opt.regularYrs-1});
+  // ── OPTION 2: Elevated for exactly 12 months, then regular ──
+  if(opt.lumpSum > 0){
+    // Read actual From Date from first schedule row (user may have set a specific date)
+    const firstFromEl = document.querySelector('.sched-from-date');
+    const startDate   = (firstFromEl && firstFromEl.value) ? firstFromEl.value : (startYear + '-01-01');
+    const mo2        = Math.round(2500 / 12); // ~$208/mo regular
+
+    // Period 1: exactly 12 months from open date
+    const yr1Total = opt.lumpSum + 2500;
+    const mo1      = Math.round(yr1Total / 12);
+    const p2from   = addMonthsStart(startDate, 12); // month 13 start
+    const p1end    = addMonths(startDate, 11);       // end of month 12
+    const s2rows   = [];
+    s2rows.push({amount:mo1, freq:'monthly', fromDate:startDate, toDate:p1end});
+    if(p2from <= grantEnd){
+      s2rows.push({amount:mo2, freq:'monthly', fromDate:p2from, toDate:grantEnd});
     }
     suggs.push({
-      id:2,
-      title:'Spread frontload over 2 years',
-      subtitle:'Same ' + fmtS(opt.totalCESG) + ' in grants, easier on cash flow',
-      lump:0,
-      rows:s2rows,
-      cesg:opt.totalCESG,
-      description:'Split the extra upfront contribution across 2 years instead of all on day 1.',
+      title: 'Higher monthly × 12 months, then regular',
+      badge: 'No lump sum',
+      cesg: opt.totalCESG,
+      lump: 0,
+      rows: s2rows,
+      description: fmtS(mo1) + '/mo for the first 12 months from day one — spreads the ' + fmtS(opt.lumpSum) + ' upfront across exactly 1 year. Then drops to ' + fmtS(mo2) + '/mo. Same grants, no large day-1 payment.',
     });
-  }
 
-  // ── Strategy 3: Monthly contributions (no lump sum) ──
-  const monthlyAmt = opt.catchupYrs > 0 ? 417 : 209; // $5000/12 or $2500/12 rounded
-  const s3rows = [];
-  if(opt.catchupYrs > 0){
-    s3rows.push({label:'Catch-up monthly', amount:417, freq:'monthly', years:opt.catchupYrs,
-      fromYr:startYear, toYr:startYear+opt.catchupYrs-1});
+    // ── OPTION 3: Elevated for exactly 24 months, then regular ──
+    const yr2Total = opt.lumpSum + 2500 * 2;
+    const mo1b     = Math.round(yr2Total / 24);
+    const p3from   = addMonthsStart(startDate, 24); // month 25 start
+    const p2end    = addMonths(startDate, 23);       // end of month 24
+    const s3rows   = [];
+    s3rows.push({amount:mo1b, freq:'monthly', fromDate:startDate, toDate:p2end});
+    if(p3from <= grantEnd){
+      s3rows.push({amount:mo2, freq:'monthly', fromDate:p3from, toDate:grantEnd});
+    }
+    suggs.push({
+      title: 'Higher monthly × 24 months, then regular',
+      badge: 'Most gradual',
+      cesg: opt.totalCESG,
+      lump: 0,
+      rows: s3rows,
+      description: fmtS(mo1b) + '/mo for 24 months from day one — the gentlest spread. Then drops to ' + fmtS(mo2) + '/mo. Covers the ' + fmtS(opt.lumpSum) + ' over exactly 2 years, no lump sum needed.',
+    });
+  } else {
+    // No lump sum scenario — just show monthly version of Option 1
+    const mo = Math.round(2500/12);
+    suggs.push({
+      title: 'Monthly contributions',
+      badge: 'Monthly',
+      cesg: opt.totalCESG,
+      lump: 0,
+      rows:[{amount:mo, freq:'monthly', fromDate:startYear+'-01-01', toDate:grantEnd}],
+      description: fmtS(mo) + '/mo through the grant period — same result as annual, paid monthly.',
+    });
+    suggs.push({...suggs[1]}); // duplicate to keep 3 options visible
   }
-  if(opt.regularYrs > 0){
-    const rStart3 = startYear + opt.catchupYrs;
-    s3rows.push({label:'Regular monthly', amount:209, freq:'monthly', years:opt.regularYrs,
-      fromYr:rStart3, toYr:rStart3+opt.regularYrs-1});
-  }
-  const s3lump = opt.lumpSum > 0 ? opt.lumpSum : 0;
-  suggs.push({
-    id:3,
-    title:'Monthly contributions' + (s3lump > 0 ? ' + ' + fmtS(s3lump) + ' upfront' : ''),
-    subtitle:'Same outcome, paid monthly for easier budgeting',
-    lump:s3lump,
-    rows:s3rows,
-    cesg:opt.totalCESG,
-    description:'Equivalent to the optimal strategy but broken into monthly payments.',
-  });
 
   return suggs;
 }
@@ -1961,7 +1994,10 @@ function renderSuggestions(suggs){
     <div class="sugg-card">
       <div class="sugg-card-head">
         <div>
-          <div class="sugg-card-label">Option ${i+1}</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
+            <span class="sugg-card-label">Option ${i+1}</span>
+            ${s.badge ? '<span style="font-size:0.58rem;font-weight:700;background:rgba(212,165,52,0.12);color:#b8862a;border:1px solid rgba(212,165,52,0.25);border-radius:4px;padding:1px 6px;letter-spacing:0.06em">' + s.badge + '</span>' : ''}
+          </div>
           <div class="sugg-card-title">${s.title}</div>
           <div class="sugg-card-cesg">✓ Up to ${fmtS(s.cesg)} in government grants</div>
         </div>
@@ -1969,7 +2005,16 @@ function renderSuggestions(suggs){
       <div class="sugg-card-body">${s.description}</div>
       <div class="sugg-card-rows">
         ${s.lump > 0 ? '<div class="sugg-row-pill">🎯 <span class="pill-amt">Lump sum: ' + fmtS(s.lump) + '</span> on day 1</div>' : ''}
-        ${s.rows.map(r => '<div class="sugg-row-pill">📅 <span class="pill-amt">' + fmtS(r.amount) + '/' + r.freq.slice(0,2) + '</span> × ' + r.years + ' yr' + (r.years!==1?'s':'') + ' (' + r.fromYr + '–' + r.toYr + ')</div>').join('')}
+        ${s.rows.map(r => {
+          const MONS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          const fd = (r.fromDate||'').split('-');
+          const td = (r.toDate||'').split('-');
+          const fromLabel = fd[1] ? MONS[parseInt(fd[1])-1]+' '+fd[0] : fd[0];
+          const toLabel   = td[1] ? MONS[parseInt(td[1])-1]+' '+td[0] : td[0];
+          const label = fromLabel === toLabel ? fromLabel : fromLabel + ' \u2013 ' + toLabel;
+          const freqLabel = r.freq === 'monthly' ? 'mo' : r.freq === 'weekly' ? 'wk' : 'yr';
+          return '<div class="sugg-row-pill">\ud83d\udcc5 <span class="pill-amt">' + fmtS(r.amount) + '/' + freqLabel + '</span> &nbsp;' + label + '</div>';
+        }).join('')}
       </div>
       <div class="sugg-card-footer">
         <button class="sugg-apply-btn" onclick="applySuggestion(${i})">Apply this plan →</button>
@@ -1981,49 +2026,41 @@ function renderSuggestions(suggs){
 function applySuggestion(idx){
   const s = currentSuggestions[idx];
   if(!s) return;
-  
-  // Set lump sum
-  const lumpInput = document.getElementById('lump-sum');
-  const lumpRange = document.getElementById('lump-range');
+
+  // Set or clear lump sum
   if(s.lump > 0){
     if(!upfrontEnabled) toggleUpfront();
-    if(lumpInput) lumpInput.value = Math.round(s.lump);
-    if(lumpRange) lumpRange.value = Math.round(s.lump);
+    const li = document.getElementById('lump-sum');
+    const lr = document.getElementById('lump-range');
+    if(li) li.value = Math.round(s.lump);
+    if(lr) lr.value = Math.round(s.lump);
   } else if(upfrontEnabled){
-    toggleUpfront(); // turn off lump sum
+    toggleUpfront();
   }
 
-  // Clear existing rows and rebuild from suggestion
+  // Clear and rebuild schedule rows
   const container = document.getElementById('contrib-schedule-rows');
   if(container) container.innerHTML = '';
   schedRowCount = 0;
 
   s.rows.forEach(row => {
     addContribRow(
-      row.fromYr + '-01-01',
-      row.toYr + '-12-31',
-      row.freq,
+      row.fromDate || (row.fromYr + '-01-01'),
+      row.toDate   || (row.toYr   + '-12-31'),
+      row.freq || 'annual',
       row.amount
     );
-    // Clear user-set flag on the new row
+    // Clear user-set flag
     const lastRow = document.querySelector('.sched-row:last-child');
     if(lastRow){
       const rid = lastRow.id.replace('sched-row-','');
       const toEl = document.getElementById('sched-to-'+rid);
       if(toEl) delete toEl.dataset.userSet;
-      const amtEl = document.getElementById('sched-amt-'+rid);
-      if(amtEl){ amtEl.value = row.amount; }
       updateSchedHint(rid);
     }
   });
 
-  // Close suggestions panel
-  suggestionsOpen = false;
-  const panel = document.getElementById('suggestions-panel');
-  const chevron = document.getElementById('suggestions-chevron');
-  if(panel) panel.style.display = 'none';
-  if(chevron) chevron.style.transform = '';
-
+  // Keep suggestions open so user can compare options
   calcRESP();
 }
 
