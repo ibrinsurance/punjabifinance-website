@@ -1155,6 +1155,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 
 <script>
 
+
 const charts = {};
 const CHART_DEFAULTS = {
   animation:{duration:400},
@@ -1222,26 +1223,65 @@ const syncRange = (inputId, rangeId, labelId, suffix) => {
 
 // ── SIP ──
 function calcSIP(){
-  const mo = parseFloat(document.getElementById('sip-amt').value)||0;
-  const r = parseFloat(document.getElementById('sip-rate').value)||0;
-  const yrs = parseInt(document.getElementById('sip-yrs').value)||0;
-  document.getElementById('sip-amt-val').textContent = '$'+mo.toLocaleString();
+  const lump = parseFloat(document.getElementById('sip-lump')?.value)||0;
+  const mo   = parseFloat(document.getElementById('sip-amt').value)||0;
+  const r    = parseFloat(document.getElementById('sip-rate').value)||0;
+  const yrs  = parseInt(document.getElementById('sip-yrs').value)||0;
+
+  // Sync display values
+  if(document.getElementById('sip-lump-val')) document.getElementById('sip-lump-val').textContent = '$'+lump.toLocaleString();
+  document.getElementById('sip-amt-val').textContent  = '$'+mo.toLocaleString();
   document.getElementById('sip-rate-val').textContent = r+'%';
-  document.getElementById('sip-yrs-val').textContent = yrs+' year'+(yrs!==1?'s':'');
-  const n = yrs*12, mr = r/100/12;
-  const total = mo * ((Math.pow(1+mr,n)-1)/mr) * (1+mr);
-  const invested = mo * n;
-  const gain = total - invested;
-  const pct = invested > 0 ? (gain/invested*100).toFixed(0) : 0;
-  const invPct = Math.round(invested/total*100);
-  document.getElementById('sip-total').textContent = fmtFull(total);
-  document.getElementById('sip-invested').textContent = fmtFull(invested);
-  document.getElementById('sip-gain').textContent = '+'+fmtFull(gain);
+  document.getElementById('sip-yrs-val').textContent  = yrs+' year'+(yrs!==1?'s':'');
+
+  // Sync sliders
+  const lr = document.getElementById('sip-lump-r');
+  if(lr) lr.value = lump;
+  const ar = document.getElementById('sip-amt-r');
+  if(ar) ar.value = mo;
+
+  const n    = yrs * 12;
+  const mr   = r / 100 / 12;
+
+  // Lump sum grows at compound interest
+  const lumpFV = lump * Math.pow(1 + mr, n);
+
+  // Monthly contribution (annuity due — paid at start of period)
+  const moFV = mr > 0 ? mo * ((Math.pow(1+mr,n)-1)/mr) * (1+mr) : mo * n;
+
+  const total    = lumpFV + moFV;
+  const invested = lump + mo * n;
+  const gain     = total - invested;
+  const pct      = invested > 0 ? (gain/invested*100).toFixed(0) : 0;
+
+  const lumpPct  = total > 0 ? Math.round(lumpFV/total*100) : 0;
+  const invPct   = total > 0 ? Math.round((mo*n)/total*100) : 0;
+  const gainPct  = 100 - lumpPct - invPct;
+
+  document.getElementById('sip-total').textContent    = fmtFull(total);
+  document.getElementById('sip-invested').textContent = fmtFull(mo*n);
+  document.getElementById('sip-gain').textContent     = '+'+fmtFull(gain);
   document.getElementById('sip-gain-pct').textContent = pct+'% return on investment';
-  document.getElementById('sip-bar-inv').style.width = invPct+'%';
-  document.getElementById('sip-bar-gain').style.width = (100-invPct)+'%';
-  document.getElementById('sip-bar-inv-t').textContent = invPct+'%';
-  document.getElementById('sip-bar-gain-t').textContent = (100-invPct)+'%';
+  document.getElementById('sip-bar-inv').style.width  = invPct+'%';
+  document.getElementById('sip-bar-gain').style.width = gainPct+'%';
+  document.getElementById('sip-bar-inv-t').textContent  = invPct+'%';
+  document.getElementById('sip-bar-gain-t').textContent = gainPct+'%';
+
+  // Chart
+  const labels=[], invested_arr=[], total_arr=[], lump_arr=[];
+  for(let i=0;i<=yrs;i++){
+    const ni=i*12, mri=mr;
+    const lfv=lump*Math.pow(1+mri,ni);
+    const mfv=mri>0?mo*((Math.pow(1+mri,ni)-1)/mri)*(1+mri):mo*ni;
+    labels.push(i===0?'Now':'Yr '+i);
+    lump_arr.push(Math.round(lfv));
+    total_arr.push(Math.round(lfv+mfv));
+    invested_arr.push(Math.round(lump+mo*i*12));
+  }
+  makeChart('chart-sip', labels, [
+    {label:'Portfolio Value',data:total_arr,borderColor:'#d4a534',backgroundColor:'rgba(212,165,52,0.08)',fill:true,tension:0.3,pointRadius:0,borderWidth:2},
+    {label:'Invested',data:invested_arr,borderColor:'rgba(255,255,255,0.2)',backgroundColor:'transparent',fill:false,tension:0.3,pointRadius:0,borderWidth:1,borderDash:[4,4]}
+  ]);
 }
 calcSIP();
 
@@ -2707,6 +2747,7 @@ function calcRESP(){
 }
 
 // RESP initialized on first tab open
+
 
 
 
