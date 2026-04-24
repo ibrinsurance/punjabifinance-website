@@ -378,7 +378,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <!-- TABS -->
 <div class="calc-tabs-wrap">
 <div class="calc-tabs">
-  <button class="calc-tab active" onclick="switchTab('sip')">Monthly Investing</button>
+  <button class="calc-tab active" onclick="switchTab('sip')">Investment Calculator</button>
   <button class="calc-tab" onclick="switchTab('lumpsum')">Lump Sum</button>
   <button class="calc-tab" onclick="switchTab('resp')"><span class="resp-flag">🇨🇦 </span>RESP <span style="font-size:0.55rem;background:rgba(212,165,52,0.15);color:#d4a534;border:1px solid rgba(212,165,52,0.3);border-radius:4px;padding:1px 5px;letter-spacing:0.06em;vertical-align:middle;margin-left:3px">Advanced</span></button>
   <button class="calc-tab" onclick="switchTab('goal')">Goal Planner</button>
@@ -413,6 +413,15 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
           <span class="input-suffix">%</span>
         </div>
         <input class="calc-range" type="range" id="sip-rate-r" min="1" max="30" step="0.5" value="10" oninput="document.getElementById('sip-rate').value=this.value;calcSIP()">
+      </div>
+      <div class="input-group">
+        <div class="input-label">Starting Lump Sum <span class="input-val" id="sip-lump-val">$0</span></div>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input class="calc-input" id="sip-lump" type="number" value="0" min="0" oninput="calcSIP()">
+        </div>
+        <input class="calc-range" type="range" id="sip-lump-r" min="0" max="500000" step="1000" value="0" oninput="document.getElementById('sip-lump').value=this.value;calcSIP()">
+        <div class="input-note" style="font-size:0.68rem;color:#aaa;margin-top:4px">Optional one-time deposit on day 1. Set $0 if not using.</div>
       </div>
       <div class="input-group">
         <div class="input-label">Time Period <span class="input-val" id="sip-yrs-val">20 years</span></div>
@@ -1145,6 +1154,17 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <div class="footer-bar">Not financial advice &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp; <a href="community.html">Community</a> &nbsp;&middot;&nbsp; <a href="links.html">Links</a></div>
 
 <script>
+
+const charts = {};
+const CHART_DEFAULTS = {
+  animation:{duration:400},
+  plugins:{legend:{display:false}},
+  scales:{
+    x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'rgba(255,255,255,0.3)',font:{size:10},maxTicksLimit:8}},
+    y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'rgba(255,255,255,0.3)',font:{size:10},callback:v=>v>=1000000?'$'+(v/1000000).toFixed(1)+'M':v>=1000?'$'+(v/1000).toFixed(0)+'K':'$'+v}}
+  }
+};
+
 function toggleMenu(){
   document.getElementById('ham-btn').classList.toggle('open');
   document.getElementById('nav-dropdown').classList.toggle('open');
@@ -1270,32 +1290,38 @@ calcGoal();
 
 // ── SWP ──
 function calcSWP(){
-  const start = parseFloat(document.getElementById('swp-start').value)||0;
-  const mo = parseFloat(document.getElementById('swp-amt').value)||0;
-  const r = parseFloat(document.getElementById('swp-rate').value)||0;
-  document.getElementById('swp-start-val').textContent = '$'+start.toLocaleString();
-  document.getElementById('swp-amt-val').textContent = '$'+mo.toLocaleString();
-  document.getElementById('swp-rate-val').textContent = r+'%';
-  const mr = r/100/12;
-  const annualRate = mo*12/start*100;
-  document.getElementById('swp-rate-show').textContent = annualRate.toFixed(1)+'%';
-  document.getElementById('swp-rate-note').textContent = annualRate <= 4 ? '✔ Below 4% — generally considered sustainable' : annualRate <= 6 ? '⚠ Moderate withdrawal rate — monitor portfolio' : '⚠ High rate — portfolio may deplete faster';
-  if(mr > 0 && mo < start * mr){
-    document.getElementById('swp-duration').textContent = 'Indefinitely';
-    document.getElementById('swp-note').textContent = '✔ Your returns exceed withdrawals — portfolio grows';
-    document.getElementById('swp-total').textContent = fmt(mo*12*30)+' over 30 yrs';
-  } else {
-    let bal = start, months = 0;
-    while(bal > 0 && months < 1200){
-      bal = bal * (1+mr) - mo;
-      months++;
-    }
-    const yrs = Math.floor(months/12);
-    const mos = months % 12;
-    document.getElementById('swp-duration').textContent = yrs > 0 ? yrs+' yrs '+(mos>0?mos+' mo':'') : mos+' months';
-    document.getElementById('swp-note').textContent = 'Before portfolio is depleted';
-    document.getElementById('swp-total').textContent = fmtFull(months*mo);
+  const start=parseFloat(document.getElementById('swp-start').value)||0;
+  const mo=parseFloat(document.getElementById('swp-amt').value)||0;
+  const r=parseFloat(document.getElementById('swp-rate').value)||0;
+  document.getElementById('swp-start-val').textContent='$'+Math.round(start).toLocaleString();
+  document.getElementById('swp-amt-val').textContent='$'+Math.round(mo).toLocaleString();
+  document.getElementById('swp-rate-val').textContent=r+'%';
+  const mr=r/100/12;
+  const annualRate=start>0?mo*12/start*100:0;
+  document.getElementById('swp-rate-show').textContent=annualRate.toFixed(1)+'%';
+  document.getElementById('swp-rate-note').textContent=annualRate<=4?'✔ Below 4% — generally considered sustainable':annualRate<=6?'⚠ Moderate withdrawal rate — monitor portfolio':'⚠ High rate — portfolio may deplete faster';
+  if(mr>0&&mo<=start*mr){
+    document.getElementById('swp-duration').textContent='Indefinitely';
+    document.getElementById('swp-note').textContent='At this rate your portfolio grows faster than you withdraw.';
+    document.getElementById('swp-total').textContent='—';
+    chartSWP(start,mo,r,600,true);
+    return;
   }
+  let bal=start,months=0,totalWithdrawn=0;
+  while(bal>0&&months<1200){
+    const growth=bal*mr;
+    const withdraw=Math.min(mo,bal+growth);
+    bal=bal+growth-withdraw;
+    totalWithdrawn+=withdraw;
+    months++;
+    if(bal<=0.01){bal=0;break;}
+  }
+  const yrs=Math.floor(months/12),mos=months%12;
+  const durStr=months>=1200?'Very long':yrs>0&&mos>0?yrs+' yr'+(yrs!==1?'s':'')+' '+mos+' mo':yrs>0?yrs+' yr'+(yrs!==1?'s':''):mos+' mo';
+  document.getElementById('swp-duration').textContent=durStr;
+  document.getElementById('swp-note').textContent=months>=1200?'Portfolio lasts beyond 100 years':'Before portfolio is depleted';
+  document.getElementById('swp-total').textContent='$'+Math.round(totalWithdrawn).toLocaleString();
+  chartSWP(start,mo,r,months+6,false);
 }
 calcSWP();
 
@@ -1368,15 +1394,6 @@ function calcOptions(){
 calcOptions();
 
 // ── CHART HELPERS ──
-const charts = {};
-const CHART_DEFAULTS = {
-  animation:{duration:400},
-  plugins:{legend:{display:false}},
-  scales:{
-    x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'rgba(255,255,255,0.3)',font:{size:10},maxTicksLimit:8}},
-    y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'rgba(255,255,255,0.3)',font:{size:10},callback:v=>v>=1000000?'$'+(v/1000000).toFixed(1)+'M':v>=1000?'$'+(v/1000).toFixed(0)+'K':'$'+v}}
-  }
-};
 
 function makeChart(id, labels, datasets){
   const canvas = document.getElementById(id);
@@ -2690,6 +2707,7 @@ function calcRESP(){
 }
 
 // RESP initialized on first tab open
+
 
 
 
