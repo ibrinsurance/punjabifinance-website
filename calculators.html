@@ -379,7 +379,6 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <div class="calc-tabs-wrap">
 <div class="calc-tabs">
   <button class="calc-tab active" onclick="switchTab('sip')">Investment Calculator</button>
-  <button class="calc-tab" onclick="switchTab('lumpsum')">Lump Sum</button>
   <button class="calc-tab" onclick="switchTab('resp')"><span class="resp-flag">🇨🇦 </span>RESP <span style="font-size:0.55rem;background:rgba(212,165,52,0.15);color:#d4a534;border:1px solid rgba(212,165,52,0.3);border-radius:4px;padding:1px 5px;letter-spacing:0.06em;vertical-align:middle;margin-left:3px">Advanced</span></button>
   <button class="calc-tab" onclick="switchTab('goal')">Goal Planner</button>
   <button class="calc-tab" onclick="switchTab('swp')">Withdrawal (SWP)</button>
@@ -394,10 +393,19 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <!-- ════════════════════════════════════════ -->
 <div class="calc-area">
 <div class="calc-panel active" id="panel-sip">
-  <div class="panel-title">Monthly Investing Calculator</div>
-  <div class="panel-sub">See how regular monthly contributions grow over time through compound returns.</div>
+  <div class="panel-title">Investment Calculator</div>
+  <div class="panel-sub">Combine a lump sum with monthly contributions — or use either on its own. Set the other to $0 to use just one.</div>
   <div class="calc-layout">
     <div>
+      <div class="input-group">
+        <div class="input-label">Starting Lump Sum <span class="input-val" id="sip-lump-val">$0</span></div>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input class="calc-input" id="sip-lump" type="number" value="0" min="0" oninput="calcSIP()">
+        </div>
+        <input class="calc-range" type="range" id="sip-lump-r" min="0" max="500000" step="1000" value="0" oninput="document.getElementById('sip-lump').value=this.value;calcSIP()">
+        <div style="font-size:0.68rem;color:#aaa;margin-top:4px">One-time deposit on day 1. Set $0 if not using.</div>
+      </div>
       <div class="input-group">
         <div class="input-label">Monthly Investment <span class="input-val" id="sip-amt-val">$500</span></div>
         <div class="input-wrap">
@@ -413,15 +421,6 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
           <span class="input-suffix">%</span>
         </div>
         <input class="calc-range" type="range" id="sip-rate-r" min="1" max="30" step="0.5" value="10" oninput="document.getElementById('sip-rate').value=this.value;calcSIP()">
-      </div>
-      <div class="input-group">
-        <div class="input-label">Starting Lump Sum <span class="input-val" id="sip-lump-val">$0</span></div>
-        <div class="input-wrap">
-          <span class="input-prefix">$</span>
-          <input class="calc-input" id="sip-lump" type="number" value="0" min="0" oninput="calcSIP()">
-        </div>
-        <input class="calc-range" type="range" id="sip-lump-r" min="0" max="500000" step="1000" value="0" oninput="document.getElementById('sip-lump').value=this.value;calcSIP()">
-        <div class="input-note" style="font-size:0.68rem;color:#aaa;margin-top:4px">Optional one-time deposit on day 1. Set $0 if not using.</div>
       </div>
       <div class="input-group">
         <div class="input-label">Time Period <span class="input-val" id="sip-yrs-val">20 years</span></div>
@@ -479,84 +478,6 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 
 <!-- ════════════════════════════════════════ -->
 <!-- PANEL 2: Lump Sum -->
-<!-- ════════════════════════════════════════ -->
-<div class="calc-panel" id="panel-lumpsum">
-  <div class="panel-title">Lump Sum Calculator</div>
-  <div class="panel-sub">See how a one-time investment grows over time with compound returns.</div>
-  <div class="calc-layout">
-    <div>
-      <div class="input-group">
-        <div class="input-label">Investment Amount <span class="input-val" id="ls-amt-val">$10,000</span></div>
-        <div class="input-wrap">
-          <span class="input-prefix">$</span>
-          <input class="calc-input" id="ls-amt" type="number" value="10000" min="1" oninput="calcLS()">
-        </div>
-        <input class="calc-range" type="range" id="ls-amt-r" min="1000" max="500000" step="1000" value="10000" oninput="document.getElementById('ls-amt').value=this.value;calcLS()">
-      </div>
-      <div class="input-group">
-        <div class="input-label">Annual Return Rate <span class="input-val" id="ls-rate-val">10%</span></div>
-        <div class="input-wrap">
-          <input class="calc-input no-prefix suffix-pad" id="ls-rate" type="number" value="10" min="1" max="50" step="0.5" oninput="calcLS()">
-          <span class="input-suffix">%</span>
-        </div>
-        <input class="calc-range" type="range" id="ls-rate-r" min="1" max="30" step="0.5" value="10" oninput="document.getElementById('ls-rate').value=this.value;calcLS()">
-      </div>
-      <div class="input-group">
-        <div class="input-label">Time Period <span class="input-val" id="ls-yrs-val">20 years</span></div>
-        <div class="input-wrap">
-          <input class="calc-input no-prefix suffix-pad" id="ls-yrs" type="number" value="20" min="1" max="50" oninput="calcLS()">
-          <span class="input-suffix">yrs</span>
-        </div>
-        <input class="calc-range" type="range" id="ls-yrs-r" min="1" max="50" step="1" value="20" oninput="document.getElementById('ls-yrs').value=this.value;calcLS()">
-      </div>
-    </div>
-    <div>
-      <div class="result-card">
-        <div class="result-eyebrow">Projected Outcome</div>
-        <div class="result-row">
-          <div class="result-label">Future Value</div>
-          <div class="result-val" id="ls-total">$67,275</div>
-        </div>
-        <div class="result-row">
-          <div class="result-label">Initial Investment</div>
-          <div class="result-val white" id="ls-invested">$10,000</div>
-        </div>
-        <div class="result-row">
-          <div class="result-label">Total Gain</div>
-          <div class="result-val green" id="ls-gain">$57,275</div>
-          <div class="result-note" id="ls-gain-pct">573% return on investment</div>
-        </div>
-        <div class="result-bar-wrap">
-          <div class="result-bar-label">Principal vs Growth</div>
-          <div class="result-bar-row">
-            <div class="result-bar-name"><span style="width:8px;height:8px;border-radius:50%;background:#d4a534;display:inline-block;flex-shrink:0"></span>Principal</div>
-            <div class="result-bar-track"><div class="result-bar-fill gold" id="ls-bar-inv" style="width:15%"></div></div>
-            <div class="result-bar-text" id="ls-bar-inv-t">15%</div>
-          </div>
-          <div class="result-bar-row">
-            <div class="result-bar-name"><span style="width:8px;height:8px;border-radius:50%;background:#4caf7d;display:inline-block;flex-shrink:0"></span>Growth</div>
-            <div class="result-bar-track"><div class="result-bar-fill green" id="ls-bar-gain" style="width:85%"></div></div>
-            <div class="result-bar-text" id="ls-bar-gain-t">85%</div>
-          </div>
-        </div>
-        <div class="chart-wrap">
-          <div class="chart-label">Value Growth Over Time</div>
-          <div class="chart-canvas-wrap"><canvas id="chart-ls"></canvas></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="calc-disclaimer">For illustrative purposes only. Returns are not guaranteed. Actual market returns vary significantly. Past performance does not predict future results. Punjabi Finance and Rattan Amol Singh do not guarantee the accuracy of these projections and accept no responsibility or liability for financial decisions made based on this calculator. This tool does not constitute financial, tax, or legal advice.</div>
-
-  <div style="margin-top:20px"><div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
-      <span style="font-size:0.8rem;color:#555;font-weight:500">Looking to learn more about this setup?</span>
-      <a href="https://www.ibrinsurance.ca/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(37,211,102,0.12);color:#1a9e50;border:1.5px solid rgba(37,211,102,0.3);padding:9px 20px;border-radius:9px;font-size:0.78rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .15s" onmouseover="this.style.background='rgba(37,211,102,0.2)'" onmouseout="this.style.background='rgba(37,211,102,0.12)'">Learn More →</a>
-    </div></div>
-</div>
-
-<!-- ════════════════════════════════════════ -->
-<!-- PANEL 3: Goal Planner -->
 <!-- ════════════════════════════════════════ -->
 <div class="calc-panel" id="panel-goal">
   <div class="panel-title">Goal Planner</div>
@@ -1156,6 +1077,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 <script>
 
 
+
 const charts = {};
 const CHART_DEFAULTS = {
   animation:{duration:400},
@@ -1306,7 +1228,6 @@ function calcLS(){
   document.getElementById('ls-bar-inv-t').textContent = invPct+'%';
   document.getElementById('ls-bar-gain-t').textContent = (100-invPct)+'%';
 }
-calcLS();
 
 // ── GOAL ──
 function calcGoal(){
@@ -1555,7 +1476,7 @@ const _calcSWP=calcSWP; calcSWP=function(){_calcSWP();chartSWP();}
 const _calcOptions=calcOptions; calcOptions=function(){_calcOptions();chartOptions();}
 
 // Init all charts
-setTimeout(function(){chartSIP();chartLS();chartGoal();chartSWP();chartOptions();}, 100);
+setTimeout(function(){chartSIP();chartGoal();chartSWP();chartOptions();}, 100);
 
 
 
@@ -2747,6 +2668,7 @@ function calcRESP(){
 }
 
 // RESP initialized on first tab open
+
 
 
 
