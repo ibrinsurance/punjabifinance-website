@@ -753,8 +753,9 @@ function renderPieChart(positions){
   // Donut sits in the top 76% of the canvas
   const DONUT_H = H * 0.78;
   const cx = W/2, cy = DONUT_H/2;
-  const R = W*0.41, ri = W*0.23, MID = (R+ri)/2, MIN_ARC = 42;
-  const MIN_PCT = (MIN_ARC/MID)/(2*Math.PI)*100;
+  const R = W*0.41, ri = W*0.23, MID = (R+ri)/2;
+  const MIN_PCT = 3.36; // ~3.36% cutoff — slices below this go to Others
+  const MIN_ARC = MID * MIN_PCT/100 * 2*Math.PI; // arc threshold for label display
 
   const main = sorted.filter(p=>p.mktCAD/total*100 >= MIN_PCT);
   const othersArr = sorted.filter(p=>p.mktCAD/total*100 < MIN_PCT);
@@ -901,8 +902,9 @@ function sharePieChart(){
   const sorted=[...positions].sort((a,b)=>b.mktCAD-a.mktCAD);
 
   // Any position whose slice arc (at midpoint radius) is < MIN_ARC px goes to Other
-  const R=295, ri=158, MID=(R+ri)/2, MIN_ARC=52;
-  const MIN_PCT=(MIN_ARC/MID)/(2*Math.PI)*100;
+  const R=295, ri=158, MID=(R+ri)/2;
+  const MIN_PCT=3.36; // same cutoff as website chart
+  const MIN_ARC=MID*MIN_PCT/100*2*Math.PI; // arc threshold for label display
 
   const main=sorted.filter(p=>p.mktCAD/total*100>=MIN_PCT);
   const othersArr=sorted.filter(p=>p.mktCAD/total*100<MIN_PCT);
