@@ -45,6 +45,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+
+/* ── 4 GROUPS GRID ── */
+@media(max-width:640px){
+  .groups-grid{grid-template-columns:1fr !important}
+}
+
 /* ── TOPBAR ── */
 .topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;left:0;right:0;z-index:100;gap:12px;width:100%;box-sizing:border-box}
 .wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);flex-shrink:0}
@@ -402,6 +408,96 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
     <div class="ss-item"><div class="ss-num">2025</div><div class="ss-label">Community Since</div></div>
     <div class="ss-item"><div class="ss-num" id="cm-price-stat">...</div><div class="ss-label">Per Month</div></div>
   </div>
+</div>
+
+
+<!-- 4 GROUPS SECTION -->
+<div style="background:#0a0800;border-top:1px solid rgba(212,165,52,0.1);border-bottom:1px solid rgba(212,165,52,0.1)">
+<div class="section" style="max-width:960px;margin:0 auto;padding:clamp(40px,5vw,64px) 40px">
+
+  <div style="text-align:center;margin-bottom:36px">
+    <div style="font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(212,165,52,0.55);font-weight:700;margin-bottom:10px">One Subscription — Four Groups</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.5vw,1.7rem);font-weight:800;color:#fff;margin-bottom:10px">Everything inside the WhatsApp community</div>
+    <div style="font-size:0.82rem;color:rgba(255,255,255,0.38);max-width:520px;margin:0 auto">You get access to all 4 groups the moment you join. Each one serves a different purpose — together they cover everything.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px" class="groups-grid">
+
+    <!-- Group 1 -->
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(37,211,102,0.2);border-radius:16px;padding:24px 22px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#25d366,transparent)"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <span style="font-size:1.3rem">📊</span>
+        <div>
+          <div style="font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:#25d366;font-weight:700;margin-bottom:2px">#1 — Join This First</div>
+          <div style="font-size:0.92rem;font-weight:700;color:#fff">Investing &amp; Finance Chat</div>
+        </div>
+      </div>
+      <div style="font-size:0.77rem;color:rgba(255,255,255,0.45);line-height:1.75;margin-bottom:12px">Main discussion group — open for everyone to post. Stocks, market trends, reasoning behind decisions.</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);display:flex;align-items:flex-start;gap:7px"><span style="color:#25d366;flex-shrink:0">•</span>What you&rsquo;re buying or selling</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);display:flex;align-items:flex-start;gap:7px"><span style="color:#25d366;flex-shrink:0">•</span>Market trends &amp; news</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);display:flex;align-items:flex-start;gap:7px"><span style="color:#25d366;flex-shrink:0">•</span>The reasoning behind decisions</div>
+      </div>
+      <div style="margin-top:14px;font-size:0.68rem;color:rgba(37,211,102,0.6);font-style:italic">💡 Learn from each other&rsquo;s thought process — not just the trades</div>
+    </div>
+
+    <!-- Group 2 -->
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.2);border-radius:16px;padding:24px 22px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#d4a534,transparent)"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <span style="font-size:1.3rem">📈</span>
+        <div>
+          <div style="font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:#d4a534;font-weight:700;margin-bottom:2px">#2 — Read-Only</div>
+          <div style="font-size:0.92rem;font-weight:700;color:#fff">The $100 Weekly Portfolio</div>
+        </div>
+      </div>
+      <div style="font-size:0.77rem;color:rgba(255,255,255,0.45);line-height:1.75;margin-bottom:12px">I invest $100 every week into a separate portfolio and share the full journey — what I buy, why, and how it grows.</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);display:flex;align-items:flex-start;gap:7px"><span style="color:#d4a534;flex-shrink:0">•</span>Weekly $100 investments shared openly</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);display:flex;align-items:flex-start;gap:7px"><span style="color:#d4a534;flex-shrink:0">•</span>What I&rsquo;m buying and why</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);display:flex;align-items:flex-start;gap:7px"><span style="color:#d4a534;flex-shrink:0">•</span>Portfolio growth over time</div>
+      </div>
+      <div style="margin-top:14px;font-size:0.68rem;color:rgba(212,165,52,0.6);font-style:italic">💡 Building wealth through consistency and long-term compounding</div>
+    </div>
+
+    <!-- Group 3 -->
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(74,127,193,0.2);border-radius:16px;padding:24px 22px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#6aa3d5,transparent)"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <span style="font-size:1.3rem">📊</span>
+        <div>
+          <div style="font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:#6aa3d5;font-weight:700;margin-bottom:2px">#3 — Read-Only</div>
+          <div style="font-size:0.92rem;font-weight:700;color:#fff">Rattan&rsquo;s Core Portfolio</div>
+        </div>
+      </div>
+      <div style="font-size:0.77rem;color:rgba(255,255,255,0.45);line-height:1.75;margin-bottom:12px">My personal portfolio — every buy, sell, and options trade shared live. Clean, focused, no noise.</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);display:flex;align-items:flex-start;gap:7px"><span style="color:#6aa3d5;flex-shrink:0">•</span>Personal portfolio buy/sell activity</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);display:flex;align-items:flex-start;gap:7px"><span style="color:#6aa3d5;flex-shrink:0">•</span>Options trades (covered calls, etc.)</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);display:flex;align-items:flex-start;gap:7px"><span style="color:#6aa3d5;flex-shrink:0">•</span>Key portfolio updates in one place</div>
+      </div>
+      <div style="margin-top:14px;font-size:0.68rem;color:rgba(74,127,193,0.6);font-style:italic">💡 Everything in one place — clean, focused, no noise</div>
+    </div>
+
+    <!-- Group 4 -->
+    <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:24px 22px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(255,255,255,0.15),transparent)"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <span style="font-size:1.3rem">💬</span>
+        <div>
+          <div style="font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);font-weight:700;margin-bottom:2px">#4</div>
+          <div style="font-size:0.92rem;font-weight:700;color:rgba(255,255,255,0.6)">Non-Financial Discussions</div>
+        </div>
+      </div>
+      <div style="font-size:0.77rem;color:rgba(255,255,255,0.3);line-height:1.75">For everything else — life, goals, random conversations. It&rsquo;s there if you want it.</div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:24px;font-size:0.72rem;color:rgba(255,255,255,0.2)">Not financial advice &mdash; this is one investor sharing their real journey openly.</div>
+
+</div>
 </div>
 
 
