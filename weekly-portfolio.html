@@ -145,16 +145,50 @@ tfoot td:first-child{text-align:left}
 @media(max-width:900px){
   .stats-row{grid-template-columns:1fr 1fr}
   .how-grid{grid-template-columns:1fr 1fr}
-  .section{padding:32px 24px}
+  .section{padding:32px 20px}
   .topbar-nav{display:none}
   .topbar-mobile-btn{display:flex;align-items:center}
 }
 @media(max-width:600px){
   .stats-row{grid-template-columns:1fr 1fr}
+  .stat{padding:18px 14px}
+  .stat-val{font-size:1.5rem}
+  .how-grid{grid-template-columns:1fr 1fr}
   .unlock-bar{flex-direction:column;align-items:flex-start}
   .unlock-bar-right{width:100%}
   .unlock-bar-input{width:100%}
-  .hero{padding:40px 24px 32px}
+  .hero{padding:36px 20px 28px}
+  .section{padding:24px 16px}
+  /* Sort buttons — compact scrollable row */
+  #sort-controls-weekly{
+    padding:12px 16px !important;
+    overflow-x:auto;
+    flex-wrap:nowrap !important;
+    gap:6px !important;
+    scrollbar-width:none;
+  }
+  #sort-controls-weekly::-webkit-scrollbar{display:none}
+  .filter-btn{font-size:0.62rem;padding:5px 10px;white-space:nowrap}
+  /* Table — sticky first column, compact */
+  .tscroll{-webkit-overflow-scrolling:touch}
+  table{font-size:0.76rem}
+  thead th{padding:8px 10px;font-size:0.58rem}
+  tbody td{padding:10px 10px}
+  tfoot td{padding-top:10px;font-size:0.72rem}
+  /* Sticky ticker column */
+  thead th:first-child,tbody td:first-child,tfoot td:first-child{
+    position:sticky;left:0;background:#fff;z-index:2;
+  }
+  thead th:first-child{background:#f9f9f7}
+  tfoot td:first-child{background:#f9f9f7}
+  /* Hide less critical columns on mobile */
+  .col-hide-mobile{display:none !important}
+  .alloc-bar-mini{display:none}
+  .alloc-pct-text{min-width:auto}
+  /* Footer */
+  .footer{padding:16px 20px;font-size:0.65rem}
+  /* Chart height */
+  .chart-canvas-wrap{height:180px}
 }
 </style>
 </head>
@@ -289,9 +323,9 @@ tfoot td:first-child{text-align:left}
         <thead><tr>
           <th style="text-align:left">Ticker</th>
           <th>Shares</th>
-          <th>Avg Cost (USD)</th>
+          <th class="col-hide-mobile">Avg Cost (USD)</th>
           <th>Current (USD)</th>
-          <th>Book Value (CAD)</th>
+          <th class="col-hide-mobile">Book Value (CAD)</th>
           <th>Market Value (CAD)</th>
           <th>Allocation</th>
           <th>P&amp;L (CAD)</th>
@@ -303,7 +337,7 @@ tfoot td:first-child{text-align:left}
         <tfoot><tr>
           <td>Total Portfolio</td>
           <td></td><td></td><td></td>
-          <td id="wk-foot-book">—</td>
+          <td id="wk-foot-book" class="col-hide-mobile">—</td>
           <td id="wk-foot-val">—</td>
           <td>100%</td>
           <td id="wk-foot-pnl">—</td>
