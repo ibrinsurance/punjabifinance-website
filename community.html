@@ -358,6 +358,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   <div class="topbar-nav">
   <a class="nav-btn" href="index.html">Live Portfolio</a>
   <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="weekly-portfolio.html">$100/Week</a>
   <a class="nav-btn" href="philosophy.html">How I Invest</a>
   <a class="nav-btn" href="webinars.html">Webinars</a>
   <a class="nav-btn active" href="community.html" style="color:#1a9e50">Join</a>
@@ -375,6 +376,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <nav class="nav-dropdown" id="nav-dropdown">
   <a class="nav-btn" href="index.html">Live Portfolio</a>
   <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="weekly-portfolio.html">$100/Week</a>
   <a class="nav-btn" href="philosophy.html">How I Invest</a>
   <a class="nav-btn" href="webinars.html">Webinars</a>
   <a class="nav-btn active" href="community.html" style="color:#1a9e50">Join</a>
@@ -449,7 +451,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
         <span style="font-size:1.3rem">📈</span>
         <div>
           <div style="font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:#d4a534;font-weight:700;margin-bottom:2px">#2 — Read-Only</div>
-          <div style="font-size:0.92rem;font-weight:700;color:#fff">The $100 Weekly Portfolio</div>
+          <div style="font-size:0.92rem;font-weight:700;color:#fff"><a href="weekly-portfolio.html" style="color:#fff;text-decoration:none">The $100 Weekly Portfolio ↗</a></div>
         </div>
       </div>
       <div style="font-size:0.77rem;color:rgba(255,255,255,0.45);line-height:1.75;margin-bottom:12px">I invest $100 every week into a separate portfolio and share the full journey — what I buy, why, and how it grows.</div>
@@ -468,7 +470,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
         <span style="font-size:1.3rem">📊</span>
         <div>
           <div style="font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:#6aa3d5;font-weight:700;margin-bottom:2px">#3 — Read-Only</div>
-          <div style="font-size:0.92rem;font-weight:700;color:#fff">Rattan&rsquo;s Core Portfolio</div>
+          <div style="font-size:0.92rem;font-weight:700;color:#fff"><a href="index.html" style="color:#fff;text-decoration:none">Rattan's Core Portfolio ↗</a></div>
         </div>
       </div>
       <div style="font-size:0.77rem;color:rgba(255,255,255,0.45);line-height:1.75;margin-bottom:12px">My personal portfolio — every buy, sell, and options trade shared live. Clean, focused, no noise.</div>
@@ -891,7 +893,7 @@ function galleryScroll(dir){
 <script>
 (async function(){
   try{
-    const r = await fetch('https://script.google.com/macros/s/AKfycbzdFEAIQYN6jhhUMXpRHIz-xSsBdUzteRgmdTKy7AqQX7716uHSlkSnmwifhmVmeAeD0w/exec', {cache:'no-store'});
+    const r = await fetch('https://script.google.com/macros/s/AKfycbyKdeTTYD6lXpnlcxLENRHHcpDw8ar7EjU_xAnZvR_9HSR0SCZ5jc7tUgTCKP8C4NnaWg/exec', {cache:'no-store'});
     const d = await r.json();
 
     function set(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }

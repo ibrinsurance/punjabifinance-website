@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>const PF_MONTHLY_CODE = "PF-APR-2026";</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>$100/Week Portfolio — Punjabi Finance</title>
+<meta name="description" content="Rattan invests $100 every week into a separate portfolio and shares the full journey — every buy, why, and how it grows over time.">
+<link rel="canonical" href="https://punjabifinance.com/weekly-portfolio.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f9f7f3;color:#1a1a1a;font-family:'DM Sans',sans-serif;min-height:100vh}
+
+/* ── TOPBAR ── */
+.topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;z-index:100;gap:12px}
+.wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12)}
+.wm-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:800;color:#fff;white-space:nowrap}
+.wm-gold{color:#d4a534}
+.topbar-nav{display:flex;align-items:center;gap:4px;flex:1;overflow-x:auto;scrollbar-width:none}
+.topbar-nav::-webkit-scrollbar{display:none}
+.nav-btn{display:inline-flex;align-items:center;color:rgba(255,255,255,0.5);font-size:0.72rem;font-weight:500;padding:6px 11px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:color .15s,background .15s}
+.nav-btn:hover{color:#fff;background:rgba(255,255,255,0.06)}
+.nav-btn.active{color:#d4a534;background:rgba(212,165,52,0.1)}
+.topbar-right-btns{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.topbar-mobile-btn{display:none;text-decoration:none;font-size:0.72rem;font-weight:700;padding:7px 14px;border-radius:8px}
+.topbar-mobile-btn.join{background:rgba(37,211,102,0.12);color:#25d366;border:1px solid rgba(37,211,102,0.3)}
+
+/* ── HERO (dark) ── */
+.hero{background:#111009;padding:clamp(48px,7vw,80px) 40px clamp(36px,5vw,60px);text-align:center;position:relative;overflow:hidden;border-bottom:1px solid rgba(212,165,52,0.1)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(212,165,52,0.07) 0%,transparent 70%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.25);border-radius:100px;padding:5px 14px;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#d4a534;margin-bottom:20px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:900;line-height:1.1;color:#fff;margin-bottom:14px}
+.hero-title em{color:#d4a534;font-style:normal}
+.hero-sub{font-size:clamp(0.85rem,2vw,1rem);color:rgba(255,255,255,0.4);max-width:520px;margin:0 auto 10px;line-height:1.75}
+.hero-note{font-size:0.7rem;color:rgba(255,255,255,0.2);margin-top:6px}
+
+/* ── STATS (cream, like main page) ── */
+.section-cream{background:#f9f7f3}
+.section{padding:40px 40px;max-width:1100px;margin:0 auto}
+.sec-label{font-size:0.65rem;letter-spacing:0.24em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.sec-label-tag{background:#e8f5e9;color:#2e7d32;font-size:0.58rem;padding:2px 8px;border-radius:100px;font-weight:700;letter-spacing:0.1em}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:4px}
+.stat{background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:24px 20px;position:relative;overflow:hidden}
+.stat.highlight{border-color:rgba(184,134,42,0.3)}
+.stat.highlight::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#b8862a}
+.stat-label{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:#888;font-weight:600;margin-bottom:8px}
+.stat-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#1a1a1a;margin-bottom:4px;line-height:1}
+.stat-meta{font-size:0.72rem;color:#aaa}
+.stat-meta.green{color:#2e7d32}
+.stat-meta.red{color:#c62828}
+
+/* ── DISCLAIMER ── */
+.hero-disclaimer{font-size:0.68rem;color:rgba(255,255,255,0.2);max-width:640px;margin:20px auto 0;line-height:1.7}
+
+/* ── SCROLL HINT ── */
+.scroll-hint{text-align:center;padding:16px 0;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:#b8862a;opacity:0.6}
+
+/* ── HOW THIS WORKS ── */
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.how-card{background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:18px 16px}
+.how-icon{font-size:1.2rem;margin-bottom:8px}
+.how-title{font-size:0.8rem;font-weight:700;color:#1a1a1a;margin-bottom:5px}
+.how-desc{font-size:0.73rem;color:#888;line-height:1.6}
+
+/* ── PORTFOLIO SECTION (dark) ── */
+.section-dark{background:#111009}
+.section-dark .sec-label{color:rgba(212,165,52,0.6)}
+
+/* ── CHART ── */
+.chart-wrap{background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.12);border-radius:16px;padding:24px;margin-bottom:0}
+.chart-title{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:16px;font-weight:600}
+.chart-canvas-wrap{position:relative;height:240px}
+
+/* ── UNLOCK BAR ── */
+.unlock-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#111009;border:1.5px solid rgba(212,165,52,0.35);border-radius:10px;padding:14px 20px;margin-bottom:16px;flex-wrap:wrap;box-shadow:0 2px 12px rgba(0,0,0,0.15)}
+.unlock-bar-left{display:flex;align-items:center;gap:10px}
+.unlock-bar-icon{font-size:1.1rem}
+.unlock-bar-text{font-size:0.78rem;color:rgba(255,255,255,0.55)}
+.unlock-bar-text strong{color:#d4a534}
+.unlock-bar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.unlock-bar-input{background:rgba(255,255,255,0.06);border:1px solid rgba(212,165,52,0.25);border-radius:8px;padding:8px 12px;font-size:0.78rem;color:#fff;font-family:'DM Sans',sans-serif;outline:none;width:160px}
+.unlock-bar-input:focus{border-color:rgba(212,165,52,0.5)}
+.unlock-bar-btn{background:#d4a534;color:#111;border:none;border-radius:8px;padding:8px 16px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.unlock-bar-btn:hover{background:#b8862a}
+.unlock-bar-err{font-size:0.7rem;color:#e05252;width:100%;padding-top:4px}
+.join-link{font-size:0.72rem;color:rgba(212,165,52,0.6);text-decoration:none;white-space:nowrap}
+.join-link:hover{color:#d4a534}
+
+/* ── LOCK GATE ── */
+.lock-gate{background:#fff;border:1.5px solid #e8e4dc;border-radius:16px;padding:32px 28px;text-align:center;margin:24px 0}
+.lock-icon{font-size:2rem;margin-bottom:12px}
+.lock-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#1a1a1a;margin-bottom:6px}
+.lock-sub{font-size:0.78rem;color:#888;line-height:1.7;margin-bottom:22px;max-width:380px;margin-left:auto;margin-right:auto}
+.join-cta{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#fff;text-decoration:none;border-radius:10px;padding:12px 22px;font-size:0.82rem;font-weight:700;margin-top:8px}
+.join-cta:hover{background:#1da854}
+
+/* ── TABLE ── */
+.table-wrap{overflow-x:auto;margin-top:0}
+table{width:100%;border-collapse:collapse;font-size:0.82rem}
+thead th{text-align:left;font-size:0.63rem;letter-spacing:0.12em;text-transform:uppercase;color:#888;font-weight:600;padding:10px 12px;border-bottom:1.5px solid #e8e4dc;white-space:nowrap}
+thead th:not(:first-child){text-align:right}
+tbody td{padding:13px 12px;border-bottom:1px solid #f0ede8;color:#333;vertical-align:middle}
+tbody td:not(:first-child){text-align:right}
+tbody tr:hover td{background:rgba(212,165,52,0.03)}
+.ticker-cell{display:flex;flex-direction:column;gap:2px}
+.ticker-name{font-weight:700;color:#1a1a1a;font-size:0.85rem}
+.ticker-sub{font-size:0.68rem;color:#aaa}
+.pct-pill{display:inline-block;padding:3px 8px;border-radius:100px;font-size:0.7rem;font-weight:700}
+.pct-pill.green{background:#e8f5e9;color:#2e7d32}
+.pct-pill.red{background:#fde8e8;color:#c62828}
+.alloc-bar-wrap{width:80px;display:inline-flex;align-items:center;gap:6px}
+.alloc-bar-track{flex:1;height:4px;background:#e8e4dc;border-radius:2px}
+.alloc-bar-fill{height:4px;background:#b8862a;border-radius:2px}
+
+/* ── LOCKED BLUR ── */
+.lockable.locked{filter:blur(5px);pointer-events:none;user-select:none}
+
+/* ── MODAL ── */
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999;align-items:center;justify-content:center;padding:20px}
+.modal-backdrop.open{display:flex}
+.modal{background:#fff;border-radius:18px;padding:36px 32px;max-width:420px;width:100%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,0.2);position:relative}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#bbb;line-height:1;padding:4px}
+.modal-close:hover{color:#666}
+.modal-icon{font-size:2rem;margin-bottom:12px}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#111;margin-bottom:6px}
+.modal-sub{font-size:0.78rem;color:#888;margin-bottom:20px}
+.modal-input{width:100%;border:1.5px solid #e0e0e0;border-radius:10px;padding:11px 14px;font-size:0.9rem;margin-bottom:10px;outline:none;font-family:'DM Sans',sans-serif;text-transform:uppercase}
+.modal-input:focus{border-color:#d4a534}
+.modal-submit{width:100%;background:#d4a534;color:#000;border:none;border-radius:10px;padding:12px;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif}
+.modal-submit:hover{background:#b8862a}
+.modal-err{font-size:0.72rem;color:#e05252;min-height:18px;margin-bottom:8px}
+
+/* ── FOOTER ── */
+.footer{background:#111009;border-top:1px solid rgba(212,165,52,0.1);padding:20px 40px;text-align:center;font-size:0.7rem;color:rgba(255,255,255,0.2)}
+.footer a{color:rgba(212,165,52,0.5);text-decoration:none;margin:0 8px}
+.footer a:hover{color:#d4a534}
+
+@media(max-width:900px){
+  .stats-row{grid-template-columns:1fr 1fr}
+  .how-grid{grid-template-columns:1fr 1fr}
+  .section{padding:32px 24px}
+  .topbar-nav{display:none}
+  .topbar-mobile-btn{display:flex;align-items:center}
+}
+@media(max-width:600px){
+  .stats-row{grid-template-columns:1fr 1fr}
+  .unlock-bar{flex-direction:column;align-items:flex-start}
+  .unlock-bar-right{width:100%}
+  .unlock-bar-input{width:100%}
+  .hero{padding:40px 24px 32px}
+}
+</style>
+</head>
+<body>
+
+<h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">$100 Per Week Portfolio — Punjabi Finance</h1>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a class="wm-link" href="index.html">
+    <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
+  </a>
+  <div class="topbar-nav">
+    <a class="nav-btn" href="index.html">Live Portfolio</a>
+    <a class="nav-btn" href="watchlist.html">Watchlist</a>
+    <a class="nav-btn active" href="weekly-portfolio.html">$100/Week</a>
+    <a class="nav-btn" href="philosophy.html">How I Invest</a>
+    <a class="nav-btn" href="webinars.html">Webinars</a>
+    <a class="nav-btn" href="community.html" style="color:#1a9e50">Join</a>
+    <a class="nav-btn" href="calculators.html">Calculators</a>
+    <a class="nav-btn" href="links.html">Links</a>
+    <a class="nav-btn" href="mediakit.html">Media Kit</a>
+  </div>
+  <div class="topbar-right-btns">
+    <a class="topbar-mobile-btn join" href="community.html">Join</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">📈 Community Exclusive · New</div>
+  <div class="hero-title">The <em>$100 Per Week</em> Portfolio</div>
+  <div class="hero-sub">$100 invested every single week — no exceptions. Every buy shared openly with the community. This is what consistency looks like in practice.</div>
+  <div class="hero-note">Tracked separately from the core C$2M+ portfolio · Not financial advice</div>
+  <div class="hero-disclaimer">Shared for educational &amp; transparency purposes only. Nothing constitutes financial advice. Past performance does not guarantee future results.</div>
+</div>
+
+<!-- STATS (public) -->
+<div class="section-cream">
+<div class="section">
+  <div class="sec-label">Portfolio Overview <span class="sec-label-tag">Live</span></div>
+  <div class="stats-row">
+    <div class="stat highlight">
+      <div class="stat-label">Total Value</div>
+      <div class="stat-val" id="s-val">...</div>
+      <div class="stat-meta">Canadian Dollars</div>
+    </div>
+    <div class="stat highlight">
+      <div class="stat-label">Unrealized P&amp;L</div>
+      <div class="stat-val" id="s-pnl">...</div>
+      <div class="stat-meta" id="s-pnl-pct">...</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Positions Held</div>
+      <div class="stat-val" id="s-positions">...</div>
+      <div class="stat-meta">Active holdings</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Total Invested</div>
+      <div class="stat-val" id="s-book">...</div>
+      <div class="stat-meta">Book value (CAD)</div>
+    </div>
+  </div>
+
+  <!-- HOW THIS WORKS -->
+  <div style="margin-top:28px">
+    <div class="sec-label">The Concept</div>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-icon">💵</div>
+        <div class="how-title">$100 every week</div>
+        <div class="how-desc">Same amount, every week — no skipping, no doubling up. Discipline over timing.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-icon">📖</div>
+        <div class="how-title">Everything shared</div>
+        <div class="how-desc">Every buy posted in the community with the reasoning behind it. No secret moves.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-icon">🕐</div>
+        <div class="how-title">Long-term only</div>
+        <div class="how-desc">This isn't trading. It's building — compounding over years, not months.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-icon">🔀</div>
+        <div class="how-title">Separate portfolio</div>
+        <div class="how-desc">Completely separate from the core C$2M+ portfolio. Its own story.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PORTFOLIO SECTION (dark, partially locked) -->
+<div class="section-dark">
+<div class="section">
+
+  <div class="sec-label" style="color:rgba(212,165,52,0.55)">Portfolio Allocation <span class="sec-label-tag" style="background:rgba(37,211,102,0.12);color:#4caf7d">Live</span></div>
+
+  <!-- CHART (always public) -->
+  <div class="chart-wrap" style="margin-bottom:20px">
+    <div class="chart-title">Book Value vs Market Value — All Positions</div>
+    <div class="chart-canvas-wrap"><canvas id="weekly-chart"></canvas></div>
+  </div>
+
+  <!-- UNLOCK BAR -->
+  <div class="unlock-bar" id="unlock-bar">
+    <div class="unlock-bar-left">
+      <div class="unlock-bar-icon">🔐</div>
+      <div class="unlock-bar-text"><strong>Members only</strong> — Enter your code to see full position details</div>
+    </div>
+    <div class="unlock-bar-right">
+      <input class="unlock-bar-input" id="lock-code-input" type="text" placeholder="Monthly code" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlock()">
+      <button class="unlock-bar-btn" onclick="tryUnlock()">Unlock</button>
+      <a class="join-link" href="community.html">Get a code →</a>
+    </div>
+    <div class="unlock-bar-err" id="lock-error"></div>
+  </div>
+
+  <!-- POSITIONS TABLE -->
+  <div class="lockable locked" id="positions-section">
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th style="text-align:left">Ticker</th>
+          <th>Shares</th>
+          <th>Avg Cost (USD)</th>
+          <th>Current (USD)</th>
+          <th>Book Value (CAD)</th>
+          <th>Market Value (CAD)</th>
+          <th>Allocation</th>
+          <th>P&amp;L (CAD)</th>
+          <th>P&amp;L %</th>
+        </tr></thead>
+        <tbody id="positions-body">
+          <tr><td colspan="9" style="text-align:center;color:rgba(255,255,255,0.3);padding:40px;font-size:0.8rem">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- LOCK GATE (shown when locked, hidden when unlocked) -->
+  <div id="lock-gate-section" style="display:none">
+    <div class="lock-gate" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08)">
+      <div class="lock-icon">🔒</div>
+      <div class="lock-title" style="color:#fff">Members only</div>
+      <div class="lock-sub" style="color:rgba(255,255,255,0.4)">Full position details — tickers, cost basis, current price, and P&amp;L — are shared exclusively with WhatsApp community members.</div>
+      <a class="join-cta" href="community.html">💬 Join the Community</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Not financial advice &nbsp;·&nbsp; <a href="index.html">Live Portfolio</a> <a href="community.html">Community</a> <a href="mediakit.html">Media Kit</a> <a href="links.html">Links</a>
+</div>
+
+<!-- UNLOCK MODAL -->
+<div class="modal-backdrop" id="unlock-modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&#10005;</button>
+    <div class="modal-icon">🔐</div>
+    <div class="modal-title">Enter Your Code</div>
+    <div class="modal-sub">Monthly access code from the WhatsApp community</div>
+    <input class="modal-input" id="modal-code-input" type="text" placeholder="e.g. PF-APR-2026" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlockModal()">
+    <div class="modal-err" id="modal-error"></div>
+    <button class="modal-submit" onclick="tryUnlockModal()">Unlock</button>
+    <div style="margin-top:16px;font-size:0.7rem;color:#bbb">Don't have a code? <a href="community.html" style="color:#b8862a;text-decoration:none">Join the community →</a></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script>
+// ── CONSTANTS ──
+const SHEET_URL   = 'https://script.google.com/macros/s/AKfycbyKdeTTYD6lXpnlcxLENRHHcpDw8ar7EjU_xAnZvR_9HSR0SCZ5jc7tUgTCKP8C4NnaWg/exec';
+const LOCK_KEY    = 'pf_unlocked_v2';
+const EXPIRY_KEY  = 'pf_unlock_expiry_v2';
+const EXPIRY_DAYS = 30;
+let MONTHLY_CODE  = PF_MONTHLY_CODE;
+let weeklyData    = [];
+let chartInst     = null;
+
+// ── LOCK SYSTEM ──
+function isUnlocked(){
+  try{
+    if(localStorage.getItem(LOCK_KEY)!=='true') return false;
+    var exp=parseInt(localStorage.getItem(EXPIRY_KEY)||'0');
+    if(Date.now()>exp){ localStorage.removeItem(LOCK_KEY); return false; }
+    return true;
+  }catch(e){ return false; }
+}
+function setUnlocked(){
+  try{
+    localStorage.setItem(LOCK_KEY,'true');
+    localStorage.setItem(EXPIRY_KEY, String(Date.now()+EXPIRY_DAYS*24*60*60*1000));
+  }catch(e){}
+}
+function openModal(){
+  document.getElementById('unlock-modal').classList.add('open');
+  document.getElementById('modal-error').textContent='';
+  document.getElementById('modal-code-input').value='';
+  setTimeout(()=>document.getElementById('modal-code-input').focus(),100);
+}
+function closeModal(){
+  document.getElementById('unlock-modal').classList.remove('open');
+}
+function tryUnlockModal(){
+  const val=(document.getElementById('modal-code-input').value||'').trim().toUpperCase();
+  if(val===MONTHLY_CODE.toUpperCase()){ setUnlocked(); closeModal(); applyLockState(); }
+  else{ document.getElementById('modal-error').textContent='Incorrect code. Get the code inside the WhatsApp community.'; }
+}
+function tryUnlock(){
+  const val=(document.getElementById('lock-code-input').value||'').trim().toUpperCase();
+  if(val===MONTHLY_CODE.toUpperCase()){ setUnlocked(); applyLockState(); }
+  else{ document.getElementById('lock-error').textContent='Incorrect code.'; }
+}
+function applyLockState(){
+  const unlocked = isUnlocked();
+  const ub  = document.getElementById('unlock-bar');
+  const ps  = document.getElementById('positions-section');
+  const lgs = document.getElementById('lock-gate-section');
+  if(ub)  ub.style.display  = unlocked ? 'none'  : 'flex';
+  if(ps)  ps.classList.toggle('locked', !unlocked);
+  if(lgs) lgs.style.display = unlocked ? 'none'  : 'block';
+}
+
+// ── FORMATTING ──
+const fmtC = v => {
+  if(isNaN(v)||v===null) return '—';
+  const abs = Math.abs(v);
+  const str = abs>=1e6 ? 'C$'+(abs/1e6).toFixed(2).replace(/\.?0+$/,'')+'M'
+             : abs>=1000 ? 'C$'+Math.round(abs).toLocaleString()
+             : 'C$'+abs.toFixed(0);
+  return (v<0?'-':'')+str;
+};
+const fmtU = v => isNaN(v)||!v ? '—' : 'US$'+parseFloat(v).toFixed(2);
+const fmtN = (v,d=4) => isNaN(v)||!v ? '—' : parseFloat(v).toFixed(d);
+
+// ── LOAD DATA ──
+async function init(){
+  applyLockState();
+  try{
+    const r = await fetch(SHEET_URL, {cache:'no-store'});
+    if(!r.ok) throw new Error('fetch failed');
+    const data = await r.json();
+    if(data.monthlyCode && data.monthlyCode.trim()) MONTHLY_CODE = data.monthlyCode.trim().toUpperCase();
+    if(data.weeklyPositions && data.weeklyPositions.length){
+      weeklyData = data.weeklyPositions;
+      renderStats();
+      renderChart();
+      renderTable();
+    } else {
+      showPlaceholder();
+    }
+  } catch(e) {
+    console.error('Load failed:', e);
+    showPlaceholder();
+  }
+}
+
+function showPlaceholder(){
+  ['s-val','s-pnl','s-positions','s-book'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent='—';
+  });
+  const tb=document.getElementById('positions-body');
+  if(tb) tb.innerHTML='<tr><td colspan="9" style="text-align:center;color:#aaa;padding:40px;font-size:0.8rem">Week 1 coming soon — follow along in the WhatsApp community.</td></tr>';
+}
+
+function renderStats(){
+  const totMkt  = weeklyData.reduce((s,r)=>s+(r.mktCAD||0),0);
+  const totBook = weeklyData.reduce((s,r)=>s+(r.bookCAD||0),0);
+  const totPnl  = weeklyData.reduce((s,r)=>s+(r.plCAD||0),0);
+  const totPct  = totBook>0 ? (totPnl/totBook*100) : 0;
+
+  document.getElementById('s-val').textContent       = fmtC(totMkt);
+  document.getElementById('s-pnl').textContent       = (totPnl>=0?'+':'')+fmtC(totPnl);
+  document.getElementById('s-book').textContent      = fmtC(totBook);
+  document.getElementById('s-positions').textContent = weeklyData.length;
+
+  const pnlPctEl = document.getElementById('s-pnl-pct');
+  pnlPctEl.textContent = (totPct>=0?'+':'')+totPct.toFixed(1)+'% all time';
+  pnlPctEl.className   = 'stat-meta ' + (totPnl>=0?'green':'red');
+}
+
+function renderChart(){
+  const canvas = document.getElementById('weekly-chart');
+  if(!canvas) return;
+  const sorted = [...weeklyData].sort((a,b)=>(b.mktCAD||0)-(a.mktCAD||0));
+  const labels   = sorted.map(r=>r.ticker);
+  const mktVals  = sorted.map(r=>Math.round(r.mktCAD||0));
+  const bookVals = sorted.map(r=>Math.round(r.bookCAD||0));
+  if(chartInst) chartInst.destroy();
+  chartInst = new Chart(canvas,{
+    type:'bar',
+    data:{
+      labels,
+      datasets:[
+        {label:'Market Value (CAD)',data:mktVals,backgroundColor:'rgba(212,165,52,0.75)',borderColor:'#d4a534',borderWidth:1,borderRadius:4},
+        {label:'Book Value (CAD)',  data:bookVals,backgroundColor:'rgba(255,255,255,0.1)',borderColor:'rgba(255,255,255,0.2)',borderWidth:1,borderRadius:4}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:400},
+      plugins:{legend:{display:true,labels:{color:'rgba(255,255,255,0.45)',font:{size:11}}}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'rgba(255,255,255,0.4)',font:{size:11}}},
+        y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'rgba(255,255,255,0.4)',font:{size:11},callback:v=>'C$'+Math.round(v).toLocaleString()}}
+      }
+    }
+  });
+}
+
+function renderTable(){
+  const totMkt = weeklyData.reduce((s,r)=>s+(r.mktCAD||0),0);
+  const sorted = [...weeklyData].sort((a,b)=>(b.mktCAD||0)-(a.mktCAD||0));
+  const tb = document.getElementById('positions-body');
+  if(!tb) return;
+  tb.innerHTML = sorted.map(r=>{
+    const alloc = totMkt>0 ? (r.mktCAD/totMkt*100).toFixed(1) : 0;
+    const plPos = (r.plCAD||0) >= 0;
+    const pctPos = (r.pctReturn||0) >= 0;
+    return `<tr style="color:#fff">
+      <td style="text-align:left"><div style="font-weight:700;color:#fff;font-size:0.85rem">${r.ticker}</div><div style="font-size:0.68rem;color:rgba(255,255,255,0.3)">${r.account||''}</div></td>
+      <td>${fmtN(r.shares,4)}</td>
+      <td>${fmtU(r.pricePaidUSD)}</td>
+      <td>US$${r.currentUSD?r.currentUSD.toFixed(2):'—'}</td>
+      <td>${fmtC(r.bookCAD)}</td>
+      <td>${fmtC(r.mktCAD)}</td>
+      <td><div style="display:flex;align-items:center;gap:6px;justify-content:flex-end">
+        <div style="width:60px;height:4px;background:rgba(255,255,255,0.1);border-radius:2px">
+          <div style="width:${Math.min(parseFloat(alloc)*3,100)}%;height:4px;background:#b8862a;border-radius:2px"></div>
+        </div>
+        ${alloc}%
+      </div></td>
+      <td style="color:${plPos?'#4caf7d':'#e05252'}">${plPos?'+':''}${fmtC(r.plCAD)}</td>
+      <td><span style="background:${pctPos?'rgba(76,175,61,0.15)':'rgba(224,82,82,0.15)'};color:${pctPos?'#4caf7d':'#e05252'};padding:3px 8px;border-radius:100px;font-size:0.72rem;font-weight:700">${pctPos?'+':''}${(r.pctReturn||0).toFixed(1)}%</span></td>
+    </tr>`;
+  }).join('');
+}
+
+init();
+</script>
+</body>
+</html>
