@@ -96,23 +96,28 @@ body{background:#f9f7f3;color:#1a1a1a;font-family:'DM Sans',sans-serif;min-heigh
 .join-cta{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#fff;text-decoration:none;border-radius:10px;padding:12px 22px;font-size:0.82rem;font-weight:700;margin-top:8px}
 .join-cta:hover{background:#1da854}
 
-/* ── TABLE ── */
-.table-wrap{overflow-x:auto;margin-top:0}
-table{width:100%;border-collapse:collapse;font-size:0.82rem}
-thead th{text-align:left;font-size:0.63rem;letter-spacing:0.12em;text-transform:uppercase;color:#888;font-weight:600;padding:10px 12px;border-bottom:1.5px solid #e8e4dc;white-space:nowrap}
-thead th:not(:first-child){text-align:right}
-tbody td{padding:13px 12px;border-bottom:1px solid #f0ede8;color:#333;vertical-align:middle}
-tbody td:not(:first-child){text-align:right}
-tbody tr:hover td{background:rgba(212,165,52,0.03)}
-.ticker-cell{display:flex;flex-direction:column;gap:2px}
-.ticker-name{font-weight:700;color:#1a1a1a;font-size:0.85rem}
-.ticker-sub{font-size:0.68rem;color:#aaa}
-.pct-pill{display:inline-block;padding:3px 8px;border-radius:100px;font-size:0.7rem;font-weight:700}
-.pct-pill.green{background:#e8f5e9;color:#2e7d32}
-.pct-pill.red{background:#fde8e8;color:#c62828}
-.alloc-bar-wrap{width:80px;display:inline-flex;align-items:center;gap:6px}
-.alloc-bar-track{flex:1;height:4px;background:#e8e4dc;border-radius:2px}
-.alloc-bar-fill{height:4px;background:#b8862a;border-radius:2px}
+/* ── TABLE (matches core portfolio style) ── */
+.table-wrap{overflow-x:auto}
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:0.83rem}
+thead th{padding:10px 12px;font-size:0.63rem;letter-spacing:0.14em;text-transform:uppercase;color:#9a9a9a;font-weight:600;border-bottom:1.5px solid #e8e4dc;white-space:nowrap;text-align:right}
+thead th:first-child{text-align:left}
+tbody td{padding:13px 12px;border-bottom:1px solid #f0ede8;vertical-align:middle;text-align:right;color:#1a1a1a}
+tbody td:first-child{text-align:left}
+tbody tr:hover td{background:#fdfcf9}
+tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-bottom:none;padding-top:14px;text-align:right}
+tfoot td:first-child{text-align:left}
+.tk{font-weight:700;font-size:0.89rem}
+.tv{font-size:0.83rem;font-weight:600;color:#1a1a1a}
+.tsub{font-size:0.67rem;color:#9a9a9a;margin-top:2px}
+.up{color:#1a7a41}
+.dn{color:#c0392b}
+.alloc-cell{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+.alloc-bar-mini{width:60px;height:5px;background:#f0ede8;border-radius:3px;overflow:hidden;flex-shrink:0}
+.alloc-bar-mini-fill{height:100%;border-radius:3px}
+.alloc-pct-text{font-size:0.78rem;font-weight:600;color:#1a1a1a;min-width:36px;text-align:right}
+.filter-btn{background:#fff;border:1px solid #e8e4dc;font-size:0.67rem;font-weight:600;padding:6px 14px;border-radius:100px;cursor:pointer;letter-spacing:0.06em;transition:all .15s;font-family:'DM Sans',sans-serif}
+.filter-btn:hover,.filter-btn.active{background:#1a1a1a;border-color:#1a1a1a;color:#fff}
 
 /* ── LOCKED BLUR ── */
 .lockable.locked{filter:blur(5px);pointer-events:none;user-select:none}
@@ -270,8 +275,16 @@ tbody tr:hover td{background:rgba(212,165,52,0.03)}
   </div>
 
   <!-- POSITIONS TABLE -->
-  <div class="lockable locked" id="positions-section">
-    <div class="table-wrap">
+  <div class="lockable locked" id="positions-section" style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e8e4dc;margin-top:0">
+    <!-- Sort controls -->
+    <div style="padding:16px 20px;border-bottom:1px solid #f0ede8;display:flex;gap:8px;flex-wrap:wrap;align-items:center" id="sort-controls-weekly">
+      <span style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#9a9a9a;font-weight:600">Sort by:</span>
+      <button class="filter-btn active" onclick="setSortW('mktCAD')">Market Value</button>
+      <button class="filter-btn" onclick="setSortW('plCAD')">P&amp;L $</button>
+      <button class="filter-btn" onclick="setSortW('pctReturn')">P&amp;L %</button>
+      <button class="filter-btn" onclick="setSortW('ticker')">Ticker A-Z</button>
+    </div>
+    <div class="tscroll">
       <table>
         <thead><tr>
           <th style="text-align:left">Ticker</th>
@@ -285,8 +298,17 @@ tbody tr:hover td{background:rgba(212,165,52,0.03)}
           <th>P&amp;L %</th>
         </tr></thead>
         <tbody id="positions-body">
-          <tr><td colspan="9" style="text-align:center;color:rgba(255,255,255,0.3);padding:40px;font-size:0.8rem">Loading...</td></tr>
+          <tr><td colspan="9" style="text-align:center;color:#aaa;padding:40px;font-size:0.8rem">Loading...</td></tr>
         </tbody>
+        <tfoot><tr>
+          <td>Total Portfolio</td>
+          <td></td><td></td><td></td>
+          <td id="wk-foot-book">—</td>
+          <td id="wk-foot-val">—</td>
+          <td>100%</td>
+          <td id="wk-foot-pnl">—</td>
+          <td></td>
+        </tr></tfoot>
       </table>
     </div>
   </div>
