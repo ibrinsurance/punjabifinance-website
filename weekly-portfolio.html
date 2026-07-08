@@ -165,6 +165,8 @@ tfoot td:first-child{text-align:left}
   .topbar-mobile-btn{display:flex;align-items:center}
 }
 @media(max-width:600px){
+  .charts-grid{grid-template-columns:1fr !important}
+
   .stats-row{grid-template-columns:1fr 1fr}
   .stat{padding:18px 14px}
   .stat-val{font-size:1.5rem}
@@ -383,8 +385,10 @@ tfoot td:first-child{text-align:left}
 
 </
 
-  <!-- PORTFOLIO CHART -->
-  <div style="margin-top:24px">
+  <!-- PORTFOLIO CHARTS -->
+  <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px" class="charts-grid">
+    <!-- Bar chart: Book vs Market -->
+    <div>
 <div class="chart-wrap" style="margin-bottom:20px">
     <div class="chart-title">Book Value vs Market Value — All Positions</div>
     <div class="chart-canvas-wrap"><canvas id="weekly-chart"></canvas></div>
@@ -557,31 +561,190 @@ function renderChart(){
 }
 
 function renderTable(){
-  const totMkt = weeklyData.reduce((s,r)=>s+(r.mktCAD||0),0);
-  const sorted = [...weeklyData].sort((a,b)=>(b.mktCAD||0)-(a.mktCAD||0));
+  const totMkt  = weeklyData.reduce((s,r)=>s+(r.mktCAD||0),0);
+  const totBook = weeklyData.reduce((s,r)=>s+(r.bookCAD||0),0);
+  const totPnl  = weeklyData.reduce((s,r)=>s+(r.plCAD||0),0);
+  const sorted  = [...weeklyData].sort((a,b)=>(b.mktCAD||0)-(a.mktCAD||0));
   const tb = document.getElementById('positions-body');
   if(!tb) return;
-  tb.innerHTML = sorted.map(r=>{
-    const alloc = totMkt>0 ? (r.mktCAD/totMkt*100).toFixed(1) : 0;
-    const plPos = (r.plCAD||0) >= 0;
-    const pctPos = (r.pctReturn||0) >= 0;
-    return `<tr style="color:#fff">
-      <td style="text-align:left"><div style="font-weight:700;color:#fff;font-size:0.85rem">${r.ticker}</div><div style="font-size:0.68rem;color:rgba(255,255,255,0.3)">${r.account||''}</div></td>
-      <td>${fmtN(r.shares,4)}</td>
-      <td>${fmtU(r.pricePaidUSD)}</td>
-      <td>US$${r.currentUSD?r.currentUSD.toFixed(2):'—'}</td>
-      <td>${fmtC(r.bookCAD)}</td>
-      <td>${fmtC(r.mktCAD)}</td>
-      <td><div style="display:flex;align-items:center;gap:6px;justify-content:flex-end">
-        <div style="width:60px;height:4px;background:rgba(255,255,255,0.1);border-radius:2px">
-          <div style="width:${Math.min(parseFloat(alloc)*3,100)}%;height:4px;background:#b8862a;border-radius:2px"></div>
-        </div>
-        ${alloc}%
+
+  const COLORS = {PLTR:'#c49a28',TSLA:'#2d9e5f',SOFI:'#4a7fc1',HOOD:'#c0392b',
+    AMD:'#7b5ea8',NVDA:'#c46b2a',GRAB:'#3a9e9e',BMNR:'#888',NBIS:'#8a9e2d',
+    IREN:'#2a7ec4',AMZN:'#9e2d8a',ZETA:'#c47a2a',SHOP:'#2dc47a',META:'#9a6060',
+    FDGRX:'#5b8dee',NOW:'#e8762a',CRWV:'#6a4fc4',MSFT:'#2a8ac4'};
+  const DEF = ['#c49a28','#2d9e5f','#4a7fc1','#c0392b','#7b5ea8','#c46b2a'];
+
+  tb.innerHTML = sorted.map((r,i)=>{
+    const col      = COLORS[r.ticker] || DEF[i%DEF.length];
+    const allocPct = totMkt>0 ? (r.mktCAD/totMkt*100) : 0;
+    const plPos    = (r.plCAD||0) >= 0;
+    const pctPos   = (r.pctReturn||0) >= 0;
+    return `<tr>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <span style="width:8px;height:8px;border-radius:50%;background:${col};flex-shrink:0;display:inline-block"></span>
+        <span style="font-weight:700;font-size:0.89rem;color:#1a1a1a">${r.ticker}</span>
       </div></td>
-      <td style="color:${plPos?'#4caf7d':'#e05252'}">${plPos?'+':''}${fmtC(r.plCAD)}</td>
-      <td><span style="background:${pctPos?'rgba(76,175,61,0.15)':'rgba(224,82,82,0.15)'};color:${pctPos?'#4caf7d':'#e05252'};padding:3px 8px;border-radius:100px;font-size:0.72rem;font-weight:700">${pctPos?'+':''}${(r.pctReturn||0).toFixed(1)}%</span></td>
+      <td style="text-align:right">${fmtN(r.shares,4)}</td>
+      <td style="text-align:right" class="col-hide-mobile"><div style="font-size:0.83rem;font-weight:600;color:#1a1a1a">${fmtU(r.pricePaidUSD)}</div></td>
+      <td style="text-align:right"><div style="font-size:0.83rem;font-weight:600;color:#1a1a1a">${r.currentUSD?'US$'+r.currentUSD.toFixed(2):'—'}</div><div style="font-size:0.67rem;color:${pctPos?'#1a7a41':'#c0392b'};margin-top:2px">${(r.pctReturn||0).toFixed(1)}% vs avg</div></td>
+      <td style="text-align:right" class="col-hide-mobile"><div style="font-size:0.83rem;font-weight:600;color:#1a1a1a">${fmtC(r.bookCAD)}</div></td>
+      <td style="text-align:right"><div style="font-size:0.83rem;font-weight:600;color:#1a1a1a">${fmtC(r.mktCAD)}</div></td>
+      <td><div style="display:flex;align-items:center;gap:8px;justify-content:flex-end">
+        <div style="width:60px;height:5px;background:#f0ede8;border-radius:3px;overflow:hidden;flex-shrink:0">
+          <div style="width:${Math.min(allocPct*3,100).toFixed(1)}%;height:100%;background:${col};border-radius:3px"></div>
+        </div>
+        <span style="font-size:0.78rem;font-weight:600;color:#1a1a1a;min-width:36px;text-align:right">${allocPct.toFixed(1)}%</span>
+      </div></td>
+      <td style="text-align:right"><div style="font-size:0.83rem;font-weight:600;color:${plPos?'#1a7a41':'#c0392b'}">${plPos?'+':''}${fmtC(r.plCAD)}</div></td>
+      <td style="text-align:right"><span style="background:${pctPos?'#e8f5e9':'#fde8e8'};color:${pctPos?'#1a7a41':'#c0392b'};padding:3px 8px;border-radius:100px;font-size:0.72rem;font-weight:700">${pctPos?'+':''}${(r.pctReturn||0).toFixed(1)}%</span></td>
     </tr>`;
   }).join('');
+
+  // Footer totals
+  const fb = document.getElementById('wk-foot-book');
+  const fv = document.getElementById('wk-foot-val');
+  const fp = document.getElementById('wk-foot-pnl');
+  if(fb) fb.textContent = fmtC(totBook);
+  if(fv) fv.textContent = fmtC(totMkt);
+  if(fp){ fp.textContent = (totPnl>=0?'+':'')+fmtC(totPnl); fp.style.color = totPnl>=0?'#1a7a41':'#c0392b'; }
+}
+
+
+function renderWeeklyPieChart(positions){
+  const canvas = document.getElementById('pie-chart-weekly');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  const total = positions.reduce((s,p)=>s+p.mktCAD, 0);
+  if(!total) return;
+
+  const sorted = [...positions].sort((a,b)=>b.mktCAD-a.mktCAD);
+
+  // Donut sits in the top 76% of the canvas
+  const DONUT_H = H * 0.78;
+  const cx = W/2, cy = DONUT_H/2;
+  const R = W*0.41, ri = W*0.23, MID = (R+ri)/2;
+  const MIN_PCT = 3.36; // ~3.36% cutoff — slices below this go to Others
+  const MIN_ARC = MID * MIN_PCT/100 * 2*Math.PI; // arc threshold for label display
+
+  const main = sorted.filter(p=>p.mktCAD/total*100 >= MIN_PCT);
+  const othersArr = sorted.filter(p=>p.mktCAD/total*100 < MIN_PCT);
+  const otherPct = othersArr.reduce((s,p)=>s+p.mktCAD/total*100, 0);
+
+  const slices = main.map(p=>({
+    t:p.ticker, pct:p.mktCAD/total*100,
+    col:TICKER_COLORS[p.ticker]||'#888'
+  }));
+  if(otherPct>0) slices.push({t:'Others', pct:otherPct, col:'#5a5a5a'});
+
+  // Dark background
+  ctx.fillStyle='#0f0d04';
+  ctx.beginPath();
+  if(ctx.roundRect) ctx.roundRect(0,0,W,H,16);
+  else { ctx.rect(0,0,W,H); }
+  ctx.fill();
+
+  // Gold glow centred on donut
+  const grd=ctx.createRadialGradient(cx,cy,0,cx,cy,W*0.5);
+  grd.addColorStop(0,'rgba(212,165,52,0.14)'); grd.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=grd; ctx.fillRect(0,0,W,DONUT_H);
+
+  // Draw donut (arc-only, no moveTo center)
+  let angle=-Math.PI/2;
+  slices.forEach(s=>{
+    const sweep=(s.pct/100)*Math.PI*2;
+    ctx.beginPath();
+    ctx.arc(cx,cy,R,angle,angle+sweep,false);
+    ctx.arc(cx,cy,ri,angle+sweep,angle,true);
+    ctx.closePath();
+    ctx.fillStyle=s.col; ctx.fill();
+    ctx.strokeStyle='#0f0d04'; ctx.lineWidth=3; ctx.stroke();
+    s._a=angle; s._s=sweep;
+    angle+=sweep;
+  });
+
+  // Center hole cleanup
+  ctx.beginPath(); ctx.arc(cx,cy,ri-1,0,Math.PI*2);
+  ctx.fillStyle='#0f0d04'; ctx.fill();
+
+  // Center: position count
+  ctx.fillStyle='#fff';
+  ctx.font=`800 ${Math.round(W*0.1)}px Georgia,serif`;
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(positions.length, cx, cy-W*0.022);
+  ctx.fillStyle='rgba(255,255,255,0.38)';
+  ctx.font=`400 ${Math.round(W*0.032)}px Arial,sans-serif`;
+  ctx.fillText('Positions', cx, cy+W*0.048);
+
+  // Labels inside each slice
+  slices.forEach(s=>{
+    const mid=s._a+s._s/2;
+    const arcLen=s._s*MID;
+    if(arcLen<MIN_ARC) return;
+    const lx=cx+Math.cos(mid)*MID;
+    const ly=cy+Math.sin(mid)*MID;
+    ctx.save(); ctx.translate(lx,ly);
+    const fsize=Math.min(W*0.042,Math.max(W*0.02,arcLen/5.2));
+    ctx.fillStyle='#fff';
+    ctx.font=`700 ${Math.round(fsize)}px Arial,sans-serif`;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(s.t, 0, -fsize*0.58);
+    ctx.fillStyle='rgba(255,255,255,0.85)';
+    ctx.font=`400 ${Math.round(fsize*0.8)}px Arial,sans-serif`;
+    ctx.fillText(s.pct.toFixed(1)+'%', 0, fsize*0.65);
+    ctx.restore();
+  });
+
+  // ── BELOW DONUT AREA ──
+  const belowTop = DONUT_H + 6;
+  const brandH   = H * 0.09;
+  const brandTop = H - brandH;
+
+  // Others: wrap text between donut bottom and branding
+  if(othersArr.length>0){
+    const ofsize = Math.round(W*0.026);
+    ctx.font=`400 ${ofsize}px Arial,sans-serif`;
+    const parts = othersArr.map(p=>p.ticker+' '+(p.mktCAD/total*100).toFixed(1)+'%');
+    const header = 'Other:';
+    const maxW = W-48;
+
+    // Wrap into lines
+    const lines = [];
+    let line = '';
+    parts.forEach(w=>{
+      const sep = line ? '  ·  ' : '';
+      if(ctx.measureText(line+sep+w).width > maxW && line){
+        lines.push(line); line=w;
+      } else { line += sep+w; }
+    });
+    if(line) lines.push(line);
+
+    const totalTextH = lines.length*(ofsize+8);
+    const textStartY = belowTop + ((brandTop-belowTop)-totalTextH)/2;
+
+    ctx.fillStyle='rgba(255,255,255,0.32)';
+    ctx.font=`600 ${ofsize}px Arial,sans-serif`;
+    ctx.textAlign='center'; ctx.textBaseline='top';
+    ctx.fillText('Others:', cx, textStartY);
+    ctx.font=`400 ${ofsize}px Arial,sans-serif`;
+    ctx.fillStyle='rgba(255,255,255,0.22)';
+    lines.forEach((l,i)=>{
+      ctx.fillText(l, cx, textStartY + (ofsize+8)*(i+1));
+    });
+  }
+
+  // Branding strip
+  ctx.fillStyle='rgba(212,165,52,0.15)';
+  ctx.fillRect(0, brandTop, W, brandH);
+  ctx.fillStyle='#d4a534';
+  ctx.font=`700 ${Math.round(W*0.038)}px Georgia,serif`;
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('Punjabi Finance', cx, brandTop + brandH*0.36);
+  ctx.fillStyle='rgba(255,255,255,0.22)';
+  ctx.font=`400 ${Math.round(W*0.024)}px Arial,sans-serif`;
+  // no branding on weekly chart
 }
 
 init();
