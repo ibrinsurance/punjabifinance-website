@@ -13,6 +13,15 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#f9f7f3;color:#1a1a1a;font-family:'DM Sans',sans-serif;min-height:100vh}
 
+.ham-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:10px 12px;border:1px solid rgba(212,165,52,0.35);background:rgba(212,165,52,0.1);border-radius:8px;flex-shrink:0}
+.ham-line{width:24px;height:2.5px;background:#d4a534;border-radius:2px;transition:all .25s;display:block}
+.ham-btn.open .ham-line:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham-btn.open .ham-line:nth-child(2){opacity:0}
+.ham-btn.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-dropdown{display:none;position:fixed;top:58px;left:0;right:0;background:#111009;border-bottom:1px solid rgba(212,165,52,0.15);flex-direction:column;z-index:99;padding:8px 0}
+.nav-dropdown.open{display:flex}
+.nav-dropdown .nav-btn{padding:12px 24px;border-radius:0;font-size:0.8rem}
+
 /* ── TOPBAR ── */
 .topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;z-index:100;gap:12px}
 .wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12)}
@@ -119,6 +128,12 @@ tfoot td:first-child{text-align:left}
 .filter-btn{background:#fff;border:1px solid #e8e4dc;font-size:0.67rem;font-weight:600;padding:6px 14px;border-radius:100px;cursor:pointer;letter-spacing:0.06em;transition:all .15s;font-family:'DM Sans',sans-serif}
 .filter-btn:hover,.filter-btn.active{background:#1a1a1a;border-color:#1a1a1a;color:#fff}
 
+/* ensure table cells always white bg regardless of dark parent */
+#positions-section table{background:#fff}
+#positions-section thead th{background:#f9f9f7;color:#9a9a9a}
+#positions-section tbody td{background:#fff;color:#1a1a1a}
+#positions-section tfoot td{background:#f9f9f7;color:#1a1a1a}
+
 /* ── LOCKED BLUR ── */
 .lockable.locked{filter:blur(5px);pointer-events:none;user-select:none}
 
@@ -214,15 +229,29 @@ tfoot td:first-child{text-align:left}
   </div>
   <div class="topbar-right-btns">
     <a class="topbar-mobile-btn join" href="community.html">Join</a>
+    <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
   </div>
 </div>
+<nav class="nav-dropdown" id="nav-dropdown">
+  <a class="nav-btn" href="index.html">Live Portfolio</a>
+  <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn active" href="weekly-portfolio.html">$100/Week</a>
+  <a class="nav-btn" href="philosophy.html">How I Invest</a>
+  <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn" href="community.html" style="color:#1a9e50">Join</a>
+  <a class="nav-btn" href="calculators.html">Calculators</a>
+  <a class="nav-btn" href="links.html">Links</a>
+  <a class="nav-btn" href="mediakit.html">Media Kit</a>
+</nav>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tag">📈 Community Exclusive · New</div>
-  <div class="hero-title">The <em>$100 Per Week</em> Portfolio</div>
-  <div class="hero-sub">$100 invested every single week — no exceptions. Every buy shared openly with the community. This is what consistency looks like in practice.</div>
-  <div class="hero-note">Tracked separately from the core C$2M+ portfolio · Not financial advice</div>
+  <div class="hero-tag">📈 Community Exclusive · Started July 2025</div>
+  <div class="hero-title">The <em>$100 USD/Week</em> Portfolio</div>
+  <div class="hero-sub">$100 USD invested every single week — no exceptions. Every buy shared openly with the community. This is what consistency looks like in practice.</div>
+  <div class="hero-note">Started July 2025 · Tracked separately from the core C$2M+ portfolio · Not financial advice</div>
   <div class="hero-disclaimer">Shared for educational &amp; transparency purposes only. Nothing constitutes financial advice. Past performance does not guarantee future results.</div>
 </div>
 
@@ -249,7 +278,7 @@ tfoot td:first-child{text-align:left}
     <div class="stat">
       <div class="stat-label">Total Invested</div>
       <div class="stat-val" id="s-book">...</div>
-      <div class="stat-meta">Book value (CAD)</div>
+      <div class="stat-meta">$100 USD/wk · CAD value</div>
     </div>
   </div>
 
@@ -259,8 +288,8 @@ tfoot td:first-child{text-align:left}
     <div class="how-grid">
       <div class="how-card">
         <div class="how-icon">💵</div>
-        <div class="how-title">$100 every week</div>
-        <div class="how-desc">Same amount, every week — no skipping, no doubling up. Discipline over timing.</div>
+        <div class="how-title">$100 USD every week</div>
+        <div class="how-desc">Same amount every week, no skipping, no doubling up. Started July 2025 — discipline over timing.</div>
       </div>
       <div class="how-card">
         <div class="how-icon">📖</div>
@@ -287,12 +316,7 @@ tfoot td:first-child{text-align:left}
 <div class="section">
 
   <div class="sec-label" style="color:rgba(212,165,52,0.55)">Portfolio Allocation <span class="sec-label-tag" style="background:rgba(37,211,102,0.12);color:#4caf7d">Live</span></div>
-
-  <!-- CHART (always public) -->
-  <div class="chart-wrap" style="margin-bottom:20px">
-    <div class="chart-title">Book Value vs Market Value — All Positions</div>
-    <div class="chart-canvas-wrap"><canvas id="weekly-chart"></canvas></div>
-  </div>
+  <div style="font-size:0.72rem;color:rgba(255,255,255,0.3);margin-bottom:16px">Started July 2025 · $100 USD deposited weekly · small balance = short journey so far</div>
 
   <!-- UNLOCK BAR -->
   <div class="unlock-bar" id="unlock-bar">
@@ -309,7 +333,7 @@ tfoot td:first-child{text-align:left}
   </div>
 
   <!-- POSITIONS TABLE -->
-  <div class="lockable locked" id="positions-section" style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e8e4dc;margin-top:0">
+  <div class="lockable locked" id="positions-section" style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e8e4dc;margin-top:0;color:#1a1a1a">
     <!-- Sort controls -->
     <div style="padding:16px 20px;border-bottom:1px solid #f0ede8;display:flex;gap:8px;flex-wrap:wrap;align-items:center" id="sort-controls-weekly">
       <span style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#9a9a9a;font-weight:600">Sort by:</span>
@@ -357,7 +381,17 @@ tfoot td:first-child{text-align:left}
     </div>
   </div>
 
-</div>
+</
+
+  <!-- PORTFOLIO CHART -->
+  <div style="margin-top:24px">
+<div class="chart-wrap" style="margin-bottom:20px">
+    <div class="chart-title">Book Value vs Market Value — All Positions</div>
+    <div class="chart-canvas-wrap"><canvas id="weekly-chart"></canvas></div>
+  </div>
+  </div>
+
+div>
 </div>
 
 <!-- FOOTER -->
@@ -551,6 +585,19 @@ function renderTable(){
 }
 
 init();
+
+function toggleMenu(){
+  document.getElementById('ham-btn').classList.toggle('open');
+  document.getElementById('nav-dropdown').classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  const btn=document.getElementById('ham-btn');
+  const drop=document.getElementById('nav-dropdown');
+  if(btn&&drop&&!btn.contains(e.target)&&!drop.contains(e.target)){
+    btn.classList.remove('open');
+    drop.classList.remove('open');
+  }
+});
 </script>
 </body>
 </html>
