@@ -141,6 +141,10 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .focus-title{font-size:0.89rem;font-weight:600;color:#1a1a1a;margin-bottom:4px}
 .focus-desc{font-size:0.78rem;color:#777;line-height:1.65}
 
+/* Sponsors grid */
+.sponsors-grid{grid-template-columns:1fr auto}
+@media(max-width:600px){.sponsors-grid{grid-template-columns:1fr !important}}
+
 /* Collab */
 .collab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .collab-card{background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:26px 22px;position:relative;overflow:hidden}
@@ -424,10 +428,10 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   <div class="sec-title">Brands I&rsquo;ve Worked With</div>
   <div class="sec-sub">Sponsorships are selective — I only partner with brands I&rsquo;d personally recommend to my audience.</div>
 
-  <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:stretch;margin-top:8px">
+  <div class="sponsors-grid" style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:stretch;margin-top:8px">
 
     <!-- Moomoo -->
-    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:28px 24px;flex:1;min-width:240px;max-width:380px;position:relative;overflow:hidden">
+    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:28px 24px;position:relative;overflow:hidden">
       <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#FF6B00,#FF9500)"></div>
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
         <div style="width:44px;height:44px;background:#FF6B00;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
@@ -456,7 +460,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
     </div>
 
     <!-- Placeholder for future sponsors -->
-    <div style="background:#fafaf8;border:1.5px dashed #e0dbd2;border-radius:14px;padding:28px 24px;flex:1;min-width:200px;max-width:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px">
+    <div style="background:#fafaf8;border:1.5px dashed #e0dbd2;border-radius:14px;padding:28px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;min-width:180px">
       <div style="font-size:1.8rem;opacity:0.3">🤝</div>
       <div style="font-size:0.78rem;font-weight:700;color:#aaa">Your brand here</div>
       <div style="font-size:0.7rem;color:#bbb;line-height:1.6">Reach a high-intent Canadian investor audience</div>
