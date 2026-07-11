@@ -391,7 +391,11 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-price">&#128172; <span id="cm-price-hero">...</span> / month</div>
+    <div class="hero-price" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center">
+      <span>&#128172; <strong><span id="cm-price-hero">...</span>/mo</strong></span>
+      <span style="color:rgba(255,255,255,0.25);font-size:0.8rem">or</span>
+      <span style="color:#25d366"><strong>$<span id="cm-price-hero-yr">115</span>/year</strong> <span style="font-size:0.7rem;opacity:0.8">— save <span id="cm-price-save-pct">26</span>%</span></span>
+    </div>
     <div class="hero-title">Watch a Real Portfolio.<br><em>Every Move. Every Trade.</em></div>
     <div class="hero-sub">
       I share every buy, every sell, every covered call, every roll — with my reasoning — straight to your WhatsApp.<br>
@@ -801,7 +805,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
       <div style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.4);font-weight:700;margin-bottom:16px">Annual</div>
       <div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:#fff;line-height:1;margin-bottom:4px">$<span id="cm-price-card-yr">115</span></div>
       <div style="font-size:0.78rem;color:rgba(255,255,255,0.35);margin-bottom:4px">per year</div>
-      <div style="font-size:0.72rem;color:#25d366;font-weight:600;margin-bottom:20px">~$<span id="cm-price-card-mo-eq">9.58</span>/month — save 26%</div>
+      <div style="font-size:0.72rem;color:#25d366;font-weight:600;margin-bottom:20px">~$<span id="cm-price-card-mo-eq">9.58</span>/month — save <span id="cm-price-save-pct2">26</span>%</div>
       <a href="https://www.nas.io/punjabifinance" target="_blank" style="display:block;background:#25d366;color:#fff;text-decoration:none;border-radius:10px;padding:13px;font-size:0.85rem;font-weight:700;transition:background .2s">Get Annual Access</a>
     </div>
 
@@ -962,7 +966,13 @@ function galleryScroll(dir){
       var pa=String(d.social.priceAnnual).replace(/[$]/g,'');
       var paNum=parseFloat(pa)||115;
       set('cm-price-card-yr', pa);
+      set('cm-price-hero-yr', pa);
       set('cm-price-card-mo-eq', (paNum/12).toFixed(2));
+      // Auto-calculate save % from monthly vs annual
+      var moNum=parseFloat(String(d.social.price).replace(/[^0-9.]/g,''))||12.99;
+      var savePct=Math.round((1-(paNum/12)/moNum)*100);
+      set('cm-price-save-pct', savePct);
+      set('cm-price-save-pct2', savePct);
     }
 
     // ── Portfolio ──
