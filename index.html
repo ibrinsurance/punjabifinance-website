@@ -80,7 +80,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   .topbar{padding:0 14px;gap:8px}
   .wm-link{padding-right:14px}
 }
-.section{padding:40px 40px}
+.section{padding:40px 40px}@media(max-width:600px){.section{padding:24px 16px}}
 .section-white{background:#ffffff}
 .section-cream{background:#f9f7f3}
 .section-slate{background:#f0f2f5}
@@ -167,7 +167,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 .tape-val{color:#d4a534;font-weight:600}
 .tape-dot{width:3px;height:3px;border-radius:50%;background:rgba(212,165,52,0.3);flex-shrink:0;align-self:center}
 .opts-hero-dark{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid rgba(255,255,255,0.06)}
-@media(max-width:600px){.opts-hero-dark{grid-template-columns:1fr}.ohd{padding:20px 20px;border-bottom:1px solid rgba(255,255,255,0.06)}.ohd:last-child{border-bottom:none}}
+@media(max-width:600px){.opts-hero-dark{grid-template-columns:1fr}.ohd{padding:18px 16px;border-bottom:1px solid rgba(255,255,255,0.08)}.ohd:last-child{border-bottom:none}.ohd::after{display:none}.ohd-val{font-size:1.5rem}}
 .ohd{padding:28px 24px;position:relative;text-align:center}
 .ohd::after{content:'';position:absolute;top:20%;bottom:20%;right:0;width:1px;background:rgba(255,255,255,0.07)}
 .ohd:last-child::after{display:none}
@@ -706,7 +706,7 @@ function applyLockState(){
 // come from the Apps Script endpoint below.
 // Update your sheet → refresh the page = done.
 // ─────────────────────────────────────────────────────
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw4cci2PJTjeTeun0mG-crTHJ1TuyzaH3EFL0Wc0rKyg64NPuyeP8PO1mpgpzZV0PVHvw/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwCABVli_067d7pLo3zF7itdhNPj7IWymP7NTpJ7oRY38-qvPHZNH_-4u_9hcBRTo-Obw/exec';
 
 
 // Ticker colours — order matches however sheet returns tickers

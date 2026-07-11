@@ -164,8 +164,10 @@ tfoot td:first-child{text-align:left}
   .topbar-nav{display:none}
   .topbar-mobile-btn{display:flex;align-items:center}
 }
-@media(max-width:600px){
+@media(max-width:860px){
   .charts-grid{grid-template-columns:1fr !important}
+}
+@media(max-width:600px){
 
   .stats-row{grid-template-columns:1fr 1fr}
   .stat{padding:18px 14px}
@@ -387,15 +389,23 @@ tfoot td:first-child{text-align:left}
 
   <!-- PORTFOLIO CHARTS -->
   <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px" class="charts-grid">
-    <!-- Bar chart: Book vs Market -->
+    <!-- Bar chart -->
     <div>
-<div class="chart-wrap" style="margin-bottom:20px">
-    <div class="chart-title">Book Value vs Market Value — All Positions</div>
-    <div class="chart-canvas-wrap"><canvas id="weekly-chart"></canvas></div>
-  </div>
+      <div class="chart-wrap">
+        <div class="chart-title">Book Value vs Market Value</div>
+        <div class="chart-canvas-wrap"><canvas id="weekly-chart"></canvas></div>
+      </div>
+    </div>
+    <!-- Donut allocation chart -->
+    <div>
+      <div class="chart-wrap">
+        <div class="chart-title">Portfolio Allocation</div>
+        <canvas id="pie-chart-weekly" width="400" height="460" style="max-width:100%;display:block;margin:0 auto;border-radius:12px"></canvas>
+      </div>
+    </div>
   </div>
 
-div>
+</div>
 </div>
 
 <!-- FOOTER -->
@@ -420,7 +430,7 @@ div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <script>
 // ── CONSTANTS ──
-const SHEET_URL   = 'https://script.google.com/macros/s/AKfycbw4cci2PJTjeTeun0mG-crTHJ1TuyzaH3EFL0Wc0rKyg64NPuyeP8PO1mpgpzZV0PVHvw/exec';
+const SHEET_URL   = 'https://script.google.com/macros/s/AKfycbwCABVli_067d7pLo3zF7itdhNPj7IWymP7NTpJ7oRY38-qvPHZNH_-4u_9hcBRTo-Obw/exec';
 const LOCK_KEY    = 'pf_unlocked_v2';
 const EXPIRY_KEY  = 'pf_unlock_expiry_v2';
 const EXPIRY_DAYS = 30;
@@ -482,7 +492,7 @@ const fmtC = v => {
   return (v<0?'-':'')+str;
 };
 const fmtU = v => isNaN(v)||!v ? '—' : 'US$'+parseFloat(v).toFixed(2);
-const fmtN = (v,d=4) => isNaN(v)||!v ? '—' : parseFloat(v).toFixed(d);
+const fmtN = (v,d=2) => isNaN(v)||!v ? '—' : parseFloat(parseFloat(v).toFixed(d)).toString();
 
 // ── LOAD DATA ──
 async function init(){
@@ -497,6 +507,7 @@ async function init(){
       renderStats();
       renderChart();
       renderTable();
+      renderWeeklyPieChart(weeklyData);
     } else {
       showPlaceholder();
     }
@@ -584,7 +595,7 @@ function renderTable(){
         <span style="width:8px;height:8px;border-radius:50%;background:${col};flex-shrink:0;display:inline-block"></span>
         <span style="font-weight:700;font-size:0.89rem;color:#1a1a1a">${r.ticker}</span>
       </div></td>
-      <td style="text-align:right">${fmtN(r.shares,4)}</td>
+      <td style="text-align:right">${fmtN(r.shares,2)}</td>
       <td style="text-align:right" class="col-hide-mobile"><div style="font-size:0.83rem;font-weight:600;color:#1a1a1a">${fmtU(r.pricePaidUSD)}</div></td>
       <td style="text-align:right"><div style="font-size:0.83rem;font-weight:600;color:#1a1a1a">${r.currentUSD?'US$'+r.currentUSD.toFixed(2):'—'}</div><div style="font-size:0.67rem;color:${pctPos?'#1a7a41':'#c0392b'};margin-top:2px">${(r.pctReturn||0).toFixed(1)}% vs avg</div></td>
       <td style="text-align:right" class="col-hide-mobile"><div style="font-size:0.83rem;font-weight:600;color:#1a1a1a">${fmtC(r.bookCAD)}</div></td>
