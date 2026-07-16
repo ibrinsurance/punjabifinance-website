@@ -642,7 +642,7 @@ document.addEventListener('click',function(e){
 <script>
 (async function(){
   try{
-    const r = await fetch('https://script.google.com/macros/s/AKfycbwCABVli_067d7pLo3zF7itdhNPj7IWymP7NTpJ7oRY38-qvPHZNH_-4u_9hcBRTo-Obw/exec', {cache:'no-store'});
+    const r = await fetch('https://script.google.com/macros/s/AKfycbzTX4LzpsbF5MpjTpmHahV9ZXt5jVOFE2lvcz5cnRxGQ2hOdu3fmeoagFk8N3afEZGdRw/exec', {cache:'no-store'});
     const d = await r.json();
     if(!d.social){ console.warn('No social data in response'); return; }
     const s = d.social;

@@ -430,7 +430,7 @@ tfoot td:first-child{text-align:left}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <script>
 // ── CONSTANTS ──
-const SHEET_URL   = 'https://script.google.com/macros/s/AKfycbwCABVli_067d7pLo3zF7itdhNPj7IWymP7NTpJ7oRY38-qvPHZNH_-4u_9hcBRTo-Obw/exec';
+const SHEET_URL   = 'https://script.google.com/macros/s/AKfycbzTX4LzpsbF5MpjTpmHahV9ZXt5jVOFE2lvcz5cnRxGQ2hOdu3fmeoagFk8N3afEZGdRw/exec';
 const LOCK_KEY    = 'pf_unlocked_v2';
 const EXPIRY_KEY  = 'pf_unlock_expiry_v2';
 const EXPIRY_DAYS = 30;
@@ -504,6 +504,7 @@ async function init(){
     if(data.monthlyCode && data.monthlyCode.trim()) MONTHLY_CODE = data.monthlyCode.trim().toUpperCase();
     if(data.weeklyPositions && data.weeklyPositions.length){
       weeklyData = data.weeklyPositions.filter(r => r.ticker && r.ticker !== 'TICKER' && r.ticker !== 'SYMBOL' && r.shares > 0);
+      console.log('Weekly positions raw:', JSON.stringify(weeklyData[0]));
       renderStats();
       renderChart();
       renderTable();
