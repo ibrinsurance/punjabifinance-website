@@ -503,7 +503,7 @@ async function init(){
     const data = await r.json();
     if(data.monthlyCode && data.monthlyCode.trim()) MONTHLY_CODE = data.monthlyCode.trim().toUpperCase();
     if(data.weeklyPositions && data.weeklyPositions.length){
-      weeklyData = data.weeklyPositions.filter(r => r.ticker && r.ticker !== 'TICKER' && r.ticker !== 'SYMBOL' && r.shares > 0);
+      weeklyData = data.weeklyPositions.filter(r => r.ticker && r.ticker !== 'TICKER' && r.ticker !== 'SYMBOL' && (r.bookCAD > 0 || r.mktCAD > 0));
       console.log('Weekly positions raw:', JSON.stringify(weeklyData[0]));
       renderStats();
       renderChart();
