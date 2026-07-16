@@ -430,7 +430,7 @@ tfoot td:first-child{text-align:left}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <script>
 // ── CONSTANTS ──
-const SHEET_URL   = 'https://script.google.com/macros/s/AKfycbzTX4LzpsbF5MpjTpmHahV9ZXt5jVOFE2lvcz5cnRxGQ2hOdu3fmeoagFk8N3afEZGdRw/exec';
+const SHEET_URL   = 'https://script.google.com/macros/s/AKfycbygBRhjRSgxBjFpaE_j2uatxpZEFiLIN8Oe4kMbk_r3OeDhhhZExM-MS_zMBrEjEedlXg/exec';
 const LOCK_KEY    = 'pf_unlocked_v2';
 const EXPIRY_KEY  = 'pf_unlock_expiry_v2';
 const EXPIRY_DAYS = 30;
@@ -623,6 +623,15 @@ function renderTable(){
 
 
 function renderWeeklyPieChart(positions){
+  const TICKER_COLORS = {
+    PLTR:'#c49a28',TSLA:'#2d9e5f',SOFI:'#4a7fc1',HOOD:'#c0392b',
+    AMD:'#7b5ea8',NVDA:'#c46b2a',GRAB:'#3a9e9e',BMNR:'#888',
+    NBIS:'#8a9e2d',IREN:'#2a7ec4',AMZN:'#9e2d8a',ZETA:'#c47a2a',
+    SHOP:'#2dc47a',META:'#9a6060',FDGRX:'#5b8dee',NOW:'#e8762a',
+    CRWV:'#6a4fc4',MSFT:'#2a8ac4'
+  };
+  const DEFAULT_COLORS = ['#c49a28','#2d9e5f','#4a7fc1','#c0392b','#7b5ea8',
+    '#c46b2a','#3a9e9e','#888','#8a9e2d','#2a7ec4'];
   const canvas = document.getElementById('pie-chart-weekly');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
