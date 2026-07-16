@@ -408,9 +408,6 @@ tfoot td:first-child{text-align:left}
 </div>
 </div>
 
-<!-- DEBUG (remove after fixing) -->
-<div id="debug-panel" style="background:#1a0000;color:#ff6b6b;font-family:monospace;font-size:0.7rem;padding:16px 20px;white-space:pre-wrap;word-break:break-all;display:none"></div>
-
 <!-- FOOTER -->
 <div class="footer">
   Not financial advice &nbsp;·&nbsp; <a href="index.html">Live Portfolio</a> <a href="community.html">Community</a> <a href="mediakit.html">Media Kit</a> <a href="links.html">Links</a>
@@ -505,25 +502,19 @@ async function init(){
     if(!r.ok) throw new Error('fetch failed');
     const data = await r.json();
     if(data.monthlyCode && data.monthlyCode.trim()) MONTHLY_CODE = data.monthlyCode.trim().toUpperCase();
-    const dbg = document.getElementById('debug-panel');
-    if(dbg){ dbg.style.display='block'; dbg.textContent = 'Keys: ' + Object.keys(data).join(', ') + '\nweeklyPositions: ' + (data.weeklyPositions ? data.weeklyPositions.length + ' rows' : 'NOT FOUND') + (data.weeklyPositions && data.weeklyPositions[0] ? '\nRow 0: ' + JSON.stringify(data.weeklyPositions[0]) : ''); }
-    console.log('weeklyPositions count:', data.weeklyPositions ? data.weeklyPositions.length : 'none');
+    
     if(data.weeklyPositions && data.weeklyPositions.length){
       weeklyData = data.weeklyPositions.filter(r => r.ticker && r.ticker.length > 0 && r.ticker !== 'TICKER');
-      console.log('After filter count:', weeklyData.length);
-      if(dbg) dbg.textContent += '\nAfter filter: ' + weeklyData.length + (weeklyData[0] ? '\nFiltered[0]: ' + JSON.stringify(weeklyData[0]) : '\nEMPTY AFTER FILTER');
-      console.log('Weekly positions raw:', weeklyData[0] ? JSON.stringify(weeklyData[0]) : 'EMPTY AFTER FILTER');
+      
       renderStats();
       renderChart();
       renderTable();
-      try{ renderWeeklyPieChart(weeklyData); }catch(e){ console.warn("Pie chart error:", e.message); }
+      // pie chart called separately below
     } else {
       showPlaceholder();
     }
   } catch(e) {
     console.error('Load failed:', e);
-    const dbg2 = document.getElementById('debug-panel');
-    if(dbg2){ dbg2.style.display='block'; dbg2.textContent = 'LOAD ERROR: ' + e.message; }
     showPlaceholder();
   }
 }
@@ -778,7 +769,9 @@ function renderWeeklyPieChart(positions){
   // no branding on weekly chart
 }
 
-init();
+init().then(()=>{
+  try{ renderWeeklyPieChart(weeklyData); }catch(e){ console.warn('Pie chart error:',e.message); }
+});
 
 function toggleMenu(){
   document.getElementById('ham-btn').classList.toggle('open');
