@@ -502,9 +502,11 @@ async function init(){
     if(!r.ok) throw new Error('fetch failed');
     const data = await r.json();
     if(data.monthlyCode && data.monthlyCode.trim()) MONTHLY_CODE = data.monthlyCode.trim().toUpperCase();
+    console.log('weeklyPositions count:', data.weeklyPositions ? data.weeklyPositions.length : 'none');
     if(data.weeklyPositions && data.weeklyPositions.length){
-      weeklyData = data.weeklyPositions.filter(r => r.ticker && r.ticker !== 'TICKER' && r.ticker !== 'SYMBOL' && (r.bookCAD > 0 || r.mktCAD > 0));
-      console.log('Weekly positions raw:', JSON.stringify(weeklyData[0]));
+      weeklyData = data.weeklyPositions.filter(r => r.ticker && r.ticker.length > 0 && r.ticker !== 'TICKER');
+      console.log('After filter count:', weeklyData.length);
+      console.log('Weekly positions raw:', weeklyData[0] ? JSON.stringify(weeklyData[0]) : 'EMPTY AFTER FILTER');
       renderStats();
       renderChart();
       renderTable();
