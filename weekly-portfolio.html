@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f9f7f3;color:#1a1a1a;font-family:'DM Sans',sans-serif;min-height:100vh}
+body{background:#f4f2ee;color:#1a1a1a;font-family:'DM Sans',sans-serif;min-height:100vh}
 
 .ham-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:10px 12px;border:1px solid rgba(212,165,52,0.35);background:rgba(212,165,52,0.1);border-radius:8px;flex-shrink:0}
 .ham-line{width:24px;height:2.5px;background:#d4a534;border-radius:2px;transition:all .25s;display:block}
@@ -47,6 +47,8 @@ body{background:#f9f7f3;color:#1a1a1a;font-family:'DM Sans',sans-serif;min-heigh
 
 /* ── STATS (cream, like main page) ── */
 .section-cream{background:#f9f7f3}
+.section-white{background:#ffffff}
+.section-slate{background:#f0f2f5}
 .section{padding:40px 40px;max-width:1100px;margin:0 auto}
 .sec-label{font-size:0.65rem;letter-spacing:0.24em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px}
 .sec-label-tag{background:#e8f5e9;color:#2e7d32;font-size:0.58rem;padding:2px 8px;border-radius:100px;font-weight:700;letter-spacing:0.1em}
@@ -114,7 +116,7 @@ thead th:first-child{text-align:left}
 tbody td{padding:13px 12px;border-bottom:1px solid #f0ede8;vertical-align:middle;text-align:right;color:#1a1a1a}
 tbody td:first-child{text-align:left}
 tbody tr:hover td{background:#fdfcf9}
-tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-bottom:none;padding-top:14px;text-align:right}
+tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-bottom:none;padding:14px 12px 18px;text-align:right}
 tfoot td:first-child{text-align:left}
 .tk{font-weight:700;font-size:0.89rem}
 .tv{font-size:0.83rem;font-weight:600;color:#1a1a1a}
@@ -129,7 +131,7 @@ tfoot td:first-child{text-align:left}
 .filter-btn:hover,.filter-btn.active{background:#1a1a1a;border-color:#1a1a1a;color:#fff}
 
 /* ensure table cells always white bg regardless of dark parent */
-#positions-section table{background:#fff}
+#positions-section table{background:#fff;min-width:580px}
 #positions-section thead th{background:#f9f9f7;color:#9a9a9a}
 #positions-section tbody td{background:#fff;color:#1a1a1a}
 #positions-section tfoot td{background:#f9f9f7;color:#1a1a1a}
@@ -141,10 +143,10 @@ tfoot td:first-child{text-align:left}
 /* bar chart */
 .bar-wrap{display:flex;flex-direction:column;gap:10px}
 .bar-row{display:flex;align-items:center;gap:12px}
-.bar-tk{font-size:0.78rem;font-weight:700;color:#1a1a1a;width:52px;flex-shrink:0}
-.bar-track{flex:1;height:7px;background:#ece9e2;border-radius:4px;overflow:hidden}
+.bar-tk{font-size:0.78rem;font-weight:700;color:rgba(255,255,255,0.85);width:52px;flex-shrink:0}
+.bar-track{flex:1;height:7px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden}
 .bar-fill{height:100%;border-radius:4px}
-.bar-pct{font-size:0.78rem;color:#555;width:60px;text-align:right;flex-shrink:0;font-weight:500}
+.bar-pct{font-size:0.78rem;color:rgba(255,255,255,0.7);width:60px;text-align:right;flex-shrink:0;font-weight:500}
 
 /* ── MODAL ── */
 .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999;align-items:center;justify-content:center;padding:20px}
@@ -325,22 +327,22 @@ tfoot td:first-child{text-align:left}
 </div>
 
 <!-- PORTFOLIO SECTION (dark, partially locked) -->
-<div class="section-dark">
+<div class="section-white">
 <div class="section">
 
-  <div class="sec-label" style="color:rgba(212,165,52,0.55)">Portfolio Allocation <span class="sec-label-tag" style="background:rgba(37,211,102,0.12);color:#4caf7d">Live</span></div>
-  <div style="font-size:0.72rem;color:rgba(255,255,255,0.3);margin-bottom:20px">Started July 2026 · $100 USD deposited weekly · small balance = short journey so far</div>
+  <div class="sec-label" style="color:#9a9a9a;border-bottom:1.5px solid #e8e4dc;padding-bottom:10px;display:flex;align-items:center;gap:8px;margin-bottom:16px">Portfolio Allocation <span class="sec-label-tag">Live</span></div>
+  <div style="font-size:0.72rem;color:#aaa;margin-bottom:20px">Started July 2026 · $100 USD deposited weekly · small balance = short journey so far</div>
 
   <!-- 1. PIE CHART (always visible) -->
   <div style="display:flex;justify-content:center;margin-bottom:24px">
-    <div class="chart-wrap" style="max-width:440px;width:100%">
+    <div style="background:#111009;border-radius:16px;padding:20px;max-width:440px;width:100%">
       <div class="chart-title">Portfolio Allocation</div>
       <canvas id="pie-chart-weekly" width="400" height="460" style="max-width:100%;display:block;margin:0 auto;border-radius:12px"></canvas>
     </div>
   </div>
 
   <!-- 2. UNLOCK BAR -->
-  <div class="unlock-bar" id="unlock-bar">
+  <div class="unlock-bar" id="unlock-bar" style="margin-bottom:20px">
     <div class="unlock-bar-left">
       <div class="unlock-bar-icon">🔐</div>
       <div class="unlock-bar-text"><strong>Members only</strong> — Enter your code to see full position details</div>
@@ -354,15 +356,15 @@ tfoot td:first-child{text-align:left}
   </div>
 
   <!-- 3. POSITIONS TABLE -->
-  <div id="positions-section" style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e8e4dc;margin-top:16px">
-    <div style="padding:16px 20px;border-bottom:1px solid #f0ede8;display:flex;gap:8px;flex-wrap:wrap;align-items:center" id="sort-controls-weekly">
+  <div id="positions-section" style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e8e4dc;margin-top:16px;padding-bottom:4px">
+    <div style="padding:14px 20px;border-bottom:1px solid #f0ede8;display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;align-items:center;scrollbar-width:none;-webkit-overflow-scrolling:touch" id="sort-controls-weekly">
       <span style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#9a9a9a;font-weight:600">Sort by:</span>
       <button class="filter-btn active" onclick="setSortW('mktCAD')">Market Value</button>
       <button class="filter-btn" onclick="setSortW('plCAD')">P&amp;L $</button>
       <button class="filter-btn" onclick="setSortW('pctReturn')">P&amp;L %</button>
       <button class="filter-btn" onclick="setSortW('ticker')">Ticker A-Z</button>
     </div>
-    <div class="tscroll">
+    <div class="tscroll" style="border-radius:0 0 16px 16px">
       <table>
         <thead><tr>
           <th style="text-align:left">Ticker</th>
@@ -393,23 +395,24 @@ tfoot td:first-child{text-align:left}
 
   <!-- LOCK GATE -->
   <div id="lock-gate-section" style="display:none">
-    <div class="lock-gate" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);margin-top:16px">
+    <div class="lock-gate" style="background:#fff;border-color:#e8e4dc;margin-top:16px">
       <div class="lock-icon">🔒</div>
-      <div class="lock-title" style="color:#fff">Members only</div>
-      <div class="lock-sub" style="color:rgba(255,255,255,0.4)">Full position details are shared exclusively with WhatsApp community members.</div>
+      <div class="lock-title" style="color:#1a1a1a">Members only</div>
+      <div class="lock-sub" style="color:#888">Full position details are shared exclusively with WhatsApp community members.</div>
       <a class="join-cta" href="community.html">💬 Join the Community</a>
     </div>
   </div>
 
   <!-- 4. RETURN BY POSITION BAR CHART (locked when not member) -->
-  <div style="margin-top:24px">
-    <div style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);font-weight:600;margin-bottom:16px">Return by Position</div>
-    <div class="bar-wrap" id="wk-bar-chart" style="background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.1);border-radius:14px;padding:20px"></div>
+  <div style="margin-top:24px;background:#111009;border-radius:14px;padding:20px 22px">
+    <div style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:18px">Return by Position</div>
+    <div class="bar-wrap" id="wk-bar-chart"></div>
+    <div id="bar-lock-note" style="font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:16px;text-align:right">Unlock to see actual returns</div>
   </div>
 
   <!-- 5. BOOK VS MARKET CHART (locked) -->
-  <div style="margin-top:24px">
-    <div class="chart-wrap">
+  <div style="margin-top:24px;background:#111009;border-radius:14px;padding:20px 22px">
+    <div>
       <div class="chart-title">Book Value vs Market Value</div>
       <div class="chart-canvas-wrap"><canvas id="weekly-chart"></canvas></div>
     </div>
@@ -500,6 +503,8 @@ function applyLockState(){
   if(lgs) lgs.style.display = unlocked ? 'none' : 'block';
   // Bar chart re-render if data loaded
   if(weeklyData.length > 0) try{ renderBarChart(); }catch(e){}
+  const barNote = document.getElementById('bar-lock-note');
+  if(barNote) barNote.style.display = unlocked ? 'none' : 'block';
 }
 
 // ── FORMATTING ──
