@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!-- v3 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -134,8 +134,17 @@ tfoot td:first-child{text-align:left}
 #positions-section tbody td{background:#fff;color:#1a1a1a}
 #positions-section tfoot td{background:#f9f9f7;color:#1a1a1a}
 
-/* ── LOCKED BLUR ── */
-.lockable.locked{filter:blur(5px);pointer-events:none;user-select:none}
+/* ── LOCKED ── */
+.locked{filter:blur(7px);user-select:none;pointer-events:none;color:#c8c4bc!important}
+.locked *{color:#c8c4bc!important;background:transparent!important}
+.lock-bar-cover{filter:blur(5px);user-select:none;pointer-events:none;color:#c8c4bc!important}
+/* bar chart */
+.bar-wrap{display:flex;flex-direction:column;gap:10px}
+.bar-row{display:flex;align-items:center;gap:12px}
+.bar-tk{font-size:0.78rem;font-weight:700;color:#1a1a1a;width:52px;flex-shrink:0}
+.bar-track{flex:1;height:7px;background:#ece9e2;border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px}
+.bar-pct{font-size:0.78rem;color:#555;width:60px;text-align:right;flex-shrink:0;font-weight:500}
 
 /* ── MODAL ── */
 .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999;align-items:center;justify-content:center;padding:20px}
@@ -320,9 +329,17 @@ tfoot td:first-child{text-align:left}
 <div class="section">
 
   <div class="sec-label" style="color:rgba(212,165,52,0.55)">Portfolio Allocation <span class="sec-label-tag" style="background:rgba(37,211,102,0.12);color:#4caf7d">Live</span></div>
-  <div style="font-size:0.72rem;color:rgba(255,255,255,0.3);margin-bottom:16px">Started July 2026 · $100 USD deposited weekly · small balance = short journey so far</div>
+  <div style="font-size:0.72rem;color:rgba(255,255,255,0.3);margin-bottom:20px">Started July 2026 · $100 USD deposited weekly · small balance = short journey so far</div>
 
-  <!-- UNLOCK BAR -->
+  <!-- 1. PIE CHART (always visible) -->
+  <div style="display:flex;justify-content:center;margin-bottom:24px">
+    <div class="chart-wrap" style="max-width:440px;width:100%">
+      <div class="chart-title">Portfolio Allocation</div>
+      <canvas id="pie-chart-weekly" width="400" height="460" style="max-width:100%;display:block;margin:0 auto;border-radius:12px"></canvas>
+    </div>
+  </div>
+
+  <!-- 2. UNLOCK BAR -->
   <div class="unlock-bar" id="unlock-bar">
     <div class="unlock-bar-left">
       <div class="unlock-bar-icon">🔐</div>
@@ -336,9 +353,8 @@ tfoot td:first-child{text-align:left}
     <div class="unlock-bar-err" id="lock-error"></div>
   </div>
 
-  <!-- POSITIONS TABLE -->
-  <div class="lockable locked" id="positions-section" style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e8e4dc;margin-top:0;color:#1a1a1a">
-    <!-- Sort controls -->
+  <!-- 3. POSITIONS TABLE -->
+  <div id="positions-section" style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid #e8e4dc;margin-top:16px">
     <div style="padding:16px 20px;border-bottom:1px solid #f0ede8;display:flex;gap:8px;flex-wrap:wrap;align-items:center" id="sort-controls-weekly">
       <span style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#9a9a9a;font-weight:600">Sort by:</span>
       <button class="filter-btn active" onclick="setSortW('mktCAD')">Market Value</button>
@@ -364,7 +380,7 @@ tfoot td:first-child{text-align:left}
         </tbody>
         <tfoot><tr>
           <td>Total Portfolio</td>
-          <td></td><td></td><td></td>
+          <td></td><td class="col-hide-mobile"></td><td></td>
           <td id="wk-foot-book" class="col-hide-mobile">—</td>
           <td id="wk-foot-val">—</td>
           <td>100%</td>
@@ -375,33 +391,27 @@ tfoot td:first-child{text-align:left}
     </div>
   </div>
 
-  <!-- LOCK GATE (shown when locked, hidden when unlocked) -->
+  <!-- LOCK GATE -->
   <div id="lock-gate-section" style="display:none">
-    <div class="lock-gate" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08)">
+    <div class="lock-gate" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);margin-top:16px">
       <div class="lock-icon">🔒</div>
       <div class="lock-title" style="color:#fff">Members only</div>
-      <div class="lock-sub" style="color:rgba(255,255,255,0.4)">Full position details — tickers, cost basis, current price, and P&amp;L — are shared exclusively with WhatsApp community members.</div>
+      <div class="lock-sub" style="color:rgba(255,255,255,0.4)">Full position details are shared exclusively with WhatsApp community members.</div>
       <a class="join-cta" href="community.html">💬 Join the Community</a>
     </div>
   </div>
 
-</
+  <!-- 4. RETURN BY POSITION BAR CHART (locked when not member) -->
+  <div style="margin-top:24px">
+    <div style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);font-weight:600;margin-bottom:16px">Return by Position</div>
+    <div class="bar-wrap" id="wk-bar-chart" style="background:rgba(255,255,255,0.03);border:1px solid rgba(212,165,52,0.1);border-radius:14px;padding:20px"></div>
+  </div>
 
-  <!-- PORTFOLIO CHARTS -->
-  <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px" class="charts-grid">
-    <!-- Bar chart -->
-    <div>
-      <div class="chart-wrap">
-        <div class="chart-title">Book Value vs Market Value</div>
-        <div class="chart-canvas-wrap"><canvas id="weekly-chart"></canvas></div>
-      </div>
-    </div>
-    <!-- Donut allocation chart -->
-    <div>
-      <div class="chart-wrap">
-        <div class="chart-title">Portfolio Allocation</div>
-        <canvas id="pie-chart-weekly" width="400" height="460" style="max-width:100%;display:block;margin:0 auto;border-radius:12px"></canvas>
-      </div>
+  <!-- 5. BOOK VS MARKET CHART (locked) -->
+  <div style="margin-top:24px">
+    <div class="chart-wrap">
+      <div class="chart-title">Book Value vs Market Value</div>
+      <div class="chart-canvas-wrap"><canvas id="weekly-chart"></canvas></div>
     </div>
   </div>
 
@@ -437,6 +447,11 @@ const EXPIRY_DAYS = 30;
 let MONTHLY_CODE  = PF_MONTHLY_CODE;
 let weeklyData    = [];
 let chartInst     = null;
+
+const charts = {};
+
+
+
 
 // ── LOCK SYSTEM ──
 function isUnlocked(){
@@ -474,12 +489,17 @@ function tryUnlock(){
 }
 function applyLockState(){
   const unlocked = isUnlocked();
-  const ub  = document.getElementById('unlock-bar');
-  const ps  = document.getElementById('positions-section');
+  const ub = document.getElementById('unlock-bar');
+  if(ub) ub.style.display = unlocked ? 'none' : 'flex';
+  // Lock individual cells like main portfolio
+  document.querySelectorAll('.lockable').forEach(el=>{
+    el.classList.toggle('locked', !unlocked);
+  });
+  // Lock gate section
   const lgs = document.getElementById('lock-gate-section');
-  if(ub)  ub.style.display  = unlocked ? 'none'  : 'flex';
-  if(ps)  ps.classList.toggle('locked', !unlocked);
-  if(lgs) lgs.style.display = unlocked ? 'none'  : 'block';
+  if(lgs) lgs.style.display = unlocked ? 'none' : 'block';
+  // Bar chart re-render if data loaded
+  if(weeklyData.length > 0) try{ renderBarChart(); }catch(e){}
 }
 
 // ── FORMATTING ──
@@ -506,16 +526,18 @@ async function init(){
     if(data.weeklyPositions && data.weeklyPositions.length){
       weeklyData = data.weeklyPositions.filter(r => r.ticker && r.ticker.length > 0 && r.ticker !== 'TICKER');
       
-      renderStats();
-      renderChart();
-      renderTable();
+      try{ renderStats(); }catch(e){ console.error('renderStats error:',e.message); }
+      try{ renderChart(); }catch(e){ console.error('renderChart error:',e.message); }
+      try{ renderTable(); }catch(e){ console.error('renderTable error:',e.message); }
+      try{ renderBarChart(); }catch(e){ console.error('renderBarChart error:',e.message); }
       // pie chart called separately below
     } else {
       showPlaceholder();
     }
   } catch(e) {
-    console.error('Load failed:', e);
-    showPlaceholder();
+    console.error('Fetch error:', e.message);
+    // Only show placeholder if fetch itself failed, not rendering
+    if(weeklyData.length === 0) showPlaceholder();
   }
 }
 
@@ -597,19 +619,19 @@ function renderTable(){
         <span style="width:8px;height:8px;border-radius:50%;background:${col};flex-shrink:0;display:inline-block"></span>
         <span style="font-weight:700;font-size:0.89rem;color:#1a1a1a">${r.ticker}</span>
       </div></td>
-      <td style="text-align:right">${fmtN(r.shares,2)}</td>
-      <td style="text-align:right" class="col-hide-mobile"><div style="font-size:0.83rem;font-weight:600;color:#1a1a1a">${fmtU(r.pricePaidUSD)}</div></td>
-      <td style="text-align:right"><div style="font-size:0.83rem;font-weight:600;color:#1a1a1a">${r.currentUSD?'US$'+r.currentUSD.toFixed(2):'—'}</div><div style="font-size:0.67rem;color:${pctPos?'#1a7a41':'#c0392b'};margin-top:2px">${(r.pctReturn||0).toFixed(1)}% vs avg</div></td>
-      <td style="text-align:right" class="col-hide-mobile"><div style="font-size:0.83rem;font-weight:600;color:#1a1a1a">${fmtC(r.bookCAD)}</div></td>
-      <td style="text-align:right"><div style="font-size:0.83rem;font-weight:600;color:#1a1a1a">${fmtC(r.mktCAD)}</div></td>
+      <td class="lockable" style="text-align:right">${fmtN(r.shares,2)}</td>
+      <td class="lockable col-hide-mobile" style="text-align:right">${fmtU(r.pricePaidUSD)}</td>
+      <td style="text-align:right"><div style="font-size:0.83rem;font-weight:600;color:#1a1a1a">${r.currentUSD?'US$'+r.currentUSD.toFixed(2):'—'}</div></td>
+      <td class="lockable col-hide-mobile" style="text-align:right">${fmtC(r.bookCAD)}</td>
+      <td class="lockable" style="text-align:right">${fmtC(r.mktCAD)}</td>
       <td><div style="display:flex;align-items:center;gap:8px;justify-content:flex-end">
         <div style="width:60px;height:5px;background:#f0ede8;border-radius:3px;overflow:hidden;flex-shrink:0">
           <div style="width:${Math.min(allocPct*3,100).toFixed(1)}%;height:100%;background:${col};border-radius:3px"></div>
         </div>
         <span style="font-size:0.78rem;font-weight:600;color:#1a1a1a;min-width:36px;text-align:right">${allocPct.toFixed(1)}%</span>
       </div></td>
-      <td style="text-align:right"><div style="font-size:0.83rem;font-weight:600;color:${plPos?'#1a7a41':'#c0392b'}">${plPos?'+':''}${fmtC(r.plCAD)}</div></td>
-      <td style="text-align:right"><span style="background:${pctPos?'#e8f5e9':'#fde8e8'};color:${pctPos?'#1a7a41':'#c0392b'};padding:3px 8px;border-radius:100px;font-size:0.72rem;font-weight:700">${pctPos?'+':''}${(r.pctReturn||0).toFixed(1)}%</span></td>
+      <td class="lockable" style="text-align:right"><div style="font-size:0.83rem;font-weight:600;color:${plPos?'#1a7a41':'#c0392b'}">${plPos?'+':''}${fmtC(r.plCAD)}</div></td>
+      <td class="lockable" style="text-align:right"><span style="background:${pctPos?'#e8f5e9':'#fde8e8'};color:${pctPos?'#1a7a41':'#c0392b'};padding:3px 8px;border-radius:100px;font-size:0.72rem;font-weight:700">${pctPos?'+':''}${(r.pctReturn||0).toFixed(1)}%</span></td>
     </tr>`;
   }).join('');
 
@@ -767,6 +789,32 @@ function renderWeeklyPieChart(positions){
   ctx.fillStyle='rgba(255,255,255,0.22)';
   ctx.font=`400 ${Math.round(W*0.024)}px Arial,sans-serif`;
   // no branding on weekly chart
+}
+
+
+function renderBarChart(){
+  const el = document.getElementById('wk-bar-chart');
+  if(!el || !weeklyData.length) return;
+  const unlocked = isUnlocked();
+  const maxAbs = Math.max(...weeklyData.map(x=>Math.abs(x.pctReturn||0))) || 1;
+  const sorted = [...weeklyData].sort((a,b)=>(b.pctReturn||0)-(a.pctReturn||0));
+  const COLORS = {PLTR:'#c49a28',TSLA:'#2d9e5f',SOFI:'#4a7fc1',HOOD:'#c0392b',
+    AMD:'#7b5ea8',NVDA:'#c46b2a',GRAB:'#3a9e9e',BMNR:'#888',NBIS:'#8a9e2d',
+    IREN:'#2a7ec4',AMZN:'#9e2d8a',ZETA:'#c47a2a',SHOP:'#2dc47a',META:'#9a6060',
+    FDGRX:'#5b8dee',NOW:'#e8762a',CRWV:'#6a4fc4',MSFT:'#2a8ac4'};
+  const DEF = ['#c49a28','#2d9e5f','#4a7fc1','#c0392b','#7b5ea8'];
+  el.innerHTML = sorted.map((r,i)=>{
+    const col = COLORS[r.ticker]||DEF[i%DEF.length];
+    const pct = r.pctReturn||0;
+    const barW = unlocked ? (Math.abs(pct)/maxAbs*100).toFixed(1) : (50+(i*7)%35).toFixed(1);
+    const barCol = unlocked ? (pct>=0?col:'#c0392b') : '#b8862a';
+    const pctStr = unlocked ? ((pct>=0?'+':'')+pct.toFixed(1)+'%') : '...';
+    return `<div class="bar-row">
+      <div class="bar-tk">${r.ticker}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${barW}%;background:${barCol}"></div></div>
+      <div class="bar-pct ${unlocked?'':'lock-bar-cover'}">${pctStr}</div>
+    </div>`;
+  }).join('');
 }
 
 init().then(()=>{
