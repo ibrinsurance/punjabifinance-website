@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Newsletter — Punjabi Finance | Investing Insights for Canadians</title>
+<meta name="description" content="Subscribe to the Punjabi Finance newsletter — real investing insights, portfolio updates, and Canadian personal finance tips delivered to your inbox.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://punjabifinance.com/newsletter.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Punjabi Finance">
+<meta property="og:title" content="Newsletter — Punjabi Finance">
+<meta property="og:description" content="Real investing insights, portfolio updates, and Canadian personal finance tips delivered to your inbox.">
+<meta property="og:url" content="https://punjabifinance.com/newsletter.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;min-height:100vh}
+
+/* ── TOPBAR ── */
+.topbar{background:#111009;padding:0 24px;display:flex;align-items:center;border-bottom:1px solid rgba(212,165,52,0.15);min-height:58px;position:sticky;top:0;z-index:100;gap:12px}
+.wm-link{text-decoration:none;display:flex;align-items:center;padding-right:20px;border-right:1px solid rgba(212,165,52,0.12);flex-shrink:0}
+.wm-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1}
+.wm-gold{color:#d4a534}
+.topbar-nav{display:flex;align-items:center;gap:4px;flex:1;overflow-x:auto;scrollbar-width:none}
+.topbar-nav::-webkit-scrollbar{display:none}
+.nav-btn{display:inline-flex;align-items:center;color:rgba(255,255,255,0.5);font-size:0.72rem;font-weight:500;padding:6px 11px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:color .15s,background .15s}
+.nav-btn:hover{color:#fff;background:rgba(255,255,255,0.06)}
+.nav-btn.active{color:#d4a534;background:rgba(212,165,52,0.1)}
+.topbar-right-btns{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.topbar-mobile-btn{display:none;text-decoration:none;font-size:0.72rem;font-weight:700;padding:7px 14px;border-radius:8px}
+.topbar-mobile-btn.join{background:rgba(37,211,102,0.12);color:#25d366;border:1px solid rgba(37,211,102,0.3)}
+.ham-btn{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:10px 12px;border:1px solid rgba(212,165,52,0.35);background:rgba(212,165,52,0.1);border-radius:8px;flex-shrink:0}
+.ham-line{width:24px;height:2.5px;background:#d4a534;border-radius:2px;display:block;transition:all .25s}
+.ham-btn.open .ham-line:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham-btn.open .ham-line:nth-child(2){opacity:0}
+.ham-btn.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-dropdown{display:none;position:fixed;top:58px;left:0;right:0;background:#111009;border-bottom:1px solid rgba(212,165,52,0.15);flex-direction:column;z-index:99;padding:8px 0}
+.nav-dropdown.open{display:flex}
+.nav-dropdown .nav-btn{padding:12px 24px;border-radius:0;font-size:0.8rem}
+
+/* ── HERO ── */
+.hero{background:#111009;padding:clamp(48px,7vw,80px) 40px clamp(36px,5vw,60px);text-align:center;border-bottom:1px solid rgba(212,165,52,0.1);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(212,165,52,0.07) 0%,transparent 70%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.25);border-radius:100px;padding:5px 14px;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#d4a534;margin-bottom:20px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:900;line-height:1.1;color:#fff;margin-bottom:14px}
+.hero-title em{color:#d4a534;font-style:normal}
+.hero-sub{font-size:clamp(0.85rem,2vw,1rem);color:rgba(255,255,255,0.45);max-width:520px;margin:0 auto;line-height:1.75}
+
+/* ── WHAT YOU GET ── */
+.section{padding:clamp(40px,5vw,64px) 40px;max-width:900px;margin:0 auto}
+.sec-eyebrow{font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:#b8862a;font-weight:700;margin-bottom:10px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800;color:#1a1a1a;margin-bottom:8px;line-height:1.2}
+.sec-sub{font-size:0.88rem;color:#777;line-height:1.75;margin-bottom:32px;max-width:560px}
+
+.perks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:40px}
+.perk{background:#fff;border:1px solid #e8e4dc;border-radius:14px;padding:22px 18px}
+.perk-icon{font-size:1.3rem;margin-bottom:10px}
+.perk-title{font-size:0.85rem;font-weight:700;color:#1a1a1a;margin-bottom:5px}
+.perk-desc{font-size:0.75rem;color:#888;line-height:1.65}
+
+/* ── FORM AREA ── */
+.form-wrap{background:#fff;border:1px solid #e8e4dc;border-radius:18px;padding:clamp(28px,4vw,48px);text-align:center;max-width:600px;margin:0 auto;position:relative;overflow:hidden}
+.form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#d4a534,#b8862a)}
+.form-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#1a1a1a;margin-bottom:6px}
+.form-sub{font-size:0.8rem;color:#aaa;margin-bottom:24px}
+.free-badge{display:inline-block;background:#e8f5e9;color:#2e7d32;border:1px solid rgba(46,125,50,0.2);border-radius:100px;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 12px;margin-bottom:16px}
+
+/* ── FOOTER ── */
+.footer{background:#111009;border-top:1px solid rgba(212,165,52,0.1);padding:20px 40px;text-align:center;font-size:0.7rem;color:rgba(255,255,255,0.2)}
+.footer a{color:rgba(212,165,52,0.5);text-decoration:none;margin:0 8px}
+.footer a:hover{color:#d4a534}
+
+@media(max-width:900px){
+  .perks-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .topbar-nav{display:none}
+  .topbar-mobile-btn,.ham-btn{display:flex;align-items:center}
+  .hero{padding:40px 20px 32px}
+  .section{padding:32px 20px}
+  .perks-grid{grid-template-columns:1fr 1fr}
+  .form-wrap{padding:28px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a class="wm-link" href="index.html">
+    <div class="wm-name">Punjabi <span class="wm-gold">Finance</span></div>
+  </a>
+  <div class="topbar-nav">
+    <a class="nav-btn" href="index.html">Live Portfolio</a>
+    <a class="nav-btn" href="watchlist.html">Watchlist</a>
+    <a class="nav-btn" href="weekly-portfolio.html">$100/Week</a>
+    <a class="nav-btn" href="philosophy.html">How I Invest</a>
+    <a class="nav-btn" href="webinars.html">Webinars</a>
+    <a class="nav-btn" href="community.html" style="color:#1a9e50">Join</a>
+    <a class="nav-btn" href="calculators.html">Calculators</a>
+    <a class="nav-btn" href="links.html">Links</a>
+    <a class="nav-btn active" href="newsletter.html">Newsletter</a>
+    <a class="nav-btn" href="mediakit.html">Media Kit</a>
+  </div>
+  <div class="topbar-right-btns">
+    <a class="topbar-mobile-btn join" href="community.html">Join</a>
+    <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+    </button>
+  </div>
+</div>
+<nav class="nav-dropdown" id="nav-dropdown">
+  <a class="nav-btn" href="index.html">Live Portfolio</a>
+  <a class="nav-btn" href="watchlist.html">Watchlist</a>
+  <a class="nav-btn" href="weekly-portfolio.html">$100/Week</a>
+  <a class="nav-btn" href="philosophy.html">How I Invest</a>
+  <a class="nav-btn" href="webinars.html">Webinars</a>
+  <a class="nav-btn" href="community.html" style="color:#1a9e50">Join</a>
+  <a class="nav-btn" href="calculators.html">Calculators</a>
+  <a class="nav-btn" href="links.html">Links</a>
+  <a class="nav-btn active" href="newsletter.html">Newsletter</a>
+  <a class="nav-btn" href="mediakit.html">Media Kit</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">✉️ Free · No spam ever</div>
+  <div class="hero-title">Investing Insights.<br><em>Straight to Your Inbox.</em></div>
+  <div class="hero-sub">Real portfolio updates, Canadian personal finance tips, and market thoughts — from someone with real money on the line.</div>
+</div>
+
+<!-- WHAT YOU GET -->
+<div style="background:#f9f7f3">
+<div class="section">
+  <div class="sec-eyebrow">What's Inside</div>
+  <div class="sec-title">Why subscribe?</div>
+  <div class="sec-sub">No generic advice. No sponsored fluff. Just what I'm actually thinking about money, markets, and building wealth in Canada.</div>
+
+  <div class="perks-grid">
+    <div class="perk">
+      <div class="perk-icon">📈</div>
+      <div class="perk-title">Portfolio Updates</div>
+      <div class="perk-desc">What's moving in my C$2M+ portfolio and what I'm thinking about it.</div>
+    </div>
+    <div class="perk">
+      <div class="perk-icon">🇨🇦</div>
+      <div class="perk-title">Canadian Tax & Accounts</div>
+      <div class="perk-desc">TFSA, RRSP, FHSA — practical tips most Canadian finance content skips.</div>
+    </div>
+    <div class="perk">
+      <div class="perk-icon">💰</div>
+      <div class="perk-title">Options Income</div>
+      <div class="perk-desc">How I generate monthly cash from covered calls — explained simply.</div>
+    </div>
+    <div class="perk">
+      <div class="perk-icon">🧠</div>
+      <div class="perk-title">Investor Mindset</div>
+      <div class="perk-desc">How I think through volatility, drawdowns, and long-term conviction.</div>
+    </div>
+    <div class="perk">
+      <div class="perk-icon">🔍</div>
+      <div class="perk-title">Stock Research</div>
+      <div class="perk-desc">Companies I'm researching and what I look for before taking a position.</div>
+    </div>
+    <div class="perk">
+      <div class="perk-icon">🏗️</div>
+      <div class="perk-title">Wealth Building</div>
+      <div class="perk-desc">Corporate structures, insurance, and strategies for long-term net worth growth.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SUBSCRIBE FORM -->
+<div style="background:#fff;border-top:1px solid #e8e4dc;border-bottom:1px solid #e8e4dc">
+<div class="section">
+  <div class="form-wrap">
+    <div class="free-badge">Free Forever</div>
+    <div class="form-title">Join the Newsletter</div>
+    <div class="form-sub">Unsubscribe anytime. No spam. Ever.</div>
+    <!-- Beehiiv embed -->
+    <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="e38ed27c-1e8d-419c-b840-496fad5b0b85"></script>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Not financial advice &nbsp;·&nbsp;
+  <a href="index.html">Live Portfolio</a>
+  <a href="community.html">Community</a>
+  <a href="mediakit.html">Media Kit</a>
+  <a href="links.html">Links</a>
+</div>
+
+<!-- Attribution tracking -->
+<script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
+
+<script>
+function toggleMenu(){
+  document.getElementById('ham-btn').classList.toggle('open');
+  document.getElementById('nav-dropdown').classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  const btn=document.getElementById('ham-btn');
+  const drop=document.getElementById('nav-dropdown');
+  if(btn&&drop&&!btn.contains(e.target)&&!drop.contains(e.target)){
+    btn.classList.remove('open');
+    drop.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
