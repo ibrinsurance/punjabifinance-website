@@ -118,6 +118,15 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;min-heigh
   .for-grid{grid-template-columns:1fr}
   .lesson-grid{grid-template-columns:1fr 1fr}
 }
+/* Force Beehiiv embed full width */
+[data-beehiiv-form],
+iframe[src*="beehiiv"],
+iframe[src*="subscribe-forms"] {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
 @media(max-width:600px){
   .topbar-nav{display:none}
   .topbar-mobile-btn,.ham-btn{display:flex;align-items:center}
