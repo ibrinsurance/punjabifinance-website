@@ -496,7 +496,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
         <td id="foot-val">...</td>
         <td>100%</td>
         <td id="foot-pnl">...</td>
-        <td></td>
+        <td id="foot-pct">...</td>
       </tr></tfoot>
     </table>
   </div></div>
@@ -1052,6 +1052,13 @@ function renderPortfolio(positions){
   const fp = document.getElementById('foot-pnl');
   fp.textContent = fmtC(totPnlCAD);
   fp.className = 'lockable '+(totPnlCAD>=0?'up':'dn');
+  var fpct = document.getElementById('foot-pct');
+  if(fpct && totBookCAD>0){
+    var pct = (totPnlCAD/totBookCAD*100);
+    fpct.textContent = (pct>=0?'+':'')+pct.toFixed(1)+'%';
+    fpct.className = 'lockable '+(pct>=0?'up':'dn');
+    fpct.style.fontWeight='600';
+  }
 
   // Sort by current sort field
   const sorted = sortPositions(positions);

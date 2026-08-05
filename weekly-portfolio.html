@@ -390,7 +390,7 @@ tfoot td:first-child{text-align:left}
           <td id="wk-foot-val">—</td>
           <td>100%</td>
           <td id="wk-foot-pnl">—</td>
-          <td></td>
+          <td id="wk-foot-pct">—</td>
         </tr></tfoot>
       </table>
     </div>
@@ -650,6 +650,13 @@ function renderTable(){
   if(fb) fb.textContent = fmtC(totBook);
   if(fv) fv.textContent = fmtC(totMkt);
   if(fp){ fp.textContent = (totPnl>=0?'+':'')+fmtC(totPnl); fp.style.color = totPnl>=0?'#1a7a41':'#c0392b'; }
+  const fpct = document.getElementById('wk-foot-pct');
+  if(fpct && totBook>0){
+    const pct = (totPnl/totBook*100);
+    fpct.textContent = (pct>=0?'+':'')+pct.toFixed(1)+'%';
+    fpct.style.color = pct>=0?'#1a7a41':'#c0392b';
+    fpct.style.fontWeight='600';
+  }
 }
 
 
