@@ -241,6 +241,9 @@ tfoot td:first-child{text-align:left}
   /* Chart height */
   .chart-canvas-wrap{height:180px}
 }
+
+@media(max-width:720px){.topbar-nav{display:none}.topbar-right-btns{display:flex}}
+@media(max-width:480px){.topbar{padding:0 14px;gap:8px}}
 </style>
 </head>
 <body>
@@ -558,7 +561,7 @@ async function init(){
       try{ renderChart(); }catch(e){ console.error('renderChart error:',e.message); }
       try{ renderTable(); }catch(e){ console.error('renderTable error:',e.message); }
       try{ renderBarChart(); }catch(e){ console.error('renderBarChart error:',e.message); }
-      // pie chart called separately below
+      applyLockState(); // re-run after table renders so lockable cells get blurred
     } else {
       showPlaceholder();
     }
@@ -677,6 +680,10 @@ function renderTable(){
     fpct.style.color = pct>=0?'#1a7a41':'#c0392b';
     fpct.style.fontWeight='600';
   }
+  // Re-apply lock state so newly rendered cells get blurred if locked
+  document.querySelectorAll('.lockable').forEach(el=>{
+    el.classList.toggle('locked', !isUnlocked());
+  });
 }
 
 
