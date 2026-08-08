@@ -69,28 +69,8 @@ html{font-size:18px;-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-height:1.6;min-height:100vh}
 
 /* ── TOPBAR ── */
-
-
-
-
-
-
-
-
-.nav-dropdown 
-
-
-
-
-
-
-
-
-
-
-
-@media(max-width:720px){.topbar-nav{display:none}.topbar-right-btns{display:flex}}
-@media(max-width:480px){.topbar{padding:0 14px;gap:8px}}
+.topbar-right-btns{display:flex}}
+}
 @media(max-width:360px){}
 
 /* ── HERO ── */
@@ -177,10 +157,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 
 .footer-bar{background:#1a1a1a;padding:20px 40px;text-align:center;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25)}
 .footer-bar a{color:rgba(255,255,255,0.4);text-decoration:none}
-
-@media(max-width:720px){
-  .sched-grid{grid-template-columns:1fr 1fr!important}
-  .calc-layout{grid-template-columns:1fr}
+.calc-layout{grid-template-columns:1fr}
   .calc-area{padding:20px 16px;overflow:hidden}
   .calc-tabs-wrap{padding:0}
   .hero{padding:32px 16px 22px}
@@ -339,7 +316,7 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .sched-input-wrap{position:relative}
 .sched-prefix{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:0.75rem;color:#aaa;pointer-events:none}
 .sched-annual-equiv{font-size:0.65rem;color:#b8862a;margin-top:5px;font-weight:600}
-.resp-flag{display:none}@media(max-width:720px){.resp-flag{display:inline}}
+.resp-flag{display:none}}
 
 .sugg-card{background:#fff;border:1.5px solid #e8e4dc;border-radius:12px;overflow:hidden;transition:border-color .15s}
 .sugg-card:hover{border-color:rgba(212,165,52,0.4)}
@@ -354,6 +331,10 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
 .sugg-card-footer{padding:10px 14px;border-top:1px solid #f0ede8;display:flex;justify-content:flex-end}
 .sugg-apply-btn{background:#1a1a1a;color:#fff;border:none;border-radius:7px;padding:7px 18px;font-size:0.72rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
 .sugg-apply-btn:hover{background:#333}
+
+/* Mobile nav - must be last */
+@media(max-width:720px){.topbar-nav{display:none!important}.topbar-right-btns{display:flex!important;align-items:center}}
+@media(max-width:480px){.topbar{padding:0 14px;gap:8px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>

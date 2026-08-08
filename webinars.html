@@ -77,17 +77,8 @@
 
 
 .topbar-mobile-btn.portfolio{color:#d4a534;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.25)}
-
-
-
-
-
-
-
-
-.nav-dropdown 
-@media(max-width:720px){.topbar-nav{display:none}.topbar-right-btns{display:flex}}
-@media(max-width:480px){.topbar{padding:0 14px;gap:8px}}
+.topbar-right-btns{display:flex}}
+}
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-size:18px;-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-height:1.6;min-height:100vh}
@@ -236,6 +227,10 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 
 
 
+
+/* Mobile nav - must be last */
+@media(max-width:720px){.topbar-nav{display:none!important}.topbar-right-btns{display:flex!important;align-items:center}}
+@media(max-width:480px){.topbar{padding:0 14px;gap:8px}}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W5P90KB7HM"></script>

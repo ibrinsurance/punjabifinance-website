@@ -84,17 +84,8 @@
 
 
 .topbar-mobile-btn.portfolio{color:#d4a534;background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.25)}
-
-
-
-
-
-
-
-
-.nav-dropdown 
-@media(max-width:720px){.topbar-nav{display:none}.topbar-right-btns{display:flex}}
-@media(max-width:480px){.topbar{padding:0 14px;gap:8px}}
+.topbar-right-btns{display:flex}}
+}
 
 /* ── BASE ── */
 *{box-sizing:border-box;margin:0;padding:0}
@@ -365,6 +356,10 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   .testimonial-grid{grid-template-columns:1fr!important}
   .testimonial-grid-2{grid-template-columns:1fr!important;max-width:100%!important}
 }
+
+/* Mobile nav - must be last */
+@media(max-width:720px){.topbar-nav{display:none!important}.topbar-right-btns{display:flex!important;align-items:center}}
+@media(max-width:480px){.topbar{padding:0 14px;gap:8px}}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W5P90KB7HM"></script>
@@ -1029,7 +1024,9 @@ function galleryScroll(dir){
           var unlockedDetail = i<3
             ? 'Bought at '+avgStr+' avg &rarr; now '+curStr+'<br><span class="win-pnl">'+pnlStr+' unrealized gain</span>'
             : avgStr+' avg &rarr; '+curStr+' &nbsp;&middot;&nbsp; <span class="win-pnl">'+pnlStr+' unrealized</span>';
-          var lockedDetail = '<span class="win-pnl">'+pnlStr+' unrealized gain</span>';
+          var lockedDetail = i<3
+            ? 'Bought at '+avgStr+' avg &rarr; now '+curStr+'<br><span class="win-pnl" style="filter:blur(5px);user-select:none">'+pnlStr+' unrealized gain</span>'
+            : avgStr+' avg &rarr; '+curStr+' &nbsp;&middot;&nbsp; <span class="win-pnl" style="filter:blur(5px);user-select:none">'+pnlStr+' unrealized</span>';
           var detail = isUnlocked() ? unlockedDetail : lockedDetail;
           return '<div class="'+cls+'"><div class="win-ticker">'+p.ticker+'</div><div class="win-pct">'+pctStr+'</div><div class="win-detail">'+detail+'</div></div>';
         }).join('');
