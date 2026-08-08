@@ -93,8 +93,8 @@
 
 
 .nav-dropdown 
-@media(max-width:720px){}
-@media(max-width:480px){}
+@media(max-width:720px){.topbar-nav{display:none}.topbar-right-btns{display:flex}}
+@media(max-width:480px){.topbar{padding:0 14px;gap:8px}}
 
 /* ── BASE ── */
 *{box-sizing:border-box;margin:0;padding:0}
@@ -397,7 +397,7 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
   <a class="nav-btn" href="mediakit.html">Media Kit</a>
   </div>
   <div class="topbar-right-btns">
-    <a class="topbar-mobile-btn join" href="community.html">Join</a>
+    <a class="topbar-mobile-btn" href="index.html" style="background:rgba(212,165,52,0.1);color:#d4a534;border:1px solid rgba(212,165,52,0.3)">Portfolio</a>
     <button class="ham-btn" id="ham-btn" onclick="toggleMenu()" aria-label="Menu">
       <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
     </button>
