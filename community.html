@@ -1021,13 +1021,9 @@ function galleryScroll(dir){
           var curStr = '$'+p.curPrice.toFixed(2);
           var avgStr = '$'+p.avgCost.toFixed(2);
           var pnlStr = (p.plCAD>=0?'+':'')+fmtC(p.plCAD);
-          var unlockedDetail = i<3
+          var detail = i<3
             ? 'Bought at '+avgStr+' avg &rarr; now '+curStr+'<br><span class="win-pnl">'+pnlStr+' unrealized gain</span>'
             : avgStr+' avg &rarr; '+curStr+' &nbsp;&middot;&nbsp; <span class="win-pnl">'+pnlStr+' unrealized</span>';
-          var lockedDetail = i<3
-            ? 'Bought at '+avgStr+' avg &rarr; now '+curStr+'<br><span class="win-pnl" style="filter:blur(5px);user-select:none">'+pnlStr+' unrealized gain</span>'
-            : avgStr+' avg &rarr; '+curStr+' &nbsp;&middot;&nbsp; <span class="win-pnl" style="filter:blur(5px);user-select:none">'+pnlStr+' unrealized</span>';
-          var detail = isUnlocked() ? unlockedDetail : lockedDetail;
           return '<div class="'+cls+'"><div class="win-ticker">'+p.ticker+'</div><div class="win-pct">'+pctStr+'</div><div class="win-detail">'+detail+'</div></div>';
         }).join('');
       }
