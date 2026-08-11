@@ -228,6 +228,15 @@ tfoot td:first-child{text-align:left}
 @media(max-width:720px){.topbar-nav{display:none}.topbar-right-btns{display:flex}}
 @media(max-width:480px){.topbar{padding:0 14px;gap:8px}}
 </style>
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0E0C0A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Punjabi Finance">
+<link rel="apple-touch-icon" href="/icons/icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-48.png">
 </head>
 <body>
 
@@ -420,7 +429,7 @@ tfoot td:first-child{text-align:left}
   </div>
 
   <!-- 5. BOOK VS MARKET CHART (locked) -->
-  <div style="margin-top:24px;background:#111009;border-radius:14px;padding:20px 22px">
+  <div class="lockable" style="margin-top:24px;background:#111009;border-radius:14px;padding:20px 22px">
     <div>
       <div class="chart-title">Book Value vs Market Value</div>
       <div class="chart-canvas-wrap"><canvas id="weekly-chart"></canvas></div>
@@ -609,11 +618,29 @@ function renderChart(){
   });
 }
 
+let wkSortKey = 'mktCAD';
+
+function setSortW(key){
+  wkSortKey = key;
+  document.querySelectorAll('#sort-controls-weekly .filter-btn').forEach(b=>{
+    const label = b.textContent.trim().toLowerCase();
+    const active = (key==='mktCAD' && label.includes('market')) ||
+                   (key==='plCAD'  && label.includes('p&l $')) ||
+                   (key==='pctReturn' && label.includes('p&l %')) ||
+                   (key==='ticker' && label.includes('ticker'));
+    b.classList.toggle('active', active);
+  });
+  renderTable();
+}
+
 function renderTable(){
   const totMkt  = weeklyData.reduce((s,r)=>s+(r.mktCAD||0),0);
   const totBook = weeklyData.reduce((s,r)=>s+(r.bookCAD||0),0);
   const totPnl  = weeklyData.reduce((s,r)=>s+(r.plCAD||0),0);
-  const sorted  = [...weeklyData].sort((a,b)=>(b.mktCAD||0)-(a.mktCAD||0));
+  const sorted  = [...weeklyData].sort((a,b)=>{
+    if(wkSortKey === 'ticker') return (a.ticker||'').localeCompare(b.ticker||'');
+    return (b[wkSortKey]||0) - (a[wkSortKey]||0);
+  });
   const tb = document.getElementById('positions-body');
   if(!tb) return;
 
@@ -858,6 +885,13 @@ document.addEventListener('click',function(e){
     drop.classList.remove('open');
   }
 });
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
 </script>
 </body>
 </html>
