@@ -317,6 +317,15 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   gtag('js', new Date());
   gtag('config', 'G-W5P90KB7HM');
 </script>
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0E0C0A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Punjabi Finance">
+<link rel="apple-touch-icon" href="/icons/icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-48.png">
 </head>
 <body>
 <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0">A Real Portfolio — Every Trade Tracked</h1>
@@ -441,6 +450,60 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   </div>
 </div>
 
+
+<div class="section-divider"></div>
+
+<!-- NW GROWTH CHART -->
+<div class="section section-cream">
+  <div class="sec-label">Portfolio Growth
+    <span style="font-size:0.6rem;background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:100px;font-weight:700;letter-spacing:0.08em">9 Years</span>
+  </div>
+  <div style="font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:800;color:#1a1a1a;margin-bottom:6px;line-height:1.2">$0 → C$2.7M+ — The Full Journey</div>
+  <div style="font-size:0.82rem;color:#888;margin-bottom:24px">Individual stocks + mutual funds combined. Every year from 2017.</div>
+
+  <div style="background:#111009;border-radius:16px;padding:28px 24px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#d4a534,transparent)"></div>
+
+    <!-- Summary stats -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px" id="nw-stats-row">
+      <div style="text-align:center">
+        <div style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:6px">Started</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#fff">2017</div>
+        <div style="font-size:0.68rem;color:rgba(255,255,255,0.3);margin-top:2px">First investment</div>
+      </div>
+      <div style="text-align:center;border-left:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06)">
+        <div style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:6px">Current Value</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#d4a534" id="nw-current">C$2.7M+</div>
+        <div style="font-size:0.68rem;color:rgba(255,255,255,0.3);margin-top:2px">Stocks + funds</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:6px">Growth</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#4caf7d" id="nw-years">9 yrs</div>
+        <div style="font-size:0.68rem;color:rgba(255,255,255,0.3);margin-top:2px">Compounding</div>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div style="position:relative;height:280px">
+      <canvas id="nw-chart"></canvas>
+    </div>
+
+    <!-- Legend -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-top:16px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:7px;font-size:0.7rem;color:rgba(255,255,255,0.4)">
+        <span style="width:24px;height:3px;background:#d4a534;border-radius:2px;display:inline-block"></span>Total Portfolio
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:0.7rem;color:rgba(255,255,255,0.4)">
+        <span style="width:24px;height:3px;background:#4a7fc1;border-radius:2px;display:inline-block"></span>Individual Stocks
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;font-size:0.7rem;color:rgba(255,255,255,0.4)">
+        <span style="width:24px;height:3px;background:#2d9e5f;border-radius:2px;display:inline-block;opacity:0.7"></span>Mutual Funds
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:14px;font-size:0.62rem;color:rgba(255,255,255,0.15)">Year-end balances · CAD · Not financial advice</div>
+  </div>
+</div>
 <div class="section-divider"></div>
 
 <!-- PIE CHART -->
@@ -708,7 +771,7 @@ function applyLockState(){
 // come from the Apps Script endpoint below.
 // Update your sheet → refresh the page = done.
 // ─────────────────────────────────────────────────────
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbygBRhjRSgxBjFpaE_j2uatxpZEFiLIN8Oe4kMbk_r3OeDhhhZExM-MS_zMBrEjEedlXg/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyngvSwy8geq_vtqgs8JHCz15j_6oBmb97eshsRry_AKOTNxLJqXVJVp8Cx25s38_VFJQ/exec';
 
 
 // Ticker colours — order matches however sheet returns tickers
@@ -1225,6 +1288,116 @@ function showError(msg){
   document.getElementById('s-pnl-pct').textContent = 'Error: '+msg;
 }
 
+// ── NW GROWTH CHART ──
+function renderNWChart(history) {
+  const canvas = document.getElementById('nw-chart');
+  if (!canvas || !history || !history.length) return;
+
+  const labels = history.map(r => r.year);
+  const totals  = history.map(r => r.total);
+  const stocks  = history.map(r => r.stocks);
+  const funds   = history.map(r => r.funds);
+
+  // Update summary stats
+  const latest = history[history.length - 1];
+  const nwCur = document.getElementById('nw-current');
+  const nwYrs = document.getElementById('nw-years');
+  if (nwCur) nwCur.textContent = fmtC(latest.total);
+  if (nwYrs) nwYrs.textContent = (history.length - 1) + ' yrs';
+
+  const fmtCAD = v => {
+    if (v >= 1e6) return 'C$' + (v/1e6).toFixed(1) + 'M';
+    if (v >= 1e3) return 'C$' + Math.round(v/1e3) + 'K';
+    return 'C$' + Math.round(v);
+  };
+
+  if (window._nwChart) window._nwChart.destroy();
+  window._nwChart = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Total Portfolio',
+          data: totals,
+          borderColor: '#d4a534',
+          backgroundColor: 'rgba(212,165,52,0.08)',
+          fill: true,
+          tension: 0.35,
+          pointRadius: 4,
+          pointHoverRadius: 7,
+          pointBackgroundColor: '#d4a534',
+          borderWidth: 2.5,
+          order: 1
+        },
+        {
+          label: 'Individual Stocks',
+          data: stocks,
+          borderColor: '#4a7fc1',
+          backgroundColor: 'transparent',
+          fill: false,
+          tension: 0.35,
+          pointRadius: 3,
+          pointHoverRadius: 6,
+          pointBackgroundColor: '#4a7fc1',
+          borderWidth: 1.5,
+          borderDash: [],
+          order: 2
+        },
+        {
+          label: 'Mutual Funds',
+          data: funds,
+          borderColor: '#2d9e5f',
+          backgroundColor: 'transparent',
+          fill: false,
+          tension: 0.35,
+          pointRadius: 3,
+          pointHoverRadius: 6,
+          pointBackgroundColor: '#2d9e5f',
+          borderWidth: 1.5,
+          borderDash: [4, 3],
+          order: 3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      animation: { duration: 800, easing: 'easeInOutQuart' },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1a1710',
+          borderColor: 'rgba(212,165,52,0.3)',
+          borderWidth: 1,
+          titleColor: '#d4a534',
+          bodyColor: 'rgba(255,255,255,0.7)',
+          padding: 12,
+          callbacks: {
+            title: items => items[0].label,
+            label: item => ' ' + item.dataset.label + ': ' + fmtCAD(item.raw)
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: { color: 'rgba(255,255,255,0.35)', font: { size: 11 } }
+        },
+        y: {
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: {
+            color: 'rgba(255,255,255,0.35)',
+            font: { size: 11 },
+            callback: v => fmtCAD(v)
+          }
+        }
+      }
+    }
+  });
+}
+
 // ── INIT ──
 async function init(){
   showLoading();
@@ -1233,6 +1406,9 @@ async function init(){
     try{
       if(data.positions && data.positions.length>0) renderPortfolio(data.positions);
     }catch(e){ console.error('renderPortfolio error:', e); }
+    try{
+      if(data.nwHistory && data.nwHistory.length>0) renderNWChart(data.nwHistory);
+    }catch(e){ console.error('renderNWChart error:', e); }
     try{
       if(data.options && data.options.length>0) renderOptions(data.options);
     }catch(e){ console.error('renderOptions error:', e); }
@@ -1266,6 +1442,13 @@ document.addEventListener('click',function(e){
     drop.classList.remove('open');
   }
 });
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
 </script>
 </body>
 </html>

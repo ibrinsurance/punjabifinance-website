@@ -238,6 +238,15 @@ body{font-family:'DM Sans',sans-serif;background:#f4f2ee;color:#1a1a1a;line-heig
   gtag('js', new Date());
   gtag('config', 'G-W5P90KB7HM');
 </script>
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0E0C0A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Punjabi Finance">
+<link rel="apple-touch-icon" href="/icons/icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-48.png">
 </head>
 <body>
 <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0">Partner With Punjabi Finance</h1>
@@ -659,7 +668,7 @@ document.addEventListener('click',function(e){
 <script>
 (async function(){
   try{
-    const r = await fetch('https://script.google.com/macros/s/AKfycbygBRhjRSgxBjFpaE_j2uatxpZEFiLIN8Oe4kMbk_r3OeDhhhZExM-MS_zMBrEjEedlXg/exec', {cache:'no-store'});
+    const r = await fetch('https://script.google.com/macros/s/AKfycbyngvSwy8geq_vtqgs8JHCz15j_6oBmb97eshsRry_AKOTNxLJqXVJVp8Cx25s38_VFJQ/exec', {cache:'no-store'});
     const d = await r.json();
     if(!d.social){ console.warn('No social data in response'); return; }
     const s = d.social;
@@ -696,6 +705,13 @@ document.addEventListener('click',function(e){
     if(t.indexOf('@')>-1||t.indexOf('outlook')>-1){a.textContent=e;}
   });
 })();
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
 </script>
 </body>
 </html>

@@ -238,6 +238,15 @@ html,body{overflow-x:hidden;max-width:100%}
   gtag('js', new Date());
   gtag('config', 'G-W5P90KB7HM');
 </script>
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0E0C0A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Punjabi Finance">
+<link rel="apple-touch-icon" href="/icons/icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-48.png">
 </head>
 <body>
 <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0">Punjabi Finance — Links</h1>
@@ -569,7 +578,7 @@ document.addEventListener('click',function(e){
 </script>
 
 <script>
-const SHEET_URL_LK = 'https://script.google.com/macros/s/AKfycbygBRhjRSgxBjFpaE_j2uatxpZEFiLIN8Oe4kMbk_r3OeDhhhZExM-MS_zMBrEjEedlXg/exec';
+const SHEET_URL_LK = 'https://script.google.com/macros/s/AKfycbyngvSwy8geq_vtqgs8JHCz15j_6oBmb97eshsRry_AKOTNxLJqXVJVp8Cx25s38_VFJQ/exec';
 function fmtF2(n){
   if(n>=10000) return Math.round(n/1000)+'K+';
   if(n>=1000) return (n/1000).toFixed(1).replace('.0','')+'K+';
@@ -601,6 +610,13 @@ async function loadSocialStatsLinks(){
   }catch(e){console.log('Social stats error:',e);}
 }
 loadSocialStatsLinks();
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
 </script>
 </body>
 </html>
