@@ -307,6 +307,14 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 .lock-bar-cover{filter:blur(5px);user-select:none;pointer-events:none;color:#c8c4bc!important}
 
 
+
+/* NW chart section — wider on mobile */
+@media(max-width:600px){
+  .nw-section{padding-left:8px!important;padding-right:8px!important}
+}
+@media(max-width:900px){
+  .nw-section{padding-left:16px!important;padding-right:16px!important}
+}
 </style>
 
 <!-- Google tag (gtag.js) -->
@@ -411,11 +419,11 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 
 
 <!-- NW GROWTH CHART -->
-<div class="section section-cream">
+<div class="section section-cream nw-section">
   <div class="sec-label">Portfolio Growth
     <span style="font-size:0.6rem;background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:100px;font-weight:700;letter-spacing:0.08em">9 Years</span>
   </div>
-  <div style="font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:800;color:#1a1a1a;margin-bottom:6px;line-height:1.2">$0 → C$2.7M+ — The Full Journey</div>
+  <div style="font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:800;color:#1a1a1a;margin-bottom:6px;line-height:1.2">$0 → <span id="nw-headline">—</span> — The Full Journey</div>
   <div style="font-size:0.82rem;color:#888;margin-bottom:24px">Individual stocks + investment funds combined. Every year from 2017.</div>
 
   <div style="background:#111009;border-radius:16px;padding:28px 24px;position:relative;overflow:hidden">
@@ -430,12 +438,12 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
       </div>
       <div style="text-align:center;border-left:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06)">
         <div style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:6px">Current Value</div>
-        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#d4a534" id="nw-current">C$2.7M+</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#d4a534" id="nw-current">—</div>
         <div style="font-size:0.68rem;color:rgba(255,255,255,0.3);margin-top:2px">Stocks + funds</div>
       </div>
       <div style="text-align:center">
         <div style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:6px">Growth</div>
-        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#4caf7d" id="nw-years">9 yrs</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:#4caf7d" id="nw-years">—</div>
         <div style="font-size:0.68rem;color:rgba(255,255,255,0.3);margin-top:2px">Compounding</div>
       </div>
     </div>
@@ -451,10 +459,10 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
         <span style="width:24px;height:3px;background:#d4a534;border-radius:2px;display:inline-block"></span>Total Portfolio
       </div>
       <div style="display:flex;align-items:center;gap:7px;font-size:0.7rem;color:rgba(255,255,255,0.4)">
-        <span style="width:24px;height:3px;background:#4a7fc1;border-radius:2px;display:inline-block"></span>Individual Stocks
+        <span style="width:24px;height:3px;background:#4a7fc1;border-radius:2px;display:inline-block"></span>Stocks
       </div>
       <div style="display:flex;align-items:center;gap:7px;font-size:0.7rem;color:rgba(255,255,255,0.4)">
-        <span style="width:24px;height:3px;background:#2d9e5f;border-radius:2px;display:inline-block;opacity:0.7"></span>Investment Funds
+        <span style="width:24px;height:3px;background:#2d9e5f;border-radius:2px;display:inline-block;opacity:0.7"></span>Funds
       </div>
     </div>
 
@@ -1250,18 +1258,21 @@ function renderNWChart(history) {
   const canvas = document.getElementById('nw-chart');
   if (!canvas || !history || !history.length) return;
 
-  const labels = history.map(r => r.year);
-  const totals  = history.map(r => r.total);
-  const stocks  = history.map(r => r.stocks);
-  const funds   = history.map(r => r.funds);
+  // Skip 2016 zero-balance row
+  const filtered = history.filter(r => r.total > 0);
+  const labels = filtered.map(r => r.year);
+  const totals  = filtered.map(r => r.total);
+  const stocks  = filtered.map(r => r.stocks);
+  const funds   = filtered.map(r => r.funds);
 
   // Update summary stats
   const latest = history[history.length - 1];
   const nwCur = document.getElementById('nw-current');
   const nwYrs = document.getElementById('nw-years');
   if (nwCur) nwCur.textContent = fmtC(latest.total);
-  // Subtract 2 to exclude the 2016 zero row and match '9 years since 2017'
-  const investingYears = history.filter(r => r.total > 0).length;
+  const nwHl = document.getElementById('nw-headline');
+  if (nwHl) nwHl.textContent = fmtC(latest.total);
+  const investingYears = new Date().getFullYear() - 2017;
   if (nwYrs) nwYrs.textContent = investingYears + ' yrs';
 
   const fmtCAD = v => {
@@ -1290,7 +1301,7 @@ function renderNWChart(history) {
           order: 1
         },
         {
-          label: 'Individual Stocks',
+          label: 'Stocks',
           data: stocks,
           borderColor: '#4a7fc1',
           backgroundColor: 'transparent',
@@ -1304,7 +1315,7 @@ function renderNWChart(history) {
           order: 2
         },
         {
-          label: 'Investment Funds',
+          label: 'Funds',
           data: funds,
           borderColor: '#2d9e5f',
           backgroundColor: 'transparent',
@@ -1334,7 +1345,15 @@ function renderNWChart(history) {
           bodyColor: 'rgba(255,255,255,0.7)',
           padding: 12,
           callbacks: {
-            title: items => items[0].label,
+            title: items => {
+              const i = items[0].dataIndex;
+              const yr = labels[i];
+              if (i === 0) return yr;
+              const prev = totals[i - 1];
+              const curr = totals[i];
+              const yoy = prev > 0 ? ((curr - prev) / prev * 100).toFixed(1) : null;
+              return yr + (yoy !== null ? '  ' + (yoy >= 0 ? '▲' : '▼') + ' ' + Math.abs(yoy) + '% vs prior year' : '');
+            },
             label: item => ' ' + item.dataset.label + ': ' + fmtCAD(item.raw)
           }
         }
