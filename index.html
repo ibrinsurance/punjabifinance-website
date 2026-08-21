@@ -309,8 +309,10 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 
 
 /* NW chart section — wider on mobile */
+#nw-chart-wrap canvas{max-height:280px}
 @media(max-width:600px){
   .nw-section{padding-left:8px!important;padding-right:8px!important}
+  #nw-chart-wrap{height:220px!important}
 }
 @media(max-width:900px){
   .nw-section{padding-left:16px!important;padding-right:16px!important}
@@ -335,6 +337,10 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 <link rel="apple-touch-icon" href="/icons/icon-180.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-48.png">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2/dist/chartjs-plugin-zoom.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
 </head>
 <body>
 <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0">A Real Portfolio — Every Trade Tracked</h1>
@@ -424,7 +430,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
     <span style="font-size:0.6rem;background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:100px;font-weight:700;letter-spacing:0.08em">9 Years</span>
   </div>
   <div style="font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:800;color:#1a1a1a;margin-bottom:6px;line-height:1.2">$0 → <span id="nw-headline">—</span> — The Full Journey</div>
-  <div style="font-size:0.82rem;color:#888;margin-bottom:24px">Individual stocks + investment funds combined. Every year from 2017.</div>
+  <div style="font-size:0.82rem;color:#888;margin-bottom:24px">Stocks + funds combined. Every year from 2017.</div>
 
   <div style="background:#111009;border-radius:16px;padding:28px 24px;position:relative;overflow:hidden">
     <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#d4a534,transparent)"></div>
@@ -449,8 +455,14 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
     </div>
 
     <!-- Chart -->
-    <div style="position:relative;height:280px">
+    <div style="position:relative;height:clamp(200px,55vw,280px)" id="nw-chart-wrap">
       <canvas id="nw-chart"></canvas>
+      <!-- X to dismiss tooltip -->
+      <button id="nw-tooltip-close" onclick="if(window._nwChart){window._nwChart.tooltip.opacity=0;window._nwChart.update();this.style.display='none'}" style="display:none;position:absolute;top:6px;right:6px;background:rgba(255,255,255,0.12);border:none;border-radius:50%;width:26px;height:26px;color:#fff;font-size:0.75rem;cursor:pointer;line-height:1;z-index:10">✕</button>
+    </div>
+    <!-- Fullscreen button -->
+    <div style="display:flex;justify-content:flex-end;margin-top:8px">
+      <button onclick="nwFullscreen()" style="font-size:0.7rem;color:rgba(212,165,52,0.6);background:rgba(212,165,52,0.08);border:1px solid rgba(212,165,52,0.2);border-radius:6px;padding:4px 12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px">⛶ Full screen</button>
     </div>
 
     <!-- Legend -->
@@ -466,7 +478,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
       </div>
     </div>
 
-    <div style="text-align:center;margin-top:14px;font-size:0.62rem;color:rgba(255,255,255,0.15)">Year-end balances · CAD · Not financial advice</div>
+    <div style="text-align:center;margin-top:14px;font-size:0.62rem;color:rgba(255,255,255,0.15)">Year-end balances · CAD · Pinch to zoom · Double-tap to reset · Not financial advice</div>
   </div>
 </div>
 <div class="section-divider"></div>
@@ -1282,6 +1294,13 @@ function renderNWChart(history) {
   };
 
   if (window._nwChart) window._nwChart.destroy();
+  canvas.addEventListener('dblclick', () => { if(window._nwChart) window._nwChart.resetZoom(); });
+  canvas.addEventListener('touchend', (e) => {
+    if(e.touches.length === 0 && window._nwChartLastTap && Date.now() - window._nwChartLastTap < 300) {
+      if(window._nwChart) window._nwChart.resetZoom();
+    }
+    window._nwChartLastTap = Date.now();
+  });
   window._nwChart = new Chart(canvas, {
     type: 'line',
     data: {
@@ -1334,9 +1353,20 @@ function renderNWChart(history) {
       responsive: true,
       maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
+      onHover: (e, els, chart) => {
+        const btn = document.getElementById('nw-tooltip-close');
+        if (!btn) return;
+        const tip = chart.tooltip;
+        btn.style.display = (tip && tip.opacity > 0) ? 'flex' : 'none';
+      },
       animation: { duration: 800, easing: 'easeInOutQuart' },
       plugins: {
         legend: { display: false },
+        zoom: {
+          zoom: { wheel: { enabled: false }, pinch: { enabled: true }, mode: 'x' },
+          pan: { enabled: true, mode: 'x' },
+          limits: { x: { min: 'original', max: 'original' } }
+        },
         tooltip: {
           backgroundColor: '#1a1710',
           borderColor: 'rgba(212,165,52,0.3)',
@@ -1372,6 +1402,51 @@ function renderNWChart(history) {
           }
         }
       }
+    }
+  });
+}
+
+function nwFullscreen() {
+  const wrap = document.getElementById('nw-chart-wrap');
+  const canvas = document.getElementById('nw-chart');
+  
+  // Create fullscreen overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'nw-fs-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:#111009;z-index:9999;display:flex;flex-direction:column;padding:16px';
+  
+  // Close button
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '✕ Close';
+  closeBtn.style.cssText = 'align-self:flex-end;background:rgba(255,255,255,0.1);border:none;color:#fff;padding:8px 16px;border-radius:8px;font-size:0.8rem;cursor:pointer;margin-bottom:12px;font-family:inherit';
+  closeBtn.onclick = () => {
+    document.body.removeChild(overlay);
+    if (window._nwChartFS) { window._nwChartFS.destroy(); window._nwChartFS = null; }
+  };
+  
+  // Chart container
+  const fsWrap = document.createElement('div');
+  fsWrap.style.cssText = 'flex:1;position:relative';
+  const fsCanvas = document.createElement('canvas');
+  fsCanvas.id = 'nw-chart-fs';
+  fsWrap.appendChild(fsCanvas);
+  
+  overlay.appendChild(closeBtn);
+  overlay.appendChild(fsWrap);
+  document.body.appendChild(overlay);
+  
+  // Copy chart data and render fullscreen
+  if (window._nwChartFS) window._nwChartFS.destroy();
+  const src = window._nwChart;
+  if (!src) return;
+  
+  window._nwChartFS = new Chart(fsCanvas, {
+    type: src.config.type,
+    data: JSON.parse(JSON.stringify(src.config.data)),
+    options: {
+      ...JSON.parse(JSON.stringify(src.config.options)),
+      responsive: true,
+      maintainAspectRatio: false,
     }
   });
 }
