@@ -326,6 +326,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 <meta name="apple-mobile-web-app-title" content="Punjabi Finance">
 <link rel="apple-touch-icon" href="/icons/icon-180.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-48.png">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 </head>
 <body>
 <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0">A Real Portfolio — Every Trade Tracked</h1>
@@ -407,51 +408,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   </div>
   <div style="margin-top:16px;margin-bottom:12px;font-size:0.82rem;color:#888;line-height:1.75;max-width:640px">Members don&rsquo;t just see results — they see exactly how each position is built, managed, and monetized.</div>
   <div class="disclaimer" style="margin-top:0;margin-bottom:0"><strong>Disclaimer:</strong> Shared for educational &amp; transparency purposes only. Nothing constitutes financial advice. Past performance does not guarantee future results. Always do your own research.</div>
-  <div style="margin-top:24px;text-align:center;padding:16px 0 4px">
-    <div style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#aaa;font-weight:600;margin-bottom:10px">What&rsquo;s below</div>
-    <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:14px">
-      <span style="font-size:0.7rem;font-weight:600;color:#1a6b3c;background:rgba(26,107,60,0.08);border:1px solid rgba(26,107,60,0.2);padding:5px 14px;border-radius:100px">&#128200; Portfolio allocation</span>
-      <span style="font-size:0.7rem;font-weight:600;color:#1a6b3c;background:rgba(26,107,60,0.08);border:1px solid rgba(26,107,60,0.2);padding:5px 14px;border-radius:100px">&#128202; Every position &amp; return</span>
-      <span style="font-size:0.7rem;font-weight:600;color:#1a6b3c;background:rgba(26,107,60,0.08);border:1px solid rgba(26,107,60,0.2);padding:5px 14px;border-radius:100px">&#128293; Return by position</span>
-      <span style="font-size:0.7rem;font-weight:600;color:#1a6b3c;background:rgba(26,107,60,0.08);border:1px solid rgba(26,107,60,0.2);padding:5px 14px;border-radius:100px">&#128176; Monthly options income</span>
-    </div>
-    <div style="display:inline-flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;opacity:0.5;animation:bounce 2s infinite" onclick="document.getElementById('pie-section').scrollIntoView({behavior:'smooth'})">
-      <span style="font-size:0.68rem;color:#888;letter-spacing:0.1em">SCROLL TO EXPLORE</span>
-      <svg width="20" height="12" viewBox="0 0 20 12" fill="none"><path d="M1 1L10 10L19 1" stroke="#888" stroke-width="2" stroke-linecap="round"/></svg>
-    </div>
-  </div>
-</div>
-<div class="section-divider"></div>
 
-<!-- HOW MANAGED -->
-<div class="section section-cream">
-  <div class="sec-label">How I Manage This Portfolio</div>
-  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:4px" class="how-managed-grid">
-    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:16px 18px;border-left:3px solid #b8862a">
-      <div style="font-size:0.82rem;font-weight:700;color:#1a1a1a;margin-bottom:3px">&#128269; Adding vs waiting</div>
-      <div style="font-size:0.72rem;color:#888;line-height:1.65">I only add when the business thesis is intact — not just because a stock is down.</div>
-    </div>
-    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:16px 18px;border-left:3px solid #b8862a">
-      <div style="font-size:0.82rem;font-weight:700;color:#1a1a1a;margin-bottom:3px">&#9878; Position sizing</div>
-      <div style="font-size:0.72rem;color:#888;line-height:1.65">Higher conviction = larger positions. I concentrate, not diversify blindly.</div>
-    </div>
-    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:16px 18px;border-left:3px solid #1a6b3c">
-      <div style="font-size:0.82rem;font-weight:700;color:#1a1a1a;margin-bottom:3px">&#128176; Covered calls</div>
-      <div style="font-size:0.72rem;color:#888;line-height:1.65">Sold on long-term positions only — with strikes I&rsquo;m comfortable letting go.</div>
-    </div>
-    <div style="background:#fff;border:1px solid #e8e4dc;border-radius:12px;padding:16px 18px;border-left:3px solid #1a6b3c">
-      <div style="font-size:0.82rem;font-weight:700;color:#1a1a1a;margin-bottom:3px">&#128683; Drawdowns</div>
-      <div style="font-size:0.72rem;color:#888;line-height:1.65">If the thesis holds, 30&ndash;50% drops are part of the process — not a reason to panic.</div>
-    </div>
-  </div>
-  <div style="margin-top:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
-    <a href="philosophy.html" style="font-size:0.78rem;font-weight:600;color:#b8862a;text-decoration:none;border-bottom:1px solid rgba(184,134,42,0.3);padding-bottom:2px">Read full investing approach &rarr;</a>
-    <a href="watchlist.html" style="font-size:0.75rem;color:#1a6b3c;font-weight:600;text-decoration:none">See what I&rsquo;m watching next &rarr;</a>
-  </div>
-</div>
-
-
-<div class="section-divider"></div>
 
 <!-- NW GROWTH CHART -->
 <div class="section section-cream">
@@ -459,7 +416,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
     <span style="font-size:0.6rem;background:#e8f5e9;color:#2e7d32;padding:2px 8px;border-radius:100px;font-weight:700;letter-spacing:0.08em">9 Years</span>
   </div>
   <div style="font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:800;color:#1a1a1a;margin-bottom:6px;line-height:1.2">$0 → C$2.7M+ — The Full Journey</div>
-  <div style="font-size:0.82rem;color:#888;margin-bottom:24px">Individual stocks + mutual funds combined. Every year from 2017.</div>
+  <div style="font-size:0.82rem;color:#888;margin-bottom:24px">Individual stocks + investment funds combined. Every year from 2017.</div>
 
   <div style="background:#111009;border-radius:16px;padding:28px 24px;position:relative;overflow:hidden">
     <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#d4a534,transparent)"></div>
@@ -497,7 +454,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
         <span style="width:24px;height:3px;background:#4a7fc1;border-radius:2px;display:inline-block"></span>Individual Stocks
       </div>
       <div style="display:flex;align-items:center;gap:7px;font-size:0.7rem;color:rgba(255,255,255,0.4)">
-        <span style="width:24px;height:3px;background:#2d9e5f;border-radius:2px;display:inline-block;opacity:0.7"></span>Mutual Funds
+        <span style="width:24px;height:3px;background:#2d9e5f;border-radius:2px;display:inline-block;opacity:0.7"></span>Investment Funds
       </div>
     </div>
 
@@ -1303,7 +1260,9 @@ function renderNWChart(history) {
   const nwCur = document.getElementById('nw-current');
   const nwYrs = document.getElementById('nw-years');
   if (nwCur) nwCur.textContent = fmtC(latest.total);
-  if (nwYrs) nwYrs.textContent = (history.length - 1) + ' yrs';
+  // Subtract 2 to exclude the 2016 zero row and match '9 years since 2017'
+  const investingYears = history.filter(r => r.total > 0).length;
+  if (nwYrs) nwYrs.textContent = investingYears + ' yrs';
 
   const fmtCAD = v => {
     if (v >= 1e6) return 'C$' + (v/1e6).toFixed(1) + 'M';
@@ -1345,7 +1304,7 @@ function renderNWChart(history) {
           order: 2
         },
         {
-          label: 'Mutual Funds',
+          label: 'Investment Funds',
           data: funds,
           borderColor: '#2d9e5f',
           backgroundColor: 'transparent',
