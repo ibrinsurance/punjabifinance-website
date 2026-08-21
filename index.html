@@ -457,12 +457,11 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
     <!-- Chart -->
     <div style="position:relative;height:clamp(200px,55vw,280px)" id="nw-chart-wrap">
       <canvas id="nw-chart"></canvas>
-      <!-- X to dismiss tooltip -->
-      <button id="nw-tooltip-close" onclick="if(window._nwChart){window._nwChart.tooltip.opacity=0;window._nwChart.update();this.style.display='none'}" style="display:none;position:absolute;top:6px;right:6px;background:rgba(255,255,255,0.12);border:none;border-radius:50%;width:26px;height:26px;color:#fff;font-size:0.75rem;cursor:pointer;line-height:1;z-index:10">✕</button>
+
     </div>
     <!-- Fullscreen button -->
     <div style="display:flex;justify-content:flex-end;margin-top:8px">
-      <button onclick="nwFullscreen()" style="font-size:0.7rem;color:rgba(212,165,52,0.6);background:rgba(212,165,52,0.08);border:1px solid rgba(212,165,52,0.2);border-radius:6px;padding:4px 12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px">⛶ Full screen</button>
+      <button onclick="nwFullscreen()" style="font-size:0.72rem;color:#111009;background:#d4a534;border:none;border-radius:6px;padding:6px 14px;cursor:pointer;font-family:inherit;font-weight:700;display:flex;align-items:center;gap:6px">⛶ Full Screen</button>
     </div>
 
     <!-- Legend -->
@@ -658,14 +657,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 <div class="footer-bar">Not financial advice &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp; <a href="community.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Community</a> &nbsp;&middot;&nbsp; <a href="mediakit.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Media Kit</a> &nbsp;&middot;&nbsp; <a href="links.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Links</a></div>
 
 <script>
-// ── YEARS INVESTING ──
-(function(){
-  const years = new Date().getFullYear() - 2017;
-  const el = document.getElementById('years-investing');
-  if(el) el.textContent = years + '+ years in the market';
-  const hy = document.getElementById('hook-years');
-  if(hy) hy.textContent = years;
-})();
+// years-investing set by fetchSheetData after load
 // Password is pulled from Google Sheet cell L3 (Portfolio tab)
 // Update it there each month — no code changes needed
 const LOCK_KEY    = 'pf_unlocked_v2';
@@ -1081,6 +1073,9 @@ function renderPortfolio(positions){
   }
   document.getElementById('s-val').textContent = fmtC(totMktCAD);
   var posEl=document.getElementById('s-positions'); if(posEl) posEl.textContent=positions.length;
+  // Set years investing only after data loads
+  var yiEl=document.getElementById('years-investing');
+  if(yiEl) yiEl.textContent=(new Date().getFullYear()-2017)+'+ years in the market';
   const pe = document.getElementById('s-pnl');
   pe.textContent = fmtC(totPnlCAD);
   pe.className = 'stat-val '+(totPnlCAD>=0?'up':'dn');
@@ -1353,12 +1348,7 @@ function renderNWChart(history) {
       responsive: true,
       maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
-      onHover: (e, els, chart) => {
-        const btn = document.getElementById('nw-tooltip-close');
-        if (!btn) return;
-        const tip = chart.tooltip;
-        btn.style.display = (tip && tip.opacity > 0) ? 'flex' : 'none';
-      },
+
       animation: { duration: 800, easing: 'easeInOutQuart' },
       plugins: {
         legend: { display: false },
