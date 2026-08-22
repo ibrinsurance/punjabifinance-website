@@ -337,10 +337,6 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 <link rel="apple-touch-icon" href="/icons/icon-180.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-48.png">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2/dist/chartjs-plugin-zoom.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
 </head>
 <body>
 <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0">A Real Portfolio — Every Trade Tracked</h1>
@@ -404,7 +400,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
     <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:14px">Live Portfolio Dashboard</div>
     <div style="font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:14px">A Real <span id="hook-val" style="color:#d4a534">...</span> Portfolio &mdash;<br>Every Trade Tracked.</div>
     <div style="font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.8;margin-bottom:10px">Most people talk about investing. Very few show their real portfolio.</div>
-    <div style="font-size:0.78rem;color:rgba(255,255,255,0.3);line-height:1.8">Built over <span id="hook-years">9</span>+ years &mdash; through bull and bear markets.</div>
+    <div style="font-size:0.78rem;color:rgba(255,255,255,0.3);line-height:1.8">Built over <span id="hook-years"></span><span id="hook-years-suffix" style="display:none">+ years &mdash; through bull and bear markets.</span></div>
   </div>
 </div>
 
@@ -420,7 +416,6 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
     <div class="stat"><div class="stat-label">Positions Held</div><div class="stat-val" id="s-positions">...</div><div class="stat-meta">Active holdings</div></div>
     <div class="stat"><div class="stat-label">Investing Since</div><div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#b8862a;line-height:1">2017</div><div class="stat-meta" id="years-investing">...</div></div>
   </div>
-  <div style="margin-top:16px;margin-bottom:12px;font-size:0.82rem;color:#888;line-height:1.75;max-width:640px">Members don&rsquo;t just see results — they see exactly how each position is built, managed, and monetized.</div>
   <div class="disclaimer" style="margin-top:0;margin-bottom:0"><strong>Disclaimer:</strong> Shared for educational &amp; transparency purposes only. Nothing constitutes financial advice. Past performance does not guarantee future results. Always do your own research.</div>
 
 
@@ -1076,6 +1071,14 @@ function renderPortfolio(positions){
   // Set years investing only after data loads
   var yiEl=document.getElementById('years-investing');
   if(yiEl) yiEl.textContent=(new Date().getFullYear()-2017)+'+ years in the market';
+  var hyEl=document.getElementById('hook-years');
+  var hySuf=document.getElementById('hook-years-suffix');
+  if(hyEl) hyEl.textContent=(new Date().getFullYear()-2017);
+  if(hySuf) hySuf.style.display='inline';
+  var hyEl=document.getElementById('hook-years');
+  var hySuf=document.getElementById('hook-years-suffix');
+  if(hyEl){ hyEl.textContent=(new Date().getFullYear()-2017); }
+  if(hySuf){ hySuf.style.display='inline'; }
   const pe = document.getElementById('s-pnl');
   pe.textContent = fmtC(totPnlCAD);
   pe.className = 'stat-val '+(totPnlCAD>=0?'up':'dn');
@@ -1288,14 +1291,6 @@ function renderNWChart(history) {
     return 'C$' + Math.round(v);
   };
 
-  if (window._nwChart) window._nwChart.destroy();
-  canvas.addEventListener('dblclick', () => { if(window._nwChart) window._nwChart.resetZoom(); });
-  canvas.addEventListener('touchend', (e) => {
-    if(e.touches.length === 0 && window._nwChartLastTap && Date.now() - window._nwChartLastTap < 300) {
-      if(window._nwChart) window._nwChart.resetZoom();
-    }
-    window._nwChartLastTap = Date.now();
-  });
   window._nwChart = new Chart(canvas, {
     type: 'line',
     data: {
@@ -1352,11 +1347,6 @@ function renderNWChart(history) {
       animation: { duration: 800, easing: 'easeInOutQuart' },
       plugins: {
         legend: { display: false },
-        zoom: {
-          zoom: { wheel: { enabled: false }, pinch: { enabled: true }, mode: 'x' },
-          pan: { enabled: true, mode: 'x' },
-          limits: { x: { min: 'original', max: 'original' } }
-        },
         tooltip: {
           backgroundColor: '#1a1710',
           borderColor: 'rgba(212,165,52,0.3)',
