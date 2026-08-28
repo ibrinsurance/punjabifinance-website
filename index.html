@@ -544,112 +544,7 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   <div style="font-size:0.75rem;color:#999;margin-bottom:14px">See which positions are driving returns — and how I manage winners vs underperformers.</div>
   <div class="bar-wrap" id="bar-chart"></div>
 </div>
-<div class="section-divider"></div>
 
-<!-- OPTIONS -->
-<div class="section section-cream">
-  <div class="sec-label">Options Income <span class="sec-label-tag gold">Covered Calls</span></div>
-  <div style="display:flex;align-items:center;gap:20px;background:linear-gradient(135deg,#1a1a0a,#111009);border:1px solid rgba(212,165,52,0.2);border-radius:14px;padding:20px 28px;margin-bottom:24px">
-    <div style="font-size:2rem;flex-shrink:0">&#128176;</div>
-    <div style="flex:1">
-      <div style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:4px">Monthly Covered Call Income</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#d4a534;line-height:1">~C$<span id="opts-monthly-avg">...</span><span style="font-size:1rem;font-weight:400;opacity:0.5">/mo</span></div>
-      <div style="font-size:0.72rem;color:rgba(255,255,255,0.35);margin-top:5px">At this rate: ~C$<span id="opts-annual-proj">...</span>/year &mdash; reinvested back into the portfolio</div>
-    </div>
-  </div>
-  <div class="opts-outer">
-
-    <!-- ticker tape -->
-    <div class="opts-tape">
-      <div class="opts-tape-inner">
-        <span class="tape-item"><span>Total Collected</span><span class="tape-val" id="tape-total">...</span></span>
-        <span class="tape-dot"></span>
-        <span class="tape-item"><span>2026 YTD</span><span class="tape-val" id="tape-ytd">...</span></span>
-        <span class="tape-dot"></span>
-        <span class="tape-item"><span>2025 Full Year</span><span class="tape-val" id="tape-prev">...</span></span>
-        <span class="tape-dot"></span>
-        <span class="tape-item"><span>2026 Projected</span><span class="tape-val" id="tape-proj">...</span></span>
-        <span class="tape-dot"></span>
-        <span class="tape-item"><span>YoY Growth</span><span class="tape-val" id="tape-yoy">...</span></span>
-        <span class="tape-dot"></span>
-        <span class="tape-item"><span>Avg Monthly 2026</span><span class="tape-val" id="tape-avg">...</span></span>
-        <span class="tape-dot"></span>
-        <!-- duplicate for seamless loop -->
-        <span class="tape-item"><span>Total Collected</span><span class="tape-val" id="tape-total2">...</span></span>
-        <span class="tape-dot"></span>
-        <span class="tape-item"><span>2026 YTD</span><span class="tape-val" id="tape-ytd2">...</span></span>
-        <span class="tape-dot"></span>
-        <span class="tape-item"><span>2025 Full Year</span><span class="tape-val" id="tape-prev2">...</span></span>
-        <span class="tape-dot"></span>
-        <span class="tape-item"><span>2026 Projected</span><span class="tape-val" id="tape-proj2">...</span></span>
-        <span class="tape-dot"></span>
-        <span class="tape-item"><span>YoY Growth</span><span class="tape-val" id="tape-yoy2">...</span></span>
-        <span class="tape-dot"></span>
-        <span class="tape-item"><span>Avg Monthly 2026</span><span class="tape-val" id="tape-avg2">...</span></span>
-        <span class="tape-dot"></span>
-      </div>
-    </div>
-
-    <!-- hero stats -->
-    <div class="opts-hero-dark">
-      <div class="ohd">
-        <div class="ohd-eyebrow">Total Since Inception</div>
-        <div class="ohd-val" id="opts-total">...</div>
-        <div class="ohd-sub">Started Jan 2025</div>
-      </div>
-      <div class="ohd">
-        <div class="ohd-eyebrow" id="opts-cur-year-label">2026 YTD Collected</div>
-        <div class="ohd-val" id="opts-cur-ytd">...</div>
-        <div class="ohd-sub" id="opts-cur-avg">...</div>
-      </div>
-      <div class="ohd">
-        <div class="ohd-eyebrow" id="opts-prev-year-label">2025 Full Year</div>
-        <div class="ohd-val" id="opts-prev-total">...</div>
-        <div class="ohd-sub" id="opts-prev-avg">...</div>
-      </div>
-    </div>
-
-    <!-- year cards -->
-    <div class="opts-grid">
-      <div class="oyc is-current">
-        <div class="oyc-stripe"></div>
-        <div class="oy-title"><span id="oy-cur-title">2026</span> <span class="oy-badge current">In Progress</span></div>
-        <div class="oy-total" id="oy-cur-total">...</div>
-        <div id="bars-cur"></div>
-        <div class="opts-totals" id="oy-cur-stats"></div>
-      </div>
-      <div class="oyc">
-        <div class="oyc-stripe"></div>
-        <div class="oy-title"><span id="oy-prev-title">2025</span> <span class="oy-badge past">Full Year</span></div>
-        <div class="oy-total" id="oy-prev-total">...</div>
-        <div id="bars-prev"></div>
-        <div class="opts-totals" id="oy-prev-stats"></div>
-      </div>
-    </div>
-
-    <!-- projection -->
-    <div class="proj-outer">
-      <div class="proj-inner">
-        <div class="proj-block">
-          <div class="proj-eyebrow">Annualized Projection</div>
-          <div class="proj-num" id="proj-num">...</div>
-          <div class="proj-note">Based on current monthly run rate</div>
-        </div>
-        <div class="proj-divider"></div>
-        <div class="proj-block">
-          <div class="proj-eyebrow">Year-over-Year Growth</div>
-          <div class="proj-num green" id="proj-yoy">...</div>
-          <div class="proj-note" id="proj-yoy-sub">vs prior year</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-</div><!-- /end page -->
-
-<div class="footer-bar">Not financial advice &nbsp;&middot;&nbsp; punjabifinance.com &nbsp;&middot;&nbsp; <a href="community.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Community</a> &nbsp;&middot;&nbsp; <a href="mediakit.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Media Kit</a> &nbsp;&middot;&nbsp; <a href="links.html" style="color:rgba(255,255,255,0.4);text-decoration:none">Links</a></div>
 
 <script>
 // years-investing set by fetchSheetData after load
@@ -1152,104 +1047,6 @@ function renderPortfolio(positions){
   renderPieChart(positions);
 }
 
-// ── RENDER OPTIONS ──
-function renderOptions(options){
-  // Group by year
-  const byYear = {};
-  options.forEach(o=>{
-    if(!byYear[o.year]) byYear[o.year]=[];
-    byYear[o.year].push(o);
-  });
-
-  const years = Object.keys(byYear).map(Number).sort((a,b)=>b-a); // newest first
-  const curYear = years[0];
-  const prevYear = years[1];
-
-  // Totals
-  const totalAllCAD = options.reduce((s,o)=>s+o.premiumCAD,0);
-  const curYearCAD  = (byYear[curYear]||[]).reduce((s,o)=>s+o.premiumCAD,0);
-  const prevYearCAD = prevYear ? (byYear[prevYear]||[]).reduce((s,o)=>s+o.premiumCAD,0) : 0;
-
-  // Avg per month — current year uses exact elapsed months from today's date
-  // e.g. if today is Apr 6, elapsed = 3 + (6/30) = 3.2 months
-  const now = new Date();
-  const curYearElapsed = (now.getMonth() + (now.getDate()/30)); // 0-based month + day fraction
-  const curAvg  = curYearElapsed > 0 ? curYearCAD / curYearElapsed : 0;
-
-  // Previous year is complete — always divide by 12
-  const prevAvg = prevYear ? prevYearCAD / 12 : 0;
-  const projected = curAvg * 12;
-  const yoyPct = prevAvg>0 ? ((curAvg-prevAvg)/prevAvg*100) : 0;
-
-  // Update hero stats
-  document.getElementById('opts-total').textContent  = 'C$'+Math.round(totalAllCAD).toLocaleString();
-  document.getElementById('opts-cur-ytd').textContent = 'C$'+Math.round(curYearCAD).toLocaleString();
-  var moAvgEl=document.getElementById('opts-monthly-avg'); if(moAvgEl) moAvgEl.textContent=Math.round(curAvg).toLocaleString();
-  document.getElementById('opts-cur-avg').textContent = 'Avg C$'+Math.round(curAvg).toLocaleString()+' / month';
-  document.getElementById('opts-prev-total').textContent = prevYear ? 'C$'+Math.round(prevYearCAD).toLocaleString() : 'C$0';
-  document.getElementById('opts-prev-avg').textContent = prevYear ? 'Avg C$'+Math.round(prevAvg).toLocaleString()+' / month' : '';
-  document.getElementById('opts-cur-year-label').textContent  = curYear+' YTD Collected';
-  document.getElementById('opts-prev-year-label').textContent = (prevYear||'')+' Full Year';
-
-  // Year card titles
-  document.getElementById('oy-cur-title').textContent  = String(curYear);
-  document.getElementById('oy-prev-title').textContent = String(prevYear||'');
-  document.getElementById('oy-cur-total').textContent   = 'C$'+Math.round(curYearCAD).toLocaleString();
-  document.getElementById('oy-prev-total').textContent  = prevYear ? 'C$'+Math.round(prevYearCAD).toLocaleString() : 'C$0';
-
-  // Year card bottom stats
-  const curBest = Math.max(...(byYear[curYear]||[]).map(o=>o.premiumCAD));
-  const prevBest = prevYear ? Math.max(...(byYear[prevYear]||[]).map(o=>o.premiumCAD)) : 0;
-  document.getElementById('oy-cur-stats').innerHTML = `
-    <div class="ot-item"><div class="ot-label">YTD Total</div><div class="ot-val">C$${Math.round(curYearCAD).toLocaleString()}</div></div>
-    <div class="ot-item"><div class="ot-label">Avg / mo</div><div class="ot-val">C$${Math.round(curAvg).toLocaleString()}</div></div>
-    <div class="ot-item"><div class="ot-label">Best month</div><div class="ot-val">C$${Math.round(curBest).toLocaleString()}</div></div>`;
-  document.getElementById('oy-prev-stats').innerHTML = prevYear ? `
-    <div class="ot-item"><div class="ot-label">Total</div><div class="ot-val">C$${Math.round(prevYearCAD).toLocaleString()}</div></div>
-    <div class="ot-item"><div class="ot-label">Avg / mo</div><div class="ot-val">C$${Math.round(prevAvg).toLocaleString()}</div></div>
-    <div class="ot-item"><div class="ot-label">Best month</div><div class="ot-val">C$${Math.round(prevBest).toLocaleString()}</div></div>` : '';
-
-  // Tape values
-  const s=(v)=>{ const el=document.getElementById(v); return el; };
-  const setT=(id1,id2,v)=>{ const e1=s(id1),e2=s(id2); if(e1)e1.textContent=v; if(e2)e2.textContent=v; };
-  setT('tape-total','tape-total2','C$'+Math.round(totalAllCAD).toLocaleString());
-  setT('tape-ytd','tape-ytd2','C$'+Math.round(curYearCAD).toLocaleString());
-  setT('tape-prev','tape-prev2',prevYear?'C$'+Math.round(prevYearCAD).toLocaleString():'C$0');
-  setT('tape-proj','tape-proj2','C$'+Math.round(projected).toLocaleString());
-  setT('tape-yoy','tape-yoy2',(yoyPct>=0?'+':'')+yoyPct.toFixed(0)+'%');
-  setT('tape-avg','tape-avg2','C$'+Math.round(curAvg).toLocaleString());
-
-  // Month bars
-  const mk = (yearData, id) => {
-    if(!yearData) return;
-    const maxV = Math.max(...yearData.map(r=>r.premiumCAD), 1);
-    document.getElementById(id).innerHTML = yearData.map(r=>`
-      <div class="mb-row">
-        <div class="mb-label">${String(r.month).substring(0,3)}</div>
-        <div class="mb-track"><div class="mb-fill ${r.premiumCAD===0?'zero':''}" style="width:${r.premiumCAD===0?'3':((r.premiumCAD/maxV)*100).toFixed(1)}%"></div></div>
-        <div class="mb-val">${r.premiumCAD===0?'nil':'C$'+Math.round(r.premiumCAD).toLocaleString()}</div>
-      </div>`).join('');
-  };
-  mk(byYear[curYear],  'bars-cur');
-  mk(byYear[prevYear], 'bars-prev');
-
-  // Tape values
-  setT('tape-total','tape-total2','C$'+Math.round(totalAllCAD).toLocaleString());
-  setT('tape-ytd','tape-ytd2','C$'+Math.round(curYearCAD).toLocaleString());
-  setT('tape-prev','tape-prev2',prevYear?'C$'+Math.round(prevYearCAD).toLocaleString():'C$0');
-  setT('tape-proj','tape-proj2','C$'+Math.round(projected).toLocaleString());
-  setT('tape-avg','tape-avg2','C$'+Math.round(curAvg).toLocaleString());
-
-  // Monthly avg callout
-    var annEl=document.getElementById('opts-annual-proj');if(annEl) annEl.textContent=Math.round(curAvg*12).toLocaleString();
-
-  // Projection band
-  document.getElementById('proj-num').textContent = 'C$'+Math.round(projected).toLocaleString();
-  const yoyEl = document.getElementById('proj-yoy');
-  yoyEl.textContent = (yoyPct>=0?'+':'')+yoyPct.toFixed(0)+'%';
-  yoyEl.className = 'proj-num '+(yoyPct>=0?'green':'dn');
-  document.getElementById('proj-yoy-sub').textContent = 'Monthly avg vs '+prevYear;
-}
 
 // ── SHOW LOADING STATE ──
 function showLoading(){
@@ -1442,9 +1239,6 @@ async function init(){
     try{
       if(data.nwHistory && data.nwHistory.length>0) renderNWChart(data.nwHistory);
     }catch(e){ console.error('renderNWChart error:', e); }
-    try{
-      if(data.options && data.options.length>0) renderOptions(data.options);
-    }catch(e){ console.error('renderOptions error:', e); }
   }catch(e){
     console.error('Sheet fetch error:', e);
     showError('Could not load sheet data. Check your connection.');
@@ -1455,7 +1249,7 @@ async function init(){
     try{
       const data = await fetchSheetData();
       try{ if(data.positions?.length) renderPortfolio(data.positions); }catch(e){}
-      try{ if(data.options?.length)   renderOptions(data.options); }catch(e){}
+      try{ if(data.nwHistory?.length) renderNWChart(data.nwHistory); }catch(e){}
     }catch(e){}
   }, 5*60*1000);
 }
