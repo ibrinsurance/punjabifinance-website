@@ -101,8 +101,8 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 .hero-title em{color:#d4a534;font-style:normal}
 .hero-sub{font-size:0.95rem;color:rgba(255,255,255,0.5);line-height:1.85;max-width:540px;margin:0 auto 32px}
 .hero-sub strong{color:rgba(255,255,255,0.8);font-weight:600}
-.hero-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
-.btn-join{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#25d366;color:#052a10;padding:16px 36px;border-radius:12px;font-weight:700;font-size:1rem;text-decoration:none;transition:all .2s;box-shadow:0 4px 28px rgba(37,211,102,0.25);white-space:nowrap}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:16px;padding:0 16px}
+.btn-join{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#25d366;color:#052a10;padding:14px 24px;border-radius:12px;font-weight:700;font-size:1rem;text-decoration:none;transition:all .2s;box-shadow:0 4px 28px rgba(37,211,102,0.25);white-space:normal;text-align:center;max-width:100%}
 .btn-join:hover{background:#1fb356;transform:translateY(-2px)}
 .hero-note{font-size:0.67rem;color:rgba(255,255,255,0.25);letter-spacing:0.06em}
 .hero-disclaimer{font-size:0.67rem;color:rgba(255,255,255,0.3);line-height:1.75;max-width:520px;margin:16px auto 0;padding:12px 18px;background:rgba(255,255,255,0.04);border-left:2px solid rgba(212,165,52,0.3);border-radius:0 8px 8px 0;text-align:left}
@@ -360,6 +360,12 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 /* Mobile nav - must be last */
 @media(max-width:720px){.topbar-nav{display:none!important}.topbar-right-btns{display:flex!important;align-items:center}}
 @media(max-width:480px){.topbar{padding:0 14px;gap:8px}}
+
+@media(max-width:600px){
+  .hero{padding-left:20px!important;padding-right:20px!important}
+  .btn-join{width:100%;box-sizing:border-box;padding:14px 16px!important}
+  .hero-actions{padding:0!important}
+}
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W5P90KB7HM"></script>
