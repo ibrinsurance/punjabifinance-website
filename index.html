@@ -317,6 +317,26 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 @media(max-width:900px){
   .nw-section{padding-left:16px!important;padding-right:16px!important}
 }
+
+/* Insurance strip */
+.ins-strip{background:#111009;border-top:1px solid rgba(212,165,52,0.1);border-bottom:1px solid rgba(212,165,52,0.1);padding:18px 40px}
+.ins-strip-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ins-strip-left{display:flex;align-items:center;gap:14px;flex:1;min-width:200px}
+.ins-strip-label{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,165,52,0.5);font-weight:700;margin-bottom:3px}
+.ins-strip-text{font-size:0.82rem;color:rgba(255,255,255,0.6);font-weight:400}
+.ins-strip-btns{display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0}
+.ins-btn{display:inline-flex;align-items:center;gap:5px;padding:9px 16px;border-radius:8px;font-size:0.75rem;font-weight:700;text-decoration:none;white-space:nowrap;transition:all .15s}
+.ins-btn-gold{background:rgba(212,165,52,0.12);border:1px solid rgba(212,165,52,0.3);color:#d4a534}
+.ins-btn-gold:hover{background:rgba(212,165,52,0.2)}
+.ins-btn-outline{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.6)}
+.ins-btn-outline:hover{background:rgba(255,255,255,0.1);color:#fff}
+.ins-btn-green{background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.25);color:#25d366}
+.ins-btn-green:hover{background:rgba(37,211,102,0.18)}
+@media(max-width:600px){
+  .ins-strip{padding:16px 20px}
+  .ins-strip-btns{width:100%;justify-content:flex-start}
+  .ins-btn{flex:1;justify-content:center;font-size:0.7rem;padding:9px 10px}
+}
 </style>
 
 <!-- Google tag (gtag.js) -->
@@ -1285,6 +1305,24 @@ async function init(){
 }
 init();
 </script>
+
+<div class="ins-strip">
+  <div class="ins-strip-inner">
+    <div class="ins-strip-left">
+      <div style="font-size:1.4rem;flex-shrink:0">🛡️</div>
+      <div>
+        <div class="ins-strip-label">Wealth Protection</div>
+        <div class="ins-strip-text">Rattan is a licensed insurance advisor across 8 provinces — life, disability, critical illness &amp; more.</div>
+      </div>
+    </div>
+    <div class="ins-strip-btns">
+      <a href="protection.html#book" class="ins-btn ins-btn-gold">Get a Quote</a>
+      <a href="tel:+16477456850" class="ins-btn ins-btn-outline">📞 Call</a>
+      <a href="https://wa.me/16477456850" target="_blank" class="ins-btn ins-btn-green">💬 WhatsApp</a>
+    </div>
+  </div>
+</div>
+
 
 <script>
 function toggleMenu(){
