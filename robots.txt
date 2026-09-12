@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://punjabifinance.com/sitemap.xml
+Sitemap: https://ibrinsurance.ca/sitemap.xml
