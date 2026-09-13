@@ -557,6 +557,37 @@ html{font-size:18px;scrollbar-gutter:stable}
 </div>
 
 
+<!-- STICKY SUBSCRIBE BAR -->
+<div id="sticky-sub" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#111009;border-top:1px solid rgba(212,165,52,0.25);padding:14px 20px;z-index:999;display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+  <div>
+    <div style="font-size:0.78rem;font-weight:700;color:#fff;">📧 Get the Investor's Newsletter</div>
+    <div style="font-size:0.68rem;color:rgba(255,255,255,0.4)">Free · 2× per month · No noise</div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+    <a href="#subscribe" onclick="smoothScroll()" style="background:#d4a534;color:#0a0c0a;padding:10px 20px;border-radius:8px;font-weight:700;font-size:0.8rem;text-decoration:none;white-space:nowrap">Subscribe Free →</a>
+    <button onclick="document.getElementById('sticky-sub').style.display='none'" style="background:none;border:none;color:rgba(255,255,255,0.3);font-size:1.1rem;cursor:pointer;padding:4px 8px;line-height:1">×</button>
+  </div>
+</div>
+
+<script>
+function smoothScroll(){
+  event.preventDefault();
+  document.getElementById('subscribe').scrollIntoView({behavior:'smooth'});
+}
+
+// Show sticky bar after 8 seconds, or when user scrolls past 60% of page
+setTimeout(function(){
+  var bar = document.getElementById('sticky-sub');
+  if(bar) bar.style.display='flex';
+}, 8000);
+
+window.addEventListener('scroll', function(){
+  var scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  var bar = document.getElementById('sticky-sub');
+  if(bar && scrolled > 60) bar.style.display='flex';
+});
+</script>
+
 <script>
 function toggleMenu(){
   document.getElementById('ham-btn').classList.toggle('open');
