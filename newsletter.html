@@ -339,10 +339,10 @@ html{font-size:18px;scrollbar-gutter:stable}
 .nl-cta:hover{background:#e6b93d;transform:translateY(-1px)}
 
 /* ── EDITIONS ── */
-.ed-section{background:#f9f7f3;padding:clamp(56px,8vw,88px) 40px}
+.ed-section{background:#1a1710;padding:clamp(56px,8vw,88px) 40px;border-bottom:1px solid rgba(212,165,52,0.1)}
 .ed-inner{max-width:1000px;margin:0 auto}
 .ed-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:36px}
-.ed-card{background:#fff;border:1px solid #e8e4dc;border-radius:20px;padding:32px 28px;position:relative;overflow:hidden}
+.ed-card{background:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:32px 28px;position:relative;overflow:hidden}
 .ed-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
 .ed-01::before{background:linear-gradient(90deg,#d4a534,#b8862a)}
 .ed-02::before{background:linear-gradient(90deg,#1a6b3c,#2d9e5f)}
@@ -363,13 +363,13 @@ html{font-size:18px;scrollbar-gutter:stable}
 .no-filler strong{color:#555;font-style:normal}
 
 /* ── WHY READERS COME BACK ── */
-.why-section{background:#111009;padding:clamp(56px,8vw,88px) 40px}
+.why-section{background:#f9f7f3;padding:clamp(56px,8vw,88px) 40px}
 .why-inner{max-width:960px;margin:0 auto}
 .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:36px}
-.why-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:26px 22px;display:flex;gap:16px;align-items:flex-start}
+.why-card{background:#fff;border:1px solid #e8e4dc;border-radius:16px;padding:26px 22px;display:flex;gap:16px;align-items:flex-start}
 .why-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px}
-.why-title{font-size:0.86rem;font-weight:700;color:rgba(255,255,255,0.85);margin-bottom:6px}
-.why-body{font-size:0.73rem;color:rgba(255,255,255,0.35);line-height:1.75}
+.why-title{font-size:0.86rem;font-weight:700;color:#1a1a1a;margin-bottom:6px}
+.why-body{font-size:0.73rem;color:#777;line-height:1.75}
 
 /* ── SCOREBOARD SAMPLE ── */
 .score-section{background:#f4f2ee;padding:clamp(48px,7vw,80px) 40px}
@@ -382,8 +382,8 @@ html{font-size:18px;scrollbar-gutter:stable}
 .score-note{font-size:0.6rem;color:#ccc;margin-top:5px}
 
 /* ── SUBSCRIBE ── */
-.sub-section{background:#fff;padding:clamp(56px,8vw,88px) 40px;border-top:1px solid #e8e4dc}
-.sub-card{background:#fff;border:1px solid #e8e4dc;border-radius:20px;padding:clamp(32px,5vw,48px);position:relative;overflow:hidden;max-width:540px;margin:0 auto}
+.sub-section{background:#111009;padding:clamp(56px,8vw,88px) 40px;border-top:1px solid rgba(212,165,52,0.1)}
+.sub-card{background:#1a1710;border:1px solid rgba(212,165,52,0.15);border-radius:20px;padding:clamp(32px,5vw,48px);position:relative;overflow:hidden;max-width:540px;margin:0 auto}
 .sub-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#d4a534,#b8862a)}
 
 /* ── RESPONSIVE ── */
@@ -444,9 +444,8 @@ html{font-size:18px;scrollbar-gutter:stable}
   <p class="nl-tagline-small">Stocks, rates, housing, earnings and one investor lesson. 10 pages or less. No noise.</p>
   <div class="nl-badges">
     <span class="nl-badge green">✓ Free forever</span>
-    <span class="nl-badge">✓ 2× per month</span>
-    <span class="nl-badge">✓ Canada + US</span>
-    <span class="nl-badge">✓ Primary sources</span>
+    <span class="nl-badge green">✓ 2× per month</span>
+    <span class="nl-badge green">✓ Canada + US</span>
   </div>
   <a class="nl-cta" href="#subscribe">Get the Free Investor's Newsletter</a>
 </div>
@@ -455,8 +454,8 @@ html{font-size:18px;scrollbar-gutter:stable}
 <div class="ed-section">
   <div class="ed-inner">
     <div class="sec-label">What you get</div>
-    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;color:#1a1a1a;line-height:1.2;margin-bottom:8px">Two editions. Two purposes.</div>
-    <div style="font-size:0.83rem;color:#888;max-width:520px;line-height:1.7">Not another market-news dump. Each edition focuses on what happened, what matters, and what investors should be watching next.</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px">Two editions. Two purposes.</div>
+    <div style="font-size:0.83rem;color:rgba(255,255,255,0.4);max-width:520px;line-height:1.7">Not another market-news dump. Each edition focuses on what happened, what matters, and what investors should be watching next.</div>
 
     <div class="ed-grid">
 
@@ -503,9 +502,9 @@ html{font-size:18px;scrollbar-gutter:stable}
 <!-- WHY READERS COME BACK -->
 <div class="why-section">
   <div class="why-inner">
-    <div class="sec-label" style="color:rgba(212,165,52,0.5);border-color:rgba(212,165,52,0.15)">Why readers come back</div>
-    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px">More than a market recap.</div>
-    <div style="font-size:0.83rem;color:rgba(255,255,255,0.3);max-width:460px;line-height:1.7">An editorial voice. Primary sources. One lesson that makes you a better investor with every edition.</div>
+    <div class="sec-label">Why readers come back</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;color:#1a1a1a;line-height:1.2;margin-bottom:8px">More than a market recap.</div>
+    <div style="font-size:0.83rem;color:#888;max-width:460px;line-height:1.7">An editorial voice. Primary sources. One lesson that makes you a better investor with every edition.</div>
     <div class="why-grid">
       <div class="why-card">
         <div class="why-icon">🔦</div>
@@ -540,20 +539,23 @@ html{font-size:18px;scrollbar-gutter:stable}
 </div>
 
 <!-- SUBSCRIBE -->
-<div class="sub-section" id="subscribe">
-  <div class="sub-card">
+<div style="background:#111009;padding:clamp(48px,7vw,72px) 40px;text-align:center;border-top:1px solid rgba(212,165,52,0.1)">
+  <div style="max-width:500px;margin:0 auto">
     <div style="font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(212,165,52,0.6);font-weight:700;margin-bottom:14px">Subscribe — it's free</div>
-    <div style="font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:800;color:#1a1a1a;margin-bottom:8px;line-height:1.2">Get the Investor's Newsletter</div>
-    <div style="font-size:0.77rem;color:#888;line-height:1.7;margin-bottom:6px">Drop your email and get the next edition straight to your inbox.</div>
-    <div style="font-size:0.74rem;color:#bbb;margin-bottom:20px">Two editions every month. 10 pages or less. No market noise.</div>
-    <div style="height:1px;background:#e8e4dc;margin:0 0 20px"></div>
-    <div style="min-height:120px;width:100%">
+    <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.2">Get the Investor's Newsletter</div>
+    <div style="font-size:0.77rem;color:rgba(255,255,255,0.35);margin-bottom:20px;line-height:1.6">Two editions every month. 10 pages or less. No market noise.</div>
+    <div style="height:1px;background:rgba(212,165,52,0.15);margin:0 0 20px"></div>
+    <div id="bh-wrap" style="min-height:120px;width:100%">
       <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="e38ed27c-1e8d-419c-b840-496fad5b0b85"></script>
     </div>
+    <div id="bh-reopen" style="display:none;text-align:center;margin-top:8px">
+      <button onclick="document.getElementById('bh-wrap').style.display='block';document.getElementById('bh-reopen').style.display='none'" style="background:rgba(212,165,52,0.1);border:1px solid rgba(212,165,52,0.3);color:#d4a534;padding:10px 22px;border-radius:8px;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:inherit">📧 Subscribe here</button>
+    </div>
     <script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
-    <div style="margin-top:18px;font-size:0.63rem;color:#ccc;line-height:1.7">Education only — not financial advice. Information compiled from primary sources including Statistics Canada, Bank of Canada, CREA, the Federal Reserve and US government agencies.</div>
+    <div style="margin-top:16px;font-size:0.62rem;color:rgba(255,255,255,0.15);line-height:1.7">Education only — not financial advice.</div>
   </div>
 </div>
+
 
 <script>
 function toggleMenu(){
