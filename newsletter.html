@@ -539,7 +539,7 @@ html{font-size:18px;scrollbar-gutter:stable}
 </div>
 
 <!-- SUBSCRIBE -->
-<div style="background:#111009;padding:clamp(48px,7vw,72px) 40px;text-align:center;border-top:1px solid rgba(212,165,52,0.1)">
+<div id="subscribe" style="background:#111009;padding:clamp(48px,7vw,72px) 40px;text-align:center;border-top:1px solid rgba(212,165,52,0.1)">
   <div style="max-width:500px;margin:0 auto">
     <div style="font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(212,165,52,0.6);font-weight:700;margin-bottom:14px">Subscribe — it's free</div>
     <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.2">Get the Investor's Newsletter</div>
@@ -558,41 +558,30 @@ html{font-size:18px;scrollbar-gutter:stable}
 
 
 <!-- STICKY SUBSCRIBE BAR -->
-<div id="sticky-sub" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#111009;border-top:1px solid rgba(212,165,52,0.25);padding:14px 20px;z-index:999;display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+<div id="sticky-sub" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#111009;border-top:2px solid #d4a534;padding:12px 20px;z-index:9999;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
   <div>
-    <div style="font-size:0.78rem;font-weight:700;color:#fff;">📧 Get the Investor's Newsletter</div>
+    <div style="font-size:0.8rem;font-weight:700;color:#fff">📧 Get the Investor's Newsletter</div>
     <div style="font-size:0.68rem;color:rgba(255,255,255,0.4)">Free · 2× per month · No noise</div>
   </div>
   <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
-    <a href="#subscribe" onclick="smoothScroll()" style="background:#d4a534;color:#0a0c0a;padding:10px 20px;border-radius:8px;font-weight:700;font-size:0.8rem;text-decoration:none;white-space:nowrap">Subscribe Free →</a>
-    <button onclick="document.getElementById('sticky-sub').style.display='none'" style="background:none;border:none;color:rgba(255,255,255,0.3);font-size:1.1rem;cursor:pointer;padding:4px 8px;line-height:1">×</button>
+    <button onclick="document.getElementById('subscribe').scrollIntoView({behavior:'smooth'});document.getElementById('sticky-sub').style.display='none';" style="background:#d4a534;color:#0a0c0a;padding:10px 20px;border-radius:8px;font-weight:700;font-size:0.8rem;border:none;cursor:pointer;font-family:inherit;white-space:nowrap">Subscribe Free →</button>
+    <button onclick="var b=document.getElementById('sticky-sub');b.style.display='none';b._dismissed=true;" style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:1.3rem;cursor:pointer;padding:2px 6px;line-height:1">×</button>
   </div>
 </div>
 
-<script>
-function smoothScroll(){
-  event.preventDefault();
-  document.getElementById('subscribe').scrollIntoView({behavior:'smooth'});
-}
-
-// Show sticky bar after 8 seconds, or when user scrolls past 60% of page
-setTimeout(function(){
-  var bar = document.getElementById('sticky-sub');
-  if(bar) bar.style.display='flex';
-}, 8000);
-
-window.addEventListener('scroll', function(){
-  var scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-  var bar = document.getElementById('sticky-sub');
-  if(bar && scrolled > 60) bar.style.display='flex';
-});
-</script>
 
 <script>
 function toggleMenu(){
   document.getElementById('ham-btn').classList.toggle('open');
   document.getElementById('nav-dropdown').classList.toggle('open');
 }
+// Show sticky bar when user scrolls past halfway
+window.addEventListener('scroll', function(){
+  var bar = document.getElementById('sticky-sub');
+  if(!bar || bar._dismissed) return;
+  var pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  if(pct > 0.5) bar.style.display = 'flex';
+}, {passive:true});
 document.querySelectorAll('a[href="#subscribe"]').forEach(a=>{
   a.addEventListener('click',e=>{e.preventDefault();document.getElementById('subscribe').scrollIntoView({behavior:'smooth'});});
 });
