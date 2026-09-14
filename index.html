@@ -337,6 +337,22 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   .ins-strip-btns{width:100%;justify-content:flex-start}
   .ins-btn{flex:1;justify-content:center;font-size:0.7rem;padding:9px 10px}
 }
+
+/* ── SCROLLING AD TICKER ── */
+.ad-ticker-wrap{background:#0a0c0a;border-top:1px solid rgba(212,165,52,0.12);border-bottom:1px solid rgba(212,165,52,0.12);padding:0;overflow:hidden;position:relative}
+.ad-ticker-wrap::before,.ad-ticker-wrap::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
+.ad-ticker-wrap::before{left:0;background:linear-gradient(90deg,#0a0c0a,transparent)}
+.ad-ticker-wrap::after{right:0;background:linear-gradient(-90deg,#0a0c0a,transparent)}
+.ad-ticker-track{display:flex;width:max-content;animation:ticker-scroll 32s linear infinite}
+.ad-ticker-track:hover{animation-play-state:paused}
+.ad-ticker-item{display:flex;align-items:center;gap:10px;padding:13px 32px;white-space:nowrap;text-decoration:none;transition:opacity .15s;border-right:1px solid rgba(212,165,52,0.08)}
+.ad-ticker-item:hover{opacity:0.8}
+.ad-ticker-icon{font-size:1rem;flex-shrink:0}
+.ad-ticker-label{font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.75)}
+.ad-ticker-label span{color:#d4a534}
+.ad-ticker-cta{font-size:0.65rem;color:rgba(212,165,52,0.5);margin-left:6px;font-weight:600}
+@keyframes ticker-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@media(max-width:600px){.ad-ticker-track{animation-duration:22s}}
 </style>
 
 <!-- Google tag (gtag.js) -->
@@ -506,23 +522,42 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
   </div>
 </div>
 
-<div class="ins-strip">
-  <div class="ins-strip-inner">
-    <div class="ins-strip-left">
-      <div style="font-size:1.4rem;flex-shrink:0">🛡️</div>
-      <div>
-        <div class="ins-strip-label">Wealth Protection</div>
-        <div class="ins-strip-text">Rattan is a licensed insurance advisor across 8 provinces — life, disability, critical illness &amp; more.</div>
-      </div>
-    </div>
-    <div class="ins-strip-btns">
-      <a href="protection.html#book" class="ins-btn ins-btn-gold">Get a Quote</a>
-      <a href="tel:+16477456850" class="ins-btn ins-btn-outline">📞 Call</a>
-      <a href="https://wa.me/16477456850" target="_blank" class="ins-btn ins-btn-green">💬 WhatsApp</a>
-    </div>
+<div class="ad-ticker-wrap">
+  <div class="ad-ticker-track">
+    <!-- Set 1 -->
+    <a class="ad-ticker-item" href="https://www.insurancebyrattan.ca/term-life-insurance/" target="_blank">
+      <span class="ad-ticker-icon">🛡️</span>
+      <span class="ad-ticker-label">Life · CI · Disability Insurance <span>— Compare 25+ Insurers</span></span>
+      <span class="ad-ticker-cta">Get a Quote →</span>
+    </a>
+    <a class="ad-ticker-item" href="https://www.insurancebyrattan.ca/super-visa-insurance/" target="_blank">
+      <span class="ad-ticker-icon">✈️</span>
+      <span class="ad-ticker-label">Super Visa &amp; Visitor Insurance <span>— Same-Day Approval</span></span>
+      <span class="ad-ticker-cta">Get a Quote →</span>
+    </a>
+    <a class="ad-ticker-item" href="https://www.ibrinsurance.ca/" target="_blank">
+      <span class="ad-ticker-icon">👶</span>
+      <span class="ad-ticker-label">RESP <span>— Government Grants Up to $9,200 Per Child</span></span>
+      <span class="ad-ticker-cta">Learn More →</span>
+    </a>
+    <!-- Set 2 — duplicate for seamless loop -->
+    <a class="ad-ticker-item" href="https://www.insurancebyrattan.ca/term-life-insurance/" target="_blank">
+      <span class="ad-ticker-icon">🛡️</span>
+      <span class="ad-ticker-label">Life · CI · Disability Insurance <span>— Compare 25+ Insurers</span></span>
+      <span class="ad-ticker-cta">Get a Quote →</span>
+    </a>
+    <a class="ad-ticker-item" href="https://www.insurancebyrattan.ca/super-visa-insurance/" target="_blank">
+      <span class="ad-ticker-icon">✈️</span>
+      <span class="ad-ticker-label">Super Visa &amp; Visitor Insurance <span>— Same-Day Approval</span></span>
+      <span class="ad-ticker-cta">Get a Quote →</span>
+    </a>
+    <a class="ad-ticker-item" href="https://www.ibrinsurance.ca/" target="_blank">
+      <span class="ad-ticker-icon">👶</span>
+      <span class="ad-ticker-label">RESP <span>— Government Grants Up to $9,200 Per Child</span></span>
+      <span class="ad-ticker-cta">Learn More →</span>
+    </a>
   </div>
-</div>
-<div class="section-divider"></div>
+</div><div class="section-divider"></div>
 
 <!-- PIE CHART -->
 <div class="section section-white" id="pie-section">
