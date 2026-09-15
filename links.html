@@ -178,7 +178,7 @@ body{
 
 <div class="brand">Punjabi Finance</div>
 <div class="handle">Rattan Taggar</div>
-<div class="tagline">Sharing a real C$2.5M+ portfolio live — every trade tracked. Licensed Insurance Advisor across 8 provinces.</div>
+<div class="tagline">Sharing a real <span id="lk-portval"></span> portfolio live — every trade tracked. Licensed Insurance Advisor across 8 provinces.</div>
 <div style="font-size:0.72rem;color:rgba(212,165,52,0.5);font-weight:600;letter-spacing:0.04em;margin-bottom:28px">Investor since 2017 &bull; Licensed Insurance Advisor</div>
 
 <div style="display:flex;gap:10px;width:100%;max-width:400px;margin-bottom:8px">
@@ -254,6 +254,15 @@ body{
       if(d.social && d.social.memberCount){
         var el = document.getElementById('lk-members');
         if(el) el.textContent = d.social.memberCount + '+';
+      }
+      // Portfolio value from positions
+      if(d.positions && d.positions.length){
+        var total = d.positions.reduce(function(s,r){ return s + (r.mktCAD||0); }, 0);
+        var pv = document.getElementById('lk-portval');
+        if(pv && total > 0){
+          var m = (total/1e6).toFixed(2);
+          pv.textContent = 'C$' + m + 'M+';
+        }
       }
     })
     .catch(function(){});
