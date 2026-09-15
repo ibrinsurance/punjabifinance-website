@@ -253,7 +253,7 @@ body{
     .then(function(d){
       if(d.social && d.social.memberCount){
         var el = document.getElementById('lk-members');
-        if(el) el.textContent = d.social.memberCount + '+';
+        if(el) el.textContent = d.social.memberCount;
       }
       // Portfolio value from positions
       if(d.positions && d.positions.length){
