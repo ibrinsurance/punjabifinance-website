@@ -352,12 +352,12 @@ html{font-size:18px;scrollbar-gutter:stable}
 .ed-when{font-size:0.7rem;color:#bbb;margin-bottom:16px;font-weight:500}
 .ed-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;color:#1a1a1a;margin-bottom:5px;line-height:1.2}
 .ed-sub{font-size:0.75rem;color:#999;margin-bottom:20px;line-height:1.6;font-style:italic}
-.ed-rows{display:flex;flex-direction:column;gap:0}
-.ed-row{display:flex;align-items:baseline;gap:10px;font-size:0.73rem;color:#666;padding:8px 0;border-bottom:1px solid #f4f1ec}
-.ed-row:last-child{border-bottom:none}
-.ed-row-n{font-size:0.58rem;font-weight:700;color:#ddd;width:14px;flex-shrink:0}
-.ed-row-name{font-weight:600;color:#444;flex-shrink:0}
-.ed-row-desc{color:#aaa;font-size:0.68rem}
+.ed-rows{display:table;width:100%;border-collapse:collapse}
+.ed-row{display:table-row}.ed-row:not(:last-child) .ed-row-n,.ed-row:not(:last-child) .ed-row-name,.ed-row:not(:last-child) .ed-row-desc{border-bottom:1px solid #f4f1ec}
+
+.ed-row-n{display:table-cell;font-size:0.58rem;font-weight:700;color:#ddd;width:18px;padding:8px 6px 8px 0;vertical-align:top}
+.ed-row-name{display:table-cell;font-weight:700;color:#333;padding:8px 10px 8px 0;vertical-align:top;width:180px;white-space:nowrap}
+.ed-row-desc{display:table-cell;color:#aaa;font-size:0.68rem;padding:8px 0;vertical-align:top;line-height:1.5}
 .ed-note{font-size:0.65rem;color:#ccc;margin-top:16px;font-style:italic;line-height:1.6}
 .no-filler{background:#f9f7f3;border-top:1px solid #e8e4dc;padding:18px 28px;margin:24px -28px -32px;font-size:0.74rem;color:#888;font-style:italic;line-height:1.6}
 .no-filler strong{color:#555;font-style:normal}
@@ -533,14 +533,14 @@ html{font-size:18px;scrollbar-gutter:stable}
         <div class="ed-title">The Month in Review</div>
         <div class="ed-sub">What happened. What mattered. What we learned.</div>
         <div class="ed-rows">
-          <div class="ed-row"><span class="ed-row-n">01</span><span class="ed-row-name">🇨🇦 Canadian Markets</span>&nbsp;<span class="ed-row-desc">TSX, sectors & key stories</span></div>
-          <div class="ed-row"><span class="ed-row-n">02</span><span class="ed-row-name">🇺🇸 U.S. Markets</span>&nbsp;<span class="ed-row-desc">S&P 500, Nasdaq, Mag 7 & major earnings</span></div>
-          <div class="ed-row"><span class="ed-row-n">03</span><span class="ed-row-name">📊 Rates & Economy</span>&nbsp;<span class="ed-row-desc">BoC, Fed, inflation, GDP & jobs</span></div>
-          <div class="ed-row"><span class="ed-row-n">04</span><span class="ed-row-name">🏠 Housing & Real Estate</span>&nbsp;<span class="ed-row-desc">Prices, rates, sales & inventory</span></div>
-          <div class="ed-row"><span class="ed-row-n">05</span><span class="ed-row-name">🔦 The Big Story</span>&nbsp;<span class="ed-row-desc">One story every investor should understand</span></div>
-          <div class="ed-row"><span class="ed-row-n">06</span><span class="ed-row-name">📚 Investor Lesson</span>&nbsp;<span class="ed-row-desc">One timeless concept explained simply</span></div>
-          <div class="ed-row"><span class="ed-row-n">07</span><span class="ed-row-name">📈 The Scoreboard</span>&nbsp;<span class="ed-row-desc">The month in 6 numbers</span></div>
-          <div class="ed-row"><span class="ed-row-n">08</span><span class="ed-row-name">🗓️ What's Next</span>&nbsp;<span class="ed-row-desc">5 dates & events to watch</span></div>
+          <div class="ed-row"><span class="ed-row-n">01</span><span class="ed-row-name">🇨🇦 Canadian Markets</span><span class="ed-row-desc">TSX, sectors & key stories</span></div>
+          <div class="ed-row"><span class="ed-row-n">02</span><span class="ed-row-name">🇺🇸 U.S. Markets</span><span class="ed-row-desc">S&P 500, Nasdaq, Mag 7 & major earnings</span></div>
+          <div class="ed-row"><span class="ed-row-n">03</span><span class="ed-row-name">📊 Rates & Economy</span><span class="ed-row-desc">BoC, Fed, inflation, GDP & jobs</span></div>
+          <div class="ed-row"><span class="ed-row-n">04</span><span class="ed-row-name">🏠 Housing & Real Estate</span><span class="ed-row-desc">Prices, rates, sales & inventory</span></div>
+          <div class="ed-row"><span class="ed-row-n">05</span><span class="ed-row-name">🔦 The Big Story</span><span class="ed-row-desc">One story every investor should understand</span></div>
+          <div class="ed-row"><span class="ed-row-n">06</span><span class="ed-row-name">📚 Investor Lesson</span><span class="ed-row-desc">One timeless concept explained simply</span></div>
+          <div class="ed-row"><span class="ed-row-n">07</span><span class="ed-row-name">📈 The Scoreboard</span><span class="ed-row-desc">The month in 6 numbers</span></div>
+          <div class="ed-row"><span class="ed-row-n">08</span><span class="ed-row-name">🗓️ What's Next</span><span class="ed-row-desc">5 dates & events to watch</span></div>
         </div>
         <div class="ed-note">Key data checked against primary sources — Statistics Canada, Bank of Canada, CREA, the Federal Reserve and U.S. government agencies.</div>
       </div>
@@ -552,12 +552,12 @@ html{font-size:18px;scrollbar-gutter:stable}
         <div class="ed-title">The Investor Outlook</div>
         <div class="ed-sub">What changed. What I'm watching. What's next.</div>
         <div class="ed-rows">
-          <div class="ed-row"><span class="ed-row-n">01</span><span class="ed-row-name">📡 Market Check</span>&nbsp;<span class="ed-row-desc">TSX, S&P 500, Nasdaq, Gold & Oil</span></div>
-          <div class="ed-row"><span class="ed-row-n">02</span><span class="ed-row-name">⚡ What Changed</span>&nbsp;<span class="ed-row-desc">3–5 developments that actually matter</span></div>
-          <div class="ed-row"><span class="ed-row-n">03</span><span class="ed-row-name">🏢 Companies & Earnings</span>&nbsp;<span class="ed-row-desc">Revenue, margins, guidance & major moves</span></div>
-          <div class="ed-row"><span class="ed-row-n">04</span><span class="ed-row-name">👁️ 5 Things I'm Watching</span>&nbsp;<span class="ed-row-desc">Developments that could shape the next few weeks</span></div>
-          <div class="ed-row"><span class="ed-row-n">05</span><span class="ed-row-name">📚 Investor Lesson</span>&nbsp;<span class="ed-row-desc">One concept that helps you think like a better investor</span></div>
-          <div class="ed-row"><span class="ed-row-n">06</span><span class="ed-row-name">🗓️ The Next 2 Weeks</span>&nbsp;<span class="ed-row-desc">Key economic data, decisions & earnings</span></div>
+          <div class="ed-row"><span class="ed-row-n">01</span><span class="ed-row-name">📡 Market Check</span><span class="ed-row-desc">TSX, S&P 500, Nasdaq, Gold & Oil</span></div>
+          <div class="ed-row"><span class="ed-row-n">02</span><span class="ed-row-name">⚡ What Changed</span><span class="ed-row-desc">3–5 developments that actually matter</span></div>
+          <div class="ed-row"><span class="ed-row-n">03</span><span class="ed-row-name">🏢 Companies & Earnings</span><span class="ed-row-desc">Revenue, margins, guidance & major moves</span></div>
+          <div class="ed-row"><span class="ed-row-n">04</span><span class="ed-row-name">👁️ 5 Things I'm Watching</span><span class="ed-row-desc">Developments that could shape the next few weeks</span></div>
+          <div class="ed-row"><span class="ed-row-n">05</span><span class="ed-row-name">📚 Investor Lesson</span><span class="ed-row-desc">One concept that helps you think like a better investor</span></div>
+          <div class="ed-row"><span class="ed-row-n">06</span><span class="ed-row-name">🗓️ The Next 2 Weeks</span><span class="ed-row-desc">Key economic data, decisions & earnings</span></div>
         </div>
         <div class="no-filler">Two editions. One goal: know what matters.</div>
       </div>
