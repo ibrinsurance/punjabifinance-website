@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Investor's Newsletter — Punjabi Finance | Markets, Rates & Housing</title>
-<meta name="description" content="Twice a month — what actually matters to Canadian investors. Stocks, rates, housing, earnings and one investor lesson. Free. 10 pages or less.">
+<meta name="description" content="Twice a month — what actually matters to investors. Stocks, rates, housing, earnings and one investor lesson. Free. 10 pages or less.">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W5P90KB7HM"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -439,13 +439,19 @@ html{font-size:18px;scrollbar-gutter:stable}
 
 <!-- HERO -->
 <div class="nl-hero">
+  <div class="nl-masthead">
+    <span class="nl-masthead-line"></span>
+    by Punjabi Finance
+    <span class="nl-masthead-line"></span>
+  </div>
   <h1 class="nl-pub">Investor's<br><em>Newsletter</em></h1>
-  <p class="nl-tagline-big">Twice a month — what actually matters to Canadian investors.</p>
-  <p class="nl-tagline-small">Stocks, rates, housing, earnings and one investor lesson. 10 pages or less. No noise.</p>
-  <!-- Countdown -->
-  <div style="margin-bottom:28px">
-    <div style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,165,52,0.45);font-weight:700;margin-bottom:10px">Next edition drops</div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap">
+  <p class="nl-tagline-big">What actually matters. Twice a month.</p>
+  <p class="nl-tagline-small">Stocks, rates, housing, earnings and one investor lesson — distilled into 10 pages or less.<br>No noise. No sensational headlines. Just what investors need to know.</p>
+
+  <!-- Next edition date -->
+  <div style="margin:20px 0 24px">
+    <div style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,165,52,0.45);font-weight:700;margin-bottom:10px">Next edition drops in</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:12px">
       <div style="background:rgba(212,165,52,0.08);border:1px solid rgba(212,165,52,0.2);border-radius:10px;padding:10px 18px;text-align:center;min-width:70px">
         <div id="cd-days" style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#d4a534;line-height:1">—</div>
         <div style="font-size:0.58rem;color:rgba(255,255,255,0.3);letter-spacing:0.12em;text-transform:uppercase;margin-top:4px">Days</div>
@@ -459,7 +465,7 @@ html{font-size:18px;scrollbar-gutter:stable}
         <div style="font-size:0.58rem;color:rgba(255,255,255,0.3);letter-spacing:0.12em;text-transform:uppercase;margin-top:4px">Mins</div>
       </div>
     </div>
-    <div id="cd-label" style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-top:12px"></div>
+    <div id="cd-label" style="font-size:0.78rem;color:rgba(255,255,255,0.4)"></div>
   </div>
 
   <!-- Badges -->
@@ -468,7 +474,9 @@ html{font-size:18px;scrollbar-gutter:stable}
     <span class="nl-badge green">🏠 Housing & Rates</span>
     <span class="nl-badge green">🎓 Investor Lessons</span>
   </div>
-  <a class="nl-cta" href="#subscribe">Get the Free Investor's Newsletter</a>
+
+  <a class="nl-cta" href="#subscribe">Get the Free Investor's Newsletter →</a>
+  <div style="font-size:0.67rem;color:rgba(255,255,255,0.2);margin-top:12px">Free &nbsp;·&nbsp; 2× per month &nbsp;·&nbsp; 10 pages or less</div>
 
   <script>
   (function(){
@@ -476,14 +484,12 @@ html{font-size:18px;scrollbar-gutter:stable}
     function nextIssueDate(){
       var now = new Date();
       var y = now.getFullYear(), m = now.getMonth();
-      // Candidates: 1st and 16th of current month, then 1st of next month
       var candidates = [
         new Date(y, m, 1, 8, 0, 0),
         new Date(y, m, 16, 8, 0, 0),
         new Date(y, m+1, 1, 8, 0, 0)
       ];
       for(var i=0; i<candidates.length; i++){
-        // Must be strictly in the future (at least 1 min ahead)
         if(candidates[i] - now > 60000) return candidates[i];
       }
       return new Date(y, m+1, 1, 8, 0, 0);
@@ -503,7 +509,7 @@ html{font-size:18px;scrollbar-gutter:stable}
       var suffix = d===1?'st':d===2?'nd':d===3?'rd':'th';
       var label = (d===1 ? 'Monthly edition' : 'Mid-month edition');
       document.getElementById('cd-label').textContent =
-        label + ' — ' + MONTHS[target.getMonth()] + ' ' + d + suffix + ', ' + target.getFullYear();
+        label + ' · ' + MONTHS[target.getMonth()] + ' ' + d + suffix + ', ' + target.getFullYear();
     }
     update();
     setInterval(update, 60000);
@@ -511,12 +517,13 @@ html{font-size:18px;scrollbar-gutter:stable}
   </script>
 </div>
 
+
 <!-- EDITIONS -->
 <div class="ed-section">
   <div class="ed-inner">
     <div class="sec-label">What you get</div>
     <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px">Two editions. Two purposes.</div>
-    <div style="font-size:0.83rem;color:rgba(255,255,255,0.4);max-width:520px;line-height:1.7">Not another market-news dump. Each edition focuses on what happened, what matters, and what investors should be watching next.</div>
+    <div style="font-size:0.83rem;color:rgba(255,255,255,0.4);max-width:520px;line-height:1.7">Each edition focuses on what happened, what matters, and what to watch next.</div>
 
     <div class="ed-grid">
 
@@ -525,12 +532,12 @@ html{font-size:18px;scrollbar-gutter:stable}
         <div class="ed-tag">Edition 01 · Released 1st–3rd</div>
         <div class="ed-when">Monthly wrap · ~6–8 pages</div>
         <div class="ed-title">The Month in Review</div>
-        <div class="ed-sub">What just happened — and why it matters for investors.</div>
+        <div class="ed-sub">What happened. What mattered. What we learned.</div>
         <div class="ed-rows">
           <div class="ed-row"><span class="ed-row-n">01</span><span class="ed-row-name">🇨🇦 Canadian Stocks</span>&nbsp;<span class="ed-row-desc">TSX, sectors & key stories</span></div>
           <div class="ed-row"><span class="ed-row-n">02</span><span class="ed-row-name">🇺🇸 US Stocks</span>&nbsp;<span class="ed-row-desc">S&P 500, Nasdaq, Mag 7 & major earnings</span></div>
           <div class="ed-row"><span class="ed-row-n">03</span><span class="ed-row-name">📊 Rates & Economy</span>&nbsp;<span class="ed-row-desc">BoC, Fed, inflation, GDP & jobs</span></div>
-          <div class="ed-row"><span class="ed-row-n">04</span><span class="ed-row-name">🏠 Canadian Housing</span>&nbsp;<span class="ed-row-desc">Prices, sales, inventory & mortgages</span></div>
+          <div class="ed-row"><span class="ed-row-n">04</span><span class="ed-row-name">🏠 Housing & Real Estate</span>&nbsp;<span class="ed-row-desc">Prices, rates, sales & inventory</span></div>
           <div class="ed-row"><span class="ed-row-n">05</span><span class="ed-row-name">🔦 The Big Story</span>&nbsp;<span class="ed-row-desc">One story every investor should understand</span></div>
           <div class="ed-row"><span class="ed-row-n">06</span><span class="ed-row-name">📚 Investor Lesson</span>&nbsp;<span class="ed-row-desc">One timeless concept explained simply</span></div>
           <div class="ed-row"><span class="ed-row-n">07</span><span class="ed-row-name">📈 The Scoreboard</span>&nbsp;<span class="ed-row-desc">The month in 6 numbers</span></div>
@@ -544,7 +551,7 @@ html{font-size:18px;scrollbar-gutter:stable}
         <div class="ed-tag">Edition 02 · Released 15th–17th</div>
         <div class="ed-when">Mid-month · ~4–6 pages</div>
         <div class="ed-title">The Investor Outlook</div>
-        <div class="ed-sub">What's changing — and what I'm watching next.</div>
+        <div class="ed-sub">What changed. What I'm watching. What's next.</div>
         <div class="ed-rows">
           <div class="ed-row"><span class="ed-row-n">01</span><span class="ed-row-name">📡 Market Check</span>&nbsp;<span class="ed-row-desc">TSX, S&P 500, Nasdaq, Gold & Oil</span></div>
           <div class="ed-row"><span class="ed-row-n">02</span><span class="ed-row-name">⚡ What Changed</span>&nbsp;<span class="ed-row-desc">3–5 developments that actually matter</span></div>
@@ -553,7 +560,7 @@ html{font-size:18px;scrollbar-gutter:stable}
           <div class="ed-row"><span class="ed-row-n">05</span><span class="ed-row-name">📚 Investor Lesson</span>&nbsp;<span class="ed-row-desc">One concept that helps you think like a better investor</span></div>
           <div class="ed-row"><span class="ed-row-n">06</span><span class="ed-row-name">🗓️ The Next 2 Weeks</span>&nbsp;<span class="ed-row-desc">Key economic data, decisions & earnings</span></div>
         </div>
-        <div class="no-filler"><strong>No filler.</strong> If something doesn't matter, it doesn't make the newsletter.</div>
+        <div class="no-filler">Two editions. One purpose: make you a better investor.</div>
       </div>
 
     </div>
@@ -564,8 +571,8 @@ html{font-size:18px;scrollbar-gutter:stable}
 <div class="why-section">
   <div class="why-inner">
     <div class="sec-label">Why readers come back</div>
-    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;color:#1a1a1a;line-height:1.2;margin-bottom:8px">More than a market recap.</div>
-    <div style="font-size:0.83rem;color:#888;max-width:460px;line-height:1.7">An editorial voice. Primary sources. One lesson that makes you a better investor with every edition.</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;color:#1a1a1a;line-height:1.2;margin-bottom:8px">Built to make you a better investor.</div>
+    <div style="font-size:0.83rem;color:#888;max-width:460px;line-height:1.7">An editorial take on the markets — with one lesson every edition that compounds over time.</div>
     <div class="why-grid">
       <div class="why-card">
         <div class="why-icon">🔦</div>
@@ -589,10 +596,10 @@ html{font-size:18px;scrollbar-gutter:stable}
         </div>
       </div>
       <div class="why-card">
-        <div class="why-icon">✅</div>
+        <div class="why-icon">📋</div>
         <div>
-          <div class="why-title">Verified Sources</div>
-          <div class="why-body">Numbers checked against primary sources. No opinions presented as facts. No sensational headlines. No market noise.</div>
+          <div class="why-title">Primary Sources</div>
+          <div class="why-body">Key data and numbers are checked against official sources whenever available — StatCan, Bank of Canada, CREA, the Federal Reserve and US agencies.</div>
         </div>
       </div>
     </div>
