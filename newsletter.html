@@ -442,12 +442,73 @@ html{font-size:18px;scrollbar-gutter:stable}
   <h1 class="nl-pub">Investor's<br><em>Newsletter</em></h1>
   <p class="nl-tagline-big">Twice a month — what actually matters to Canadian investors.</p>
   <p class="nl-tagline-small">Stocks, rates, housing, earnings and one investor lesson. 10 pages or less. No noise.</p>
+  <!-- Countdown -->
+  <div style="margin-bottom:28px">
+    <div style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(212,165,52,0.45);font-weight:700;margin-bottom:10px">Next edition drops</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap">
+      <div style="background:rgba(212,165,52,0.08);border:1px solid rgba(212,165,52,0.2);border-radius:10px;padding:10px 18px;text-align:center;min-width:70px">
+        <div id="cd-days" style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#d4a534;line-height:1">—</div>
+        <div style="font-size:0.58rem;color:rgba(255,255,255,0.3);letter-spacing:0.12em;text-transform:uppercase;margin-top:4px">Days</div>
+      </div>
+      <div style="background:rgba(212,165,52,0.08);border:1px solid rgba(212,165,52,0.2);border-radius:10px;padding:10px 18px;text-align:center;min-width:70px">
+        <div id="cd-hours" style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#d4a534;line-height:1">—</div>
+        <div style="font-size:0.58rem;color:rgba(255,255,255,0.3);letter-spacing:0.12em;text-transform:uppercase;margin-top:4px">Hours</div>
+      </div>
+      <div style="background:rgba(212,165,52,0.08);border:1px solid rgba(212,165,52,0.2);border-radius:10px;padding:10px 18px;text-align:center;min-width:70px">
+        <div id="cd-mins" style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#d4a534;line-height:1">—</div>
+        <div style="font-size:0.58rem;color:rgba(255,255,255,0.3);letter-spacing:0.12em;text-transform:uppercase;margin-top:4px">Mins</div>
+      </div>
+    </div>
+    <div id="cd-label" style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-top:12px"></div>
+  </div>
+
+  <!-- Badges -->
   <div class="nl-badges">
-    <span class="nl-badge green">✓ Free forever</span>
-    <span class="nl-badge green">✓ 2× per month</span>
-    <span class="nl-badge green">✓ Canada + US</span>
+    <span class="nl-badge green">📈 Markets Explained</span>
+    <span class="nl-badge green">🏠 Housing & Rates</span>
+    <span class="nl-badge green">🎓 Investor Lessons</span>
   </div>
   <a class="nl-cta" href="#subscribe">Get the Free Investor's Newsletter</a>
+
+  <script>
+  (function(){
+    var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    function nextIssueDate(){
+      var now = new Date();
+      var y = now.getFullYear(), m = now.getMonth();
+      // Candidates: 1st and 16th of current month, then 1st of next month
+      var candidates = [
+        new Date(y, m, 1, 8, 0, 0),
+        new Date(y, m, 16, 8, 0, 0),
+        new Date(y, m+1, 1, 8, 0, 0)
+      ];
+      for(var i=0; i<candidates.length; i++){
+        // Must be strictly in the future (at least 1 min ahead)
+        if(candidates[i] - now > 60000) return candidates[i];
+      }
+      return new Date(y, m+1, 1, 8, 0, 0);
+    }
+    function update(){
+      var target = nextIssueDate();
+      var now = new Date();
+      var diff = target - now;
+      if(diff <= 0){ setTimeout(update, 60000); return; }
+      var days  = Math.floor(diff / 86400000);
+      var hours = Math.floor((diff % 86400000) / 3600000);
+      var mins  = Math.floor((diff % 3600000) / 60000);
+      document.getElementById('cd-days').textContent  = days;
+      document.getElementById('cd-hours').textContent = hours;
+      document.getElementById('cd-mins').textContent  = mins < 10 ? '0'+mins : mins;
+      var d = target.getDate();
+      var suffix = d===1?'st':d===2?'nd':d===3?'rd':'th';
+      var label = (d===1 ? 'Monthly edition' : 'Mid-month edition');
+      document.getElementById('cd-label').textContent =
+        label + ' — ' + MONTHS[target.getMonth()] + ' ' + d + suffix + ', ' + target.getFullYear();
+    }
+    update();
+    setInterval(update, 60000);
+  })();
+  </script>
 </div>
 
 <!-- EDITIONS -->
