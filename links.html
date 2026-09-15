@@ -196,7 +196,7 @@ body{
 <div class="section-label">Portfolio</div>
 <div class="links">
   <a class="link-btn btn-gold" href="https://punjabifinance.com/index.html" target="_blank">📈 View My Live Stock Portfolio</a>
-  <a class="link-btn btn-green" href="https://punjabifinance.com/community.html" target="_blank">💬 Join 285+ Investor Community</a>
+  <a class="link-btn btn-green" href="https://punjabifinance.com/community.html" target="_blank">💬 Join <span id="lk-members"></span> Investor Community</a>
 </div>
 
 <!-- Insurance -->
@@ -244,5 +244,20 @@ body{
   <a href="https://punjabifinance.com">punjabifinance.com</a> &nbsp;·&nbsp; Not financial advice
 </div>
 
+
+<script>
+(function(){
+  var SHEET_URL = 'https://script.google.com/macros/s/AKfycbyngvSwy8geq_vtqgs8JHCz15j_6oBmb97eshsRry_AKOTNxLJqXVJVp8Cx25s38_VFJQ/exec';
+  fetch(SHEET_URL, {cache:'no-store'})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.social && d.social.memberCount){
+        var el = document.getElementById('lk-members');
+        if(el) el.textContent = d.social.memberCount + '+';
+      }
+    })
+    .catch(function(){});
+})();
+</script>
 </body>
 </html>
