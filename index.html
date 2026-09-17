@@ -651,12 +651,16 @@ tfoot td{font-weight:600;font-size:0.78rem;border-top:2px solid #e8e4dc;border-b
 // Update it there each month — no code changes needed
 const LOCK_KEY    = 'pf_unlocked_v2';
 const EXPIRY_KEY  = 'pf_unlock_expiry_v2';
-const EXPIRY_DAYS = 30;
+const CODE_KEY    = 'pf_unlock_code_v2';
+const EXPIRY_DAYS = 1;
 function isUnlocked(){
   try{
     if(localStorage.getItem(LOCK_KEY)!=='true') return false;
     var exp=parseInt(localStorage.getItem(EXPIRY_KEY)||'0');
     if(Date.now()>exp){ localStorage.removeItem(LOCK_KEY); return false; }
+    // Invalidate if the code has changed since they last unlocked
+    var savedCode = localStorage.getItem(CODE_KEY)||'';
+    if(savedCode !== MONTHLY_CODE){ localStorage.removeItem(LOCK_KEY); return false; }
     return true;
   }catch(e){ return false; }
 }
@@ -664,6 +668,7 @@ function setUnlocked(){
   try{
     localStorage.setItem(LOCK_KEY,'true');
     localStorage.setItem(EXPIRY_KEY, String(Date.now()+EXPIRY_DAYS*24*60*60*1000));
+    localStorage.setItem(CODE_KEY, MONTHLY_CODE);
   }catch(e){}
 }
 function clearUnlock(){

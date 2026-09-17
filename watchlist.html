@@ -448,12 +448,15 @@ body{font-family:'DM Sans',sans-serif;background:#0d0b04;color:#f0e8d0;line-heig
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyngvSwy8geq_vtqgs8JHCz15j_6oBmb97eshsRry_AKOTNxLJqXVJVp8Cx25s38_VFJQ/exec';
 const LOCK_KEY    = 'pf_unlocked_v2';
 const EXPIRY_KEY  = 'pf_unlock_expiry_v2';
-const EXPIRY_DAYS = 30;
+const CODE_KEY    = 'pf_unlock_code_v2';
+const EXPIRY_DAYS = 1;
 function isUnlocked(){
   try{
     if(localStorage.getItem(LOCK_KEY)!=='true') return false;
     var exp=parseInt(localStorage.getItem(EXPIRY_KEY)||'0');
     if(Date.now()>exp){ localStorage.removeItem(LOCK_KEY); return false; }
+    var savedCode = localStorage.getItem(CODE_KEY)||'';
+    if(savedCode !== MONTHLY_CODE){ localStorage.removeItem(LOCK_KEY); return false; }
     return true;
   }catch(e){ return false; }
 }
@@ -461,6 +464,7 @@ function setUnlocked(){
   try{
     localStorage.setItem(LOCK_KEY,'true');
     localStorage.setItem(EXPIRY_KEY, String(Date.now()+EXPIRY_DAYS*24*60*60*1000));
+    localStorage.setItem(CODE_KEY, MONTHLY_CODE);
   }catch(e){}
 }
 function clearUnlock(){
