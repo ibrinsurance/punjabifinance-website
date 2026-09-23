@@ -624,6 +624,21 @@ async function init(){
     if(data.weeklyPositions && data.weeklyPositions.length){
       weeklyData = data.weeklyPositions.filter(r => r.ticker && r.ticker.length > 0 && r.ticker !== 'TICKER');
       
+      // Set core portfolio value from main positions
+      try{
+        if(data.positions && data.positions.length){
+          var coreTotal = data.positions.reduce(function(s,r){ return s+(r.mktCAD||0); }, 0);
+          if(coreTotal > 0){
+            var coreStr = coreTotal >= 1e6
+              ? 'C$' + (coreTotal/1e6).toFixed(2) + 'M+'
+              : 'C$' + Math.round(coreTotal/1000) + 'K+';
+            ['wk-core-val','wk-core-val2'].forEach(function(id){
+              var el = document.getElementById(id);
+              if(el) el.textContent = coreStr;
+            });
+          }
+        }
+      }catch(e){}
       try{ renderStats(); }catch(e){ console.error('renderStats error:',e.message); }
       try{ renderChart(); }catch(e){ console.error('renderChart error:',e.message); }
       try{ renderTable(); }catch(e){ console.error('renderTable error:',e.message); }
